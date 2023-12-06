@@ -20,8 +20,8 @@
         "prettier"
     ],
     "rules": {
-
-        "prettier/prettier": ["error", { "singleQuote": true, "semi": false }],
+        "@typescript-eslint/semi": ["error","always"],
+        "prettier/prettier": ["error", { "singleQuote": true, "semi": true, "endOfLine": "auto"}],
         "space-before-function-paren": ["error", "never"],
         "@typescript-eslint/explicit-module-boundary-types": ["error"] //함수 타입 지정
     }

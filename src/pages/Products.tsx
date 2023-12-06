@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const ProductsPage: React.FC = () => {
   return (
@@ -6,7 +6,7 @@ const ProductsPage: React.FC = () => {
       <h1>ProductPage</h1>
       <h1>URL : /products</h1>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsPage
+export default ProductsPage;

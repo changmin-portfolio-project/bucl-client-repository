@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+
 
 const CategoriesPage: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ const CategoriesPage: React.FC = () => {
       <h1>CategoryPage</h1>
       <h1>URL : /categories</h1>
     </div>
-  )
-}
+  );
+};
 
-export default CategoriesPage
+export default CategoriesPage;

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+
 
 const MyOrdersDetailPage: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ const MyOrdersDetailPage: React.FC = () => {
       <h1>MyAddressesPage</h1>
       <h1>URL : /my/addresses</h1>
     </div>
-  )
-}
+  );
+};
 
-export default MyOrdersDetailPage
+export default MyOrdersDetailPage;
