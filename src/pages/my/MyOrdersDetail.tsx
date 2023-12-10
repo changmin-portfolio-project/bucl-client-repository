@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const MyOrdersDetailPage: React.FC = () => {
   return (
     <div>

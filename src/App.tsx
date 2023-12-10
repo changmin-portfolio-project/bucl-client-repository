@@ -1,15 +1,17 @@
-import React from 'react'
-import './App.css'
-import AppRouter from './AppRouter'
-import { Reset } from 'styled-reset'
+import React from 'react';
+import './App.css';
+import AppRouter from './AppRouter';
+import { Reset } from 'styled-reset';
+import { ThemeProvider } from 'styled-components';
+import theme from './style/theme';
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Reset />
       <AppRouter />
-    </React.Fragment>
-  )
-}
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;

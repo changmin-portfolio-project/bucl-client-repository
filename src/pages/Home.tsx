@@ -1,14 +1,23 @@
 import React from 'react';
 import TabBar from '../conponents/TabBar';
+import styled from 'styled-components';
+import Header from '../conponents/home/Header';
+import TopBtn from '../conponents/TopBtn';
+import Body from '../conponents/home/Body';
 
 const HomePage: React.FC = () => {
   return (
-    <div>
-      <h1>HomePage</h1>
-      <h1>URL: /</h1>
+    <Container>
+      <Header />
+      <Body />
       <TabBar />
-    </div>
+      <TopBtn />
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 export default HomePage;

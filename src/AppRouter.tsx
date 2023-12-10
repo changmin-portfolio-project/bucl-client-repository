@@ -1,23 +1,24 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/Home'
-import React from 'react'
-import ProductsPage from './pages/Products'
-import LoginPage from './pages/Login'
-import CategoriesPage from './pages/Categories'
-import PhotoReviewsPage from './pages/PhotoReviews'
-import ReviewsPage from './pages/Reviews'
-import AffiliatesPage from './pages/Affiliates'
-import RewardsPage from './pages/rewards/Rewards'
-import RewardWithdrawalsPage from './pages/rewards/RewardWithdrawals'
-import RewardAccountsPage from './pages/rewards/RewardAccounts'
-import MyPage from './pages/my/My'
-import MyOrdersPage from './pages/my/MyOrders'
-import OrdersPage from './pages/Orders'
-import MyOrdersDetailPage from './pages/my/MyOrdersDetail'
-import PostReviewsPage from './pages/PostReviews'
-import WishesPage from './pages/Wishes'
-import MyContactsPage from './pages/my/MyContacts'
-import MyAddressesPage from './pages/my/MyAddresses'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/Home';
+import React from 'react';
+import ProductsPage from './pages/Products';
+import LoginPage from './pages/Login';
+import CategoriesPage from './pages/Categories';
+import PhotoReviewsPage from './pages/PhotoReviews';
+import ReviewsPage from './pages/Reviews';
+import AffiliatesPage from './pages/Affiliates';
+import RewardsPage from './pages/rewards/Rewards';
+import RewardWithdrawalsPage from './pages/rewards/RewardWithdrawals';
+import RewardAccountsPage from './pages/rewards/RewardAccounts';
+import MyPage from './pages/my/My';
+import MyOrdersPage from './pages/my/MyOrders';
+import OrdersPage from './pages/Orders';
+import MyOrdersDetailPage from './pages/my/MyOrdersDetail';
+import PostReviewsPage from './pages/PostReviews';
+import WishesPage from './pages/Wishes';
+import MyContactsPage from './pages/my/MyContacts';
+import MyAddressesPage from './pages/my/MyAddresses';
+import { JSX } from 'react/jsx-runtime';
 
 const AppRouter = (): JSX.Element => {
   return (
@@ -25,7 +26,7 @@ const AppRouter = (): JSX.Element => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/categories" element={<CategoriesPage />}></Route>
         <Route path="/products/:product_code" element={<ProductsPage />} />
         <Route
           path="/products/:product_code/photo-reviews"
@@ -52,7 +53,7 @@ const AppRouter = (): JSX.Element => {
         <Route path="/my/addresses" element={<MyAddressesPage />} />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;
