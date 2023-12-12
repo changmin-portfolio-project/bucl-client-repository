@@ -4,16 +4,21 @@ import { postWishes } from '../../../services/home/postWishes';
 
 interface WishBtnComponentProps {
   productCode: number;
+  wished: boolean;
 }
 
-const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode }) => {
+const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, wished }) => {
   const wishBtnOnClick = () => {
     postWishes();
   };
 
   return (
     <WishBtnContainer>
-      <WishCheckBox type="checkbox" id={`wish-${productCode}`} />
+      <WishCheckBox
+        type="checkbox"
+        id={`wish-${productCode}`}
+        checked={wished}
+      />
       <WishButton
         onClick={() => wishBtnOnClick()}
         htmlFor={`wish-${productCode}`}

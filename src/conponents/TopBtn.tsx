@@ -30,7 +30,7 @@ const TopBtn: React.FC = () => {
 const TopBtnContainer = styled.button`
   position: fixed;
   bottom: 90px;
-  right: 10%;
+  right: 6%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,7 +48,7 @@ const TopBtnContainer = styled.button`
 
 const TopBtnText = styled.span`
   margin-top: -5px;
-  font-size: ${({ theme }) => theme.fontSizes.Body1};
+  font: ${({ theme }) => theme.fontSizes.Body1};
 `;
 
 export default TopBtn;

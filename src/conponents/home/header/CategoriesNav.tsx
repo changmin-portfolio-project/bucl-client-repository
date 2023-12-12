@@ -56,7 +56,7 @@ const CategoryItem = styled.div`
     align-items: center;
     padding: 0 15px;
     height: 100%;
-    font-size: 12px;
+    font: ${({ theme }) => theme.fontSizes.Subhead1};
     color: ${({ theme }) => theme.grey.Grey6};
 
     &.active {

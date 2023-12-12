@@ -39,7 +39,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
             </OriginalPrice>
           </PriceBox>
         </ProductInfoBox>
-        <WishBtn productCode={data.productCode} />
+        <WishBtn productCode={data.productCode} wished={data.wished} />
       </ProductImgBox>
     </ProductContainer>
   );
@@ -47,7 +47,8 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
 
 const ProductContainer = styled.div`
   padding: 15px 0;
-  width: 70%;
+  width: 85%;
+  letter-spacing: -0.6px;
 `;
 
 const ProductImgBox = styled.div`
@@ -66,7 +67,7 @@ const AttendBox = styled.div`
   padding: 5px;
   background-color: ${({ theme }) => theme.mainColor.Orange5};
   border-radius: 4px;
-  font-size: ${({ theme }) => theme.fontSizes.Body1};
+  font: ${({ theme }) => theme.fontSizes.Body1};
   font-weight: 500;
 `;
 const ProductImg = styled.img`
@@ -83,17 +84,15 @@ const ProductInfoBox = styled.div`
 `;
 const BrandName = styled.p`
   padding: 10px 0;
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body2};
   font-weight: 700;
 `;
 const ProductName = styled.p`
   margin-bottom: 15px;
   width: 75%;
-  font-size: ${({ theme }) => theme.fontSizes.Body3};
+  font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;
   line-height: 19.6px;
-  letter-spacing: -0.6px;
-  display: -webkit-box;
   -webkit-line-clamp: 2; /* 표시할 줄 수 */
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -103,17 +102,16 @@ const ProductName = styled.p`
 const PriceBox = styled.div``;
 const DiscountRate = styled.span`
   padding-right: 8px;
-  font-size: ${({ theme }) => theme.fontSizes.Subhead4};
+  font: ${({ theme }) => theme.fontSizes.Subhead4};
   font-weight: 700;
   color: ${({ theme }) => theme.mainColor.Orange5};
   line-height: 25.2px;
-  letter-spacing: -0.6px;
 `;
 const DiscountPrice = styled(DiscountRate)`
   color: white;
 `;
 const OriginalPrice = styled(DiscountRate)`
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body2};
   text-decoration: line-through;
   line-height: 18px;
   color: ${({ theme }) => theme.grey.Grey6};

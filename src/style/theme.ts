@@ -50,21 +50,21 @@ const errorColor = {
 };
 
 const fontSizes = {
-  Display5: '40px',
-  Display4: '36px',
-  Display3: '32px',
-  Display2: '28px',
-  Display1: '24px',
-  Headline: '20px',
-  Subhead4: '18px',
-  Subhead3: '16px',
-  Subhead2: '14px',
-  Subhead1: '12px',
-  Body4: '16px',
-  Body3: '14px',
-  Body2: '12px',
-  Body1: '10px',
-  Label: '8px',
+  Display5: '700 40px/1.4 sans-serif',
+  Display4: '700 36px/1.4 sans-serif',
+  Display3: '700 32px/1.4 sans-serif',
+  Display2: '700 28px/1.4 sans-serif',
+  Display1: '700 24px/1.4 sans-serif',
+  Headline: '700 20px/1.4 sans-serif',
+  Subhead4: '700 18px/1.4 sans-serif',
+  Subhead3: '700 16px/1.4 sans-serif',
+  Subhead2: '700 14px/1.4 sans-serif',
+  Subhead1: '700 12px/1.4 sans-serif',
+  Body4: '500 16px/1.4 sans-serif',
+  Body3: '500 14px/1.4 sans-serif',
+  Body2: '500 12px/1.4 sans-serif',
+  Body1: '500 10px/1.4 sans-serif',
+  Label: '300 8px/1.4 sans-serif',
 };
 
 const theme = {

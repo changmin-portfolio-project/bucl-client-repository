@@ -20,9 +20,9 @@ const HeaderContainer = styled.header`
   top: 0;
   z-index: 999;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 5vh 0 6px 0;
+  padding: 10px 0 6px 0;
   width: 100%;
   height: 40px;
   background-color: white;

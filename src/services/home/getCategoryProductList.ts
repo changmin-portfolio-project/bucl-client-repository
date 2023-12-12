@@ -9,6 +9,7 @@ export interface HomeProduct {
   salePrice: number;
   consumerPrice: number;
   reward: number;
+  wished: boolean;
 }
 
 // Home page Category별 상품 List 가져오기

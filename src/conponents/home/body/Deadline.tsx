@@ -25,7 +25,7 @@ const DeadlineText = styled.p`
   padding: 6px 0;
   text-align: center;
   color: white;
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body2};
   span {
     margin: 0 2px;
     padding: 3px 5px;

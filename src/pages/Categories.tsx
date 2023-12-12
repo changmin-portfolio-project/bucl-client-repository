@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TabBar from '../conponents/TabBar';
 import Header from '../conponents/category/Header';
 import Body from '../conponents/category/Body';
+import TopBtn from '../conponents/TopBtn';
 
 const CategoriesPage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const CategoriesPage: React.FC = () => {
       <Header />
       <Body />
       <TabBar />
+      <TopBtn />
     </CategoriesContainer>
   );
 };

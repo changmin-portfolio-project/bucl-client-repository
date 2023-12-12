@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Reward from './Reward';
-import WishBtn from './WishBtn';
 import { Product } from '../../../services/category/getCategoryProductList';
+import ProductSubInfo from './ProductSubInfo';
 
 interface ProductComponentProps {
   data: Product;
@@ -12,79 +12,77 @@ interface ProductComponentProps {
 const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
   return (
     <ProductContainer>
-      <Reward reward={data.reward} />
       <ProductImgBox>
         <Link to="/">
           <ProductImg src={data.imagePath} />
         </Link>
-        <AttendBox>
-          <span>50명 참여중</span>
-        </AttendBox>
-        <ProductInfoBox>
-          <BrandName>d</BrandName>
-          <ProductName>{data.name}</ProductName>
-          <PriceBox>
-            <DiscountRate>{data.discountRate}</DiscountRate>
-            <DiscountPrice>{data.salePrice.toLocaleString()}원</DiscountPrice>
-            <OriginalPrice>
-              {data.consumerPrice.toLocaleString()}원
-            </OriginalPrice>
-          </PriceBox>
-        </ProductInfoBox>
-        <WishBtn productCode={data.productCode} />
+        <ProductSubInfo productCode={data.productCode} wished={data.wished} />
+        <Reward reward={data.reward} />
       </ProductImgBox>
+      <ProductInfoBox>
+        <BrandName>브랜드명</BrandName>
+        <ProductName>{data.name}</ProductName>
+        <PriceBox>
+          <DiscountRate>{data.discountRate * 100}%</DiscountRate>
+          <DiscountPrice>{data.salePrice.toLocaleString()}원</DiscountPrice>
+          <OriginalPrice>{data.consumerPrice.toLocaleString()}원</OriginalPrice>
+        </PriceBox>
+        <RatingReviewBox>
+          <svg
+            width="11"
+            height="10"
+            viewBox="0 0 11 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.4766 0.270476C5.58847 -0.0901582 6.07559 -0.090159 6.18746 0.270475L7.1116 3.24948C7.16163 3.41076 7.30512 3.51995 7.46703 3.51995H10.4576C10.8196 3.51995 10.9702 4.00518 10.6773 4.22807L8.25785 6.06919C8.12686 6.16887 8.07205 6.34555 8.12208 6.50683L9.04622 9.48583C9.15809 9.84646 8.76401 10.1464 8.47112 9.92347L6.0517 8.08235C5.92072 7.98267 5.74335 7.98267 5.61236 8.08235L3.19295 9.92347C2.90005 10.1464 2.50597 9.84646 2.61785 9.48583L3.54198 6.50683C3.59201 6.34555 3.5372 6.16887 3.40622 6.06919L0.986802 4.22807C0.69391 4.00518 0.844436 3.51995 1.20647 3.51995H4.19703C4.35894 3.51995 4.50243 3.41076 4.55246 3.24948L5.4766 0.270476Z"
+              fill="#FFD770"
+            />
+          </svg>
+          <RatingText>{data.averageRating}</RatingText>
+          <ReviewText>({data.totalReviewCount})</ReviewText>
+        </RatingReviewBox>
+      </ProductInfoBox>
     </ProductContainer>
   );
 };
 
 const ProductContainer = styled.div`
   padding: 15px 0;
-  /* width: 48%; */
+  width: 47%;
+  letter-spacing: -0.6px;
 `;
 
 const ProductImgBox = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 0.675/0.9;
+  aspect-ratio: 1/1;
   color: white;
   a {
     position: relative;
   }
 `;
-const AttendBox = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 5px;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font-size: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 500;
-`;
+
 const ProductImg = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 0 0 12px 12px;
+  border-radius: 4px;
 `;
 
 const ProductInfoBox = styled.div`
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
   width: 100%;
 `;
 const BrandName = styled.p`
-  padding: 10px 0;
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  padding: 3px 0 0 0;
+  font: ${({ theme }) => theme.fontSizes.Body1};
   font-weight: 700;
+  color: ${({ theme }) => theme.grey.Grey5};
 `;
 const ProductName = styled.p`
-  margin-bottom: 15px;
   width: 75%;
-  font-size: ${({ theme }) => theme.fontSizes.Body3};
-  font-weight: 500;
-  line-height: 19.6px;
-  letter-spacing: -0.6px;
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey7};
   display: -webkit-box;
   -webkit-line-clamp: 2; /* 표시할 줄 수 */
   -webkit-box-orient: vertical;
@@ -94,21 +92,34 @@ const ProductName = styled.p`
 
 const PriceBox = styled.div``;
 const DiscountRate = styled.span`
-  padding-right: 8px;
-  font-size: ${({ theme }) => theme.fontSizes.Subhead4};
+  padding-right: 4px;
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  font-size: 13px;
   font-weight: 700;
   color: ${({ theme }) => theme.mainColor.Orange5};
-  line-height: 25.2px;
-  letter-spacing: -0.6px;
 `;
 const DiscountPrice = styled(DiscountRate)`
-  color: white;
+  color: black;
 `;
 const OriginalPrice = styled(DiscountRate)`
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body1};
   text-decoration: line-through;
   line-height: 18px;
   color: ${({ theme }) => theme.grey.Grey6};
+`;
+
+const RatingReviewBox = styled.div`
+  display: flex;
+  align-items: center;
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  font-weight: 700;
+  color: ${({ theme }) => theme.grey.Grey6};
+`;
+const RatingText = styled.span`
+  padding: 0 3px;
+`;
+const ReviewText = styled.span`
+  font-weight: 500;
 `;
 
 export default ProductItem;

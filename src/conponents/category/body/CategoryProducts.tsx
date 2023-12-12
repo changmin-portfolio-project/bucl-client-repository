@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
-import { categoryProductListAtom } from '../../../states/productAtom';
 import { useRecoilValue } from 'recoil';
 import { getCategoryByProductList } from '../../../services/category/getCategoryProductList';
 import ProductInfiniteScroll from '../../../hook/ProductInfiniteScroll';
+import { productListByCategoriesAtom } from '../../../states/categoryAtom';
 
 const CategoryProducts: React.FC = () => {
-  const list = useRecoilValue(categoryProductListAtom);
+  const list = useRecoilValue(productListByCategoriesAtom);
   return (
     <CategoryProductsContainer>
       {Array.isArray(list) &&
@@ -21,9 +21,9 @@ const CategoryProducts: React.FC = () => {
 
 const CategoryProductsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 60px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px 20px;
 `;
 
 export default CategoryProducts;

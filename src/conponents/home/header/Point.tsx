@@ -13,7 +13,7 @@ const Point: React.FC = () => {
   return (
     <PointContainer>
       <img src="/assets/PointIcon.svg" />
-      <PointText>{point.toLocaleString()}P</PointText>
+      <PointText>{point}P</PointText>
     </PointContainer>
   );
 };
@@ -24,6 +24,7 @@ const PointContainer = styled.div`
   align-items: center;
   width: 80px;
   text-align: right;
+  letter-spacing: -0.6px;
   img {
     width: 19px;
     height: 16px;
@@ -32,10 +33,9 @@ const PointContainer = styled.div`
 `;
 
 const PointText = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.Subhead2};
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
   font-weight: 700;
   line-height: 19.6px;
-  letter-spacing: -0.6px;
   color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 

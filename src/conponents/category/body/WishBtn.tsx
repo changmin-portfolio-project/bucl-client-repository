@@ -4,16 +4,21 @@ import { postWishes } from '../../../services/home/postWishes';
 
 interface WishBtnComponentProps {
   productCode: number;
+  wished: boolean;
 }
 
-const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode }) => {
+const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, wished }) => {
   const wishBtnOnClick = () => {
     postWishes();
   };
 
   return (
     <WishBtnContainer>
-      <WishCheckBox type="checkbox" id={`wish-${productCode}`} />
+      <WishCheckBox
+        type="checkbox"
+        id={`wish-${productCode}`}
+        checked={wished}
+      />
       <WishButton
         onClick={() => wishBtnOnClick()}
         htmlFor={`wish-${productCode}`}
@@ -51,17 +56,11 @@ const WishCheckBox = styled.input`
   }
 `;
 const WishButton = styled.label`
-  position: absolute;
-  bottom: 20px;
-  right: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   color: ${({ theme }) => theme.grey.Grey5};
   cursor: pointer;
 `;

@@ -11,6 +11,7 @@ export interface Product {
   discountRate: number;
   totalReviewCount: number;
   averageRating: number;
+  wished: boolean;
 }
 
 // Category page Category별 상품 List 가져오기
@@ -18,9 +19,9 @@ export const getCategoryByProductList = (
   categoryId: number,
   pageNum: number,
 ): Promise<Product[]> => {
-  console.log(`/api/v1/categories/${pageNum}&pageSize=2`);
+  console.log(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`);
   return api
-    .get(`/api/v1/categories/${pageNum}&pageSize=2`)
+    .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
       console.log(res.data.data);
       return res.data.data;

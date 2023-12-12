@@ -22,7 +22,7 @@ const RewardContainer = styled.div`
   background-color: black;
 `;
 const RewardText = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body2};
   color: white;
   span {
     font-weight: 700;

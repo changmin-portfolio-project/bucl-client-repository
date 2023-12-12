@@ -16,13 +16,16 @@ const Reward: React.FC<RewardComponentProps> = ({ reward }) => {
 };
 
 const RewardContainer = styled.div`
-  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  padding: 3px 0;
+  width: 100%;
   text-align: center;
-  font-weight: 500;
   background-color: black;
+  border-radius: 4px;
 `;
 const RewardText = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Label};
   color: white;
   span {
     font-weight: 700;
