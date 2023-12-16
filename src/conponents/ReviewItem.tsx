@@ -2,46 +2,53 @@ import React from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from './ReviewImgItem';
 import Star from './Star';
-import { convertDtStrToDStr } from '../utils/DateTimeUtil';
 
 interface ReviewItemProps {
   nickname?: string;
-  profilePath?: string;
-  imgPath?: string;
-  count?: number;
-  reviewDate?: string;
+  imgPath?: string | string[];
+  style?: React.CSSProperties;
+  userImg?: string;
   content?: string;
+  selectedOption?: string;
+  starRate?: number;
+  reviewDate?: string;
 }
 
 const ReviewItem: React.FC<ReviewItemProps> = ({
   nickname,
-  profilePath,
   imgPath,
-  count,
-  reviewDate,
+  style,
+  userImg,
   content,
+  selectedOption,
+  starRate,
+  reviewDate,
 }) => {
   const ReviewImgItemStyle: React.CSSProperties = {
-    width: '20%',
+    width: 'calc(20% - 4px)',
   };
   const StarStyle: React.CSSProperties = {
     fontSize: '0.7rem',
   };
+
   return (
-    <ReviewItemContainer>
+    <ReviewItemContainer style={style}>
       <InfoBox>
         <UserInfoBox>
-          <UserImg src={profilePath} />
+          <UserImg src={userImg} />
           <RatingNicknameDateBox>
-            <Star count={count} style={StarStyle} />
+            <Star count={starRate} style={StarStyle} />
             <NicknameDateBox>
               <NicknameText>{nickname}</NicknameText>
-              <DateText>
-                {convertDtStrToDStr(reviewDate ?? '날짜 표기 할 수 없습니다.')}
-              </DateText>
+              <DateText>{convertDtStrToDStr(reviewDate ?? '날짜 표기 할 수 없습니다.')}</DateText>
             </NicknameDateBox>
           </RatingNicknameDateBox>
         </UserInfoBox>
+        {selectedOption && (
+          <BuyOptionBox>
+            <span>구매 옵션 명 - {selectedOption}</span>
+          </BuyOptionBox>
+        )}
         <ReviewTextBox>
           <p>{content}</p>
         </ReviewTextBox>
@@ -66,18 +73,33 @@ const UserInfoBox = styled.div`
 `;
 const UserImg = styled.img`
   margin-right: 5px;
-  width: 12%;
+  width: calc(12% + 5px);
   aspect-ratio: 1/1;
   border-radius: 50%;
 `;
 
+const BuyOptionBox = styled.div`
+  margin: 5px 0;
+  span {
+    padding: 2px 5px;
+    background-color: ${({ theme }) => theme.grey.Grey1};
+    border-radius: 4px;
+    font: ${({ theme }) => theme.fontSizes.Label};
+    color: ${({ theme }) => theme.grey.Grey6};
+  }
+`;
+
 const ReviewTextBox = styled.div`
-  padding: 5px 0 0 0;
+  padding: 0 0 10px 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey8};
 `;
 
-const RatingNicknameDateBox = styled.div``;
+const RatingNicknameDateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 const NicknameDateBox = styled.div``;
 const NicknameText = styled.span`

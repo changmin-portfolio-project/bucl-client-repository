@@ -16,7 +16,6 @@ export const getPhotoReview = (
   return api
     .get(`/api/v1/products/${product_code}/photo-reviews?display=preview`)
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

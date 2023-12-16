@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Header from '../conponents/review/Header';
+import Body from '../conponents/review/Body';
 
 const ReviewsPage: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
-    <div>
-      <h1>URL : /products/:product_code/reviews</h1>
-    </div>
+    <ReviewsPageContainer>
+      <Header />
+      <Body />
+      {/* <Footer /> */}
+    </ReviewsPageContainer>
   );
 };
+
+const ReviewsPageContainer = styled.div``;
 
 export default ReviewsPage;

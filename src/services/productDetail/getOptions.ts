@@ -16,7 +16,6 @@ export const getOptions = (
   return api
     .get(`/api/v1/products/${product_code}/options`)
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

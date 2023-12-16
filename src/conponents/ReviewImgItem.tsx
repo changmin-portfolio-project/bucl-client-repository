@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ReviewImgItemProps {
   style?: React.CSSProperties;
   dotBoolean?: boolean;
-  imgPath?: string;
+  imgPath?: string | string[];
 }
 
 const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
@@ -13,11 +13,17 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
   dotBoolean,
   imgPath,
 }) => {
+  const param = useParams();
+
   return (
-    <ReviewImgItemContainer style={style}>
-      <img src={imgPath} />
+    <ReviewImgItemContainer style={style} widthmode={Array.isArray(imgPath)}>
+      {Array.isArray(imgPath) ? (
+        imgPath.map((v, i) => <img src={v} key={i} />)
+      ) : (
+        <img src={imgPath} />
+      )}
       {dotBoolean && (
-        <Link to="/">
+        <Link to={`/products/${param.product_code}/photo-reviews`}>
           <DotsBox>
             <span></span>
             <span></span>
@@ -29,15 +35,18 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
   );
 };
 
-const ReviewImgItemContainer = styled.div`
+const ReviewImgItemContainer = styled.div<{ widthmode: boolean }>`
   position: relative;
   margin-right: 4px;
-  /* width: 100%; */
+  display: ${(props) => (props.widthmode ? 'flex' : 'block')};
+
   img {
+    margin-right: ${(props) => (props.widthmode ? '4px' : '0')};
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 4px;
   }
+
   a {
     position: absolute;
     z-index: 5;
@@ -49,6 +58,7 @@ const ReviewImgItemContainer = styled.div`
     width: 100%;
     height: 100%;
     cursor: pointer;
+
     &::before {
       content: '';
       position: absolute;
@@ -60,6 +70,7 @@ const ReviewImgItemContainer = styled.div`
     }
   }
 `;
+
 const DotsBox = styled.div`
   position: absolute;
   z-index: 999;

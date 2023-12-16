@@ -16,7 +16,7 @@ const PrevBtn: React.FC = () => {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={() => goBack()}
+        onClick={() => goBack}
       >
         <path
           d="M15 18L9 12L15 6"
@@ -33,8 +33,8 @@ const PrevBtn: React.FC = () => {
 const PrevBtnContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 4%;
-  transform: translate(0, 27%);
+  left: 7%;
+  transform: translate(-50%, 18%);
   display: flex;
   cursor: pointer;
 `;

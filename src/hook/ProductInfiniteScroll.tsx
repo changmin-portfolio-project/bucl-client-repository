@@ -105,7 +105,7 @@ const ProductInfiniteScroll: React.FC<ProductInfiniteScrollProps> = ({
     }
   }, [inView, categoryId, categoryIdByCategories]);
 
-  return <ScrollBottomContainer ref={ref}>GHOOOOOOOOO</ScrollBottomContainer>;
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div``;

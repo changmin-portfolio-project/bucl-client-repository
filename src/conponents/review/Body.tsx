@@ -1,0 +1,62 @@
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import ReviewItem from '../ReviewItem';
+import PhotoPreview from '../productDetail/body/PhotoPreview';
+// import { Review, getReviewList } from '../../services/review/getReviewList';
+import { useLocation, useParams } from 'react-router-dom';
+import {
+  ImageData,
+  getPhotoReview,
+} from '../../services/productDetail/getPhotoReview';
+import { useRecoilState } from 'recoil';
+import { reviewListAtom } from '../../states/reviewAtom';
+import ReviewInfiniteScroll from '../../hook/ReviewInfiniteScroll';
+
+const Body: React.FC = () => {
+  const location = useLocation();
+  const param = useParams();
+  const reviewItemStyle: React.CSSProperties = {
+    flexDirection: 'column',
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [reviewList, setReviewList] = useRecoilState(reviewListAtom);
+  const [imgList, setImgList] = useState<ImageData[]>();
+  useEffect(() => {
+    console.log(location);
+    if (param.product_code) {
+      getPhotoReview(param.product_code).then((res) => {
+        console.log(res);
+        setImgList(res.data);
+      });
+    }
+  }, []);
+  return (
+    <BodyContainer>
+      <PhotoPreview
+        averageRating={location.state.averageRating}
+        totalReviewCount={location.state.totalReviewCount}
+        imgList={imgList}
+      />
+      {reviewList?.map((v, i) => (
+        <ReviewItem
+          style={reviewItemStyle}
+          key={i}
+          starRate={v.starRate}
+          userImg={v.profilePath}
+          imgPath={v.reviewImages}
+          text={v.reviewText}
+          selectedOption={v.selectedOption}
+          createdAt={v.createdAt}
+        />
+      ))}
+      <ReviewInfiniteScroll />
+    </BodyContainer>
+  );
+};
+
+const BodyContainer = styled.section`
+  padding-top: 100px;
+`;
+
+export default Body;

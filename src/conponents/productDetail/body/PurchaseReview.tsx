@@ -8,6 +8,7 @@ import {
   getPhotoReview,
 } from '../../../services/productDetail/getPhotoReview';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface PurchaseReviewProps {
   reviewList?: ReviewPreview[];
@@ -21,7 +22,6 @@ const PurchaseReview: React.FC<PurchaseReviewProps> = ({
   totalReviewCount,
 }) => {
   const params = useParams();
-  console.log(reviewList);
 
   const [imgList, setImgList] = useState<ImageData[]>();
 
@@ -35,7 +35,17 @@ const PurchaseReview: React.FC<PurchaseReviewProps> = ({
     <PurchaseReviewContainer>
       <TitleAllBtnBox>
         <TitleText>구매 후기</TitleText>
-        <AllBtn>리뷰 전체보기</AllBtn>
+        <AllBtn>
+          <Link
+            to={`/products/${params.product_code}/reviews`}
+            state={{
+              totalReviewCount: totalReviewCount,
+              averageRating: averageRating,
+            }}
+          >
+            리뷰 전체보기
+          </Link>
+        </AllBtn>
       </TitleAllBtnBox>
       <PhotoPreview
         averageRating={averageRating}
@@ -45,10 +55,10 @@ const PurchaseReview: React.FC<PurchaseReviewProps> = ({
       {reviewList?.map((v, i) => (
         <ReviewItem
           key={i}
-          nickname={v.nickname}
-          profilePath={v.profilePath}
           imgPath={v.reviewImage}
-          count={v.reviewRate}
+          starRate={v.reviewRate}
+          userImg={v.profilePath}
+          nickname={v.nickname}
           reviewDate={v.reviewDate}
           content={v.content}
         />

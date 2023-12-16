@@ -16,7 +16,7 @@ const PhotoPreview: React.FC<PhotoPreviewProps> = ({
   imgList,
 }) => {
   const ReviewImgItemStyle: React.CSSProperties = {
-    width: '19%',
+    width: 'calc(20% - 4px)',
   };
   return (
     <PhotoPreviewContainer>
