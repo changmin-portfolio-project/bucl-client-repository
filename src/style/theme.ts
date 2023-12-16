@@ -50,21 +50,21 @@ const errorColor = {
 };
 
 const fontSizes = {
-  Display5: '700 40px/1.4 sans-serif',
-  Display4: '700 36px/1.4 sans-serif',
-  Display3: '700 32px/1.4 sans-serif',
-  Display2: '700 28px/1.4 sans-serif',
-  Display1: '700 24px/1.4 sans-serif',
-  Headline: '700 20px/1.4 sans-serif',
-  Subhead4: '700 18px/1.4 sans-serif',
-  Subhead3: '700 16px/1.4 sans-serif',
-  Subhead2: '700 14px/1.4 sans-serif',
-  Subhead1: '700 12px/1.4 sans-serif',
-  Body4: '500 16px/1.4 sans-serif',
-  Body3: '500 14px/1.4 sans-serif',
-  Body2: '500 12px/1.4 sans-serif',
-  Body1: '500 10px/1.4 sans-serif',
-  Label: '300 8px/1.4 sans-serif',
+  Display5: '700 40px/1.4 Pretendard-Regular',
+  Display4: '700 36px/1.4 Pretendard-Regular',
+  Display3: '700 32px/1.4 Pretendard-Regular',
+  Display2: '700 28px/1.4 Pretendard-Regular',
+  Display1: '700 24px/1.4 Pretendard-Regular',
+  Headline: '700 20px/1.4 Pretendard-Regular',
+  Subhead4: '700 18px/1.4 Pretendard-Regular',
+  Subhead3: '700 16px/1.4 Pretendard-Regular',
+  Subhead2: '700 14px/1.4 Pretendard-Regular',
+  Subhead1: '700 12px/1.4 Pretendard-Regular',
+  Body4: '500 16px/1.4 Pretendard-Regular',
+  Body3: '500 14px/1.4 Pretendard-Regular',
+  Body2: '500 12px/1.4 Pretendard-Regular',
+  Body1: '500 10px/1.4 Pretendard-Regular',
+  Label: '300 8px/1.4 Pretendard-Regular',
 };
 
 const theme = {

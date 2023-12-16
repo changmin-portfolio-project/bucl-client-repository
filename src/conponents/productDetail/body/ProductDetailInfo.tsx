@@ -1,0 +1,40 @@
+import React from 'react';
+import styled from 'styled-components';
+
+interface ProductDetailInfoProps {
+  imgList?: string[];
+}
+
+const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({ imgList }) => {
+  return (
+    <ProductDetailInfoContainer>
+      <TitleAllBtnBox>
+        <TitleText>상품 정보</TitleText>
+      </TitleAllBtnBox>
+      <ImagesBox>{imgList?.map((v, i) => <img src={v} key={i} />)}</ImagesBox>
+    </ProductDetailInfoContainer>
+  );
+};
+
+const ProductDetailInfoContainer = styled.div`
+  border-bottom: 6px solid ${({ theme }) => theme.grey.Grey2};
+`;
+
+const TitleAllBtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0 9px 20px;
+  border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
+`;
+const TitleText = styled.span`
+  font: ${({ theme }) => theme.fontSizes.Body3};
+`;
+
+const ImagesBox = styled.div`
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export default ProductDetailInfo;

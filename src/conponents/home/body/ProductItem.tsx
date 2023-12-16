@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Deadline from './Deadline';
 import Reward from './Reward';
 import { Link } from 'react-router-dom';
-import WishBtn from './WishBtn';
 import DiscountRateCalculation from '../../../hook/DiscountRateCalculation';
 import { HomeProduct } from '../../../services/home/getCategoryProductList';
+import Attend from '../../Attend';
+import Deadline from '../../Deadline';
+import WishBtn from '../../WishBtn';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -17,17 +18,35 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
     salePrice: data.salePrice,
   });
 
+  const wishBtnStyle: React.CSSProperties = {
+    position: 'absolute',
+    bottom: '20px',
+    right: '15px',
+    padding: '5px',
+    width: '20px',
+    height: '20px',
+    backgroundColor: 'white',
+    borderRadius: '50%',
+  };
+  const svgStyle: React.CSSProperties = {
+    width: '90%',
+    height: '80%',
+  };
+  const AttendStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: '15px',
+    right: '15px',
+  };
+
   return (
     <ProductContainer>
       <Deadline />
       <Reward reward={data.reward} />
       <ProductImgBox>
-        <Link to="/">
+        <Link to={`/products/${data.productCode}`}>
           <ProductImg src={data.imagePath} />
         </Link>
-        <AttendBox>
-          <span>50명 참여중</span>
-        </AttendBox>
+        <Attend style={AttendStyle} />
         <ProductInfoBox>
           <BrandName>{data.brandName}</BrandName>
           <ProductName>{data.name}</ProductName>
@@ -39,7 +58,12 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
             </OriginalPrice>
           </PriceBox>
         </ProductInfoBox>
-        <WishBtn productCode={data.productCode} wished={data.wished} />
+        <WishBtn
+          productCode={data.productCode}
+          wished={data.wished}
+          style={wishBtnStyle}
+          svgStyle={svgStyle}
+        />
       </ProductImgBox>
     </ProductContainer>
   );
@@ -50,7 +74,6 @@ const ProductContainer = styled.div`
   width: 85%;
   letter-spacing: -0.6px;
 `;
-
 const ProductImgBox = styled.div`
   position: relative;
   width: 100%;
@@ -59,16 +82,6 @@ const ProductImgBox = styled.div`
   a {
     position: relative;
   }
-`;
-const AttendBox = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 5px;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 500;
 `;
 const ProductImg = styled.img`
   width: 100%;

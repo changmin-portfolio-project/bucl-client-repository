@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import WishBtn from './WishBtn';
 import TimeIcon from '../../TimeIcon';
-import AttendCount from './AttendCount';
+import Attend from '../../Attend';
+import WishBtn from '../../WishBtn';
 
 interface ProductSubInfoProps {
   productCode: number;
@@ -16,7 +16,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   return (
     <ProductSubInfoContainer>
       <ProductSubInfoItem>
-        <AttendCount />
+        <Attend />
         <TimeIcon />
       </ProductSubInfoItem>
       <WishBtn productCode={productCode} wished={wished} />

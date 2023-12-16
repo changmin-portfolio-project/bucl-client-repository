@@ -19,7 +19,6 @@ export const getCategoryByProductList = (
   categoryId: number,
   pageNum: number,
 ): Promise<Product[]> => {
-  console.log(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`);
   return api
     .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
