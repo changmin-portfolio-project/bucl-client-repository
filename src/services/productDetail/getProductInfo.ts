@@ -18,7 +18,7 @@ export interface ProductData {
   consumerPrice: number;
   discountRate: number;
   averageRating: number;
-  createdAt: string;
+  reviewDate: string;
   totalReviewCount: number;
   imagePaths: string[];
   detailImagePaths: string[];

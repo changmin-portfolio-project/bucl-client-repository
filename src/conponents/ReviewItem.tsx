@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from './ReviewImgItem';
 import Star from './Star';
+import { convertDtStrToDStr } from '../utils/DateTimeUtil';
 
 interface ReviewItemProps {
   nickname?: string;
@@ -40,7 +41,9 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
             <Star count={starRate} style={StarStyle} />
             <NicknameDateBox>
               <NicknameText>{nickname}</NicknameText>
-              <DateText>{convertDtStrToDStr(reviewDate ?? '날짜 표기 할 수 없습니다.')}</DateText>
+              <DateText>
+                {convertDtStrToDStr(reviewDate ?? '날짜 표기 할 수 없습니다.')}
+              </DateText>
             </NicknameDateBox>
           </RatingNicknameDateBox>
         </UserInfoBox>

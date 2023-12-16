@@ -3,7 +3,7 @@ import { api } from '../index';
 export interface Review {
   profilePath: string;
   nickname: string;
-  createdAt: string;
+  reviewDate: string;
   starRate: number;
   selectedOption: string;
   reviewImages: string[];

@@ -10,7 +10,7 @@ import {
 } from '../../services/productDetail/getPhotoReview';
 import { useRecoilState } from 'recoil';
 import { reviewListAtom } from '../../states/reviewAtom';
-import ReviewInfiniteScroll from '../../hook/ReviewInfiniteScroll';
+import ReviewInfiniteScroll from '../../hook/reviewInfiniteScroll';
 
 const Body: React.FC = () => {
   const location = useLocation();
@@ -45,9 +45,9 @@ const Body: React.FC = () => {
           starRate={v.starRate}
           userImg={v.profilePath}
           imgPath={v.reviewImages}
-          text={v.reviewText}
+          content={v.reviewText}
           selectedOption={v.selectedOption}
-          createdAt={v.createdAt}
+          reviewDate={v.reviewDate}
         />
       ))}
       <ReviewInfiniteScroll />
