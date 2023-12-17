@@ -1,5 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 import TabBar from '../conponents/TabBar';
+import Body from '../conponents/wish/Body';
+import Header from '../conponents/wish/Header';
 
 const WishesPage: React.FC = () => {
   const openPopup = (url: string) => {
@@ -7,22 +10,14 @@ const WishesPage: React.FC = () => {
     // '_blank'은 새 창에 열기, 'width'와 'height'는 창의 크기를 지정합니다.
   };
   return (
-    <div>
-      <h1>URL : /wishes</h1>
-      <a
-        href="#"
-        onClick={() =>
-          openPopup(
-            'https://m.search.naver.com/search.naver?query=CJ%EB%8C%80%ED%95%9C%ED%86%B5%EC%9A%B4577444690400',
-          )
-        }
-      >
-        네이버
-      </a>
-
+    <WishesPageContainer>
+      <Header />
+      <Body />
       <TabBar />
-    </div>
+    </WishesPageContainer>
   );
 };
+
+const WishesPageContainer = styled.div``;
 
 export default WishesPage;

@@ -1,18 +1,17 @@
 import React from 'react';
-import PrevBtn from '../PrevBtn';
-import styled from 'styled-components';
 import HeaderLayout from '../layout/HeaderLayout';
+import styled from 'styled-components';
+import PrevBtn from '../PrevBtn';
 
 const Header: React.FC = () => {
   const HeaderLayoutStyle: React.CSSProperties = {
-    alignItems: 'flex-end',
     justifyContent: 'center',
+    alignItems: 'flex-end',
   };
   return (
     <HeaderLayout style={HeaderLayoutStyle}>
       <Title>
-        <PrevBtn />
-        포토리뷰 모아보기
+        <PrevBtn />찜 목록
       </Title>
     </HeaderLayout>
   );

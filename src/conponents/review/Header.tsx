@@ -1,27 +1,22 @@
 import React from 'react';
 import PrevBtn from '../PrevBtn';
 import styled from 'styled-components';
+import HeaderLayout from '../layout/HeaderLayout';
 
 const Header: React.FC = () => {
+  const HeaderLayoutStyle: React.CSSProperties = {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  };
   return (
-    <HeaderContainer>
+    <HeaderLayout style={HeaderLayoutStyle}>
       <Title>
         <PrevBtn />
         구매 후기
       </Title>
-    </HeaderContainer>
+    </HeaderLayout>
   );
 };
-
-const HeaderContainer = styled.header`
-  position: fixed;
-  max-width: 600px;
-  z-index: 999;
-  top: 0;
-  padding: 5vh 0 6px 0;
-  width: 100%;
-  background-color: white;
-`;
 
 const Title = styled.h2`
   text-align: center;

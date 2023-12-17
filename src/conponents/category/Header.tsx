@@ -6,6 +6,7 @@ import {
   categoryIdByCategoriesAtom,
   pageNumByCategoriesAtom,
 } from '../../states/categoryAtom';
+import HeaderLayout from '../layout/HeaderLayout';
 
 const Header: React.FC = () => {
   const [categoryIdByCategories, setCategoryIdByCategories] = useRecoilState(
@@ -53,8 +54,16 @@ const Header: React.FC = () => {
     setPageNumByCategories(PAGE_NUM);
   };
 
+  const HeaderLayoutStyle: React.CSSProperties = {
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    overflowX: 'auto',
+    maxWidth: '600px',
+    msOverflowStyle: 'none',
+  };
+
   return (
-    <HeaderContainer>
+    <HeaderLayout style={HeaderLayoutStyle}>
       <TabMenuNav>
         {categoryList.map((v, i) => (
           <TabMenu
@@ -66,34 +75,9 @@ const Header: React.FC = () => {
           </TabMenu>
         ))}
       </TabMenuNav>
-    </HeaderContainer>
+    </HeaderLayout>
   );
 };
-
-const HeaderContainer = styled.header`
-  position: fixed;
-  top: 0;
-  z-index: 999;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 4vh 0 6px 0;
-  height: 40px;
-  background-color: white;
-  border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
-  overflow-x: auto;
-  width: 100%;
-  max-width: 600px;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  & nav {
-    padding: 0px 12px 0px 12px;
-  }
-`;
 
 const TabMenuNav = styled.nav`
   display: flex;
