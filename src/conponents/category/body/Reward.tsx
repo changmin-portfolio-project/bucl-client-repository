@@ -9,7 +9,7 @@ const Reward: React.FC<RewardComponentProps> = ({ reward }) => {
   return (
     <RewardContainer>
       <RewardText>
-        <span>최대 {reward.toLocaleString()}원</span> 리워드
+        <span>최대 {reward?.toLocaleString()}원</span> 리워드
       </RewardText>
     </RewardContainer>
   );

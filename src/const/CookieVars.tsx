@@ -17,3 +17,5 @@ export const ADDR: string = 'addr';
 export const ZIP_CODE: string = 'zipCode';
 export const PROCT_CODE: string = 'proctCode';
 export const SKU_CODE: string = 'skuCode';
+export const RWD_CRNT_AMT: string = 'rwdCrntAmt';
+export const ORD_TOT_AMT: string = 'ordTotAmt';

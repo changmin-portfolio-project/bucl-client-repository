@@ -44,6 +44,7 @@ const TopBtnContainer = styled.button`
   svg {
     margin-top: 5px;
   }
+  margin: 10px;
 `;
 
 const TopBtnText = styled.span`

@@ -21,7 +21,6 @@ export const getReviewList = (
   product_code: string,
   pageNum: number,
 ): Promise<getReviewListResponse> => {
-  console.log(pageNum + 1);
   return api
     .get(`/api/v1/products/${product_code}/reviews?page=${pageNum}&pageSize=10`)
     .then((res) => {

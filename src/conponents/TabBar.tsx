@@ -156,7 +156,11 @@ const TabBar: React.FC = () => {
           </NavLink>
         </StyleTab>
         <StyleTab>
-          <NavLink to="/my" className="tab-bar-href" activeclassname="active">
+          <NavLink
+            to="/orders/5394939589"
+            className="tab-bar-href"
+            activeclassname="active"
+          >
             <svg
               width="20"
               height="20"

@@ -7,3 +7,10 @@ export const api = axios.create({
     accept: 'application/json,',
   },
 });
+
+export const formApi = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});

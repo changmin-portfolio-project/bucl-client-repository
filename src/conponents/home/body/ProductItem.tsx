@@ -52,9 +52,9 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
           <ProductName>{data.name}</ProductName>
           <PriceBox>
             <DiscountRate>{discountPercentage.toFixed(0)}%</DiscountRate>
-            <DiscountPrice>{data.salePrice.toLocaleString()}원</DiscountPrice>
+            <DiscountPrice>{data.salePrice?.toLocaleString()}원</DiscountPrice>
             <OriginalPrice>
-              {data.consumerPrice.toLocaleString()}원
+              {data.consumerPrice?.toLocaleString()}원
             </OriginalPrice>
           </PriceBox>
         </ProductInfoBox>

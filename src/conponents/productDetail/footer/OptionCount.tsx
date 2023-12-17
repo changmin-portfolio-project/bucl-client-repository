@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import {
   ADDR,
   ADDR_NOM,
-  CNSMR_AMT,
   CNTCT_NUM,
-  PROCT_IMG,
   PROCT_OPT_NOM,
   PROCT_OPT_AMT,
   PROCT_OPT_QTY,
@@ -18,6 +16,8 @@ import {
   PROCT_CODE,
   SKU_CODE,
   ZIP_CODE,
+  ORD_TOT_AMT,
+  CNSMR_AMT,
 } from '../../../const/CookieVars';
 
 interface OptionCountProps {
@@ -54,16 +54,17 @@ const OptionCount: React.FC<OptionCountProps> = ({
   };
 
   const setPaymentConfig = () => {
-    setCookie(
-      PROCT_IMG,
-      'https://d2v80xjmx68n4w.cloudfront.net/gigs/zDyjn1506401650.jpg',
-    );
     setCookie(PROCT_OPT_NOM, currentOption);
-    setCookie(CNSMR_AMT, 20000);
     setCookie(PROCT_OPT_AMT, cookies.get(PROCT_SL_PX) + currentOptionExtraAmt);
     setCookie(PROCT_OPT_QTY, optionCount);
-    setCookie(PROCT_SL_PX, 16000);
-    setCookie(TOT_PROCT_AMT, 20000);
+    setCookie(
+      ORD_TOT_AMT,
+      (cookies.get(PROCT_SL_PX) + currentOptionExtraAmt) * optionCount,
+    );
+    setCookie(
+      TOT_PROCT_AMT,
+      (cookies.get(CNSMR_AMT) + currentOptionExtraAmt) * optionCount,
+    );
     setCookie(SHP_FEE, 0);
     setCookie(ADDR_NOM, '집');
     setCookie(RCPNT_NOM, '황주현');
@@ -93,7 +94,8 @@ const OptionCount: React.FC<OptionCountProps> = ({
             </CountBox>
             <PriceText>
               {(
-                cookies.get(PROCT_SL_PX) + currentOptionExtraAmt
+                (cookies.get(PROCT_SL_PX) + currentOptionExtraAmt) *
+                optionCount
               )?.toLocaleString()}
               원
             </PriceText>

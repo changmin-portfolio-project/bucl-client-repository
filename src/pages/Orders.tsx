@@ -1,11 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
+import Header from '../conponents/order/Header';
+import Body from '../conponents/order/Body';
 
-const OrdersPage: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
-    <div>
-      <h1>URL : /orders</h1>
-    </div>
+    <Container>
+      <Header />
+      <Body />
+    </Container>
   );
 };
 
-export default OrdersPage;
+const Container = styled.div`
+  width: 100%;
+`;
+
+export default HomePage;

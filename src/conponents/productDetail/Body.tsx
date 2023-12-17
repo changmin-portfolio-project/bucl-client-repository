@@ -16,6 +16,7 @@ import {
   CNSMR_AMT,
   PROCT_BRN,
   PROCT_CODE,
+  PROCT_IMG,
   PROCT_NOM,
   PROCT_SL_PX,
 } from '../../const/CookieVars';
@@ -34,6 +35,7 @@ const Body: React.FC = () => {
         setCookie(PROCT_NOM, data.name);
         setCookie(PROCT_BRN, data.brandName);
         setCookie(CNSMR_AMT, data.consumerPrice);
+        setCookie(PROCT_IMG, data.imagePaths[0]);
         setCookie(PROCT_SL_PX, data.salePrice);
         return setData(data);
       });
