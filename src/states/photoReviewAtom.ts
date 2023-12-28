@@ -3,7 +3,7 @@ import { PAGE_NUM } from '../const/Pagenation';
 import { ImageData } from '../services/photoReview/getPhotoReviewList';
 
 export const pageNumAtom = atom<number>({
-  key: 'pageNum',
+  key: 'photoReviewPageNum',
   default: PAGE_NUM,
 });
 

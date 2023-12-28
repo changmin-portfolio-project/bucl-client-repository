@@ -96,12 +96,12 @@ const ProductInfoBox = styled.div`
   width: 100%;
 `;
 const BrandName = styled.p`
-  padding: 10px 0;
+  padding: 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
   font-weight: 700;
 `;
 const ProductName = styled.p`
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   width: 75%;
   font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;
