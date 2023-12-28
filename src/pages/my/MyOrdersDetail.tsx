@@ -1,10 +1,14 @@
 import React from 'react';
+import Header from '../../conponents/orderDetail/Header';
+import Body from '../../conponents/orderDetail/Body';
+import TabBar from '../../conponents/TabBar';
 
 const MyOrdersDetailPage: React.FC = () => {
   return (
     <div>
-      <h1>MyAddressesPage</h1>
-      <h1>URL : /my/addresses</h1>
+      <Header />
+      <Body />
+      <TabBar />
     </div>
   );
 };
