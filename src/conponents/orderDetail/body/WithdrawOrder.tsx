@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import WithdrawOrderPopup from './WithdrawOrderPopup';
 
 const WithdrawOrder: React.FC = () => {
+  const [withdrawOrderPopup, setWithdrawOrderPopup] = useState<boolean>(false);
+  const withdrawOrderBtnOnClick = () => {
+    setWithdrawOrderPopup(!withdrawOrderPopup);
+  };
   return (
     <WithdrawOrderContainer>
-      <WithdrawOrderBtn>주문 취소하기</WithdrawOrderBtn>
+      <WithdrawOrderBtn onClick={withdrawOrderBtnOnClick}>
+        주문 취소하기
+      </WithdrawOrderBtn>
+      {withdrawOrderPopup && (
+        <WithdrawOrderPopup withdrawOrderBtnOnClick={withdrawOrderBtnOnClick} />
+      )}
     </WithdrawOrderContainer>
   );
 };
