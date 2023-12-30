@@ -9,6 +9,7 @@ const WithdrawOrder: React.FC = () => {
     setWithdrawOrderPopup(!withdrawOrderPopup);
   };
   const OrderCancelBtnOnClick = () => {
+    //아직 미완 NO_PROCESSING 및 주문 확정이 아닐 때만
     postOrderCancel();
   };
   return (

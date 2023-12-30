@@ -1,8 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ChangeAddressBtn: React.FC = () => {
-  return <ChangeAddressButton>배송지 변경</ChangeAddressButton>;
+  return (
+    <ChangeAddressButton>
+      <Link to="/my/addresses">배송지 변경</Link>
+    </ChangeAddressButton>
+  );
 };
 
 const ChangeAddressButton = styled.button`
