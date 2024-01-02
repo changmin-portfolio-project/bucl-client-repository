@@ -10,9 +10,10 @@ import WishBtn from '../../WishBtn';
 
 interface ProductComponentProps {
   data: HomeProduct;
+  uniqueKey: number;
 }
 
-const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
+const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
   const discountPercentage: number = DiscountRateCalculation({
     consumerPrice: data.consumerPrice,
     salePrice: data.salePrice,
@@ -63,6 +64,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
           wished={data.wished}
           style={wishBtnStyle}
           svgStyle={svgStyle}
+          key={uniqueKey}
         />
       </ProductImgBox>
     </ProductContainer>

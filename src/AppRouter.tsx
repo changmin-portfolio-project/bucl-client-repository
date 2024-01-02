@@ -45,7 +45,7 @@ const AppRouter = (): JSX.Element => {
         <Route path="/my/orders" element={<MyOrdersPage />} />
         <Route path="/my/orders/:order_code" element={<MyOrdersDetailPage />} />
         <Route
-          path="/post-revies/:product_code"
+          path="/post-reviews/:product_code"
           element={<PostReviewsPage />}
         />
         <Route path="/wishes" element={<WishesPage />} />

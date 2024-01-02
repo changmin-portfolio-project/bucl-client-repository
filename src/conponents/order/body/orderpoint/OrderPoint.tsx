@@ -63,7 +63,7 @@ const OrderPoint: React.FC = () => {
       </PointInputContainer>
       <PointOwnAmt>
         사용 가능 포인트{' '}
-        {cookieNumUtil(cookies.get(RWD_CRNT_AMT).toLocaleString())}원
+        {cookieNumUtil(cookies.get(RWD_CRNT_AMT)?.toLocaleString())}원
       </PointOwnAmt>
     </StyledOrderPointContainer>
   );
