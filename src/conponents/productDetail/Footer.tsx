@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Deadline from '../Deadline';
 import WishBtn from '../WishBtn';
 import OptionChoose from './footer/OptionChoose';
+import { isActivePopUp } from '../../utils/PopUpUtil';
 
 const Footer: React.FC = () => {
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
@@ -14,15 +15,11 @@ const Footer: React.FC = () => {
     height: '26px',
   };
 
-  const buyToggleBtnOnClick = () => {
+  const buyToggleBtnOnClick = (optionCheck: boolean) => {
     setOptionCheck(!optionCheck);
     setCurrentOption('');
     setCurrentOptionExtraAmt(0);
-    if (optionCheck) {
-      document.body.style.overflow = 'auto';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
+    isActivePopUp(optionCheck);
   };
 
   return (
@@ -30,12 +27,14 @@ const Footer: React.FC = () => {
       <Deadline />
       <FeatureBtnBox>
         <WishBtn productCode={0} wished={false} style={wishBtnStyle} />
-        <BuyBtn onClick={() => buyToggleBtnOnClick()}>구매하기</BuyBtn>
+        <BuyBtn onClick={() => buyToggleBtnOnClick(optionCheck)}>
+          구매하기
+        </BuyBtn>
         <SaleBtn>판매하기</SaleBtn>
       </FeatureBtnBox>
       <OptionChoose
         active={optionCheck}
-        buyToggleBtnOnClick={buyToggleBtnOnClick}
+        buyToggleBtnOnClick={() => buyToggleBtnOnClick(optionCheck)}
         currentOption={currentOption}
         setCurrentOption={setCurrentOption}
         currentOptionExtraAmt={currentOptionExtraAmt}
