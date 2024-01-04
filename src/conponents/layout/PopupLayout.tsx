@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { searchPopupVisibleAtom } from '../../states/addressAtom';
 
 interface PopupLayoutProps {
   style?: React.CSSProperties;
@@ -7,7 +9,12 @@ interface PopupLayoutProps {
 }
 
 const PopupLayout: React.FC<PopupLayoutProps> = ({ style, children }) => {
-  return <PopupLayoutContainer style={style}>{children}</PopupLayoutContainer>;
+  const setVisible = useSetRecoilState(searchPopupVisibleAtom);
+  return (
+    <PopupLayoutContainer style={style} onClick={() => setVisible(false)}>
+      {children}
+    </PopupLayoutContainer>
+  );
 };
 
 const PopupLayoutContainer = styled.header`
