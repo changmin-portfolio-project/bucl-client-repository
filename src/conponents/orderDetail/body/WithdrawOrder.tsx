@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import WithdrawOrderPopup from './WithdrawOrderPopup';
 import { postOrderCancel } from '../../../services/orderDetail/postOrderCancel';
+import { useParams } from 'react-router';
 
 const WithdrawOrder: React.FC = () => {
+  const param = useParams();
   const [withdrawOrderPopup, setWithdrawOrderPopup] = useState<boolean>(false);
   const withdrawOrderBtnOnClick = () => {
     setWithdrawOrderPopup(!withdrawOrderPopup);
   };
   const OrderCancelBtnOnClick = () => {
     //아직 미완 NO_PROCESSING 및 주문 확정이 아닐 때만
-    postOrderCancel();
+    if (param.order_code)
+      postOrderCancel(param.order_code.replace(/imp_/g, ''));
   };
   return (
     <WithdrawOrderContainer>

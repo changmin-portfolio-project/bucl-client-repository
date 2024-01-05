@@ -4,6 +4,7 @@ import ReviewImgItem from '../../ReviewImgItem';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
 import { purchaseConfirmPopupAtom } from '../../../states/orderHistoryAtom';
 import { useSetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 
 interface OrderHistoryItemProps {
   productName: string;
@@ -36,7 +37,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
           {convertDtStrToDStr(orderDate ?? '날짜 표기 할 수 없습니다.')}
         </DateBox>
         <OrderDetailBtn>
-          주문상세
+          <Link to={`/my/orders/${orderCode}`}>주문상세</Link>
           <svg
             width="20"
             height="20"
@@ -115,6 +116,9 @@ const OrderDetailBtn = styled.button`
   font: ${({ theme }) => theme.fontSizes.Body1};
   color: ${({ theme }) => theme.mainColor.Orange5};
   cursor: pointer;
+  a {
+    color: ${({ theme }) => theme.mainColor.Orange5};
+  }
   svg {
     path {
       stroke: ${({ theme }) => theme.mainColor.Orange5};

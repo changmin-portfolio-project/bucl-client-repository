@@ -9,9 +9,11 @@ export interface postOrderCancelResponse {
 }
 
 // 주문 취소하기
-export const postOrderCancel = (): Promise<postOrderCancelResponse> => {
+export const postOrderCancel = (
+  order_code: string,
+): Promise<postOrderCancelResponse> => {
   return api
-    .post(`/api/v1/order-cancel`)
+    .post(`/api/v1/order-cancel/${order_code}`)
     .then((res) => {
       return res.data.data;
     })
