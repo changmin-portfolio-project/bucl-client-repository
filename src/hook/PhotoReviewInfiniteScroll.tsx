@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
-import { pageNumAtom, photoReviewListAtom } from '../states/photoReviewAtom';
+import {
+  photoPageNumAtom,
+  photoReviewListAtom,
+} from '../states/photoReviewAtom';
 import {
   ImageData,
   getPhotoReviewList,
@@ -12,7 +15,8 @@ import {
 const PhotoReviewInfiniteScroll: React.FC = () => {
   const param = useParams();
 
-  const [phtoReviewPageNum, setReviewPageNum] = useRecoilState(pageNumAtom);
+  const [phtoReviewPageNum, setReviewPageNum] =
+    useRecoilState(photoPageNumAtom);
   const setPhotoReviewList =
     useSetRecoilState<ImageData[]>(photoReviewListAtom);
 

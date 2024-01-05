@@ -5,7 +5,7 @@ import OrderPoint from './body/orderpoint/OrderPoint';
 import OrderPayment from './body/OrderPayment/OrderPayment';
 import OrderProduct from './body/OrderProduct/OrderProduct';
 import { useCookies } from 'react-cookie';
-import { getPoint } from '../../services/home/getPoint';
+import { getReward } from '../../services/reward/getReward';
 import {
   ADDR,
   ADDR_NOM,
@@ -21,11 +21,11 @@ import { cookieNumUtil } from '../../utils/UndefinedProcessUtl';
 const Body: React.FC = () => {
   const [, setCookie] = useCookies();
   useEffect(() => {
-    getPoint().then((res) => {
-      if (res.rewardSum === undefined) {
+    getReward().then((res) => {
+      if (res === undefined) {
         setCookie(RWD_CRNT_AMT, 0);
       } else {
-        setCookie(RWD_CRNT_AMT, cookieNumUtil(res?.rewardSum));
+        setCookie(RWD_CRNT_AMT, cookieNumUtil(res));
       }
     });
     setCookie(ADDR_NOM, '집');

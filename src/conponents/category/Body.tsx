@@ -13,7 +13,7 @@ const Body: React.FC = () => {
 const BodyContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 70px 0 90px 0; // padding: 90px 0 90px 0;
+  padding: 50px 0 90px 0; // padding: 90px 0 90px 0;
 `;
 
 export default Body;

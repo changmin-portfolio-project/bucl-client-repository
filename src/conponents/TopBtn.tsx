@@ -30,25 +30,25 @@ const TopBtn: React.FC = () => {
 const TopBtnContainer = styled.button`
   position: fixed;
   bottom: 90px;
-  right: 6%;
+  right: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  aspect-ratio: 1/1;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 50%;
   color: ${({ theme }) => theme.grey.Grey6};
   cursor: pointer;
   svg {
-    margin-top: 5px;
+    margin-top: -1px;
   }
   margin: 10px;
 `;
 
 const TopBtnText = styled.span`
-  margin-top: -5px;
+  margin-top: -7px;
   font: ${({ theme }) => theme.fontSizes.Body1};
 `;
 

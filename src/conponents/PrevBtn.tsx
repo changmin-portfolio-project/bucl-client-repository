@@ -33,8 +33,8 @@ const PrevBtn: React.FC = () => {
 const PrevBtnContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 7%;
-  transform: translate(-50%, 18%);
+  left: 8%;
+  transform: translate(-50%, 0%);
   display: flex;
   cursor: pointer;
 `;

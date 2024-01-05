@@ -10,9 +10,10 @@ import WishBtn from '../../WishBtn';
 
 interface ProductComponentProps {
   data: HomeProduct;
+  uniqueKey: number;
 }
 
-const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
+const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
   const discountPercentage: number = DiscountRateCalculation({
     consumerPrice: data.consumerPrice,
     salePrice: data.salePrice,
@@ -63,6 +64,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
           wished={data.wished}
           style={wishBtnStyle}
           svgStyle={svgStyle}
+          key={uniqueKey}
         />
       </ProductImgBox>
     </ProductContainer>
@@ -96,12 +98,12 @@ const ProductInfoBox = styled.div`
   width: 100%;
 `;
 const BrandName = styled.p`
-  padding: 10px 0;
+  padding: 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
   font-weight: 700;
 `;
 const ProductName = styled.p`
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   width: 75%;
   font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;

@@ -1,0 +1,76 @@
+import React from 'react';
+import PopupLayout from '../../layout/PopupLayout';
+import styled from 'styled-components';
+import { postMemberWithdrawal } from '../../../services/auth/postMemberWithdrawal';
+import { useNavigate } from 'react-router-dom';
+
+interface SecessionPopupProps {
+  secessionBtnOnClick: () => void;
+}
+
+const SecessionPopup: React.FC<SecessionPopupProps> = ({
+  secessionBtnOnClick,
+}) => {
+  const navigate = useNavigate();
+  const handleMemberWithdrawal = () => {
+    postMemberWithdrawal().then((res) => {
+      console.log(res);
+      navigate('/login');
+    });
+  };
+  return (
+    <PopupLayout>
+      <SecessionConfirmBox>
+        <CheckText>정말 탈퇴하시겠어요?</CheckText>
+        <ExplainText>모든 계정 정보가 삭제되며 복구되지 않습니다.</ExplainText>
+        <BtnBox>
+          <SecessionButton onClick={handleMemberWithdrawal}>
+            탈퇴하기
+          </SecessionButton>
+          <CancelBtn onClick={secessionBtnOnClick}>취소하기</CancelBtn>
+        </BtnBox>
+      </SecessionConfirmBox>
+    </PopupLayout>
+  );
+};
+
+const SecessionConfirmBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px 10px 15px 10px;
+  width: 80%;
+  background-color: white;
+  border-radius: 4px;
+`;
+const CheckText = styled.p`
+  text-align: center;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+`;
+const ExplainText = styled(CheckText)`
+  padding-bottom: 20px;
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey6};
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const SecessionButton = styled.button`
+  padding: 10px 0;
+  width: 48%;
+  background-color: white;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  color: ${({ theme }) => theme.grey.Grey8};
+  border: 1px solid ${({ theme }) => theme.grey.Grey4};
+  border-radius: 4px;
+`;
+const CancelBtn = styled(SecessionButton)`
+  background-color: ${({ theme }) => theme.mainColor.Orange5};
+  color: white;
+  border: none;
+`;
+
+export default SecessionPopup;

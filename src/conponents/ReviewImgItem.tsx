@@ -16,7 +16,7 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
   const param = useParams();
 
   return (
-    <ReviewImgItemContainer style={style} widthmode={Array.isArray(imgPath)}>
+    <ReviewImgItemContainer style={style} $widthMode={Array.isArray(imgPath)}>
       {Array.isArray(imgPath) ? (
         imgPath.map((v, i) => <img src={v} key={i} />)
       ) : (
@@ -35,13 +35,13 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
   );
 };
 
-const ReviewImgItemContainer = styled.div<{ widthmode: boolean }>`
+const ReviewImgItemContainer = styled.div<{ $widthMode: boolean }>`
   position: relative;
   margin-right: 4px;
-  display: ${(props) => (props.widthmode ? 'flex' : 'block')};
+  display: ${(props) => (props.$widthMode ? 'flex' : 'block')};
 
   img {
-    margin-right: ${(props) => (props.widthmode ? '4px' : '0')};
+    margin-right: ${(props) => (props.$widthMode ? '4px' : '0')};
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 4px;

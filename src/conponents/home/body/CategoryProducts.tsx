@@ -12,7 +12,7 @@ const CategoryProducts: React.FC = () => {
   return (
     <CategoryProductsContainer>
       {Array.isArray(list) &&
-        list.map((v, i) => <ProductItem key={i} data={v} />)}
+        list.map((v, i) => <ProductItem key={i} data={v} uniqueKey={i} />)}
       <ProductInfiniteScroll
         getHomeCategoryByProductList={getHomeCategoryByProductList}
       />

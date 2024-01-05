@@ -1,0 +1,24 @@
+import { api } from '../index';
+
+export interface AddressData {
+  id: number;
+  shippingAddressName: string;
+  recipientName: string;
+  zipCode: string;
+  address: string;
+  addressDetail: string;
+  contactNumber: string;
+  isDefaultAddress: boolean;
+}
+
+// 등록된 주소지 리스트 가져오기
+export const getAddressList = (): Promise<AddressData[]> => {
+  return api
+    .get(`/api/v1/my/addresses`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+};

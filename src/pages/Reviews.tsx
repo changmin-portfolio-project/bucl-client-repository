@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../conponents/review/Header';
 import Body from '../conponents/review/Body';
+import TopBtn from '../conponents/TopBtn';
 
 const ReviewsPage: React.FC = () => {
   useEffect(() => {
@@ -11,6 +12,7 @@ const ReviewsPage: React.FC = () => {
     <ReviewsPageContainer>
       <Header />
       <Body />
+      <TopBtn />
       {/* <Footer /> */}
     </ReviewsPageContainer>
   );

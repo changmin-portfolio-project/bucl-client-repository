@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getPoint } from '../../../services/home/getPoint';
+import { getReward } from '../../../services/reward/getReward';
 
 const Point: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   useEffect(() => {
-    getPoint().then((res) => {
-      setPoint(res.rewardSum);
+    getReward().then((res) => {
+      setPoint(res);
     });
   }, []);
 
   return (
     <PointContainer>
       <img src="/assets/PointIcon.svg" />
-      <PointText>{point}P</PointText>
+      <PointText>{point?.toLocaleString()}P</PointText>
     </PointContainer>
   );
 };
