@@ -1,9 +1,14 @@
 import React from 'react';
+import Body from '../../conponents/reward/Body';
+import Header from '../../conponents/reward/Header';
+import TabBar from '../../conponents/TabBar';
 
 const RewardsPage: React.FC = () => {
   return (
     <div>
-      <h1>URL : /rewards</h1>
+      <Header />
+      <Body />
+      <TabBar />
     </div>
   );
 };
