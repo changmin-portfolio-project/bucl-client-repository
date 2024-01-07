@@ -2,7 +2,8 @@ import React from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
 import { postMemberWithdrawal } from '../../../services/auth/postMemberWithdrawal';
-import { useNavigate } from 'react-router-dom';
+import { withdrawCompleteAtom } from '../../../states/customerAtom';
+import { useSetRecoilState } from 'recoil';
 
 interface SecessionPopupProps {
   secessionBtnOnClick: () => void;
@@ -11,11 +12,11 @@ interface SecessionPopupProps {
 const SecessionPopup: React.FC<SecessionPopupProps> = ({
   secessionBtnOnClick,
 }) => {
-  const navigate = useNavigate();
+  const setWithdrawComplete = useSetRecoilState(withdrawCompleteAtom);
   const handleMemberWithdrawal = () => {
     postMemberWithdrawal().then((res) => {
       console.log(res);
-      navigate('/login');
+      setWithdrawComplete(true);
     });
   };
   return (

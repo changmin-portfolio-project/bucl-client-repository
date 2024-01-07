@@ -6,7 +6,7 @@ interface MemberWithdrawalResponse {
   };
 }
 
-// 상품 찜하기
+// 회원 탈퇴
 export const postMemberWithdrawal = (): Promise<MemberWithdrawalResponse> => {
   return api
     .post(`/api/v1/auth/member-withdrawal`)

@@ -1,17 +1,19 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { searchPopupVisibleAtom } from '../../states/addressAtom';
 
 interface PopupLayoutProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const PopupLayout: React.FC<PopupLayoutProps> = ({ style, children }) => {
-  const setVisible = useSetRecoilState(searchPopupVisibleAtom);
+const PopupLayout: React.FC<PopupLayoutProps> = ({
+  style,
+  children,
+  onClick,
+}) => {
   return (
-    <PopupLayoutContainer style={style} onClick={() => setVisible(false)}>
+    <PopupLayoutContainer style={style} onClick={onClick && onClick}>
       {children}
     </PopupLayoutContainer>
   );
