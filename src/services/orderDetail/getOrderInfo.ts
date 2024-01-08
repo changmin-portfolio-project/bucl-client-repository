@@ -1,54 +1,36 @@
 import { api } from '../index';
 
-interface ProductDto {
-  productName: string;
-  productBrandName: string;
-  productImagePathList: string[];
-}
-
-interface PurchaseOrderDto {
-  productOrderCode: string;
-  productOptionValue: string;
-  productAmount: number;
-  productOrderQty: number;
-  productOrderAmount: number;
-}
-
-interface OrderDto {
-  productDto: ProductDto;
-  orderCode: string;
+export interface OrderData {
   orderDate: string;
-  totalOrderAmount: number;
-  spentAmount: number;
-  rewardUseAmount: number;
-  purchaseOrderDtos: PurchaseOrderDto[];
-  confirmed: boolean;
-}
-
-interface ShpAddrDto {
-  recipientNam: string;
+  productName: string;
+  imagePath: string;
+  consumerOrder: number;
+  salePrice: number;
+  productOrderQty: number;
+  recipientName: string;
   contactNumber: string;
   zipCode: string;
   address: string;
   addressDetail: string;
+  memoContent: string;
+  pgProvider: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  rewardUseAmount: number;
+  shippingFee: number;
+  totalOrderAmount: number;
 }
 
-interface getOrderDetailResponse {
-  data: {
-    orderDto: OrderDto;
-    shpAddrDto: ShpAddrDto;
-    shippingInfoShippingFee: number;
-    trackingNum: string | null;
-  };
-}
+// interface getOrderDetailResponse {
+//   OrderData;
+// }
 
 // 주문 상세정보 가져오기
-export const getOrderDetail = (
-  order_code: string,
-): Promise<getOrderDetailResponse> => {
+export const getOrderDetail = (order_code: string): Promise<OrderData> => {
   return api
     .get(`/api/v1/orders/${order_code}`)
     .then((res) => {
+      console.log(res.data.data);
       return res.data.data;
     })
     .catch((err) => {

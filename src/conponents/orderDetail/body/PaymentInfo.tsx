@@ -1,31 +1,47 @@
 import React from 'react';
 import styled from 'styled-components';
+import { orderInfoAtom } from '../../../states/orderDetailAtom';
+import { useRecoilValue } from 'recoil';
 
 const PaymentInfo: React.FC = () => {
+  const orderInfo = useRecoilValue(orderInfoAtom);
   return (
     <PaymentInfoContainer>
       <Title>결제 정보</Title>
       <PaymentInfoBox>
         <InfoBox>
-          <SubTitle>카드결제</SubTitle>
-          <Info>35,000원</Info>
-        </InfoBox>
-        <InfoBox>
-          <SubTitle>마스터카드(4562-****-****-****)</SubTitle>
-          <Info>35,000원</Info>
-        </InfoBox>
-        <InfoBox>
-          <SubTitle>사용적립금</SubTitle>
-          <Info>3,000P</Info>
+          <SubTitle>상품 가격</SubTitle>
+          <Info>{orderInfo.consumerOrder.toLocaleString()}원</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>배송비</SubTitle>
-          <Info>4,000원</Info>
+          <Info>{orderInfo.shippingFee.toLocaleString()}원</Info>
+        </InfoBox>
+        <InfoBox>
+          <SubTitle>할인 가격</SubTitle>
+          <Info>
+            {(orderInfo.consumerOrder - orderInfo.salePrice).toLocaleString()}원
+          </Info>
+        </InfoBox>
+        <InfoBox>
+          <SubTitle>사용리워드</SubTitle>
+          <Info>{orderInfo.rewardUseAmount.toLocaleString()}P</Info>
+        </InfoBox>
+        <InfoBox>
+          <SubTitle>결제 방법</SubTitle>
+          <Info>{orderInfo.paymentMethod}</Info>
         </InfoBox>
       </PaymentInfoBox>
       <TotalPaymentAmountBox>
         <TotalPaymentAmountTitle>총 결제 금액</TotalPaymentAmountTitle>
-        <Amount>00,000원</Amount>
+        <Amount>
+          {(
+            orderInfo.salePrice -
+            orderInfo.rewardUseAmount +
+            orderInfo.shippingFee
+          ).toLocaleString()}
+          원
+        </Amount>
       </TotalPaymentAmountBox>
     </PaymentInfoContainer>
   );

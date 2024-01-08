@@ -28,7 +28,7 @@ const WithdrawOrder: React.FC = () => {
 };
 
 const WithdrawOrderContainer = styled.div`
-  padding: 10px 7%;
+  padding: 10px 7% 30px 7%;
 `;
 
 const OrderCancelBtn = styled.button`

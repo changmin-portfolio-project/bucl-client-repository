@@ -1,26 +1,31 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { orderInfoAtom } from '../../../states/orderDetailAtom';
 
 const Recipient: React.FC = () => {
+  const orderInfo = useRecoilValue(orderInfoAtom);
   return (
     <RecipientContainer>
       <Title>받는사람 정보</Title>
       <RecipientInfoBox>
         <InfoBox>
           <SubTitle>받는사람</SubTitle>
-          <Info>이안나</Info>
+          <Info>{orderInfo.recipientName}</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>연락처</SubTitle>
-          <Info>010-0000-0000</Info>
+          <Info>{orderInfo.contactNumber}</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>주소</SubTitle>
-          <Info>이안나</Info>
+          <AddressInfo>
+            {orderInfo.address} {orderInfo.addressDetail}
+          </AddressInfo>
         </InfoBox>
         <InfoBox>
           <SubTitle>배송요청사항</SubTitle>
-          <Info>문앞에 놔주세요 벨누르지 말아주세요. 아기가 ㅇㄹㄴㄹ</Info>
+          <Info>{orderInfo.memoContent}</Info>
         </InfoBox>
       </RecipientInfoBox>
     </RecipientContainer>
@@ -58,6 +63,11 @@ const Info = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const AddressInfo = styled(Info)`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export default Recipient;
