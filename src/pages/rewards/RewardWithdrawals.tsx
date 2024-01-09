@@ -1,9 +1,14 @@
 import React from 'react';
+import Body from '../../conponents/rewardWithdrawal/Body';
+import Header from '../../conponents/rewardWithdrawal/Header';
+import TabBar from '../../conponents/TabBar';
 
 const RewardWithdrawalsPage: React.FC = () => {
   return (
     <div>
-      <h1>URL : /reward-withdrawals</h1>
+      <Header />
+      <Body />
+      <TabBar />
     </div>
   );
 };
