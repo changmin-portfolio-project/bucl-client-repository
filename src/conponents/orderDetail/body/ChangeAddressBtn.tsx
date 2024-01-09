@@ -11,6 +11,7 @@ const ChangeAddressBtn: React.FC = () => {
 };
 
 const ChangeAddressButton = styled.button`
+  flex: 1;
   padding: 5px 0;
   background-color: white;
   outline: none;

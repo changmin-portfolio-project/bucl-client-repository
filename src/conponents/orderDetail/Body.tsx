@@ -8,13 +8,13 @@ import PaymentInfo from './body/PaymentInfo';
 import WithdrawOrder from './body/WithdrawOrder';
 import { useParams } from 'react-router-dom';
 import { getOrderDetail } from '../../services/orderDetail/getOrderInfo';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { orderInfoAtom } from '../../states/orderDetailAtom';
 
 const Body: React.FC = () => {
   const param = useParams();
 
-  const setOrderInfo = useSetRecoilState(orderInfoAtom);
+  const [orderInfo, setOrderInfo] = useRecoilState(orderInfoAtom);
   useEffect(() => {
     if (param.order_code)
       getOrderDetail(param.order_code).then((res) => {
@@ -38,6 +38,8 @@ const Body: React.FC = () => {
           rewardUseAmount: res.rewardUseAmount,
           shippingFee: res.shippingFee,
           totalOrderAmount: res.totalOrderAmount,
+          brandName: res.brandName,
+          confirmed: res.confirmed,
         }));
       });
   }, []);
@@ -46,7 +48,7 @@ const Body: React.FC = () => {
       <ProductInfo />
       <BtnBox>
         <ExchangeReturnBtn />
-        <ChangeAddressBtn />
+        {!orderInfo.confirmed && <ChangeAddressBtn />}
       </BtnBox>
       <Recipient />
       <PaymentInfo />
@@ -61,12 +63,8 @@ const BodyContainer = styled.main`
 
 const BtnBox = styled.div`
   display: flex;
-  justify-content: space-between;
   padding: 0 7% 10px 7%;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
-  button {
-    width: 48%;
-  }
 `;
 
 export default Body;

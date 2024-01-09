@@ -19,6 +19,8 @@ export interface OrderData {
   rewardUseAmount: number;
   shippingFee: number;
   totalOrderAmount: number;
+  brandName: string;
+  confirmed: boolean;
 }
 
 // interface getOrderDetailResponse {

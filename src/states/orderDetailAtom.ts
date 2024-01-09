@@ -22,5 +22,7 @@ export const orderInfoAtom = atom<OrderData>({
     rewardUseAmount: 0,
     shippingFee: 0,
     totalOrderAmount: 0,
+    brandName: '',
+    confirmed: false,
   },
 });

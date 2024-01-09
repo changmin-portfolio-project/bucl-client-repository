@@ -17,7 +17,7 @@ const ProductInfo: React.FC = () => {
         </ImgBox>
         <ProductBox>
           <BrandNameAndNameBox>
-            <BrandName>브랜드명</BrandName>
+            <BrandName>{orderInfo.brandName}</BrandName>
             <Name>{orderInfo.productName}</Name>
           </BrandNameAndNameBox>
           <PriceAndCountBox>
