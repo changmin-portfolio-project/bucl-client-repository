@@ -1,19 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import CategoryProducts from './body/CategoryProducts';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   return (
-    <BodyContainer>
+    <BodyLayout>
       <CategoryProducts />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding: 50px 0 90px 0; // padding: 90px 0 90px 0;
-`;
 
 export default Body;
