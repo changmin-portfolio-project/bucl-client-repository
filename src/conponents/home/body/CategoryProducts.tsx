@@ -24,7 +24,6 @@ const CategoryProductsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
 `;
 
 export default CategoryProducts;

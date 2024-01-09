@@ -2,20 +2,31 @@ import React from 'react';
 import BuclLogo from '../BuclLogo';
 import CategoriesNav from './header/CategoriesNav';
 import Point from './header/Point';
-import HeaderLayout from '../layout/HeaderLayout';
+import styled from 'styled-components';
 
 const Header: React.FC = () => {
-  const HeaderLayoutStyle: React.CSSProperties = {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  };
   return (
-    <HeaderLayout style={HeaderLayoutStyle}>
+    <HeaderContainer>
       <BuclLogo />
       <CategoriesNav />
       <Point />
-    </HeaderLayout>
+    </HeaderContainer>
   );
 };
+
+const HeaderContainer = styled.header`
+  position: fixed;
+  max-width: 600px;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 0 6px 0;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
+`;
 
 export default Header;
