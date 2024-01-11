@@ -13,6 +13,7 @@ import { orderInfoAtom } from '../../states/orderDetailAtom';
 
 const Body: React.FC = () => {
   const param = useParams();
+  console.log(param);
 
   const [orderInfo, setOrderInfo] = useRecoilState(orderInfoAtom);
   useEffect(() => {
@@ -47,12 +48,16 @@ const Body: React.FC = () => {
     <BodyContainer>
       <ProductInfo />
       <BtnBox>
-        <ExchangeReturnBtn />
-        {!orderInfo.confirmed && <ChangeAddressBtn />}
+        {!orderInfo.confirmed && (
+          <>
+            <WithdrawOrder />
+            <ChangeAddressBtn />
+          </>
+        )}
       </BtnBox>
       <Recipient />
       <PaymentInfo />
-      <WithdrawOrder />
+      {orderInfo.confirmed && <ExchangeReturnBtn />}
     </BodyContainer>
   );
 };

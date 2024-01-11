@@ -1,27 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import { orderInfoAtom } from '../../../states/orderDetailAtom';
-import { useRecoilValue } from 'recoil';
 
 const ExchangeReturnBtn: React.FC = () => {
-  const orderInfo = useRecoilValue(orderInfoAtom);
+  const handleExchangeReturn = () => {
+    if (confirm('정말 교환 반품 하시겠습니까?')) {
+      console.log('반품 완료');
+    }
+  };
   return (
-    <ExchangeReturnButton $active={orderInfo.confirmed}>
-      교환/반품 신청
-    </ExchangeReturnButton>
+    <ExchangeReturnContainer>
+      <ExchangeReturnButton onClick={handleExchangeReturn}>
+        교환/반품 신청
+      </ExchangeReturnButton>
+    </ExchangeReturnContainer>
   );
 };
 
-const ExchangeReturnButton = styled.button<{ $active: boolean }>`
-  flex: 1;
-  margin-right: ${(props) => (props.$active ? '0px' : '10px')};
+const ExchangeReturnContainer = styled.div`
+  padding: 10px 7% 30px 7%;
+`;
+
+const ExchangeReturnButton = styled.button`
   padding: 5px 0;
+  width: 100%;
   background-color: white;
-  outline: none;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 4px;
   font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.grey.Grey8};
+  color: ${({ theme }) => theme.grey.Grey6};
 `;
 
 export default ExchangeReturnBtn;

@@ -29,6 +29,7 @@ export interface OrderData {
 
 // 주문 상세정보 가져오기
 export const getOrderDetail = (order_code: string): Promise<OrderData> => {
+  console.log(`/api/v1/orders/${order_code}`);
   return api
     .get(`/api/v1/orders/${order_code}`)
     .then((res) => {

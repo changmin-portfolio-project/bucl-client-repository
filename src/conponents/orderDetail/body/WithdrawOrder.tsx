@@ -12,33 +12,34 @@ const WithdrawOrder: React.FC = () => {
   };
   const OrderCancelBtnOnClick = () => {
     //아직 미완 NO_PROCESSING 및 주문 확정이 아닐 때만
+    console.log(param.order_code);
     if (param.order_code)
-      postOrderCancel(param.order_code.replace(/imp_/g, ''));
+      postOrderCancel(param.order_code).then(() => {
+        alert('주문 취소 됐습니다.');
+        window.location.href = '/my/orders';
+      });
   };
   return (
-    <WithdrawOrderContainer>
+    <>
       <OrderCancelBtn onClick={OrderCancelBtnOnClick}>
         주문 취소하기
       </OrderCancelBtn>
       {withdrawOrderPopup && (
         <WithdrawOrderPopup withdrawOrderBtnOnClick={withdrawOrderBtnOnClick} />
       )}
-    </WithdrawOrderContainer>
+    </>
   );
 };
 
-const WithdrawOrderContainer = styled.div`
-  padding: 10px 7% 30px 7%;
-`;
-
 const OrderCancelBtn = styled.button`
+  flex: 1;
   padding: 5px 0;
-  width: 100%;
   background-color: white;
+  outline: none;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 4px;
   font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.grey.Grey6};
+  color: ${({ theme }) => theme.grey.Grey8};
 `;
 
 export default WithdrawOrder;
