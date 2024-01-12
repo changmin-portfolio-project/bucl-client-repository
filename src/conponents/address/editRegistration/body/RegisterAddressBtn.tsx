@@ -12,8 +12,12 @@ import {
   postAddressItem,
 } from '../../../../services/address/postAddressItem';
 import { putAddressUpdate } from '../../../../services/address/putAddressUpdate';
+import { useLocation } from 'react-router-dom';
+import { putAddress } from '../../../../services/orderDetail/putAddress';
 
 const RegisterAddressBtn: React.FC = () => {
+  const location = useLocation();
+
   const addrRegForm = useRecoilValue(addrRegFormAtom);
   const isDefaultAddress = useRecoilValue(isDefaultAddressAtom);
   const setEditRegistrationMode = useSetRecoilState(editRegistrationModeAtom);
@@ -43,13 +47,17 @@ const RegisterAddressBtn: React.FC = () => {
         isDefaultAddress: isDefaultAddress,
       };
       if (currentAddressNum == 0) {
-        postAddressItem({ data }).then(() => {
-          setEditRegistrationMode(false);
-        });
+        location.state.order_code
+          ? putAddress(location.state.order_code, data)
+          : postAddressItem({ data }).then(() => {
+              setEditRegistrationMode(false);
+            });
       } else {
-        putAddressUpdate(data, currentAddressNum).then(() => {
-          setEditRegistrationMode(false);
-        });
+        location.state.order_code
+          ? putAddress(location.state.order_code, data)
+          : putAddressUpdate(data, currentAddressNum).then(() => {
+              setEditRegistrationMode(false);
+            });
       }
     } else {
       alert('모든 값을 입력해주세요.');
@@ -59,7 +67,7 @@ const RegisterAddressBtn: React.FC = () => {
     <RegisterAddressBtnContainer>
       <RegisterBtn onClick={registerBtnOnClick}>
         <img src="/assets/PlusIcon.svg" />
-        배송지 등록하기
+        {location.state.order_code ? '배송지 수정하기' : '배송지 등록하기'}
       </RegisterBtn>
     </RegisterAddressBtnContainer>
   );
