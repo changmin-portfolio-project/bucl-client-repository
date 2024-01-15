@@ -108,6 +108,7 @@ const ProductName = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;
   line-height: 19.6px;
+  display: -webkit-box;
   -webkit-line-clamp: 2; /* 표시할 줄 수 */
   -webkit-box-orient: vertical;
   overflow: hidden;
