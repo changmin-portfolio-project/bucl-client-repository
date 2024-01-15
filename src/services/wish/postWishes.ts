@@ -13,7 +13,6 @@ export const postWishes = (): Promise<WishesResponse> => {
   return api
     .post(`/api/v1/wishes`)
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((err) => {
