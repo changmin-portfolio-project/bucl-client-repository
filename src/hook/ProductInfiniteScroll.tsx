@@ -100,7 +100,6 @@ const ProductInfiniteScroll: React.FC<ProductInfiniteScrollProps> = ({
       categoryIdByCategories != prevCategoryIdByCategories.current ||
       inView
     ) {
-      console.log(inView, '무한 스크롤 요청 🎃'); // 실행할 함수
       callback();
     }
   }, [inView, categoryId, categoryIdByCategories]);

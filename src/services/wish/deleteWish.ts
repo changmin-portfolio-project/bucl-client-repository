@@ -11,7 +11,6 @@ export const deleteWish = (
   return api
     .delete(`/api/v1/wishes/${productCode}`)
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {

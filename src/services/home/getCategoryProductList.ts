@@ -17,15 +17,11 @@ export const getHomeCategoryByProductList = (
   categoryId: number,
   pageNum: number,
 ): Promise<HomeProduct[]> => {
-  console.log(
-    `/api/v1/products?categoryId=${categoryId}&page=${pageNum}&pageSize=10`,
-  );
   return api
     .get(
       `/api/v1/products?categoryId=${categoryId}&page=${pageNum}&pageSize=10`,
     )
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
     .catch((error) => {
