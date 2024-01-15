@@ -17,7 +17,12 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, style }) => {
   const [wishList, setWishList] = useRecoilState(wishListAtom);
   const wishBtnOnClick = () => {
     if (wishList.map((v) => v.productCode).includes(productCode))
-      deleteWish(productCode);
+      deleteWish(productCode).then(() => {
+        getWishList().then((res) => {
+          setWishList(res.data);
+          return null;
+        });
+      });
     else
       postWishes().then(() => {
         getWishList().then((res) => {
