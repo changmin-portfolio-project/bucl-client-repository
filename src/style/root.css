@@ -4,14 +4,23 @@
     height: 100vh;
   }
 
-a{
-  text-decoration: none;
-  color:black;
-}
-
 #root{
   margin: auto;
   max-width: 600px;
 }
 
-a { -webkit-tap-highlight-color:transparent;}
+a { 
+  -webkit-tap-highlight-color:transparent; 
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color:black;
+}
+
+
+img {
+  -webkit-user-drag: none;
+}
+
+div {
+  -webkit-user-drag: none;
+}
