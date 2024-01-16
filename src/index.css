@@ -13,6 +13,21 @@ code {
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('./assets/fonts/PretendardVariable.ttf');
+  font-family: 'Pretendard-Bold';
+  src: url('./assets/fonts/pretendard/Pretendard-Bold.otf');
+}
+
+@font-face {
+  font-family: 'Pretendard-Medium';
+  src: url('./assets/fonts/pretendard/Pretendard-Medium.otf');
+}
+
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('./assets/fonts/pretendard/Pretendard-SemiBold.otf');
+}
+
+@font-face {
+  font-family: 'Pretendard-Light';
+  src: url('./assets/fonts/pretendard/Pretendard-Light.otf');
 }
