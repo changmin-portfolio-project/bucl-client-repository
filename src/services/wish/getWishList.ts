@@ -21,7 +21,6 @@ export const getWishList = (): Promise<getWishListResponse> => {
   return api
     .get(`/api/v1/wishes`)
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
