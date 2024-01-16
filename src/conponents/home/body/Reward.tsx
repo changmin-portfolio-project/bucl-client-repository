@@ -16,7 +16,7 @@ const Reward: React.FC<RewardComponentProps> = ({ reward }) => {
 };
 
 const RewardContainer = styled.div`
-  padding: 10px 0;
+  padding: 8px 0;
   text-align: center;
   font-weight: 500;
   background-color: black;

@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { HOME_INF_POS_NAME } from '../../const/Pagenation';
 
-const TopBtn: React.FC = () => {
+const HomeTopBtn: React.FC = () => {
   const topBtnOnClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const homeInfContainer = document.getElementById(HOME_INF_POS_NAME);
+    homeInfContainer?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -60,4 +62,4 @@ const TopBtnText = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body1};
 `;
 
-export default TopBtn;
+export default HomeTopBtn;

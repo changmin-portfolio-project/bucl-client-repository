@@ -9,23 +9,22 @@ interface TimeRemaining {
 }
 
 interface DeadlineProps {
-  deadline: string;
+  targetDate: string;
   style?: React.CSSProperties;
 }
 
-const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
+const Deadline: React.FC<DeadlineProps> = ({ targetDate }) => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(
     calculateTimeRemaining(),
   );
 
   function calculateTimeRemaining(): TimeRemaining {
     const now = new Date();
-    const targetTime = new Date(deadline);
+    const targetTime = new Date(targetDate);
     const difference = targetTime.getTime() - now.getTime();
 
     if (difference < 0) {
       // Target date has passed
-
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
@@ -46,24 +45,13 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
 
     // Cleanup interval on component unmount
     return () => clearInterval(timer);
-  }, [deadline]);
+  }, [targetDate]);
 
   return (
     <DeadlineContainer>
-      마감까지
-      {timeRemaining.days === 0 ? (
-        <>
-          <span>{timeRemaining.hours}시간</span>
-          <span>{timeRemaining.minutes}분</span>
-          <span>{timeRemaining.seconds}초</span>남음
-        </>
-      ) : (
-        <>
-          <span>{timeRemaining.days}일</span>
-          <span>{timeRemaining.hours}시간</span>
-          <span>{timeRemaining.minutes}분</span>남음
-        </>
-      )}
+      마감까지 <span>${timeRemaining.days}일</span>
+      <span>${timeRemaining.hours}시간</span>
+      <span>${timeRemaining.minutes}분</span> 남음
     </DeadlineContainer>
   );
 };
@@ -74,18 +62,17 @@ const DeadlineContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 6px 0;
   text-align: center;
   color: white;
-  font-family: Pretendard-Medium;
+  font: ${({ theme }) => theme.fontSizes.Body2};
   span {
     margin: 0 2px;
-    padding: 2px 6px;
+    padding: 2px 5px;
     background-color: ${({ theme }) => theme.subColor.Yellow1};
     border-radius: 4px;
     font-weight: 700;
     color: ${({ theme }) => theme.mainColor.Orange5};
-    font-size: 14px;
   }
 `;
 

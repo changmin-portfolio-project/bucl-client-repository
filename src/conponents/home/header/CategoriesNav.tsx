@@ -56,14 +56,14 @@ const CategoryItem = styled.div`
     align-items: center;
     padding: 0 15px;
     height: 100%;
-    font: ${({ theme }) => theme.fontSizes.Subhead1};
+    font: ${({ theme }) => theme.fontSizes.Body2};
     color: ${({ theme }) => theme.grey.Grey6};
 
     &.active {
-      text-decoration: underline;
-      text-decoration-thickness: 3px;
-      text-underline-offset: 20px;
       color: black;
+      text-decoration: underline;
+      text-underline-offset: 20px;
+      text-decoration-thickness: 3px;
     }
   }
 `;

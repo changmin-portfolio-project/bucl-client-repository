@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import { HomeProduct } from '../services/home/getCategoryProductList';
 import { DEFAULT_CATEGORY, PAGE_NUM } from '../const/Pagenation';
+import { ProductData } from '../services/productDetail/getProductInfo';
 
 export const categoryIdAtom = atom<number>({
   key: 'categoryId',
@@ -15,4 +16,24 @@ export const pageNumAtom = atom<number>({
 export const productListAtom = atom<HomeProduct[]>({
   key: 'productList',
   default: [],
+});
+
+export const productInfoAtom = atom<ProductData>({
+  key: 'product',
+  default: {
+    productCode: 0,
+    name: '',
+    brandName: '',
+    salePrice: 0,
+    consumerPrice: 0,
+    discountRate: 0,
+    averageRating: 0,
+    reviewDate: '',
+    totalReviewCount: 0,
+    imagePaths: [],
+    detailImagePaths: [],
+    reviewPreviews: [],
+    ordNum: 0,
+    deadline: '',
+  },
 });

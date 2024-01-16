@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import './css/TabBar.css';
 import React from 'react';
+import { saveBeforePos } from '../utils/HomeUtil';
 
 const Container = styled.div`
   position: fixed;
@@ -21,6 +22,12 @@ const StyleTabBarFrame = styled.div`
   justify-content: space-around;
 `;
 
+const TabText = styled.span`
+  padding-top: 5px;
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  color: ${({ theme }) => theme.grey.Grey6};
+`;
+
 const StyleTab = styled.div`
   svg {
     path {
@@ -35,10 +42,9 @@ const StyleTab = styled.div`
       }
     }
   }
-`;
-const TabText = styled.span`
-  padding-top: 5px;
-  font: ${({ theme }) => theme.fontSizes.Body1};
+  .active span {
+    color: ${({ theme }) => theme.mainColor.Orange5};
+  }
 `;
 
 const TabBar: React.FC = () => {
@@ -46,7 +52,12 @@ const TabBar: React.FC = () => {
     <Container>
       <StyleTabBarFrame>
         <StyleTab>
-          <NavLink to="/" className="tab-bar-href" activeclassname="active">
+          <NavLink
+            to="/"
+            className="tab-bar-href"
+            activeclassname="active"
+            onClick={saveBeforePos}
+          >
             <svg
               width="20"
               height="20"
@@ -77,6 +88,7 @@ const TabBar: React.FC = () => {
             to="/categories"
             className="tab-bar-href"
             activeclassname="active"
+            onClick={saveBeforePos}
           >
             <svg
               width="20"
@@ -136,6 +148,7 @@ const TabBar: React.FC = () => {
             to="/wishes"
             className="tab-bar-href"
             activeclassname="active"
+            onClick={saveBeforePos}
           >
             <svg
               width="20"
@@ -156,7 +169,12 @@ const TabBar: React.FC = () => {
           </NavLink>
         </StyleTab>
         <StyleTab>
-          <NavLink to="/my" className="tab-bar-href" activeclassname="active">
+          <NavLink
+            to="/my"
+            className="tab-bar-href"
+            activeclassname="active"
+            onClick={saveBeforePos}
+          >
             <svg
               width="20"
               height="20"

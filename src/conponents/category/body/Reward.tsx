@@ -30,6 +30,7 @@ const RewardText = styled.p`
   span {
     font-weight: 700;
   }
+  font-size: 13px;
 `;
 
 export default Reward;

@@ -9,7 +9,7 @@ import {
 import { useInView } from 'react-intersection-observer';
 import { HomeProduct } from '../services/home/getCategoryProductList';
 import { Product } from '../services/category/getCategoryProductList';
-import { PAGE_NUM } from '../const/Pagenation';
+import { HOME_INF_POS_NAME, PAGE_NUM } from '../const/Pagenation';
 import {
   categoryIdByCategoriesAtom,
   pageNumByCategoriesAtom,
@@ -57,7 +57,7 @@ const ProductInfiniteScroll: React.FC<ProductInfiniteScrollProps> = ({
             setHomeList(res);
             setPageNum(PAGE_NUM + 1);
             prevCategoryId.current = categoryId; // 이전 categoryId 업데이트
-            window.scrollTo({ top: 0 });
+            document.getElementById(HOME_INF_POS_NAME)?.scrollTo({ top: 0 });
           } else {
             if (res.length != 0) {
               setHomeList((prev) => [...prev, ...res]);
@@ -105,9 +105,15 @@ const ProductInfiniteScroll: React.FC<ProductInfiniteScrollProps> = ({
     }
   }, [inView, categoryId, categoryIdByCategories]);
 
-  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
+  return (
+    <ScrollBottomContainer ref={ref}>
+      <img src="/assets/bucl_loading.gif" width={'25px'} />
+    </ScrollBottomContainer>
+  );
 };
 
-const ScrollBottomContainer = styled.div``;
+const ScrollBottomContainer = styled.div`
+  margin: 0px auto;
+`;
 
 export default ProductInfiniteScroll;

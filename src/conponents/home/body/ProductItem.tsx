@@ -6,7 +6,9 @@ import DiscountRateCalculation from '../../../hook/DiscountRateCalculation';
 import { HomeProduct } from '../../../services/home/getCategoryProductList';
 import Attend from '../../Attend';
 import Deadline from '../../Deadline';
-import WishBtn from '../../WishBtn';
+import theme from '../../../style/theme';
+import HomeWishBtn from './HomeWishBtn';
+import { saveBeforePos } from '../../../utils/HomeUtil';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -24,11 +26,13 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
     bottom: '20px',
     right: '15px',
     padding: '5px',
-    width: '20px',
-    height: '20px',
+    width: '25px',
+    height: '25px',
     backgroundColor: 'white',
     borderRadius: '50%',
+    border: `2px solid ${theme.grey.Grey3}`,
   };
+
   const svgStyle: React.CSSProperties = {
     width: '90%',
     height: '80%',
@@ -41,30 +45,35 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
 
   return (
     <ProductContainer>
-      <Deadline />
+      <Deadline deadline={data.deadline} />
       <Reward reward={data.reward} />
-      <ProductImgBox>
+      <ProductImgBox onClick={saveBeforePos}>
         <Link to={`/products/${data.productCode}`}>
-          <ProductImg src={data.imagePath} />
+          <ProductImgBox>
+            <ProductImg $url={data.imagePath} />
+
+            <Attend style={AttendStyle} ordNum={data.ordNum} />
+            <ProductInfoBox>
+              <BrandName>{data.brandName}</BrandName>
+              <ProductName>{data.name}</ProductName>
+              <PriceBox>
+                <DiscountRate>{discountPercentage.toFixed(0)}%</DiscountRate>
+                <DiscountPrice>
+                  {data.salePrice?.toLocaleString()}원
+                </DiscountPrice>
+                <OriginalPrice>
+                  {data.consumerPrice?.toLocaleString()}원
+                </OriginalPrice>
+              </PriceBox>
+            </ProductInfoBox>
+          </ProductImgBox>
         </Link>
-        <Attend style={AttendStyle} />
-        <ProductInfoBox>
-          <BrandName>{data.brandName}</BrandName>
-          <ProductName>{data.name}</ProductName>
-          <PriceBox>
-            <DiscountRate>{discountPercentage.toFixed(0)}%</DiscountRate>
-            <DiscountPrice>{data.salePrice?.toLocaleString()}원</DiscountPrice>
-            <OriginalPrice>
-              {data.consumerPrice?.toLocaleString()}원
-            </OriginalPrice>
-          </PriceBox>
-        </ProductInfoBox>
-        <WishBtn
+        <HomeWishBtn
+          wishId={uniqueKey}
           productCode={data.productCode}
           wished={data.wished}
           style={wishBtnStyle}
           svgStyle={svgStyle}
-          key={uniqueKey}
         />
       </ProductImgBox>
     </ProductContainer>
@@ -75,6 +84,7 @@ const ProductContainer = styled.div`
   padding: 15px 0;
   width: 85%;
   letter-spacing: -0.6px;
+  scroll-snap-align: start;
 `;
 const ProductImgBox = styled.div`
   position: relative;
@@ -85,10 +95,22 @@ const ProductImgBox = styled.div`
     position: relative;
   }
 `;
-const ProductImg = styled.img`
+// const ProductImg = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 0 0 12px 12px;
+// `;
+
+const ProductImg = styled.div<{ $url: string }>`
   width: 100%;
   height: 100%;
   border-radius: 0 0 12px 12px;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 55.73%, rgba(0, 0, 0, 0.6) 93.75%),
+    url(${(props) => props.$url}),
+    lightgray 50% / cover no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const ProductInfoBox = styled.div`
@@ -101,20 +123,24 @@ const BrandName = styled.p`
   padding: 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
   font-weight: 700;
+  margin-bottom: 5px;
 `;
 const ProductName = styled.p`
   margin-bottom: 5px;
   width: 75%;
   font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;
-  line-height: 19.6px;
-  -webkit-line-clamp: 2; /* 표시할 줄 수 */
-  -webkit-box-orient: vertical;
+
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 표시할 줄 수 */
+  -webkit-box-orient: vertical;
 `;
 
-const PriceBox = styled.div``;
+const PriceBox = styled.div`
+  margin-top: 10px;
+`;
 const DiscountRate = styled.span`
   padding-right: 8px;
   font: ${({ theme }) => theme.fontSizes.Subhead4};

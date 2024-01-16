@@ -8,6 +8,7 @@ interface ProductInfoProps {
   salePrice?: number;
   consumerPrice?: number;
   discountRate?: number;
+  ordNum?: number;
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({
@@ -16,12 +17,13 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   salePrice,
   consumerPrice,
   discountRate,
+  ordNum,
 }) => {
   return (
     <ProductInfoContainer>
       <BrandNameAttendBox>
         <BrandName>{brandName}</BrandName>
-        <Attend />
+        <Attend ordNum={ordNum} />
       </BrandNameAttendBox>
       <ProductName>{name}</ProductName>
       <ProductPriceBox>

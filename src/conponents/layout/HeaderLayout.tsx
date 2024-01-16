@@ -23,6 +23,8 @@ const HeaderLayoutContainer = styled.header`
   height: 40px;
   background-color: white;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
+
+  padding-left: 15px;
 `;
 
 export default HeaderLayout;

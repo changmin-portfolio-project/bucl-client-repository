@@ -12,6 +12,7 @@ export interface Product {
   totalReviewCount: number;
   averageRating: number;
   wished: boolean;
+  ordNum: number;
 }
 
 // Category page Category별 상품 List 가져오기

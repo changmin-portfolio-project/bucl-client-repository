@@ -7,16 +7,22 @@ import ProductSubInfo from './ProductSubInfo';
 
 interface ProductComponentProps {
   data: Product;
+  uniqueKey: number;
 }
 
-const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
+const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
   return (
     <ProductContainer>
       <ProductImgBox>
         <Link to="/">
           <ProductImg src={data.imagePath} />
         </Link>
-        <ProductSubInfo productCode={data.productCode} wished={data.wished} />
+        <ProductSubInfo
+          productCode={data.productCode}
+          wished={data.wished}
+          ordNum={data.ordNum}
+          wishId={uniqueKey}
+        />
         <Reward reward={data.reward} />
       </ProductImgBox>
       <ProductInfoBox>
@@ -51,7 +57,8 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data }) => {
 };
 
 const ProductContainer = styled.div`
-  padding: 15px 0;
+  padding: 15px 0 9px 0;
+  margin: 0 auto;
   width: 47%;
   letter-spacing: -0.6px;
 `;
@@ -77,9 +84,11 @@ const ProductInfoBox = styled.div`
 `;
 const BrandName = styled.p`
   padding: 3px 0 0 0;
-  font: ${({ theme }) => theme.fontSizes.Body1};
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-size: 12px;
   font-weight: 700;
   color: ${({ theme }) => theme.grey.Grey5};
+  padding: 7px 0px 5px 0px;
 `;
 const ProductName = styled.p`
   width: 75%;
@@ -95,9 +104,8 @@ const ProductName = styled.p`
 const PriceBox = styled.div``;
 const DiscountRate = styled.span`
   padding-right: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  font-size: 13px;
-  font-weight: 700;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-weight: 500;
   color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 const DiscountPrice = styled(DiscountRate)`

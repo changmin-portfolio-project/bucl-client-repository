@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getReward } from '../../../services/reward/getReward';
+import { Link } from 'react-router-dom';
 
 const Point: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
@@ -11,10 +12,12 @@ const Point: React.FC = () => {
   }, []);
 
   return (
-    <PointContainer>
-      <img src="/assets/PointIcon.svg" />
-      <PointText>{point?.toLocaleString()}P</PointText>
-    </PointContainer>
+    <Link to="/rewards">
+      <PointContainer>
+        <PointImg src="/assets/RewardIcon.png" />
+        <PointText>{point?.toLocaleString()}P</PointText>
+      </PointContainer>
+    </Link>
   );
 };
 
@@ -25,17 +28,15 @@ const PointContainer = styled.div`
   width: 80px;
   text-align: right;
   letter-spacing: -0.6px;
-  img {
-    width: 19px;
-    height: 16px;
-    transform: rotateY(180deg);
-  }
+`;
+
+const PointImg = styled.img`
+  width: 24px;
 `;
 
 const PointText = styled.span`
+  padding-left: 5px;
   font: ${({ theme }) => theme.fontSizes.Subhead2};
-  font-weight: 700;
-  line-height: 19.6px;
   color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 

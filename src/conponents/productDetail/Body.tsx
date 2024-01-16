@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ImgSlider from './body/ImgSlider';
 import ProductInfo from './body/ProductInfo';
@@ -6,10 +6,7 @@ import DeliveryInfo from './body/DeliveryInfo';
 import PurchaseReview from './body/PurchaseReview';
 import ProductDetailInfo from './body/ProductDetailInfo';
 import ProductInquiry from './body/ProductInquiry';
-import {
-  ProductData,
-  getProductInfo,
-} from '../../services/productDetail/getProductInfo';
+import { getProductInfo } from '../../services/productDetail/getProductInfo';
 import { useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import {
@@ -20,11 +17,13 @@ import {
   PROCT_NOM,
   PROCT_SL_PX,
 } from '../../const/CookieVars';
+import { useRecoilState } from 'recoil';
+import { productInfoAtom } from '../../states/productAtom';
 
 const Body: React.FC = () => {
   const param = useParams();
 
-  const [data, setData] = useState<ProductData>();
+  const [data, setData] = useRecoilState(productInfoAtom);
   const [, setCookie] = useCookies();
   useEffect(() => {
     if (param.product_code) {
@@ -42,6 +41,7 @@ const Body: React.FC = () => {
     }
   }, []);
 
+  console.log(data);
   return (
     <BodyContainer>
       <ImgSlider imgList={data?.imagePaths} />
@@ -51,6 +51,7 @@ const Body: React.FC = () => {
         salePrice={data?.salePrice}
         consumerPrice={data?.consumerPrice}
         discountRate={data?.discountRate}
+        ordNum={data?.ordNum}
       />
       <DeliveryInfo />
       <PurchaseReview

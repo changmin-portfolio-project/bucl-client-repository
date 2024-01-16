@@ -23,6 +23,8 @@ export interface ProductData {
   imagePaths: string[];
   detailImagePaths: string[];
   reviewPreviews: ReviewPreview[];
+  ordNum: number;
+  deadline: string;
 }
 
 export interface getProductInfoResponse {
