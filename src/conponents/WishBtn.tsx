@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { postWishes } from '../services/wish/postWishes';
-import { getWishList } from '../services/wish/getWishList';
-import { useRecoilState } from 'recoil';
-import { wishListAtom } from '../states/productAtom';
 import { deleteWish } from '../services/wish/deleteWish';
 
 interface WishBtnComponentProps {
@@ -13,28 +10,19 @@ interface WishBtnComponentProps {
   svgStyle?: React.CSSProperties;
 }
 
-const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, style }) => {
-  const [wishList, setWishList] = useRecoilState(wishListAtom);
+const WishBtn: React.FC<WishBtnComponentProps> = ({
+  productCode,
+  style,
+  wished,
+  svgStyle,
+}) => {
   const wishBtnOnClick = () => {
-    if (wishList.map((v) => v.productCode).includes(productCode))
-      deleteWish(productCode).then(() => {
-        getWishList().then((res) => {
-          setWishList(res.data);
-          return null;
-        });
-      });
-    else
-      postWishes().then(() => {
-        getWishList().then((res) => {
-          setWishList(res.data);
-          return null;
-        });
-      });
+    wished ? deleteWish(productCode) : postWishes();
   };
 
   return (
     <WishBtnContainer id="lemon">
-      {wishList.map((v) => v.productCode).includes(productCode) ? (
+      {wished ? (
         <WishButton onClick={wishBtnOnClick} style={style}>
           <svg
             width="13"
@@ -42,6 +30,7 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, style }) => {
             viewBox="0 0 15 15"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={svgStyle}
           >
             <g clipPath="url(#clip0_1693_1347)">
               <path
@@ -62,6 +51,7 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({ productCode, style }) => {
             viewBox="0 0 15 15"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={svgStyle}
           >
             <g clipPath="url(#clip0_1693_1653)">
               <path
