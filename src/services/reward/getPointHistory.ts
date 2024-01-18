@@ -18,7 +18,6 @@ export interface getPointHistoryListResponse {
 export const getPointHistoryList = (
   pageNum: number,
 ): Promise<getPointHistoryListResponse> => {
-  console.log(`/api/v1/rewards?page=${pageNum}&pageSize=10`);
   return api
     .get(`/api/v1/rewards?page=${pageNum}&pageSize=10`)
     .then((res) => {

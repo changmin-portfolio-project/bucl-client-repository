@@ -1,19 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import Withdrawal from './body/Withdrawal';
 import PointHistory from './body/PointHistory';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   return (
-    <BodyContainer>
+    <BodyLayout>
       <Withdrawal />
       <PointHistory />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.main`
-  padding: 57px 0 72px 0;
-`;
 
 export default Body;

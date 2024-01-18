@@ -40,14 +40,10 @@ const WithdrawalContainer = styled.section`
     width: 47%;
     aspect-ratio: 1/1;
   }
-
-  width: 100%;
-  position: fixed;
-  max-width: 600px;
 `;
 
 const WithdrawalWrap = styled.div`
-  padding: 15px 7%;
+  padding: 15px ${({ theme }) => theme.paddings.base};
 `;
 
 const PointHeldBox = styled.div`

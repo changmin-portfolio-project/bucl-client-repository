@@ -36,19 +36,16 @@ const PointHistory: React.FC = () => {
   );
 };
 
-const PointHistoryContainer = styled.section`
-  padding-top: 150px;
-  padding-bottom: 50px;
-`;
+const PointHistoryContainer = styled.section``;
 
 const Title = styled.p`
-  padding: 5px 7%;
+  padding: ${({ theme }) => theme.paddings.small + ' ' + theme.paddings.base};
   font: ${({ theme }) => theme.fontSizes.Body3};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
 const PointHistoryItem = styled.div`
-  padding: 10px 7%;
+  padding: 10px ${({ theme }) => theme.paddings.base};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
