@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import ImgSlider from './body/ImgSlider';
 import ProductInfo from './body/ProductInfo';
 import DeliveryInfo from './body/DeliveryInfo';
@@ -42,7 +41,6 @@ const Body: React.FC = () => {
     }
   }, []);
 
-  console.log(data);
   return (
     <BodyLayout>
       <ImgSlider />

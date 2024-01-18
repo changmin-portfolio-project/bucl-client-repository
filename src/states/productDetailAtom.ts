@@ -16,5 +16,7 @@ export const productDetailAtom = atom<ProductData>({
     imagePaths: [],
     detailImagePaths: [],
     reviewPreviews: [],
+    ordNum: 0,
+    deadline: '',
   },
 });
