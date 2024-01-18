@@ -8,9 +8,11 @@ import WithdrawHistory from './body/WithdrawHistory';
 const Body: React.FC = () => {
   return (
     <BodyContainer>
-      <Withdraw />
-      <AccountInquiry />
-      <RegisterWithdrawalAccount />
+      <div>
+        <Withdraw />
+        <AccountInquiry />
+        <RegisterWithdrawalAccount />
+      </div>
       <WithdrawHistory />
     </BodyContainer>
   );
