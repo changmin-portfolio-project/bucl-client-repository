@@ -15,7 +15,7 @@ const ProductInfo: React.FC = () => {
     <ProductInfoContainer>
       <Title>판매 링크 생성 완료!</Title>
       <ProductItem $imageUrl={salesInfo.imagePath[0]}>
-        <Deadline style={DeadlineStyle} spanFont={'Label'} />
+        <Deadline style={DeadlineStyle} spanFont={'Label'} deadline={''} />
       </ProductItem>
       <SaveImgButton />
       <BrandName>{salesInfo.brandName}</BrandName>

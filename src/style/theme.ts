@@ -76,11 +76,6 @@ const paddings = {
   small: '8px',
   base: '7%',
 };
-
-const paddings = {
-  base: '7%',
-};
-
 const theme = {
   mainColor,
   subColor,
