@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import Body from '../conponents/affiliates/Body';
-import Header from '../conponents/affiliates/Header';
 import Footer from '../conponents/affiliates/Footer';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { isAgreedAtom, salesInfoAtom } from '../states/affiliates';
 import TabBar from '../conponents/TabBar';
 import { postSalesInfo } from '../services/affiliates/postSalesInfo';
 import { useParams } from 'react-router-dom';
+import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const AffiliatesPage: React.FC = () => {
   const param = useParams();
@@ -28,7 +28,7 @@ const AffiliatesPage: React.FC = () => {
   }, []);
   return (
     <div>
-      <Header />
+      <HeaderLayout text={isAgreed ? '' : '홍보 주의사항'} />
       {isAgreed ? (
         <>
           <Body />

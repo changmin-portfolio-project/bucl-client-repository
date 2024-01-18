@@ -1,12 +1,12 @@
 import React from 'react';
 import Body from '../../conponents/rewardWithdrawal/Body';
-import Header from '../../conponents/rewardWithdrawal/Header';
 import TabBar from '../../conponents/TabBar';
+import HeaderLayout from '../../conponents/layout/HeaderLayout';
 
 const RewardWithdrawalsPage: React.FC = () => {
   return (
     <div>
-      <Header />
+      <HeaderLayout text="인출하기" />
       <Body />
       <TabBar />
     </div>
