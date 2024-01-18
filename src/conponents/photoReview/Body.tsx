@@ -12,15 +12,15 @@ const Body: React.FC = () => {
 
   return (
     <BodyLayout>
-      <BodyContainer>
+      <PhotoReviewContainer>
         {list?.map((v, i) => <ReviewImgItem key={i} imgPath={v.imagePath} />)}
         <PhotoReviewInfiniteScroll />
-      </BodyContainer>
+      </PhotoReviewContainer>
     </BodyLayout>
   );
 };
 
-const BodyContainer = styled.section`
+const PhotoReviewContainer = styled.section`
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: 1fr 1fr;

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import ReviewItem from '../ReviewItem';
 import PhotoPreview from '../productDetail/body/PhotoPreview';
-// import { Review, getReviewList } from '../../services/review/getReviewList';
 import { useLocation, useParams } from 'react-router-dom';
 import {
   ImageData,
@@ -11,6 +9,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { reviewListAtom } from '../../states/reviewAtom';
 import ReviewInfiniteScroll from '../../hook/reviewInfiniteScroll';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   const location = useLocation();
@@ -32,7 +31,7 @@ const Body: React.FC = () => {
     }
   }, []);
   return (
-    <BodyContainer>
+    <BodyLayout>
       <PhotoPreview
         averageRating={location.state.averageRating}
         totalReviewCount={location.state.totalReviewCount}
@@ -51,12 +50,8 @@ const Body: React.FC = () => {
         />
       ))}
       <ReviewInfiniteScroll />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.section`
-  padding-top: 100px;
-`;
 
 export default Body;

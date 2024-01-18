@@ -1,21 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import PromotionMethod from './body/PromotionMethod';
 import ProductInfo from './body/ProductInfo';
 import SocialPromotion from './body/SocialPromotion';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   return (
-    <BodyContainer>
+    <BodyLayout>
       <PromotionMethod />
       <ProductInfo />
       <SocialPromotion />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.main`
-  padding: 57px 0 72px 0;
-`;
 
 export default Body;

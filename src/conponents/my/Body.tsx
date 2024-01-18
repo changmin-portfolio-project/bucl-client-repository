@@ -1,21 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import MyInfo from './body/MyInfo';
 import MenuTab from './body/MenuTab';
 import LogoutBtn from './body/LogoutBtn';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   return (
-    <BodyContainer>
+    <BodyLayout>
       <MyInfo />
       <MenuTab />
       <LogoutBtn />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.main`
-  padding-top: 57px;
-`;
 
 export default Body;

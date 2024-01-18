@@ -9,6 +9,7 @@ import {
 } from '../../states/orderHistoryAtom';
 import PurchaseConfirmPopup from './body/PurchaseConfirmPopup';
 import { isActivePopUp } from '../../utils/PopUpUtil';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   const orderHistoryList = useRecoilValue(orderHistoryListAtom);
@@ -17,7 +18,7 @@ const Body: React.FC = () => {
     isActivePopUp(!popupOpen);
   }, [popupOpen]);
   return (
-    <BodyContainer>
+    <BodyLayout>
       <OrderHistoryContainer>
         {orderHistoryList.map((v, i) => (
           <OrderHistoryItem
@@ -33,16 +34,13 @@ const Body: React.FC = () => {
       </OrderHistoryContainer>
       <OrderHistoryfiniteScroll />
       {popupOpen && <PurchaseConfirmPopup orderCode={popupOpen} />}
-    </BodyContainer>
+    </BodyLayout>
   );
 };
 
-const BodyContainer = styled.main`
-  min-height: calc(100vh - 140px);
-`;
-
 const OrderHistoryContainer = styled.div`
-  padding: 70px 7%;
+  padding: 20px 7%;
+  min-height: calc(100vh - 140px);
   background-color: ${({ theme }) => theme.grey.Grey1};
 `;
 
