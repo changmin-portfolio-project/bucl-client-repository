@@ -3,12 +3,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { productDetailAtom } from '../../../states/productDetailAtom';
 
-interface ImgSliderProps {
-  imgList?: string[];
-}
-
-const ImgSlider: React.FC<ImgSliderProps> = ({ imgList }) => {
+const ImgSlider: React.FC = () => {
   const settings = {
     dots: true,
     infinite: true,
@@ -18,10 +16,12 @@ const ImgSlider: React.FC<ImgSliderProps> = ({ imgList }) => {
     arrows: false,
   };
 
+  const productDetail = useRecoilValue(productDetailAtom);
+
   return (
     <ImgSliderContainer>
       <Slider {...settings}>
-        {imgList?.map((v, i) => <img src={v} key={i} />)}
+        {productDetail.imagePaths?.map((v, i) => <img src={v} key={i} />)}
       </Slider>
     </ImgSliderContainer>
   );

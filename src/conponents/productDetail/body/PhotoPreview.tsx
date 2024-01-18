@@ -43,7 +43,7 @@ const PhotoPreview: React.FC<PhotoPreviewProps> = ({
 };
 
 const PhotoPreviewContainer = styled.div`
-  padding: 7px 7%;
+  padding: 7px ${({ theme }) => theme.paddings.base};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 

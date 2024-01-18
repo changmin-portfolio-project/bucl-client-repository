@@ -19,6 +19,7 @@ import {
   ORD_TOT_AMT,
   CNSMR_AMT,
 } from '../../../const/CookieVars';
+import ColoredButton from '../../ColoredButton';
 
 interface OptionCountProps {
   currentOption: string;
@@ -104,7 +105,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
       </OptionBox>
       <BuyBtnBox>
         <Link to="/orders/46898469">
-          <BuyBtn onClick={setPaymentConfig}>구매하기</BuyBtn>
+          <ColoredButton onClick={setPaymentConfig}>구매하기</ColoredButton>
         </Link>
       </BuyBtnBox>
     </OptionCountContainer>
@@ -171,15 +172,6 @@ const BuyBtnBox = styled.div`
   padding: 15px 7% 40px 7%;
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
-`;
-const BuyBtn = styled.button`
-  padding: 10px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
 `;
 
 export default OptionCount;

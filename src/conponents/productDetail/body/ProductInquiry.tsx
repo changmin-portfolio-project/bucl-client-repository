@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import TextButton from '../../TextButton';
 
 const ProductInquiry: React.FC = () => {
+  const TextButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+  };
   return (
     <ProductInquiryContainer>
       <TitleAllBtnBox>
         <TitleText>상품 문의</TitleText>
-        <InquiryBtn>
+        <TextButton style={TextButtonStyle}>
           카카오톡 채널 바로가기
           <svg
             width="18"
@@ -23,7 +28,7 @@ const ProductInquiry: React.FC = () => {
               strokeLinejoin="round"
             />
           </svg>
-        </InquiryBtn>
+        </TextButton>
       </TitleAllBtnBox>
     </ProductInquiryContainer>
   );
@@ -36,20 +41,11 @@ const ProductInquiryContainer = styled.div`
 const TitleAllBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 8px 20px;
+  padding: ${({ theme }) => theme.paddings.small + ' ' + theme.paddings.base};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 const TitleText = styled.span`
   font: ${({ theme }) => theme.fontSizes.Body3};
-`;
-const InquiryBtn = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.grey.Grey6};
-  cursor: pointer;
 `;
 
 export default ProductInquiry;

@@ -72,6 +72,11 @@ const fontSizes = {
     '300 14px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
 };
 
+const paddings = {
+  small: '8px',
+  base: '7%',
+};
+
 const theme = {
   mainColor,
   subColor,
@@ -80,6 +85,7 @@ const theme = {
   warningColor,
   errorColor,
   fontSizes,
+  paddings,
 };
 
 export default theme;

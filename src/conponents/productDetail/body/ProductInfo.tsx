@@ -1,35 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import Attend from '../../Attend';
+import { useRecoilValue } from 'recoil';
+import { productDetailAtom } from '../../../states/productDetailAtom';
 
-interface ProductInfoProps {
-  name?: string;
-  brandName?: string;
-  salePrice?: number;
-  consumerPrice?: number;
-  discountRate?: number;
-  ordNum?: number;
-}
-
-const ProductInfo: React.FC<ProductInfoProps> = ({
-  name,
-  brandName,
-  salePrice,
-  consumerPrice,
-  discountRate,
-  ordNum,
-}) => {
+const ProductInfo: React.FC = () => {
+  const productDetail = useRecoilValue(productDetailAtom);
   return (
     <ProductInfoContainer>
       <BrandNameAttendBox>
-        <BrandName>{brandName}</BrandName>
-        <Attend ordNum={ordNum} />
+        <BrandName>{productDetail.brandName}</BrandName>
+        <Attend ordNum={productDetail.ordNum} />
       </BrandNameAttendBox>
-      <ProductName>{name}</ProductName>
+      <ProductName>{productDetail.name}</ProductName>
       <ProductPriceBox>
-        <DiscountRate>{discountRate && discountRate * 100}%</DiscountRate>
-        <DiscountPrice>{salePrice?.toLocaleString()}원</DiscountPrice>
-        <OriginalPrice>{consumerPrice?.toLocaleString()}원</OriginalPrice>
+        <DiscountRate>
+          {productDetail.discountRate && productDetail.discountRate * 100}%
+        </DiscountRate>
+        <DiscountPrice>
+          {productDetail.salePrice?.toLocaleString()}원
+        </DiscountPrice>
+        <OriginalPrice>
+          {productDetail.consumerPrice?.toLocaleString()}원
+        </OriginalPrice>
       </ProductPriceBox>
       <RewardInformationBtn>
         공동구매 리워드 관련 안내 (혜택 정책)
@@ -39,7 +32,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
 };
 
 const ProductInfoContainer = styled.div`
-  padding: 10px 7%;
+  padding: 10px ${({ theme }) => theme.paddings.base};
 `;
 
 const BrandNameAttendBox = styled.div`

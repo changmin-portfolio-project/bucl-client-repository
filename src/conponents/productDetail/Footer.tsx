@@ -4,15 +4,21 @@ import Deadline from '../Deadline';
 import WishBtn from '../WishBtn';
 import OptionChoose from './footer/OptionChoose';
 import { isActivePopUp } from '../../utils/PopUpUtil';
+import OutlineButton from '../OutlineButton';
+import { Link, useParams } from 'react-router-dom';
+import ColoredButton from '../ColoredButton';
 
 const Footer: React.FC = () => {
+  const param = useParams();
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
 
   const wishBtnStyle: React.CSSProperties = {
-    width: '26px',
-    height: '26px',
+    width: '2rem',
+  };
+  const svgStyle: React.CSSProperties = {
+    width: '100%',
   };
 
   const buyToggleBtnOnClick = (optionCheck: boolean) => {
@@ -26,11 +32,18 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <Deadline deadline={'2024-02-01T06:00:14'} />
       <FeatureBtnBox>
-        <WishBtn productCode={0} style={wishBtnStyle} wished={true} />
-        <BuyBtn onClick={() => buyToggleBtnOnClick(optionCheck)}>
+        <WishBtn
+          productCode={0}
+          style={wishBtnStyle}
+          svgStyle={svgStyle}
+          wished={true}
+        />
+        <ColoredButton onClick={() => buyToggleBtnOnClick(optionCheck)}>
           구매하기
-        </BuyBtn>
-        <SaleBtn>판매하기</SaleBtn>
+        </ColoredButton>
+        <OutlineButton>
+          <Link to={`/affiliates/${param.product_code}`}>판매하기</Link>
+        </OutlineButton>
       </FeatureBtnBox>
       <OptionChoose
         active={optionCheck}
@@ -53,6 +66,15 @@ const FooterContainer = styled.footer`
   padding: 0 0 3vh 0;
   width: 100%;
   background-color: white;
+  //마감이 끝났을때 활성화될 css
+  /* &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+  } */
 `;
 
 const FeatureBtnBox = styled.div`
@@ -63,21 +85,6 @@ const FeatureBtnBox = styled.div`
   & > * {
     margin: 0 4px;
   }
-`;
-const BuyBtn = styled.button`
-  padding: 10px 30px;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
-  cursor: pointer;
-  width: 100%;
-`;
-const SaleBtn = styled(BuyBtn)`
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 
 export default Footer;

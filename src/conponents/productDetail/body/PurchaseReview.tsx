@@ -2,28 +2,21 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ReviewItem from '../../ReviewItem';
 import PhotoPreview from './PhotoPreview';
-import { ReviewPreview } from '../../../services/productDetail/getProductInfo';
 import {
   ImageData,
   getPhotoReview,
 } from '../../../services/productDetail/getPhotoReview';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import TextButton from '../../TextButton';
+import { useRecoilValue } from 'recoil';
+import { productDetailAtom } from '../../../states/productDetailAtom';
 
-interface PurchaseReviewProps {
-  reviewList?: ReviewPreview[];
-  averageRating?: number;
-  totalReviewCount?: number;
-}
-
-const PurchaseReview: React.FC<PurchaseReviewProps> = ({
-  reviewList,
-  averageRating,
-  totalReviewCount,
-}) => {
+const PurchaseReview: React.FC = () => {
   const params = useParams();
 
   const [imgList, setImgList] = useState<ImageData[]>();
+  const productDetail = useRecoilValue(productDetailAtom);
 
   useEffect(() => {
     if (params.product_code)
@@ -35,34 +28,47 @@ const PurchaseReview: React.FC<PurchaseReviewProps> = ({
     <PurchaseReviewContainer>
       <TitleAllBtnBox>
         <TitleText>구매 후기</TitleText>
-        <AllBtn>
-          <Link
-            to={`/products/${params.product_code}/reviews`}
-            state={{
-              totalReviewCount: totalReviewCount,
-              averageRating: averageRating,
-            }}
-          >
-            리뷰 전체보기
-          </Link>
-        </AllBtn>
+        {productDetail.reviewPreviews &&
+          productDetail.reviewPreviews.length > 0 && (
+            <TextButton>
+              <Link
+                to={`/products/${params.product_code}/reviews`}
+                state={{
+                  totalReviewCount: productDetail.totalReviewCount,
+                  averageRating: productDetail.averageRating,
+                }}
+              >
+                리뷰 전체보기
+              </Link>
+            </TextButton>
+          )}
       </TitleAllBtnBox>
-      <PhotoPreview
-        averageRating={averageRating}
-        totalReviewCount={totalReviewCount}
-        imgList={imgList}
-      />
-      {reviewList?.map((v, i) => (
-        <ReviewItem
-          key={i}
-          imgPath={v.reviewImage}
-          starRate={v.reviewRate}
-          userImg={v.profilePath}
-          nickname={v.nickname}
-          reviewDate={v.reviewDate}
-          content={v.content}
-        />
-      ))}
+      {productDetail.reviewPreviews &&
+      productDetail.reviewPreviews.length > 0 ? (
+        <>
+          <PhotoPreview
+            averageRating={productDetail.averageRating}
+            totalReviewCount={productDetail.totalReviewCount}
+            imgList={imgList}
+          />
+          {productDetail.reviewPreviews?.map((v, i) => (
+            <ReviewItem
+              key={i}
+              imgPath={v.reviewImage}
+              starRate={v.reviewRate}
+              userImg={v.profilePath}
+              nickname={v.nickname}
+              reviewDate={v.reviewDate}
+              content={v.content}
+            />
+          ))}
+        </>
+      ) : (
+        <ExceptionText>
+          아직 후기가 없는 신상품입니다.
+          <br /> 구매 완료 후 가장 먼저 후기를 작성해주세요!
+        </ExceptionText>
+      )}
     </PurchaseReviewContainer>
   );
 };
@@ -74,18 +80,19 @@ const PurchaseReviewContainer = styled.div`
 const TitleAllBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 20px 8px 20px;
+  padding: 0 ${({ theme }) => theme.paddings.base} 8px
+    ${({ theme }) => theme.paddings.base};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 const TitleText = styled.span`
   font: ${({ theme }) => theme.fontSizes.Body3};
 `;
-const AllBtn = styled.button`
-  background-color: transparent;
-  border: none;
+
+const ExceptionText = styled.p`
+  padding: 30px 0;
+  text-align: center;
   font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.grey.Grey6};
-  cursor: pointer;
+  color: ${({ theme }) => theme.grey.Grey5};
 `;
 
 export default PurchaseReview;

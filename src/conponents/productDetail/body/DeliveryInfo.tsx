@@ -17,8 +17,8 @@ const DeliveryInfo: React.FC = () => {
 };
 
 const DeliveryContainer = styled.div`
-  margin: 8px 0;
-  padding: 7px 7%;
+  margin: ${({ theme }) => theme.paddings.small} 0;
+  padding: ${({ theme }) => theme.paddings.small + ' ' + theme.paddings.base};
   border-top: 1px solid ${({ theme }) => theme.grey.Grey2};
   border-bottom: 6px solid ${({ theme }) => theme.grey.Grey2};
 `;

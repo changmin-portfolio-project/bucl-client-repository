@@ -1,17 +1,18 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { productDetailAtom } from '../../../states/productDetailAtom';
 
-interface ProductDetailInfoProps {
-  imgList?: string[];
-}
-
-const ProductDetailInfo: React.FC<ProductDetailInfoProps> = ({ imgList }) => {
+const ProductDetailInfo: React.FC = () => {
+  const productDetail = useRecoilValue(productDetailAtom);
   return (
     <ProductDetailInfoContainer>
       <TitleAllBtnBox>
         <TitleText>상품 정보</TitleText>
       </TitleAllBtnBox>
-      <ImagesBox>{imgList?.map((v, i) => <img src={v} key={i} />)}</ImagesBox>
+      <ImagesBox>
+        {productDetail.detailImagePaths?.map((v, i) => <img src={v} key={i} />)}
+      </ImagesBox>
     </ProductDetailInfoContainer>
   );
 };
@@ -23,7 +24,7 @@ const ProductDetailInfoContainer = styled.div`
 const TitleAllBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 9px 0 9px 20px;
+  padding: ${({ theme }) => theme.paddings.small + ' ' + theme.paddings.base};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 const TitleText = styled.span`

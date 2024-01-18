@@ -6,6 +6,7 @@ import {
   optionsData,
 } from '../../../services/productDetail/getOptions';
 import { useParams } from 'react-router-dom';
+import OutlineButton from '../../OutlineButton';
 
 interface OptionChooseProps {
   active: boolean;
@@ -74,9 +75,9 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                 ))}
               </OptionBox>
               <CloseBtnBox>
-                <CloseBtn onClick={() => buyToggleBtnOnClick()}>
+                <OutlineButton onClick={buyToggleBtnOnClick}>
                   옵션 선택 닫기
-                </CloseBtn>
+                </OutlineButton>
               </CloseBtnBox>
             </>
           )}
@@ -130,14 +131,14 @@ const CloseBtnBox = styled.div`
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;
-const CloseBtn = styled.button`
-  padding: 10px 0;
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-`;
+// const CloseBtn = styled.button`
+//   padding: 10px 0;
+//   width: 100%;
+//   background-color: transparent;
+//   border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
+//   border-radius: 4px;
+//   font: ${({ theme }) => theme.fontSizes.Subhead2};
+//   color: ${({ theme }) => theme.mainColor.Orange5};
+// `;
 
 export default OptionChoose;
