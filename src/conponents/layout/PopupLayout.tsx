@@ -4,8 +4,8 @@ import styled from 'styled-components';
 interface PopupLayoutProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
-  onClick?: () => void;
 }
+
 const PopupLayout: React.FC<PopupLayoutProps> = ({ style, children }) => {
   return <PopupLayoutContainer style={style}>{children}</PopupLayoutContainer>;
 };

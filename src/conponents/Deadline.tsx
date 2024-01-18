@@ -11,6 +11,7 @@ interface TimeRemaining {
 interface DeadlineProps {
   deadline: string;
   style?: React.CSSProperties;
+  spanFont?: string;
 }
 
 const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
@@ -68,7 +69,7 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
   );
 };
 
-const DeadlineContainer = styled.div`
+const DeadlineContainer = styled.div<{ $spanFont?: string }>`
   background-color: ${({ theme }) => theme.mainColor.Orange5};
   border-radius: 12px 12px 0 0;
   display: flex;
@@ -83,7 +84,6 @@ const DeadlineContainer = styled.div`
     padding: 2px 6px;
     background-color: ${({ theme }) => theme.subColor.Yellow1};
     border-radius: 4px;
-    font-weight: 700;
     color: ${({ theme }) => theme.mainColor.Orange5};
     font-size: 14px;
   }
