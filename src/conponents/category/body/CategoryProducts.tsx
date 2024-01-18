@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ProductItem from './ProductItem';
 import { useRecoilValue } from 'recoil';
-import { getCategoryByProductList } from '../../../services/category/getCategoryProductList';
-import ProductInfiniteScroll from '../../../hook/ProductInfiniteScroll';
 import { productListByCategoriesAtom } from '../../../states/categoryAtom';
+import CategoryInfiniteScroll from '../../../hook/CategoryInfiniteScroll';
 
 const CategoryProducts: React.FC = () => {
   const list = useRecoilValue(productListByCategoriesAtom);
@@ -14,9 +13,7 @@ const CategoryProducts: React.FC = () => {
         {Array.isArray(list) &&
           list.map((v, i) => <ProductItem key={i} data={v} uniqueKey={i} />)}
       </CategoryProductsContainer>
-      <ProductInfiniteScroll
-        getCategoryByProductList={getCategoryByProductList}
-      />
+      <CategoryInfiniteScroll />
     </>
   );
 };

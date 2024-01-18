@@ -130,7 +130,6 @@ const ProductName = styled.p`
   width: 75%;
   font: ${({ theme }) => theme.fontSizes.Body3};
   font-weight: 500;
-
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
