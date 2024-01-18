@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { postWishes } from '../../../services/home/postWishes';
+import { postWishes } from '../../../services/wish/postWishes';
 import { productListAtom } from '../../../states/productAtom';
 import { useSetRecoilState } from 'recoil';
 
