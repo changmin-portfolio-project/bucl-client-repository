@@ -12,8 +12,8 @@ const CategoryProducts: React.FC = () => {
       <CategoryProductsContainer>
         {Array.isArray(list) &&
           list.map((v, i) => <ProductItem key={i} data={v} uniqueKey={i} />)}
+        <CategoryInfiniteScroll />
       </CategoryProductsContainer>
-      <CategoryInfiniteScroll />
     </>
   );
 };

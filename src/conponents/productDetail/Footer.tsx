@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <Deadline deadline={'2024-02-01T06:00:14'} />
       <FeatureBtnBox>
-        <WishBtn productCode={0} wished={false} style={wishBtnStyle} />
+        <WishBtn productCode={0} style={wishBtnStyle} wished={true} />
         <BuyBtn onClick={() => buyToggleBtnOnClick(optionCheck)}>
           구매하기
         </BuyBtn>

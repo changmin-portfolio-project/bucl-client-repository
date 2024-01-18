@@ -1,6 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
+import { putProfileImg } from '../../../services/my/putProfileImg';
+import { patchDefaultImg } from '../../../services/my/patchDefaultImg';
+import { myUserInfoAtom } from '../../../states/myAtom';
+import { useSetRecoilState } from 'recoil';
 
 interface EditProfilePopupProps {
   setPopupOpen: Dispatch<SetStateAction<boolean>>;
@@ -10,6 +14,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
   setPopupOpen,
 }) => {
   const [registerPhoto, setRegisterPhoto] = useState(false);
+  const setUserInfo = useSetRecoilState(myUserInfoAtom);
 
   const deleteBtnOnClick = () => {
     setPopupOpen(false);
@@ -18,6 +23,12 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
   const registerPhotoOnClick = () => {
     setRegisterPhoto(true);
   };
+  const registerBasicImgOnClick = () => {
+    patchDefaultImg().then((res) => {
+      setUserInfo((prev) => ({ ...prev, profilePath: res }));
+      deleteBtnOnClick();
+    });
+  };
 
   const galleryOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -25,7 +36,12 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     }
 
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    formData.append('profileImage', e.target.files[0]);
+    putProfileImg(formData).then((res) => {
+      // getUserProfile();
+      setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
+      deleteBtnOnClick();
+    });
   };
   return (
     <PopupLayout>
@@ -60,7 +76,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             <RegisterPhoto onClick={registerPhotoOnClick}>
               프로필 사진 등록
             </RegisterPhoto>
-            <RegisterBasicImg>기본 이미지로 등록</RegisterBasicImg>
+            <RegisterBasicImg onClick={registerBasicImgOnClick}>
+              기본 이미지로 등록
+            </RegisterBasicImg>
           </>
         )}
       </EditProfilePopupContainer>

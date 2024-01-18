@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getPoint } from '../../../services/my/getPoint';
-import { UserData, getUserProfile } from '../../../services/my/getUserProfile';
+import { getUserProfile } from '../../../services/my/getUserProfile';
 import EditProfilePopup from './EditProfilePopup';
+import { useRecoilState } from 'recoil';
+import { myUserInfoAtom } from '../../../states/myAtom';
 
 const MyInfo: React.FC = () => {
-  const [point, setPoint] = useState<number>();
-  const [userInfo, setUserInfo] = useState<UserData>();
+  const [point, setPoint] = useState<number>(0);
+  const [userInfo, setUserInfo] = useRecoilState(myUserInfoAtom);
   useEffect(() => {
     getUserProfile().then((res) => {
       setUserInfo(res.data);
     });
     getPoint().then((res) => {
-      setPoint(res.data.rewardSum);
+      setPoint(res.data);
     });
   }, []);
 
@@ -21,7 +23,6 @@ const MyInfo: React.FC = () => {
 
   const EditBtnOnClick = () => {
     setPopupOpen(true);
-    console.log('dd');
   };
 
   return (
@@ -36,7 +37,7 @@ const MyInfo: React.FC = () => {
       {popupOpen && <EditProfilePopup setPopupOpen={setPopupOpen} />}
       <PointBox>
         <PointTitle>누적포인트</PointTitle>
-        <PointText>{point?.toLocaleString()}P</PointText>
+        <PointText>{point.toLocaleString()}P</PointText>
       </PointBox>
     </MyInfoContainer>
   );
@@ -98,10 +99,10 @@ const PointBox = styled.div`
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 8px;
   font: ${({ theme }) => theme.fontSizes.Body4};
+  color: ${({ theme }) => theme.grey.Grey8};
 `;
 const PointTitle = styled.span`
   font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 const PointText = styled(PointTitle)`
   font: ${({ theme }) => theme.fontSizes.Subhead4};

@@ -17,6 +17,9 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   ordNum,
   wishId,
 }) => {
+  const svgStyle: React.CSSProperties = {
+    width: '23px',
+  };
   return (
     <ProductSubInfoContainer>
       <ProductSubInfoItem>
@@ -28,6 +31,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
           productCode={productCode}
           wished={wished}
           wishId={wishId}
+          svgStyle={svgStyle}
         />
       </ProductSubInfoItem>
     </ProductSubInfoContainer>

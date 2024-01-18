@@ -7,8 +7,9 @@ import { HomeProduct } from '../../../services/home/getCategoryProductList';
 import Attend from '../../Attend';
 import Deadline from '../../Deadline';
 import theme from '../../../style/theme';
-import HomeWishBtn from './HomeWishBtn';
+
 import { saveBeforePos } from '../../../utils/HomeUtil';
+import HomeWishBtn from './HomeWishBtn';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -71,9 +72,9 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
         <HomeWishBtn
           wishId={uniqueKey}
           productCode={data.productCode}
-          wished={data.wished}
           style={wishBtnStyle}
           svgStyle={svgStyle}
+          wished={data.wished}
         />
       </ProductImgBox>
     </ProductContainer>

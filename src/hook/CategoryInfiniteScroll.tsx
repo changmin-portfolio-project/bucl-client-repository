@@ -68,7 +68,9 @@ const CategoryInfiniteScroll: React.FC = () => {
 };
 
 const ScrollBottomContainer = styled.div`
-  margin: 0px auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export default CategoryInfiniteScroll;

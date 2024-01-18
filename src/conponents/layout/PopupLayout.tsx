@@ -6,17 +6,8 @@ interface PopupLayoutProps {
   children?: React.ReactNode;
   onClick?: () => void;
 }
-
-const PopupLayout: React.FC<PopupLayoutProps> = ({
-  style,
-  children,
-  onClick,
-}) => {
-  return (
-    <PopupLayoutContainer style={style} onClick={onClick && onClick}>
-      {children}
-    </PopupLayoutContainer>
-  );
+const PopupLayout: React.FC<PopupLayoutProps> = ({ style, children }) => {
+  return <PopupLayoutContainer style={style}>{children}</PopupLayoutContainer>;
 };
 
 const PopupLayoutContainer = styled.header`

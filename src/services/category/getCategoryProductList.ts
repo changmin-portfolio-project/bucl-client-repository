@@ -3,6 +3,7 @@ import { api } from '../index';
 // Category별 상품 List 가져오기 api response type 정의
 export interface Product {
   productCode: number;
+  brandName: string;
   name: string;
   imagePath: string;
   salePrice: number;
@@ -23,7 +24,6 @@ export const getCategoryByProductList = (
   return api
     .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
     .catch((error) => {

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import LogoutPopup from './LogoutPopup';
 
 const LogoutBtn: React.FC = () => {
+  const [popupOpen, setPopupOpen] = useState(false);
+  const handleLogout = () => {
+    setPopupOpen(true);
+  };
   return (
     <LogoutBtnContainer>
-      <button>로그아웃</button>
+      <button onClick={handleLogout}>로그아웃</button>
+      {popupOpen && <LogoutPopup setPopupOpen={setPopupOpen} />}
     </LogoutBtnContainer>
   );
 };

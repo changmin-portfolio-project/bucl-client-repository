@@ -1,19 +1,14 @@
 import { api } from '../index';
 
 export interface rewardSum {
-  rewardSum: number;
-}
-
-export interface getPointResponse {
-  data: rewardSum;
+  data: number;
 }
 
 // 유저 포인트 가져오기
-export const getPoint = (): Promise<getPointResponse> => {
+export const getPoint = (): Promise<rewardSum> => {
   return api
     .get(`/api/v1/rewards/crnt-amt`)
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {
