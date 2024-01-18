@@ -5,15 +5,18 @@ import ReviewImgItem from '../ReviewImgItem';
 import { useRecoilValue } from 'recoil';
 import { photoReviewListAtom } from '../../states/photoReviewAtom';
 import PhotoReviewInfiniteScroll from '../../hook/PhotoReviewInfiniteScroll';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   const list = useRecoilValue<ImageData[]>(photoReviewListAtom);
 
   return (
-    <BodyContainer>
-      {list?.map((v, i) => <ReviewImgItem key={i} imgPath={v.imagePath} />)}
-      <PhotoReviewInfiniteScroll />
-    </BodyContainer>
+    <BodyLayout>
+      <BodyContainer>
+        {list?.map((v, i) => <ReviewImgItem key={i} imgPath={v.imagePath} />)}
+        <PhotoReviewInfiniteScroll />
+      </BodyContainer>
+    </BodyLayout>
   );
 };
 
@@ -22,7 +25,7 @@ const BodyContainer = styled.section`
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  padding: 100px 7% 30px 7%;
+  padding: 20px ${({ theme }) => theme.paddings.base};
 `;
 
 export default Body;

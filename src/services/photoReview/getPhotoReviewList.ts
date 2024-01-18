@@ -13,9 +13,6 @@ export const getPhotoReviewList = (
   product_code: string,
   pageNum: number,
 ): Promise<getPhotoReviewListResponse> => {
-  console.log(
-    `/api/v1/products/${product_code}/photo-reviews?page=${pageNum}&pageSize=10`,
-  );
   return api
     .get(
       `/api/v1/products/${product_code}/photo-reviews?page=${pageNum}&pageSize=10`,

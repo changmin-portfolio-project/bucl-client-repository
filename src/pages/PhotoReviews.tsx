@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Header from '../conponents/photoReview/Header';
 import Body from '../conponents/photoReview/Body';
+import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const PhotoReviewsPage: React.FC = () => {
   useEffect(() => {
@@ -9,7 +9,7 @@ const PhotoReviewsPage: React.FC = () => {
   }, []);
   return (
     <PhotoReviewPageContainer>
-      <Header />
+      <HeaderLayout text="포토리뷰 모아보기" />
       <Body />
     </PhotoReviewPageContainer>
   );

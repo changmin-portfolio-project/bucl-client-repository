@@ -25,19 +25,17 @@ const PhotoReviewInfiniteScroll: React.FC = () => {
   const callback = () => {
     if (param.product_code)
       getPhotoReviewList(param.product_code, phtoReviewPageNum).then((res) => {
-        console.log(res);
         setPhotoReviewList((prev) => [...prev, ...res.data]);
         setReviewPageNum((prev) => prev + 1);
       });
   };
   useEffect(() => {
     if (inView) {
-      console.log(inView, '무한 스크롤 요청 🎃'); // 실행할 함수
       callback();
     }
   }, [inView]);
 
-  return <ScrollBottomContainer ref={ref}>무한 스크롤</ScrollBottomContainer>;
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div``;
