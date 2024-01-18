@@ -47,9 +47,4 @@ const Title = styled.h2`
   font: ${({ theme }) => theme.fontSizes.Subhead2};
 `;
 
-const Title = styled.h2`
-  text-align: center;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-`;
-
 export default HeaderLayout;
