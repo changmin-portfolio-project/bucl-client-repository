@@ -75,7 +75,12 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                 ))}
               </OptionBox>
               <CloseBtnBox>
-                <OutlineButton onClick={buyToggleBtnOnClick}>
+                <OutlineButton
+                  border="Orange5"
+                  color="Orange5"
+                  font="Subhead2"
+                  onClick={buyToggleBtnOnClick}
+                >
                   옵션 선택 닫기
                 </OutlineButton>
               </CloseBtnBox>
@@ -102,8 +107,6 @@ const OptionChooseContainer = styled.div`
 `;
 
 const OptionBox = styled.div`
-  /* position: absolute;
-  bottom: 0; */
   padding: 0 7%;
   width: calc(100% - 14%);
   max-height: 50vh;
@@ -131,14 +134,5 @@ const CloseBtnBox = styled.div`
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;
-// const CloseBtn = styled.button`
-//   padding: 10px 0;
-//   width: 100%;
-//   background-color: transparent;
-//   border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-//   border-radius: 4px;
-//   font: ${({ theme }) => theme.fontSizes.Subhead2};
-//   color: ${({ theme }) => theme.mainColor.Orange5};
-// `;
 
 export default OptionChoose;

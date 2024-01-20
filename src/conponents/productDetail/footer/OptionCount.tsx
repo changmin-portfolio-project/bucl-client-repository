@@ -105,7 +105,13 @@ const OptionCount: React.FC<OptionCountProps> = ({
       </OptionBox>
       <BuyBtnBox>
         <Link to="/orders/46898469">
-          <ColoredButton onClick={setPaymentConfig}>구매하기</ColoredButton>
+          <ColoredButton
+            color="white"
+            font="Subhead2"
+            onClick={setPaymentConfig}
+          >
+            구매하기
+          </ColoredButton>
         </Link>
       </BuyBtnBox>
     </OptionCountContainer>

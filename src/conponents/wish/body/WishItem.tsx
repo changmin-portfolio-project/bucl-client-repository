@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ImgItem from '../../ReviewImgItem';
 import { BsStarFill } from 'react-icons/bs';
 import { deleteWish } from '../../../services/wish/deleteWish';
+import OutlineButton from '../../OutlineButton';
 
 interface WishItemProps {
   brandName?: string;
@@ -30,6 +31,13 @@ const WishItem: React.FC<WishItemProps> = ({
   const deleteBtnOnClick = () => {
     if (productCode) deleteWish(productCode);
   };
+
+  const OutlineButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'flex-end',
+    width: 'auto',
+    padding: '0px 10px',
+  };
   return (
     <WishItemContainer>
       <ImgItem style={imgItemStyle} imgPath={imgPath} />
@@ -45,7 +53,15 @@ const WishItem: React.FC<WishItemProps> = ({
               <TotalReviewCount>({totalReviewCount})</TotalReviewCount>
             </RatingBox>
           </PriceAndRatingBox>
-          <DeleteBtn onClick={() => deleteBtnOnClick()}>삭제</DeleteBtn>
+          <OutlineButton
+            style={OutlineButtonStyle}
+            border="Grey4"
+            font="Body1"
+            color="Grey8"
+            onClick={() => deleteBtnOnClick()}
+          >
+            삭제
+          </OutlineButton>
         </PriceAndRatingAndDeleteBtnBox>
       </ProductInfoBox>
     </WishItemContainer>
@@ -108,17 +124,6 @@ const RatingCount = styled.span`
 `;
 const TotalReviewCount = styled(RatingCount)`
   font-weight: 500;
-`;
-
-const DeleteBtn = styled.button`
-  display: flex;
-  align-items: flex-end;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.grey.Grey4};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  color: ${({ theme }) => theme.grey.Grey8};
-  cursor: pointer;
 `;
 
 export default WishItem;

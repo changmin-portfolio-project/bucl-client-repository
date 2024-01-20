@@ -1,20 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import ColoredButton from '../ColoredButton';
 
 const Complete: React.FC = () => {
+  const ColoredButtonStyle: React.CSSProperties = {
+    padding: '13px 0',
+  };
   return (
     <CompleteContainer>
       <Text>
         <span>리뷰 작성</span>이 완료되었습니다.
       </Text>
       <BtnBox>
-        <ExploreMoreBtn>
+        <ColoredButton font="Subhead1" color="white" style={ColoredButtonStyle}>
           <Link to={'/'}>더 둘러보기</Link>
-        </ExploreMoreBtn>
-        <OrderHistoryBtn>
+        </ColoredButton>
+        <ColoredButton
+          font="Subhead1"
+          color="white"
+          backgroundColor="Grey8"
+          style={ColoredButtonStyle}
+        >
           <Link to={'/my/orders'}>주문 내역</Link>
-        </OrderHistoryBtn>
+        </ColoredButton>
       </BtnBox>
     </CompleteContainer>
   );
@@ -40,20 +49,9 @@ const BtnBox = styled.div`
   justify-content: space-between;
   padding: 25px 7% 0 7%;
   width: calc(100% - 14%);
-`;
-const ExploreMoreBtn = styled.button`
-  padding: 13px 0;
-  width: 48%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead1};
-  a {
-    color: white;
+  button {
+    flex: 0.85;
   }
-`;
-const OrderHistoryBtn = styled(ExploreMoreBtn)`
-  background-color: ${({ theme }) => theme.grey.Grey8};
 `;
 
 export default Complete;

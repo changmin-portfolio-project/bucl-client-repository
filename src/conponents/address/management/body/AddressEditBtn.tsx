@@ -2,38 +2,39 @@ import React from 'react';
 import styled from 'styled-components';
 import { editRegistrationModeAtom } from '../../../../states/addressAtom';
 import { useSetRecoilState } from 'recoil';
+import ColoredButton from '../../../ColoredButton';
 
 const AddressEditBtn: React.FC = () => {
   const setEditRegistrationMode = useSetRecoilState(editRegistrationModeAtom);
   const addressAddBtnOnClick = () => {
     setEditRegistrationMode(true);
   };
+
+  const ColoredButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
   return (
     <AddressEditBtnContainer>
-      <EditBtn onClick={addressAddBtnOnClick}>
+      <ColoredButton
+        style={ColoredButtonStyle}
+        color="white"
+        font="Subhead2"
+        onClick={addressAddBtnOnClick}
+      >
         <img src="/assets/PlusIcon.svg" />
         배송지 수정하기
-      </EditBtn>
+      </ColoredButton>
     </AddressEditBtnContainer>
   );
 };
 
 const AddressEditBtnContainer = styled.div`
   padding-bottom: 10px;
-`;
-const EditBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
   img {
     margin-bottom: -2px;
   }
 `;
+
 export default AddressEditBtn;

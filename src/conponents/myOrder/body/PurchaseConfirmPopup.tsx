@@ -8,6 +8,8 @@ import {
 } from '../../../states/orderHistoryAtom';
 import { putOrderConfirm } from '../../../services/myOrder/putOrderConfirm';
 import { OrderDto } from '../../../services/myOrder/getOrderHistory';
+import OutlineButton from '../../OutlineButton';
+import ColoredButton from '../../ColoredButton';
 
 interface PurchaseConfirmPopupProps {
   orderCode: string;
@@ -29,7 +31,7 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
   };
   const confirmBtnOnClick = () => {
     console.log(orderCode);
-    putOrderConfirm(orderCode).then(() => {
+    putOrderConfirm('imp_508065136828').then(() => {
       setConfirmBoolean(true);
       setOrderHistoryList(
         [...orderHistoryList].map((item) => {
@@ -44,6 +46,14 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
       );
     });
   };
+
+  const OutlineButtonStyle: React.CSSProperties = {
+    padding: '8px 0',
+  };
+  const ColoredButtonStyle: React.CSSProperties = {
+    padding: '8px 0',
+    height: '100%',
+  };
   return (
     <PopupLayout key={orderCode}>
       <PurchaseConfirmPopupBox>
@@ -54,16 +64,35 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
         </ExplainText>
         <CancelConfirmBtnBox>
           {confirmBoolean ? (
-            <AfterConfirmBtn onClick={purchaseConfirmBtnOnClick}>
+            <ColoredButton
+              onClick={purchaseConfirmBtnOnClick}
+              font="Subhead2"
+              color="white"
+            >
               확인
-            </AfterConfirmBtn>
+            </ColoredButton>
           ) : (
             <>
               <CancelBtnBox>
-                <CancelBtn onClick={purchaseConfirmBtnOnClick}>취소</CancelBtn>
+                <OutlineButton
+                  onClick={purchaseConfirmBtnOnClick}
+                  style={OutlineButtonStyle}
+                  font="Subhead2"
+                  border="Orange5"
+                  color="Orange5"
+                >
+                  취소
+                </OutlineButton>
               </CancelBtnBox>
               <ConfirmBtnBox>
-                <ConfirmBtn onClick={confirmBtnOnClick}>확인</ConfirmBtn>
+                <ColoredButton
+                  style={ColoredButtonStyle}
+                  onClick={confirmBtnOnClick}
+                  font="Subhead2"
+                  color="white"
+                >
+                  확인
+                </ColoredButton>
               </ConfirmBtnBox>
             </>
           )}
@@ -94,29 +123,5 @@ const CancelBtnBox = styled.div`
   width: 48%;
 `;
 const ConfirmBtnBox = styled(CancelBtnBox)``;
-const CancelBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  margin-right: -10px;
-  padding: 8px 0;
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-  cursor: pointer;
-  svg {
-    path {
-      stroke: ${({ theme }) => theme.mainColor.Orange5};
-    }
-  }
-`;
-const ConfirmBtn = styled(CancelBtn)`
-  color: white;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-`;
-
-const AfterConfirmBtn = styled(ConfirmBtn)``;
 
 export default PurchaseConfirmPopup;

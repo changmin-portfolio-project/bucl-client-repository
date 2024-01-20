@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { ORD_TOT_AMT, RWD_CRNT_AMT } from '../../../../const/CookieVars';
 import { MIN_ORD_AMT } from '../../../../const/Payment';
 import { cookieNumUtil } from '../../../../utils/UndefinedProcessUtl';
+import OutlineButton from '../../../OutlineButton';
 
 const OrderPoint: React.FC = () => {
   const cookies = new Cookies();
@@ -48,6 +49,14 @@ const OrderPoint: React.FC = () => {
       }
     }
   };
+
+  const OutlineButtonStyle: React.CSSProperties = {
+    flex: '0.2',
+    marginLeft: '10px',
+    padding: '0 5px',
+    width: '90px',
+    height: '28px',
+  };
   return (
     <StyledOrderPointContainer>
       <PointBody3>포인트 사용</PointBody3>
@@ -59,7 +68,15 @@ const OrderPoint: React.FC = () => {
             <PointInputUnit>원</PointInputUnit>
           </PointInputSubItem>
         </PointInputItem>
-        <PointAllUseBtn onClick={useTotRwdUseAmt}>모두 사용</PointAllUseBtn>
+        <OutlineButton
+          onClick={useTotRwdUseAmt}
+          style={OutlineButtonStyle}
+          border="Grey5"
+          font="Body1"
+          color="black"
+        >
+          모두 사용
+        </OutlineButton>
       </PointInputContainer>
       <PointOwnAmt>
         사용 가능 포인트{' '}
@@ -82,6 +99,7 @@ const PointInputContainer = styled.div`
 
 const PointInputItem = styled.div`
   display: flex;
+  flex: 0.8;
   border-bottom: 1px solid #eaecef;
   width: 100%;
   justify-content: space-between;
@@ -111,18 +129,6 @@ const PointInput = styled.input`
 const PointInputUnit = styled.span`
   font: ${({ theme }) => theme.fontSizes.Body2};
   padding-left: 5px;
-`;
-
-const PointAllUseBtn = styled.button`
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  border-radius: 4px;
-  border: 1px solid var(--grey-5, #acb5bd);
-  background: #fff;
-  width: 60px;
-  height: 28px;
-  flex-shrink: 0;
-  margin-left: 10px;
-  color: var(--black, #000);
 `;
 
 const PointBody3 = styled.div`

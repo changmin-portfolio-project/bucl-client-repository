@@ -4,6 +4,9 @@ import ReviewImgItem from '../../ReviewImgItem';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
 import { purchaseConfirmPopupAtom } from '../../../states/orderHistoryAtom';
 import { useSetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
+import TextButton from '../../TextButton';
+import OutlineButton from '../../OutlineButton';
 
 interface OrderHistoryItemProps {
   productName: string;
@@ -29,30 +32,41 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
     setPopupOpen(orderCode);
   };
 
+  const TextButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '-10px',
+  };
+  const OutlineButtonStyle: React.CSSProperties = {
+    padding: '6px 10px',
+  };
+
   return (
     <OrderHistoryItemContainer>
       <DateOrderDetailBtnBox>
         <DateBox>
           {convertDtStrToDStr(orderDate ?? '날짜 표기 할 수 없습니다.')}
         </DateBox>
-        <OrderDetailBtn>
-          주문상세
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 18L15 12L9 6"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </OrderDetailBtn>
+        <TextButton font="Body1" style={TextButtonStyle} color="Orange5">
+          <Link to={`/my/orders/${orderCode}`}>
+            주문상세
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 18L15 12L9 6"
+                stroke="black"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </TextButton>
       </DateOrderDetailBtnBox>
       <ProductInfoBox>
         <ProductImgBox>
@@ -68,19 +82,37 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
       </ProductInfoBox>
       <MenuBtnBox>
         <DeliveryStatusBtnBox>
-          <DeliveryStatusBtn>배송현황</DeliveryStatusBtn>
+          <OutlineButton
+            style={OutlineButtonStyle}
+            font="Body2"
+            border="Orange5"
+            color="Orange5"
+          >
+            배송현황
+          </OutlineButton>
         </DeliveryStatusBtnBox>
         <WriteReviewBtnBox>
           {confirmed ? (
-            <WriteReviewBtn>리뷰작성</WriteReviewBtn>
+            <OutlineButton
+              style={OutlineButtonStyle}
+              border="Grey4"
+              color="Grey8"
+              font="Body2"
+            >
+              리뷰작성
+            </OutlineButton>
           ) : (
-            <PurchaseConfirmBtn
+            <OutlineButton
+              style={OutlineButtonStyle}
               onClick={() => {
                 purchaseConfirmBtnOnClick(orderCode);
               }}
+              border="Grey4"
+              color="Grey8"
+              font="Body2"
             >
               구매확정
-            </PurchaseConfirmBtn>
+            </OutlineButton>
           )}
         </WriteReviewBtnBox>
       </MenuBtnBox>
@@ -101,25 +133,21 @@ const DateOrderDetailBtnBox = styled.div`
   align-items: center;
   padding: 0 10px;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
-`;
-const DateBox = styled.div`
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  color: ${({ theme }) => theme.grey.Grey6};
-`;
-const OrderDetailBtn = styled.button`
-  display: flex;
-  align-items: center;
-  margin-right: -10px;
-  background-color: transparent;
-  border: none;
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-  cursor: pointer;
+  button {
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
   svg {
     path {
       stroke: ${({ theme }) => theme.mainColor.Orange5};
     }
   }
+`;
+const DateBox = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  color: ${({ theme }) => theme.grey.Grey6};
 `;
 
 const ProductInfoBox = styled.div`
@@ -163,21 +191,7 @@ const MenuBtnBox = styled.div`
 const DeliveryStatusBtnBox = styled.div`
   width: 48%;
 `;
-const DeliveryStatusBtn = styled(OrderDetailBtn)`
-  justify-content: center;
-  padding: 6px 10px;
-  width: 100%;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-`;
 
 const WriteReviewBtnBox = styled(DeliveryStatusBtnBox)``;
-const WriteReviewBtn = styled(DeliveryStatusBtn)`
-  border: 1px solid ${({ theme }) => theme.grey.Grey4};
-  color: ${({ theme }) => theme.grey.Grey8};
-`;
-const PurchaseConfirmBtn = styled(WriteReviewBtn)``;
 
 export default OrderHistoryItem;

@@ -1,13 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import OutlineButton from '../../OutlineButton';
 
 const SocialPromotion: React.FC = () => {
+  const OutlineButtonStyle: React.CSSProperties = {
+    marginBottom: '20px',
+    padding: '5px 0',
+    width: '65%',
+  };
   return (
     <SocialPromotionContainer>
       <Title>
         <span>SNS</span>에 바로 홍보해보세요!
       </Title>
-      <ShareBtn>지금 공유하기</ShareBtn>
+      <OutlineButton
+        style={OutlineButtonStyle}
+        font="Body1"
+        border="Orange5"
+        color="Orange5"
+      >
+        지금 공유하기
+      </OutlineButton>
     </SocialPromotionContainer>
   );
 };
@@ -27,16 +40,6 @@ const Title = styled.p`
   span {
     color: ${({ theme }) => theme.mainColor.Orange5};
   }
-`;
-const ShareBtn = styled.button`
-  padding: 5px 0;
-  width: 65%;
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 700;
-  color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 
 export default SocialPromotion;
