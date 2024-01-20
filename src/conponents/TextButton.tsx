@@ -1,31 +1,58 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 
 interface TextButtonProps {
   onClick?: () => void;
   children?: React.ReactNode;
   style?: React.CSSProperties;
+  font?: string;
+  color?: string;
 }
 
 const TextButton: React.FC<TextButtonProps> = ({
   onClick,
   children,
   style,
+  font,
+  color,
 }) => {
   return (
-    <TextBtn style={style} onClick={onClick}>
+    <TextBtn
+      style={style}
+      onClick={onClick}
+      $font={font ? font : ''}
+      $color={color ? color : ''}
+    >
       {children}
     </TextBtn>
   );
 };
 
-const TextBtn = styled.button`
+const TextBtn = styled.button<{ $font: string; $color: string }>`
   background-color: transparent;
   border: none;
-  font: ${({ theme }) => theme.fontSizes.Body2};
+  /* font 변경 부분 */
+  font: ${(props) =>
+    props.$font
+      ? ({ theme }) =>
+          theme.fontSizes[props.$font as keyof DefaultTheme['fontSizes']]
+      : ({ theme }) => theme.fontSizes.Subhead2};
   color: ${({ theme }) => theme.grey.Grey5};
+  /* color 변경 부분 */
+  color: ${(props) => {
+    if (props.$color.includes('Orange'))
+      return ({ theme }) =>
+        theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+    else return ({ theme }) => theme.grey.Grey5;
+  }};
   a {
-    color: ${({ theme }) => theme.grey.Grey5};
+    /* a태그 color 변경 부분 */
+    color: ${(props) => {
+      if (props.$color.includes('Orange'))
+        return ({ theme }) =>
+          theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+      else return ({ theme }) => theme.grey.Grey5;
+    }};
   }
 `;
 
