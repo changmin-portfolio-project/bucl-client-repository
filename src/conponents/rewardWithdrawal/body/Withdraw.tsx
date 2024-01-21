@@ -64,13 +64,13 @@ const Withdraw: React.FC = () => {
 const WithdrawContainer = styled.section``;
 
 const Title = styled.p`
-  padding: 8px 7%;
+  padding: 8px ${({ theme }) => theme.paddings.base};
   font: ${({ theme }) => theme.fontSizes.Body3};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
 const WithdrawBox = styled.div`
-  padding: 10px 7%;
+  padding: 10px ${({ theme }) => theme.paddings.base};
 `;
 
 const PointsHeldBox = styled.div``;

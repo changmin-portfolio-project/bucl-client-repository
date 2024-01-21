@@ -106,8 +106,9 @@ const PurchaseConfirmPopupBox = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 15px 7% 40px 7%;
-  width: calc(100% - 14%);
+  padding: 15px ${({ theme }) => theme.paddings.base} 40px
+    ${({ theme }) => theme.paddings.base};
+  width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   background-color: white;
 `;
 const ExplainText = styled.p`

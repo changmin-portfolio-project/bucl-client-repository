@@ -107,8 +107,8 @@ const OptionChooseContainer = styled.div`
 `;
 
 const OptionBox = styled.div`
-  padding: 0 7%;
-  width: calc(100% - 14%);
+  padding: 0 ${({ theme }) => theme.paddings.base};
+  width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   max-height: 50vh;
   overflow-y: auto;
   background-color: white;
@@ -130,7 +130,8 @@ const OptionName = styled.span`
 `;
 
 const CloseBtnBox = styled.div`
-  padding: 15px 7% 40px 7%;
+  padding: 15px ${({ theme }) => theme.paddings.base} 40px
+    ${({ theme }) => theme.paddings.base};
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;

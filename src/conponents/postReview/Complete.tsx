@@ -47,8 +47,9 @@ const Text = styled.p`
 const BtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 25px 7% 0 7%;
-  width: calc(100% - 14%);
+  padding: 25px ${({ theme }) => theme.paddings.base} 0
+    ${({ theme }) => theme.paddings.base};
+  width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   button {
     flex: 0.85;
   }

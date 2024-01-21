@@ -22,7 +22,7 @@ const AccountInquiryContainer = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 7%;
+  padding: 8px ${({ theme }) => theme.paddings.base};
   border-top: 1px solid ${({ theme }) => theme.grey.Grey2};
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
   a {

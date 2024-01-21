@@ -23,7 +23,7 @@ const Body: React.FC = () => {
 };
 
 const PostReviewContainer = styled.div`
-  padding: 0 7% 0 7%;
+  padding: 0 ${({ theme }) => theme.paddings.base};
 `;
 
 const HelpText = styled.p`

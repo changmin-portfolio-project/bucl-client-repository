@@ -121,7 +121,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
 const OptionCountContainer = styled.div``;
 
 const OptionBox = styled.div`
-  padding: 20px 7%;
+  padding: 20px ${({ theme }) => theme.paddings.base};
   background-color: white;
 `;
 const OptionItem = styled.div`
@@ -175,7 +175,8 @@ const PriceText = styled.span`
 `;
 
 const BuyBtnBox = styled.div`
-  padding: 15px 7% 40px 7%;
+  padding: 15px ${({ theme }) => theme.paddings.base} 40px
+    ${({ theme }) => theme.paddings.base};
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;

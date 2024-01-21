@@ -70,7 +70,7 @@ const WishItem: React.FC<WishItemProps> = ({
 
 const WishItemContainer = styled.div`
   display: flex;
-  padding: 10px 7%;
+  padding: 10px ${({ theme }) => theme.paddings.base};
   height: fit-content;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;

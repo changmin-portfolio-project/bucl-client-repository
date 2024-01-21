@@ -39,7 +39,7 @@ const Body: React.FC = () => {
 };
 
 const OrderHistoryContainer = styled.div`
-  padding: 20px 7%;
+  padding: 20px ${({ theme }) => theme.paddings.base};
   min-height: calc(100vh - 140px);
   background-color: ${({ theme }) => theme.grey.Grey1};
 `;
