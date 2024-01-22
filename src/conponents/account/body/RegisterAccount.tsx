@@ -48,6 +48,9 @@ const RegisterAccount: React.FC = () => {
           </svg>
         </BankerSelectBox>
       </AccountInputbankerBox>
+      <ConfirmBtnBox>
+        <ConfirmBtn $active={accountNum.length > 0}>확인</ConfirmBtn>
+      </ConfirmBtnBox>
     </RegisterAccountContainer>
   );
 };
@@ -98,6 +101,26 @@ const BankerSelect = styled.select`
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey5};
   font: ${({ theme }) => theme.fontSizes.Body3};
   appearance: none;
+`;
+
+const ConfirmBtnBox = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px 7% 40px 7%;
+  width: calc(100% - 14%);
+  border-top: 1px solid ${({ theme }) => theme.grey.Grey2};
+`;
+const ConfirmBtn = styled.button<{ $active: boolean }>`
+  position: relative;
+  padding: 10px 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.mainColor.Orange5};
+  border: none;
+  border-radius: 4px;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  color: white;
+  ${(props) => !props.$active && 'opacity: 0.6'};
 `;
 
 export default RegisterAccount;
