@@ -8,10 +8,14 @@ interface WishesResponse {
   };
 }
 
+interface PostWishesReq {
+  productCode: number;
+}
+
 // 상품 찜하기
-export const postWishes = (): Promise<WishesResponse> => {
+export const postWishes = (data: PostWishesReq): Promise<WishesResponse> => {
   return api
-    .post(`/api/v1/wishes`)
+    .post(`/api/v1/wishes`, data)
     .then((res) => {
       return res;
     })

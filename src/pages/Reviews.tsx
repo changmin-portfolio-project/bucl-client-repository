@@ -5,6 +5,9 @@ import Body from '../conponents/review/Body';
 import TopBtn from '../conponents/TopBtn';
 
 const ReviewsPage: React.FC = () => {
+  const ReviewTopBtntyle: React.CSSProperties = {
+    bottom: '10px',
+  };
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
@@ -12,7 +15,8 @@ const ReviewsPage: React.FC = () => {
     <ReviewsPageContainer>
       <Header />
       <Body />
-      <TopBtn />
+      <TopBtn style={ReviewTopBtntyle} />
+
       {/* <Footer /> */}
     </ReviewsPageContainer>
   );

@@ -1,12 +1,12 @@
 import React from 'react';
 import Body from '../../conponents/reward/Body';
 import TabBar from '../../conponents/TabBar';
-import HeaderLayout from '../../conponents/layout/HeaderLayout';
+import Header from '../../conponents/reward/Header';
 
 const RewardsPage: React.FC = () => {
   return (
     <div>
-      <HeaderLayout text="포인트" />
+      <Header />
       <Body />
       <TabBar />
     </div>

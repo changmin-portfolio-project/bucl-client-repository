@@ -18,10 +18,14 @@ const PhotoPreview: React.FC<PhotoPreviewProps> = ({
   const ReviewImgItemStyle: React.CSSProperties = {
     width: 'calc(20% - 4px)',
   };
+  const StarStyle: React.CSSProperties = {
+    fontSize: '1.4rem',
+    paddingRight: '2px',
+  };
   return (
     <PhotoPreviewContainer>
       <ReviewRatingBox>
-        <Star count={averageRating ? averageRating : 0} />
+        <Star count={averageRating ? averageRating : 0} style={StarStyle} />
         <AverageRating>{averageRating}</AverageRating>
         <TotalReviewCount>({totalReviewCount})</TotalReviewCount>
       </ReviewRatingBox>

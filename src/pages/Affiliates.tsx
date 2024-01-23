@@ -23,6 +23,7 @@ const AffiliatesPage: React.FC = () => {
           imagePath: res.imagePath,
           name: res.name,
           reward: res.reward,
+          deadline: res.deadline,
         }));
       });
   }, []);

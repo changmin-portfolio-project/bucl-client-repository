@@ -12,7 +12,6 @@ const AddressInfoReq: React.FC = () => {
   return (
     <AddressInfoReqContainer>
       <AddressInfoBody3>배송 요청사항</AddressInfoBody3>
-      {/* <AddressInfoBody2>배송 시 요청사항을 선택해주세요.</AddressInfoBody2> */}
       <Dropdown options={options} />
     </AddressInfoReqContainer>
   );

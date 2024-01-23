@@ -14,5 +14,6 @@ export const salesInfoAtom = atom<postSalesInfoRes>({
     imagePath: [''],
     reward: 0,
     affiliateUrl: '',
+    deadline: '',
   },
 });

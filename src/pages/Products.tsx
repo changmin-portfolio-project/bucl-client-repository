@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Body from '../conponents/productDetail/Body';
 import Footer from '../conponents/productDetail/Footer';
-import HeaderLayout from '../conponents/layout/HeaderLayout';
+import Header from '../conponents/productDetail/Header';
 
 const ProductsPage: React.FC = () => {
   useEffect(() => {
@@ -10,7 +10,7 @@ const ProductsPage: React.FC = () => {
   }, []);
   return (
     <ProductsPageContainer>
-      <HeaderLayout text="상품 정보" />
+      <Header />
       <Body />
       <Footer />
     </ProductsPageContainer>

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Reward from './Reward';
-import { Link } from 'react-router-dom';
 import DiscountRateCalculation from '../../../hook/DiscountRateCalculation';
 import { HomeProduct } from '../../../services/home/getCategoryProductList';
 import Attend from '../../Attend';
@@ -10,6 +9,7 @@ import theme from '../../../style/theme';
 
 import { saveBeforePos } from '../../../utils/HomeUtil';
 import HomeWishBtn from './HomeWishBtn';
+import AppLink from '../../AppLink';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -46,10 +46,14 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
 
   return (
     <ProductContainer>
-      <Deadline deadline={data.deadline} />
+      {data.deadline ? (
+        <Deadline deadline={data.deadline} />
+      ) : (
+        <Deadline deadline={data.deadline} />
+      )}
       <Reward reward={data.reward} />
       <ProductImgBox onClick={saveBeforePos}>
-        <Link to={`/products/${data.productCode}`}>
+        <AppLink to={`/products/${data.productCode}`}>
           <ProductImgBox>
             <ProductImg $url={data.imagePath} />
 
@@ -68,7 +72,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
               </PriceBox>
             </ProductInfoBox>
           </ProductImgBox>
-        </Link>
+        </AppLink>
         <HomeWishBtn
           wishId={uniqueKey}
           productCode={data.productCode}

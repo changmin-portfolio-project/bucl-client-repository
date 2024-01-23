@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import TimeIcon from '../../TimeIcon';
 import Attend from '../../Attend';
 import CategoryWishBtn from './CategoryWishBtn';
@@ -10,6 +10,9 @@ interface ProductSubInfoProps {
   ordNum: number;
   wishId: number;
 }
+const CategoryAttendStyle: CSSProperties = {
+  lineHeight: '1.5',
+};
 
 const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   productCode,
@@ -23,7 +26,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   return (
     <ProductSubInfoContainer>
       <ProductSubInfoItem>
-        <Attend ordNum={ordNum} />
+        <Attend ordNum={ordNum} itemStyle={CategoryAttendStyle} />
         <TimeIcon />
       </ProductSubInfoItem>
       <ProductSubInfoItem>

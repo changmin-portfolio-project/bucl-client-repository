@@ -33,12 +33,13 @@ const MenuTab: React.FC = () => {
   return (
     <MenuTabContainer>
       {tabList.map((v, i) => (
-        <MenuItemBox key={i}>
-          <IconTitleBox>
-            <Icon src={v.icon} />
-            <Title>{v.name}</Title>
-          </IconTitleBox>
-          <Link to={v.url}>
+        <Link to={v.url} key={i}>
+          <MenuItemBox>
+            <IconTitleBox>
+              <Icon src={v.icon} />
+              <Title>{v.name}</Title>
+            </IconTitleBox>
+
             <svg
               width="8"
               height="14"
@@ -53,8 +54,8 @@ const MenuTab: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-          </Link>
-        </MenuItemBox>
+          </MenuItemBox>
+        </Link>
       ))}
     </MenuTabContainer>
   );
@@ -66,7 +67,7 @@ const MenuItemBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 7%;
+  padding: 15px 7%;
   width: calc(100% - 14%);
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;

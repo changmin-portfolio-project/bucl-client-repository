@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TopBtn: React.FC = () => {
+interface TopBtnProps {
+  style?: React.CSSProperties;
+}
+
+const TopBtn: React.FC<TopBtnProps> = ({ style }) => {
   const topBtnOnClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <TopBtnContainer onClick={() => topBtnOnClick()}>
+    <TopBtnContainer onClick={() => topBtnOnClick()} style={style}>
       <TopBtnWrap>
         <svg
           width="25"

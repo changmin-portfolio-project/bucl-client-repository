@@ -4,12 +4,13 @@ import styled from 'styled-components';
 interface AttendProps {
   style?: React.CSSProperties;
   ordNum?: number;
+  itemStyle?: React.CSSProperties;
 }
 
-const Attend: React.FC<AttendProps> = ({ style, ordNum }) => {
+const Attend: React.FC<AttendProps> = ({ style, ordNum, itemStyle }) => {
   return (
     <AttendContainer style={style}>
-      <AttendItem>{ordNum}명 참여중</AttendItem>
+      <AttendItem style={itemStyle}>{ordNum}명 참여중</AttendItem>
     </AttendContainer>
   );
 };
@@ -27,6 +28,11 @@ const AttendItem = styled.div`
   width: 68px;
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Label};
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  line-height: 1.8;
 `;
 
 export default Attend;

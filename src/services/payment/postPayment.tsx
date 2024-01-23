@@ -23,8 +23,8 @@ interface postPaymentVerificationResponse {
 // 사전 검증
 export const postPaymentPreparation = (
   spentAmount: number,
-  productCode: string,
-  skuCode: string,
+  productCode: number,
+  skuCode: number,
   option_amount: number,
   option_qty: number,
   proctOptNom: string,

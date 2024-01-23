@@ -20,6 +20,7 @@ import {
   CNSMR_AMT,
 } from '../../../const/CookieVars';
 import ColoredButton from '../../ColoredButton';
+import { isActivePopUp } from '../../../utils/PopUpUtil';
 
 interface OptionCountProps {
   currentOption: string;
@@ -77,6 +78,8 @@ const OptionCount: React.FC<OptionCountProps> = ({
     setCookie(ZIP_CODE, '54402');
     setCookie(PROCT_CODE, '381285902143');
     setCookie(SKU_CODE, '38492219056');
+
+    isActivePopUp(true);
   };
 
   return (
@@ -85,7 +88,9 @@ const OptionCount: React.FC<OptionCountProps> = ({
         <OptionItem>
           <TitleDeleteBox>
             <span>{currentOption}</span>
-            <button onClick={(e) => deleteBtnOnClick(e)}>x</button>
+            <XButtonBtn onClick={(e) => deleteBtnOnClick(e)}>
+              <XButtonImg src="/assets/XButton.svg" />
+            </XButtonBtn>
           </TitleDeleteBox>
           <CountPriceBox>
             <CountBox>
@@ -117,7 +122,9 @@ const OptionCountContainer = styled.div``;
 const OptionBox = styled.div`
   padding: 20px 7%;
   background-color: white;
+  border-radius: 8px 8px 0 0;
 `;
+
 const OptionItem = styled.div`
   padding: 15px;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
@@ -143,14 +150,23 @@ const CountPriceBox = styled.div`
   align-items: flex-end;
 `;
 
+const XButtonBtn = styled.button`
+  padding: 0px;
+`;
+
+const XButtonImg = styled.img`
+  width: 20px;
+  margin-left: 20px;
+`;
+
 const CountBox = styled.div``;
 const MinusBtn = styled.button`
-  min-width: 30px;
+  min-width: 15px;
   aspect-ratio: 1/1;
   background-color: ${({ theme }) => theme.grey.Grey0};
   border: none;
   border-radius: 50%;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: ${({ theme }) => theme.grey.Grey6};
   cursor: pointer;
 `;
@@ -160,6 +176,9 @@ const PlusBtn = styled(MinusBtn)`
 `;
 const CountText = styled.span`
   padding: 0 15px;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
   font: ${({ theme }) => theme.fontSizes.Body3};
   color: ${({ theme }) => theme.grey.Grey8};
 `;

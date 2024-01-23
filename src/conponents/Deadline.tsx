@@ -14,12 +14,12 @@ interface DeadlineProps {
   spanFont?: string;
 }
 
-const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
+const Deadline: React.FC<DeadlineProps> = ({ deadline, style }) => {
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(
-    calculateTimeRemaining(),
+    calculateTimeRemaining(deadline),
   );
 
-  function calculateTimeRemaining(): TimeRemaining {
+  function calculateTimeRemaining(deadline: string): TimeRemaining {
     const now = new Date();
     const targetTime = new Date(deadline);
     const difference = targetTime.getTime() - now.getTime();
@@ -41,28 +41,38 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeRemaining(calculateTimeRemaining());
-    }, 1000);
+    if (deadline) {
+      const timer = setInterval(() => {
+        setTimeRemaining(calculateTimeRemaining(deadline));
+      }, 1000);
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(timer);
+      // Cleanup interval on component unmount
+      return () => clearInterval(timer);
+    }
   }, [deadline]);
 
   return (
-    <DeadlineContainer>
-      마감까지
-      {timeRemaining.days === 0 ? (
+    <DeadlineContainer style={style}>
+      {deadline ? (
         <>
-          <span>{timeRemaining.hours}시간</span>
-          <span>{timeRemaining.minutes}분</span>
-          <span>{timeRemaining.seconds}초</span>남음
+          마감까지
+          {timeRemaining.days === 0 ? (
+            <>
+              <span>{timeRemaining.hours}시간</span>
+              <span>{timeRemaining.minutes}분</span>
+              <span>{timeRemaining.seconds}초</span>남음
+            </>
+          ) : (
+            <>
+              <span>{timeRemaining.days}일</span>
+              <span>{timeRemaining.hours}시간</span>
+              <span>{timeRemaining.minutes}분</span>남음
+            </>
+          )}
         </>
       ) : (
         <>
-          <span>{timeRemaining.days}일</span>
-          <span>{timeRemaining.hours}시간</span>
-          <span>{timeRemaining.minutes}분</span>남음
+          <span>이벤트가 없습니다</span>
         </>
       )}
     </DeadlineContainer>
@@ -83,6 +93,8 @@ const DeadlineContainer = styled.div<{ $spanFont?: string }>`
     margin: 0 2px;
     padding: 2px 6px;
     background-color: ${({ theme }) => theme.subColor.Yellow1};
+    font: ${({ theme }) => theme.fontSizes.Subhead1};
+    font-weight: 500;
     border-radius: 4px;
     color: ${({ theme }) => theme.mainColor.Orange5};
     font-size: 14px;

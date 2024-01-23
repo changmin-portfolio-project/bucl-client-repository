@@ -6,12 +6,14 @@ interface HeaderLayoutProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
   text?: string;
+  isApp?: boolean;
 }
 
 const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   style,
   children,
   text,
+  isApp = false,
 }) => {
   return (
     <HeaderLayoutContainer style={style}>
@@ -19,7 +21,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         children
       ) : (
         <Title>
-          <PrevBtn />
+          <PrevBtn isApp={isApp} />
           {text}
         </Title>
       )}
@@ -45,6 +47,8 @@ const HeaderLayoutContainer = styled.header`
 const Title = styled.h2`
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-weight: 500;
+  padding-bottom: 6px;
 `;
 
 export default HeaderLayout;

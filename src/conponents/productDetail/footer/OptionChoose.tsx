@@ -46,41 +46,58 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
       });
   }, []);
 
+  // const handStopPopup = (event: React.MouseEvent<HTMLElement>) => {
+  //   console.log(event);
+  // };
+
   return (
     <>
       {active && (
-        <OptionChooseContainer onClick={() => buyToggleBtnOnClick()}>
-          {currentOption ? (
-            <OptionCount
-              currentOption={currentOption}
-              setCurrentOption={setCurrentOption}
-              currentOptionExtraAmt={currentOptionExtraAmt}
-              setCurrentOptionExtraAmt={setCurrentOptionExtraAmt}
-              optionCount={optionCount}
-              setOptionCount={setOptionCount}
-            />
-          ) : (
-            <>
-              <OptionBox>
-                <Title>옵션 선택하기</Title>
-                {optionList?.map((v, i) => (
-                  <OptionItem
-                    onClick={(e) =>
-                      optionItemOnClick(v?.values.toString(), v?.extraAmount, e)
-                    }
-                    key={i}
-                  >
-                    <OptionName>{v.values}</OptionName>
-                  </OptionItem>
-                ))}
-              </OptionBox>
-              <CloseBtnBox>
-                <OutlineButton onClick={buyToggleBtnOnClick}>
-                  옵션 선택 닫기
-                </OutlineButton>
-              </CloseBtnBox>
-            </>
-          )}
+        <OptionChooseContainer
+          id="option-pop-container"
+          onClick={buyToggleBtnOnClick}
+        >
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {currentOption ? (
+              <OptionCount
+                currentOption={currentOption}
+                setCurrentOption={setCurrentOption}
+                currentOptionExtraAmt={currentOptionExtraAmt}
+                setCurrentOptionExtraAmt={setCurrentOptionExtraAmt}
+                optionCount={optionCount}
+                setOptionCount={setOptionCount}
+              />
+            ) : (
+              <>
+                <OptionBox>
+                  <Title>옵션 선택하기</Title>
+                  {optionList?.map((v, i) => (
+                    <OptionItem
+                      onClick={(e) =>
+                        optionItemOnClick(
+                          v?.values.toString(),
+                          v?.extraAmount,
+                          e,
+                        )
+                      }
+                      key={i}
+                    >
+                      <OptionName>{v.values}</OptionName>
+                    </OptionItem>
+                  ))}
+                </OptionBox>
+                <CloseBtnBox>
+                  <OutlineButton onClick={buyToggleBtnOnClick}>
+                    옵션 선택 닫기
+                  </OutlineButton>
+                </CloseBtnBox>
+              </>
+            )}
+          </div>
         </OptionChooseContainer>
       )}
     </>
@@ -104,7 +121,7 @@ const OptionChooseContainer = styled.div`
 const OptionBox = styled.div`
   /* position: absolute;
   bottom: 0; */
-  padding: 0 7%;
+  padding: 0 7% 5px 7%;
   width: calc(100% - 14%);
   max-height: 50vh;
   overflow-y: auto;
@@ -112,7 +129,7 @@ const OptionBox = styled.div`
   border-radius: 8px 8px 0 0;
 `;
 const Title = styled.p`
-  padding: 15px 0;
+  padding: 15px 0 8px 0;
   font: ${({ theme }) => theme.fontSizes.Body3};
 `;
 const OptionItem = styled.div`

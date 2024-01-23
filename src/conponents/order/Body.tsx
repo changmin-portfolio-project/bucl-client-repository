@@ -37,7 +37,7 @@ const Body: React.FC = () => {
     );
     setCookie(ZIP_CODE, '54402');
     setCookie(PROCT_CODE, '381285902143');
-    setCookie(SKU_CODE, '38492219056');
+    setCookie(SKU_CODE, 38492219056);
   }, []);
   return (
     <BodyContainer>

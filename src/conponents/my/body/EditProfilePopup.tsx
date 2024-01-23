@@ -51,7 +51,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             <Title>
               프로필 사진 등록
               <DeleteBtn onClick={deleteBtnOnClick}>
-                <img src="/assets/XIcon.svg" />
+                <DeleteBtnImg src="/assets/XGreyButton.svg" />
               </DeleteBtn>
             </Title>
             <Gallery>
@@ -70,7 +70,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             <Title>
               프로필 수정
               <DeleteBtn onClick={deleteBtnOnClick}>
-                <img src="/assets/XIcon.svg" />
+                <DeleteBtnImg src="/assets/XGreyButton.svg" />
               </DeleteBtn>
             </Title>
             <RegisterPhoto onClick={registerPhotoOnClick}>
@@ -102,6 +102,7 @@ const Title = styled.p`
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Body3};
+  font-size: 16px;
 `;
 const DeleteBtn = styled.button`
   position: absolute;
@@ -111,6 +112,11 @@ const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
 `;
+
+const DeleteBtnImg = styled.img`
+  vertical-align: middle;
+`;
+
 const RegisterPhoto = styled(Title)`
   color: ${({ theme }) => theme.grey.Grey6};
 `;

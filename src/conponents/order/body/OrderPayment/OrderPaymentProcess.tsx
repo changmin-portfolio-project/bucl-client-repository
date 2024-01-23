@@ -34,10 +34,10 @@ const OrderPaymentProcess: React.FC = () => {
   const memoCnt = useRecoilValue(memoCntAtom);
   const addrDetail = useRecoilValue(addrDetailAtom);
 
-  const proctCode: string = cookies.get(PROCT_CODE);
+  const proctCode: number = cookies.get(PROCT_CODE);
   const proctNom: string = cookies.get(PROCT_NOM);
   const proctBrn: string = cookies.get(PROCT_BRN);
-  const skuCode: string = cookies.get(SKU_CODE);
+  const skuCode: number = cookies.get(SKU_CODE);
   const proctOptAmt: number = cookies.get(PROCT_OPT_AMT);
   const proctOptQty: number = cookies.get(PROCT_OPT_QTY);
   const proctOptNom: string = cookies.get(PROCT_OPT_NOM);

@@ -6,6 +6,7 @@ export interface postSalesInfoRes {
   imagePath: [string];
   reward: number;
   affiliateUrl: string;
+  deadline: string;
 }
 
 // 판매 상품 정보 가져오기

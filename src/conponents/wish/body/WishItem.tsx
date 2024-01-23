@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import ImgItem from '../../ReviewImgItem';
 import { BsStarFill } from 'react-icons/bs';
 import { deleteWish } from '../../../services/wish/deleteWish';
+import { useSetRecoilState } from 'recoil';
+import { wishProductListAtom } from '../../../states/wishAtom';
+import WishImg from './WishImg';
 
 interface WishItemProps {
   brandName?: string;
+  wishId: number;
   productName?: string;
   price?: number;
   starRate?: number;
@@ -16,6 +19,7 @@ interface WishItemProps {
 
 const WishItem: React.FC<WishItemProps> = ({
   brandName,
+  wishId,
   price,
   productCode,
   productName,
@@ -23,16 +27,24 @@ const WishItem: React.FC<WishItemProps> = ({
   totalReviewCount,
   imgPath,
 }) => {
+  const setWishProductList = useSetRecoilState(wishProductListAtom);
   const imgItemStyle: React.CSSProperties = {
     width: '20%',
   };
 
   const deleteBtnOnClick = () => {
-    if (productCode) deleteWish(productCode);
+    if (productCode)
+      deleteWish(productCode).then(() => {
+        setWishProductList((prevItemList) => {
+          const prevItemListTemp = [...prevItemList];
+          prevItemListTemp.splice(wishId, 1);
+          return prevItemListTemp;
+        });
+      });
   };
   return (
     <WishItemContainer>
-      <ImgItem style={imgItemStyle} imgPath={imgPath} />
+      <WishImg style={imgItemStyle} imgPath={imgPath} />
       <ProductInfoBox>
         <BrandName>{brandName}</BrandName>
         <ProductName>{productName}</ProductName>
@@ -60,17 +72,20 @@ const WishItemContainer = styled.div`
 `;
 
 const ProductInfoBox = styled.div`
-  padding-left: 10px;
-  width: 75%;
+  padding-left: 33px;
+  width: 70%;
   height: fit-content;
+  position: relative;
 `;
 const BrandName = styled.span`
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 700;
+  font: ${({ theme }) => theme.fontSizes.Subhead1};
+  font-size: 14px;
+  font-weight: 500;
   color: ${({ theme }) => theme.grey.Grey5};
 `;
 const ProductName = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-size: 16px;
   color: ${({ theme }) => theme.grey.Grey7};
   display: -webkit-box;
   -webkit-line-clamp: 2; /* 표시할 줄 수 */
@@ -82,6 +97,9 @@ const ProductName = styled.p`
 const PriceAndRatingAndDeleteBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  top: 70px;
 `;
 
 const PriceAndRatingBox = styled.div`
@@ -101,7 +119,7 @@ const Star = styled(BsStarFill)`
   color: ${({ theme }) => theme.subColor.Yellow3};
 `;
 const RatingCount = styled.span`
-  margin: 0 0 0 3px;
+  margin: 0 0 0 1px;
   font: ${({ theme }) => theme.fontSizes.Body1};
   font-weight: 700;
   color: ${({ theme }) => theme.grey.Grey6};
@@ -112,13 +130,15 @@ const TotalReviewCount = styled(RatingCount)`
 
 const DeleteBtn = styled.button`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 4px;
   font: ${({ theme }) => theme.fontSizes.Body1};
   color: ${({ theme }) => theme.grey.Grey8};
-  cursor: pointer;
+  line-height: 25px;
+  padding: 0 10px 0 10px;
+  margin-right: 30px;
 `;
 
 export default WishItem;

@@ -30,17 +30,29 @@ const OrderPaymentMethod: React.FC = () => {
     <StyledOrdPymtAmtCont>
       <PymtMethodTitle>결제/방법</PymtMethodTitle>
       <PymtMethodCont>
-        <PayBtn
-          isActive={kakaoPayState}
-          onClick={handleActive}
-          value={KAKAO_PAY}
-        >
-          카카오페이
-        </PayBtn>
-        <Margin10></Margin10>
-        <PayBtn isActive={cardPayState} onClick={handleActive} value={CARD_PAY}>
-          신용 카드
-        </PayBtn>
+        <PymtMethodWrap>
+          <PayBtn
+            isActive={kakaoPayState}
+            onClick={handleActive}
+            value={KAKAO_PAY}
+          >
+            <CheckBox type="radio" checked={kakaoPayState} />
+            <PaydBtnWrap>
+              <KakaoBtn src="/assets/payment_kakao_logo.png" />
+              카카오페이
+            </PaydBtnWrap>
+          </PayBtn>
+        </PymtMethodWrap>
+        <PymtMethodWrap>
+          <PayBtn
+            isActive={cardPayState}
+            onClick={handleActive}
+            value={CARD_PAY}
+          >
+            <CheckBox type="radio" checked={cardPayState} />
+            <PaydBtnWrap>신용 카드</PaydBtnWrap>
+          </PayBtn>
+        </PymtMethodWrap>
       </PymtMethodCont>
       <PymtMethodLabel>
         결제를 진행할 경우 개인 정보 제공에 동의하는 것으로 간주됩니다.
@@ -52,16 +64,28 @@ const OrderPaymentMethod: React.FC = () => {
 const StyledOrdPymtAmtCont = styled.div``;
 
 const PymtMethodCont = styled.div`
-  color: var(--grey-5, #acb5bd);
-  display: flex;
-  justify-content: left;
   padding-bottom: 5px;
   padding: 0 20px 20px 20px;
 `;
 
+const PymtMethodWrap = styled.div`
+  padding-bottom: 20px;
+`;
+
+const PaydBtnWrap = styled.span`
+  font: ${({ theme }) => theme.fontSizes.Body3};
+  color: black;
+`;
+
+const KakaoBtn = styled.img`
+  width: 50px;
+  vertical-align: sub;
+  padding-right: 5px;
+`;
+
 const PymtMethodTitle = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body3};
-  padding: 9px 20px 8px 20px;
+  padding: 9px 20px 16px 20px;
 `;
 
 const PymtMethodLabel = styled.div`
@@ -72,21 +96,22 @@ const PymtMethodLabel = styled.div`
 
 const PayBtn = styled.button<{ isActive: boolean }>`
   font: ${({ theme }) => theme.fontSizes.Body1};
-  border-radius: 4px;
-  border: 1px solid var(--grey-5, #acb5bd);
+  border: 0px solid;
   background: #fff;
-  width: 68px;
-  height: 33px;
   flex-shrink: 0;
-  color: var(--black, #000);
 
-  background-color: ${(props) =>
-    props.isActive ? props.theme.mainColor.Orange5 : props.theme.grey.grey5};
-  color: ${(props) => (props.isActive ? '#fff' : props.theme.grey.grey5)};
+  // color: ${(props) => (props.isActive ? '#fff' : props.theme.grey.grey5)};
 `;
 
-const Margin10 = styled.div`
-  margin-left: 10px;
+const CheckBox = styled.input`
+  margin: 0 5px 0 0;
+  accent-color: #ff5f00;
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
 `;
 
 export default OrderPaymentMethod;
+
+// background-color: ${(props) =>
+//   props.isActive ? props.theme.mainColor.Orange5 : props.theme.grey.grey5};

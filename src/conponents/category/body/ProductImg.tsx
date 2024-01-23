@@ -1,21 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import Reward from './Reward';
 import ProductSubInfo from './ProductSubInfo';
 import { Product } from '../../../services/category/getCategoryProductList';
-import { Link } from 'react-router-dom';
+import AppLink from '../../AppLink';
 
 interface ProductImgProps {
   data: Product;
   wishId: number;
 }
 
+const ProductImgStyle: CSSProperties = {
+  height: '100%',
+};
+
 const ProductImg: React.FC<ProductImgProps> = ({ data, wishId }) => {
   return (
     <ProductImgBox>
-      <Link to={`/products/${data.productCode}`}>
+      <AppLink to={`/products/${data.productCode}`} style={ProductImgStyle}>
         <Img src={data.imagePath} />
-      </Link>
+      </AppLink>
       <ProductSubInfo
         productCode={data.productCode}
         wished={data.wished}

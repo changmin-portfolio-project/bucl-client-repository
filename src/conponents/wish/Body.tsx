@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import WishItem from './body/WishItem';
-import { WishProduct, getWishList } from '../../services/wish/getWishList';
+import { getWishList } from '../../services/wish/getWishList';
+import { useRecoilState } from 'recoil';
+import { wishProductListAtom } from '../../states/wishAtom';
 
 const Body: React.FC = () => {
-  const [wishList, setWishList] = useState<WishProduct[]>();
+  const [wishList, setWishList] = useRecoilState(wishProductListAtom);
   useEffect(() => {
     getWishList().then((res) => {
       console.log(res);
@@ -16,6 +18,7 @@ const Body: React.FC = () => {
       {wishList?.map((v, i) => (
         <WishItem
           key={i}
+          wishId={i}
           brandName={v.brandName}
           price={v.consumerPrice}
           productName={v.name}
@@ -30,7 +33,7 @@ const Body: React.FC = () => {
 };
 
 const BodyContainer = styled.main`
-  padding-top: 80px;
+  padding-top: 58px;
   padding-bottom: 100px;
 `;
 

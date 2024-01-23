@@ -9,9 +9,9 @@ interface infoType {
 const Star: React.FC<infoType> = ({ count, style }) => {
   const StarCount = count && Math.round(count * 2) / 2;
   return (
-    <StarClickContainer style={style}>
+    <StarClickContainer>
       {[...Array(5)].map((v, index) => (
-        <StarBox key={index}>
+        <StarBox key={index} style={style}>
           {StarCount === index + 0.5 ? (
             <>
               <HalfStar />
@@ -29,7 +29,8 @@ const Star: React.FC<infoType> = ({ count, style }) => {
 
 const StarClickContainer = styled.div`
   display: flex;
-  font-size: 1.3rem;
+  padding-top: 5px;
+  font-size: 1.5rem;
   input {
     display: none;
   }
