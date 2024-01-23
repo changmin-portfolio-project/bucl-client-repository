@@ -23,10 +23,8 @@ const Body: React.FC = () => {
   const [reviewList, setReviewList] = useRecoilState(reviewListAtom);
   const [imgList, setImgList] = useState<ImageData[]>();
   useEffect(() => {
-    console.log(location);
     if (param.product_code) {
       getPhotoReview(param.product_code).then((res) => {
-        console.log(res);
         setImgList(res.data);
       });
     }
@@ -42,6 +40,7 @@ const Body: React.FC = () => {
         <ReviewItem
           style={reviewItemStyle}
           key={i}
+          nickname={v.nickname}
           starRate={v.starRate}
           userImg={v.profilePath}
           imgPath={v.reviewImages}
@@ -56,7 +55,7 @@ const Body: React.FC = () => {
 };
 
 const BodyContainer = styled.section`
-  padding-top: 100px;
+  padding-top: 60px;
 `;
 
 export default Body;

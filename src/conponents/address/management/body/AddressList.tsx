@@ -83,7 +83,7 @@ const AddressList: React.FC = () => {
                 {v.isDefaultAddress && <DefaultBadge>현재배송지</DefaultBadge>}
               </Name>
               <DeleteBtn onClick={() => deleteBtnOnClick(v)}>
-                <img src="/assets/XIcon.svg" />
+                <img src="/assets/XGreyButton.svg" />
               </DeleteBtn>
             </NameDeleteBtnBox>
             <PhoneText>{v.contactNumber}</PhoneText>
@@ -107,7 +107,7 @@ const AddressListContainer = styled.section`
 `;
 
 const AddrWrapper = styled.div`
-  padding: 10px 15px;
+  padding: 10px 10px 10px 15px;
 `;
 
 const AddressItem = styled.div<{ $active: boolean }>`
@@ -150,9 +150,10 @@ const Address = styled(AddressDetail)``;
 
 const DefaultBadge = styled.span`
   margin-left: 5px;
-  padding: 3px;
+  padding: 2px 6px;
   background-color: ${({ theme }) => theme.subColor.Yellow0};
   font: ${({ theme }) => theme.fontSizes.Label};
+  font-size: 13px;
   color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 

@@ -30,7 +30,7 @@ const Title = styled.p`
 `;
 const ShareBtn = styled.button`
   padding: 5px 0;
-  width: 65%;
+  width: 300px;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
   border-radius: 4px;

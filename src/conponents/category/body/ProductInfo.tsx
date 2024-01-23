@@ -40,9 +40,10 @@ const ProductInfoContainer = styled.div`
   width: 100%;
 `;
 const BrandName = styled.p`
-  padding: 3px 0 0 0;
-  font: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 700;
+  padding: 8px 0 0 0;
+  font: ${({ theme }) => theme.fontSizes.Subhead1};
+  font-size: 13px;
+  font-weight: 500;
   color: ${({ theme }) => theme.grey.Grey5};
 `;
 const ProductName = styled.p`
@@ -59,13 +60,14 @@ const ProductName = styled.p`
 const PriceBox = styled.div``;
 const DiscountRate = styled.span`
   padding-right: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  font-size: 13px;
-  font-weight: 700;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-weight: 500;
   color: ${({ theme }) => theme.mainColor.Orange5};
 `;
 const DiscountPrice = styled(DiscountRate)`
   color: black;
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-weight: 500;
 `;
 const OriginalPrice = styled(DiscountRate)`
   font: ${({ theme }) => theme.fontSizes.Body1};

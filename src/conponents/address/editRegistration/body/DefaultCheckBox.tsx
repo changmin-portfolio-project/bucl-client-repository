@@ -42,6 +42,10 @@ const DefaultCheckBoxContainer = styled.div`
 const CheckBox = styled.input`
   margin: 0 5px 0 0;
   accent-color: #ff5f00;
+
+  width: 20px;
+  height: 20px;
+  vertical-align: sub;
 `;
 
 export default DefaultCheckBox;

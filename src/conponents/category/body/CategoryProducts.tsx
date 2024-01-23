@@ -12,17 +12,23 @@ const CategoryProducts: React.FC = () => {
       <CategoryProductsContainer>
         {Array.isArray(list) &&
           list.map((v, i) => <ProductItem key={i} data={v} uniqueKey={i} />)}
-        <CategoryInfiniteScroll />
       </CategoryProductsContainer>
+      <div>
+        <CategoryInfiniteScroll />
+      </div>
     </>
   );
 };
 
 const CategoryProductsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  padding: 30px 20px;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: left;
+  // padding: 30px 20px;
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // grid-template-rows: 50px 50px 50px;
 `;
 
 export default CategoryProducts;

@@ -21,6 +21,7 @@ const Header: React.FC = () => {
 const Title = styled.h2`
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Subhead2};
+  padding-bottom: 6px;
 `;
 
 export default Header;

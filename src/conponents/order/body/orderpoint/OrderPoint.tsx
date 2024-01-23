@@ -56,14 +56,14 @@ const OrderPoint: React.FC = () => {
           <PointUseAmt>포인트</PointUseAmt>
           <PointInputSubItem>
             <PointInput onChange={handleInputChange} value={numberInput} />
-            <PointInputUnit>원</PointInputUnit>
+            <PointInputUnit>P</PointInputUnit>
           </PointInputSubItem>
         </PointInputItem>
         <PointAllUseBtn onClick={useTotRwdUseAmt}>모두 사용</PointAllUseBtn>
       </PointInputContainer>
       <PointOwnAmt>
         사용 가능 포인트{' '}
-        {cookieNumUtil(cookies.get(RWD_CRNT_AMT)?.toLocaleString())}원
+        {cookieNumUtil(cookies.get(RWD_CRNT_AMT)?.toLocaleString())}P
       </PointOwnAmt>
     </StyledOrderPointContainer>
   );
@@ -77,7 +77,7 @@ const StyledOrderPointContainer = styled.div`
 const PointInputContainer = styled.div`
   display: flex;
   justify-content: left;
-  padding: 0 20px 0 20px;
+  padding: 40px 20px 0 20px;
 `;
 
 const PointInputItem = styled.div`
@@ -90,6 +90,7 @@ const PointInputItem = styled.div`
 const PointInputSubItem = styled.div`
   width: 80%;
   text-align: right;
+  padding: 5px 0;
 `;
 const PointInput = styled.input`
   font: ${({ theme }) => theme.fontSizes.Body2};
@@ -118,11 +119,11 @@ const PointAllUseBtn = styled.button`
   border-radius: 4px;
   border: 1px solid var(--grey-5, #acb5bd);
   background: #fff;
-  width: 60px;
-  height: 28px;
+  width: 80px;
   flex-shrink: 0;
   margin-left: 10px;
   color: var(--black, #000);
+  padding: 10px 0;
 `;
 
 const PointBody3 = styled.div`
@@ -135,6 +136,7 @@ const PointBody3 = styled.div`
 
 const PointUseAmt = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-size: 16px;
   margin: auto 0px;
   padding: 5px 0px 2px 0px;
 `;
@@ -142,7 +144,7 @@ const PointUseAmt = styled.div`
 const PointOwnAmt = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
   margin: auto 0px;
-  padding: 5px 20px 0px 20px;
+  padding: 5px 20px 5px 20px;
   color: var(--grey-5, #acb5bd);
 `;
 

@@ -32,7 +32,7 @@ const CategoryProductsContainer = styled.div<{ $height: string }>`
 
   scroll-snap-type: y mandatory;
   overflow-y: auto;
-  height: calc(${(props) => props.$height}px - 142px - 10px);
+  height: calc(${(props) => props.$height}px - 132px);
 `;
 
 const HomeInfScrollWrap = styled.div`

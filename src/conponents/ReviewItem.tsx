@@ -29,7 +29,8 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
     width: 'calc(20% - 4px)',
   };
   const StarStyle: React.CSSProperties = {
-    fontSize: '0.7rem',
+    fontSize: '0.9rem',
+    paddingRight: '1px',
   };
 
   return (
@@ -47,14 +48,14 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
             </NicknameDateBox>
           </RatingNicknameDateBox>
         </UserInfoBox>
+        <ReviewTextBox>
+          <p>{content}</p>
+        </ReviewTextBox>
         {selectedOption && (
           <BuyOptionBox>
             <span>구매 옵션 명 - {selectedOption}</span>
           </BuyOptionBox>
         )}
-        <ReviewTextBox>
-          <p>{content}</p>
-        </ReviewTextBox>
       </InfoBox>
       <ReviewImgItem style={ReviewImgItemStyle} imgPath={imgPath} />
     </ReviewItemContainer>
@@ -63,7 +64,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
 const ReviewItemContainer = styled.div`
   display: flex;
-  padding: 10px 7%;
+  padding: 7px 7% 13px 7%;
   border-bottom: 1px solid #eaecef;
 `;
 
@@ -82,7 +83,7 @@ const UserImg = styled.img`
 `;
 
 const BuyOptionBox = styled.div`
-  margin: 5px 0;
+  margin: 1px 0 8px 0;
   span {
     padding: 2px 5px;
     background-color: ${({ theme }) => theme.grey.Grey1};
@@ -93,8 +94,9 @@ const BuyOptionBox = styled.div`
 `;
 
 const ReviewTextBox = styled.div`
-  padding: 0 0 10px 0;
+  padding: 7px 0 10px 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-size: 16px;
   color: ${({ theme }) => theme.grey.Grey8};
 `;
 
@@ -109,11 +111,11 @@ const NicknameText = styled.span`
   padding-right: 5px;
   border-right: 1px solid ${({ theme }) => theme.grey.Grey5};
   font: ${({ theme }) => theme.fontSizes.Body1};
-  font-weight: 700;
   color: ${({ theme }) => theme.grey.Grey5};
 `;
 const DateText = styled(NicknameText)`
   padding-left: 5px;
+  font: ${({ theme }) => theme.fontSizes.Body1};
   font-weight: 500;
   border: none;
 `;

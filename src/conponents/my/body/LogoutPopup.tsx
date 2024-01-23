@@ -26,7 +26,7 @@ const LogoutPopup: React.FC<EditProfilePopupProps> = ({ setPopupOpen }) => {
           <Title>
             로그아웃 하시겠습니까?
             <DeleteBtn onClick={deleteBtnOnClick}>
-              <img src="/assets/XIcon.svg" />
+              <LogoutBtnImg src="/assets/XGreyButton.svg" />
             </DeleteBtn>
           </Title>
           <StyleLogoutButton onClick={registerBasicImgOnClick}>
@@ -54,18 +54,25 @@ const Title = styled.p`
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Body3};
+  font-size: 16px;
 `;
 const DeleteBtn = styled.button`
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(-25%, -50%);
   background-color: transparent;
   border: none;
 `;
 const StyleLogoutButton = styled(Title)`
   color: ${({ theme }) => theme.grey.Grey6};
+  font: ${({ theme }) => theme.fontSizes.Body3};
+  font-size: 16px;
   border-bottom: 0px;
+`;
+
+const LogoutBtnImg = styled.img`
+  vertical-align: middle;
 `;
 
 export default LogoutPopup;

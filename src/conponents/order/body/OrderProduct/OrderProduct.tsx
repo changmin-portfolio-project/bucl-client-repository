@@ -10,18 +10,25 @@ const OrderProduct: React.FC = () => {
     'proctBrn',
   ]);
   return (
-    <StyledOrderPointContainer>
-      <PointInputContainer>
+    <StyledOrderProductContainer>
+      <OrderProductInfoTitle>주문 상품</OrderProductInfoTitle>
+      <OrderProductInputContainer>
         <OrderProductImg src={cookies.proctImg} />
-        <PointInputLeftItem>
+        <OrderProductItem>
           <BrandName>{cookies.proctBrn}</BrandName>
           <ProductName>{cookies.proctNom}</ProductName>
           <ProductOption>{cookies.proctOptNom}</ProductOption>
-        </PointInputLeftItem>
-      </PointInputContainer>
-    </StyledOrderPointContainer>
+        </OrderProductItem>
+      </OrderProductInputContainer>
+    </StyledOrderProductContainer>
   );
 };
+const OrderProductInfoTitle = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body3};
+  padding: 8.5px 20px 8.5px 20px;
+  border-top: 1px solid #eaecef;
+  border-bottom: 1px solid #eaecef;
+`;
 
 const OrderProductImg = styled.img`
   width: 60px;
@@ -31,17 +38,17 @@ const OrderProductImg = styled.img`
   border-radius: 4px;
 `;
 
-const StyledOrderPointContainer = styled.div`
-  padding: 0 20px 20px 20px;
+const StyledOrderProductContainer = styled.div`
   border-bottom: 1px solid #eaecef;
 `;
 
-const PointInputContainer = styled.div`
+const OrderProductInputContainer = styled.div`
   display: flex;
   justify-content: left;
+  padding: 20px 20px 20px 20px;
 `;
 
-const PointInputLeftItem = styled.div`
+const OrderProductItem = styled.div`
   margin-left: 11px;
 `;
 

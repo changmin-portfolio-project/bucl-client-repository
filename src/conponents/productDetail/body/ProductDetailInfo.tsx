@@ -11,7 +11,9 @@ const ProductDetailInfo: React.FC = () => {
         <TitleText>상품 정보</TitleText>
       </TitleAllBtnBox>
       <ImagesBox>
-        {productDetail.detailImagePaths?.map((v, i) => <img src={v} key={i} />)}
+        {productDetail.detailImagePaths?.map((v, i) => (
+          <ProductDetailImg src={v} key={i} />
+        ))}
       </ImagesBox>
     </ProductDetailInfoContainer>
   );
@@ -36,6 +38,9 @@ const ImagesBox = styled.div`
     width: 100%;
     height: 100%;
   }
+`;
+const ProductDetailImg = styled.img`
+  vertical-align: bottom;
 `;
 
 export default ProductDetailInfo;

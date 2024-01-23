@@ -42,7 +42,7 @@ const BodyContainer = styled.main`
 `;
 
 const OrderHistoryContainer = styled.div`
-  padding: 70px 7%;
+  padding: 50px 7%;
   background-color: ${({ theme }) => theme.grey.Grey1};
 `;
 

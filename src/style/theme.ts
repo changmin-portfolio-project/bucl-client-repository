@@ -50,18 +50,18 @@ const errorColor = {
 };
 
 const fontSizes = {
-  Display5: '700 40px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Display4: '700 36px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Display3: '700 32px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Display2: '700 28px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Display1: '700 24px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Headline: '700 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Subhead4: '700 22px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Subhead3: '700 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display5: '500 40px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display4: '500 36px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display3: '500 32px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display2: '500 28px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display1: '500 24px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Headline: '500 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Subhead4: '500 22px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Subhead3: '500 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
   Subhead2:
-    '700 18px/1.4 Pretendard-Bold; letter-spacing: -0.6px; font-style: normal',
-  Subhead1: '700 16px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
-  Body4: '500 16px/1.4 Pretendard-Medium',
+    '500 18px/1.4 Pretendard-Bold; letter-spacing: -0.6px; font-style: normal',
+  Subhead1: '500 16px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Body4: '500 20px/1.4 Pretendard-Medium',
   Body3:
     '500 18px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
   Body2:

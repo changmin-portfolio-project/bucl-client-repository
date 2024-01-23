@@ -4,11 +4,6 @@
     height: 100vh;
   }
 
-#root{
-  margin: auto;
-  max-width: 600px;
-}
-
 a { 
   -webkit-tap-highlight-color:transparent; 
   -webkit-user-drag: none;

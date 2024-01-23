@@ -34,7 +34,7 @@ const HelloText = styled.span`
 `;
 const HelpText = styled(HelloText)`
   font: ${({ theme }) => theme.fontSizes.Subhesd3};
-  font-weight: 700;
+  font-weight: 500;
 `;
 
 export default Introduction;

@@ -13,12 +13,17 @@ const AddressInfoChange: React.FC = () => {
 const AddressInfoChangeContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px 20px 18px 20px;
+  padding: 9.5px 20px 9.5px 20px;
   border-bottom: 1px solid #eaecef;
 `;
 
-const AddressInfoChangeLeftItem = styled.div``;
+const AddressInfoChangeLeftItem = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body3};
+`;
 
-const AddressInfoChangeRightItem = styled.div``;
+const AddressInfoChangeRightItem = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.mainColor.Orange5};
+`;
 
 export default AddressInfoChange;

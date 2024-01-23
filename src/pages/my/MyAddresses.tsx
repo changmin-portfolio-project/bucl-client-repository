@@ -5,7 +5,6 @@ import EditRegistrationHeader from '../../conponents/address/editRegistration/He
 import EditRegistrationBody from '../../conponents/address/editRegistration/Body';
 import { useRecoilValue } from 'recoil';
 import { editRegistrationModeAtom } from '../../states/addressAtom';
-import TabBar from '../../conponents/TabBar';
 
 const MyAddressesPage: React.FC = () => {
   const editRegistrationMode = useRecoilValue(editRegistrationModeAtom);
@@ -22,7 +21,6 @@ const MyAddressesPage: React.FC = () => {
           <ManagementBody />
         </>
       )}
-      <TabBar />
     </div>
   );
 };

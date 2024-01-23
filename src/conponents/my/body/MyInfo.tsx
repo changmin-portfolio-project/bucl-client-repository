@@ -33,7 +33,7 @@ const MyInfo: React.FC = () => {
           <img src="/assets/EditIcon.svg" />
         </EditBtn>
       </UserImgBox>
-      <UserName>{userInfo?.nickname}</UserName>
+      <UserName>{userInfo?.nickname} 님</UserName>
       {popupOpen && <EditProfilePopup setPopupOpen={setPopupOpen} />}
       <PointBox>
         <PointTitle>누적포인트</PointTitle>
@@ -75,26 +75,30 @@ const EditBtn = styled.button`
   position: absolute;
   top: 100%;
   transform: translate(-100%, -100%);
-  width: 35%;
+  width: 35px;
+  height: 35px;
   aspect-ratio: 1/1;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 50%;
+  padding: 0px;
   img {
-    width: 100%;
+    width: 18px;
+    padding: 0px;
     aspect-ratio: 1/1;
   }
 `;
 
 const UserName = styled.span`
   padding: 10px 0 20px 0;
+  font: ${({ theme }) => theme.fontSizes.Body4};
 `;
 
 const PointBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 20px;
   width: 80%;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
   border-radius: 8px;

@@ -14,11 +14,9 @@ const Footer: React.FC = () => {
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
 
-  const wishBtnStyle: React.CSSProperties = {
-    width: '2rem',
-  };
+  const wishBtnStyle: React.CSSProperties = {};
   const svgStyle: React.CSSProperties = {
-    width: '100%',
+    width: '38px',
   };
 
   const buyToggleBtnOnClick = (optionCheck: boolean) => {

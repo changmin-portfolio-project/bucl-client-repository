@@ -9,13 +9,19 @@ import { salesInfoAtom } from '../../../states/affiliates';
 const ProductInfo: React.FC = () => {
   const salesInfo = useRecoilValue(salesInfoAtom);
   const DeadlineStyle: React.CSSProperties = {
-    borderRadius: '8px 8px 0 0',
+    borderRadius: '6px 6px 0 0',
   };
+
+  console.log(salesInfo);
   return (
     <ProductInfoContainer>
       <Title>판매 링크 생성 완료!</Title>
       <ProductItem $imageUrl={salesInfo.imagePath[0]}>
-        <Deadline style={DeadlineStyle} spanFont={'Label'} deadline={''} />
+        <Deadline
+          style={DeadlineStyle}
+          spanFont={'Label'}
+          deadline={salesInfo.deadline}
+        />
       </ProductItem>
       <SaveImgButton />
       <BrandName>{salesInfo.brandName}</BrandName>
@@ -45,11 +51,13 @@ const Title = styled.p`
 const ProductItem = styled.div<{ $imageUrl: string }>`
   position: relative;
   margin-bottom: 10px;
-  width: 65%;
+  width: 300px;
+  height: 300px;
   aspect-ratio: 1/1;
   border-radius: 8px;
   background-image: url('${(props) => props.$imageUrl}');
-  background-size: 100%;
+  background-size: cover;
+  background-position: center;
 `;
 const BrandName = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body1};

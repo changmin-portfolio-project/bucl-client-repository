@@ -16,7 +16,7 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownButton = styled.button`
-  color: var(--grey-8, #343a40);
+  color: ${({ theme }) => theme.grey.Grey5};
   border: none;
   cursor: pointer;
   width: 100%;
@@ -27,8 +27,10 @@ const DropdownButton = styled.button`
   border: 1px solid var(--grey-5, #acb5bd);
   background: var(--white, #fff);
   text-align: left;
-  padding-top: 9.5px;
-  padding-bottom: 10.5px;
+
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  padding: 10px 0 10px 13px;
+  border: 1.5px solid ${({ theme }) => theme.grey.Grey5};
 `;
 
 interface DropdownContentProps {
@@ -37,6 +39,8 @@ interface DropdownContentProps {
 
 const DropdownContent = styled.div<DropdownContentProps>`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey8};
   position: absolute;
   top: 100%;
   left: 0;
@@ -45,15 +49,20 @@ const DropdownContent = styled.div<DropdownContentProps>`
   border-radius: 0 0 4px 4px;
   z-index: 1;
   width: 100%;
+
+  border-left: 1.5px solid ${({ theme }) => theme.grey.Grey5};
+  border-right: 1.5px solid ${({ theme }) => theme.grey.Grey5};
+  border-bottom: 1.5px solid ${({ theme }) => theme.grey.Grey5};
 `;
 const DropdownItem = styled.div`
   padding: 10px;
   cursor: pointer;
+  padding: 15px 10px;
 
   &:hover {
     background-color: #ddd;
   }
-  border-bottom: 1px solid #eaecef;
+  border-top: 1.5px solid ${({ theme }) => theme.grey.Grey5};
 `;
 
 const InputContainer = styled.div`

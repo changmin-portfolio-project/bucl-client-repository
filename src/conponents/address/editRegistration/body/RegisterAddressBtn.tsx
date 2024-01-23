@@ -72,7 +72,7 @@ const RegisterBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 15px 0;
   width: 100%;
   background-color: ${({ theme }) => theme.mainColor.Orange5};
   border: none;

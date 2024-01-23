@@ -43,29 +43,34 @@ const BrandName = styled.span`
   display: flex;
   align-items: flex-end;
   font: ${({ theme }) => theme.fontSizes.Subhead1};
+  font-weight: 500;
   color: ${({ theme }) => theme.grey.Grey5};
 `;
 const ProductName = styled.p`
-  margin: 5px 0 15px 0;
+  margin: 2px 0 13px 0;
   width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  font: ${({ theme }) => theme.fontSizes.Body3};
 `;
 
 const ProductPriceBox = styled.div`
   margin-bottom: 15px;
+  padding-right: 3px;
 `;
 const DiscountRate = styled.span`
   padding-right: 5px;
   font: ${({ theme }) => theme.fontSizes.Subhead4};
-  font-weight: 700;
+  font-weight: 500;
   color: ${({ theme }) => theme.mainColor.Orange5};
   line-height: 25.2px;
 `;
 const DiscountPrice = styled(DiscountRate)`
+  font: ${({ theme }) => theme.fontSizes.Subhead4};
+  font-weight: 500;
   color: black;
 `;
 const OriginalPrice = styled(DiscountRate)`

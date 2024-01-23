@@ -99,7 +99,7 @@ const DateOrderDetailBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
+  padding: 5px 10px;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 const DateBox = styled.div`
@@ -109,12 +109,12 @@ const DateBox = styled.div`
 const OrderDetailBtn = styled.button`
   display: flex;
   align-items: center;
-  margin-right: -10px;
   background-color: transparent;
   border: none;
   font: ${({ theme }) => theme.fontSizes.Body1};
   color: ${({ theme }) => theme.mainColor.Orange5};
   cursor: pointer;
+  padding: 0px;
   svg {
     path {
       stroke: ${({ theme }) => theme.mainColor.Orange5};
@@ -137,7 +137,7 @@ const ProductNamePriceCountBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1% 0 0 5px;
+  padding: 0 0 0 30px;
   width: 77%;
 `;
 const Name = styled.p`

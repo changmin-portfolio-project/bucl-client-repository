@@ -49,7 +49,7 @@ const BodyContainer = styled.main`
   flex-direction: column;
   justify-content: space-between;
   padding: 60px 6% 72px 6%;
-  height: calc(100vh - 132px);
+  height: calc(100vh - 32px);
 `;
 
 const StyleRegWrap = styled.div`
