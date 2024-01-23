@@ -2,35 +2,36 @@ import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { editRegistrationModeAtom } from '../../../../states/addressAtom';
+import ColoredButton from '../../../ColoredButton';
 
 const AddressAddBtn: React.FC = () => {
   const setEditRegistrationMode = useSetRecoilState(editRegistrationModeAtom);
   const addressAddBtnOnClick = () => {
     setEditRegistrationMode(true);
   };
+
+  const ColoredButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '15px 0',
+  };
   return (
     <AddressAddBtnContainer>
-      <AddBtn onClick={addressAddBtnOnClick}>
+      <ColoredButton
+        font="Subhead2"
+        color="white"
+        onClick={addressAddBtnOnClick}
+        style={ColoredButtonStyle}
+      >
         <img src="/assets/PlusIcon.svg" />새 배송지 추가하기
-      </AddBtn>
+      </ColoredButton>
     </AddressAddBtnContainer>
   );
 };
 
 const AddressAddBtnContainer = styled.div`
   padding-bottom: 10px;
-`;
-const AddBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
   img {
     margin-bottom: -2px;
   }

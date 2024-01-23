@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Alert from '../../Alert';
 import { salesInfoAtom } from '../../../states/affiliates';
 import { useRecoilValue } from 'recoil';
+import OutlineButton from '../../OutlineButton';
 
 const SaveImgButton: React.FC = () => {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -11,32 +13,30 @@ const SaveImgButton: React.FC = () => {
   };
 
   const salesInfo = useRecoilValue(salesInfoAtom);
+  const OutlineButtonStyle: React.CSSProperties = {
+    marginBottom: '15px',
+    padding: '5px 0',
+    width: '300px',
+    fontWeight: '700',
+  };
   return (
     <>
-      <SaveImgBtn onClick={saveImgBtnOnClick}>
+      <OutlineButton
+        onClick={saveImgBtnOnClick}
+        style={OutlineButtonStyle}
+        font="Body1"
+        border="Orange5"
+        color="Orange5"
+      >
         <a href={salesInfo.imagePath[0]} download="downloaded_image.jpg">
           사진 저장하기
         </a>
-      </SaveImgBtn>
+      </OutlineButton>
       {alertVisible && (
         <Alert text="사진 저장이 완료되었습니다." onClick={saveImgBtnOnClick} />
       )}
     </>
   );
 };
-
-const SaveImgBtn = styled.button`
-  margin-bottom: 15px;
-  padding: 5px 0;
-  width: 300px;
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  a {
-    font: ${({ theme }) => theme.fontSizes.Body1};
-    font-weight: 700;
-    color: ${({ theme }) => theme.mainColor.Orange5};
-  }
-`;
 
 export default SaveImgButton;

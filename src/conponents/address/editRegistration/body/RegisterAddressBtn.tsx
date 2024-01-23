@@ -12,6 +12,7 @@ import {
   postAddressItem,
 } from '../../../../services/address/postAddressItem';
 import { putAddressUpdate } from '../../../../services/address/putAddressUpdate';
+import ColoredButton from '../../../ColoredButton';
 
 const RegisterAddressBtn: React.FC = () => {
   const addrRegForm = useRecoilValue(addrRegFormAtom);
@@ -55,30 +56,30 @@ const RegisterAddressBtn: React.FC = () => {
       alert('모든 값을 입력해주세요.');
     }
   };
+
+  const ColoredButtonStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '15px 0',
+  };
   return (
     <RegisterAddressBtnContainer>
-      <RegisterBtn onClick={registerBtnOnClick}>
+      <ColoredButton
+        font="Subhead2"
+        color="white"
+        onClick={registerBtnOnClick}
+        style={ColoredButtonStyle}
+      >
         <img src="/assets/PlusIcon.svg" />
         배송지 등록하기
-      </RegisterBtn>
+      </ColoredButton>
     </RegisterAddressBtnContainer>
   );
 };
 
 const RegisterAddressBtnContainer = styled.div`
   padding-bottom: 10px;
-`;
-const RegisterBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
   img {
     margin-bottom: -2px;
   }

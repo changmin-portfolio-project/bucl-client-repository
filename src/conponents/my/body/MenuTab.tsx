@@ -67,8 +67,8 @@ const MenuItemBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 7%;
-  width: calc(100% - 14%);
+  padding: 15px ${({ theme }) => theme.paddings.base};
+  width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
