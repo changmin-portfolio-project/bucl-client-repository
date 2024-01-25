@@ -110,7 +110,13 @@ const OptionCount: React.FC<OptionCountProps> = ({
       </OptionBox>
       <BuyBtnBox>
         <Link to="/orders/46898469">
-          <ColoredButton onClick={setPaymentConfig}>구매하기</ColoredButton>
+          <ColoredButton
+            color="white"
+            font="Subhead2"
+            onClick={setPaymentConfig}
+          >
+            구매하기
+          </ColoredButton>
         </Link>
       </BuyBtnBox>
     </OptionCountContainer>
@@ -120,7 +126,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
 const OptionCountContainer = styled.div``;
 
 const OptionBox = styled.div`
-  padding: 20px 7%;
+  padding: 20px ${({ theme }) => theme.paddings.base};
   background-color: white;
   border-radius: 8px 8px 0 0;
 `;
@@ -188,7 +194,8 @@ const PriceText = styled.span`
 `;
 
 const BuyBtnBox = styled.div`
-  padding: 15px 7% 40px 7%;
+  padding: 15px ${({ theme }) => theme.paddings.base} 40px
+    ${({ theme }) => theme.paddings.base};
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;

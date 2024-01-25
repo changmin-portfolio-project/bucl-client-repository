@@ -5,8 +5,8 @@ interface ColoredButtonProps {
   children?: ReactNode;
   onClick?: () => void;
   style?: React.CSSProperties;
-  font?: string;
-  color?: string;
+  font: string;
+  color: string;
   backgroundColor?: string;
 }
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import AddressInfo from './body/addressinfo/AddressInfo';
 import OrderPoint from './body/orderpoint/OrderPoint';
 import OrderPayment from './body/OrderPayment/OrderPayment';
@@ -17,6 +16,7 @@ import {
   RWD_CRNT_AMT,
 } from '../../const/CookieVars';
 import { cookieNumUtil } from '../../utils/UndefinedProcessUtl';
+import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
   const [, setCookie] = useCookies();
@@ -40,19 +40,13 @@ const Body: React.FC = () => {
     setCookie(SKU_CODE, 38492219056);
   }, []);
   return (
-    <BodyContainer>
+    <BodyLayout>
       <AddressInfo />
       <OrderProduct />
       <OrderPoint />
       <OrderPayment />
-    </BodyContainer>
+    </BodyLayout>
   );
 };
-
-const BodyContainer = styled.div`
-  align-items: center;
-  width: 100%;
-  padding: 80px 0 39px 0;
-`;
 
 export default Body;

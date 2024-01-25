@@ -35,7 +35,6 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
   const TextButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    padding: '0px',
   };
   const OutlineButtonStyle: React.CSSProperties = {
     padding: '6px 10px',

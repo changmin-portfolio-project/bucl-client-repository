@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { postMemberWithdrawal } from '../../../services/auth/postMemberWithdrawal';
 import { withdrawCompleteAtom } from '../../../states/customerAtom';
 import { useSetRecoilState } from 'recoil';
+import OutlineButton from '../../OutlineButton';
+import ColoredButton from '../../ColoredButton';
 
 interface SecessionPopupProps {
   secessionBtnOnClick: () => void;
@@ -25,10 +27,21 @@ const SecessionPopup: React.FC<SecessionPopupProps> = ({
         <CheckText>정말 탈퇴하시겠어요?</CheckText>
         <ExplainText>모든 계정 정보가 삭제되며 복구되지 않습니다.</ExplainText>
         <BtnBox>
-          <SecessionButton onClick={handleMemberWithdrawal}>
+          <OutlineButton
+            onClick={handleMemberWithdrawal}
+            color="Grey8"
+            border="Grey4"
+            font="Subhead2"
+          >
             탈퇴하기
-          </SecessionButton>
-          <CancelBtn onClick={secessionBtnOnClick}>취소하기</CancelBtn>
+          </OutlineButton>
+          <ColoredButton
+            onClick={secessionBtnOnClick}
+            font="Subhead2"
+            color="white"
+          >
+            취소하기
+          </ColoredButton>
         </BtnBox>
       </SecessionConfirmBox>
     </PopupLayout>
@@ -58,20 +71,9 @@ const ExplainText = styled(CheckText)`
 const BtnBox = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-const SecessionButton = styled.button`
-  padding: 10px 0;
-  width: 48%;
-  background-color: white;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.grey.Grey8};
-  border: 1px solid ${({ theme }) => theme.grey.Grey4};
-  border-radius: 4px;
-`;
-const CancelBtn = styled(SecessionButton)`
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  color: white;
-  border: none;
+  button {
+    flex: 0.48;
+  }
 `;
 
 export default SecessionPopup;

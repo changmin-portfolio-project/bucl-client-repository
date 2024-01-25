@@ -98,7 +98,7 @@ const LoginPageContainer = styled.div`
 `;
 
 const LoginBtnBox = styled.div`
-  padding: 0 7%;
+  padding: 0 ${({ theme }) => theme.paddings.base};
   width: calc(100% - 14%);
 `;
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Body from '../../conponents/myOrder/Body';
-import Header from '../../conponents/myOrder/Header';
 import TabBar from '../../conponents/TabBar';
+import HeaderLayout from '../../conponents/layout/HeaderLayout';
 
 const MyOrdersPage: React.FC = () => {
   return (
     <MyOrdersPageContainer>
-      <Header />
+      <HeaderLayout text="주문 내역" />
       <Body />
       <TabBar />
     </MyOrdersPageContainer>

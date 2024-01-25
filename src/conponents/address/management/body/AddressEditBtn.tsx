@@ -33,8 +33,7 @@ const AddressEditBtn: React.FC = () => {
 
 const AddressEditBtnContainer = styled.div`
   padding-bottom: 10px;
-
-  img {
+  <<<<<<< HEAD =======>>>>>>>02dba0a99144e6fd3d36dce4ed8a98a3a0818099 img {
     margin-bottom: -2px;
   }
 `;

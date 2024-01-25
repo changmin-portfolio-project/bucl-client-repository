@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import {
   completeBooleanAtom,
   reviewImgListAtom,
@@ -10,6 +9,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { REVIEW_TEXT_MIN_NUM } from '../../../const/Review';
 import { postReview } from '../../../services/postReview/postReview';
 import { useParams } from 'react-router-dom';
+import ColoredButton from '../../ColoredButton';
 
 const PostConfirmBtn: React.FC = () => {
   const param = useParams();
@@ -46,18 +46,20 @@ const PostConfirmBtn: React.FC = () => {
       alert(REVIEW_TEXT_MIN_NUM + '글자 이상 적어 주세요.');
     }
   };
-  return <ConfirmBtn onClick={comfirmBtnOnClick}>리뷰 작성 완료</ConfirmBtn>;
-};
 
-const ConfirmBtn = styled.button`
-  margin-top: 10px;
-  padding: 10px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: white;
-`;
+  const ColoredButtonStyle: React.CSSProperties = {
+    marginTop: '10px',
+  };
+  return (
+    <ColoredButton
+      font="Subhead2"
+      color="white"
+      style={ColoredButtonStyle}
+      onClick={comfirmBtnOnClick}
+    >
+      리뷰 작성 완료
+    </ColoredButton>
+  );
+};
 
 export default PostConfirmBtn;

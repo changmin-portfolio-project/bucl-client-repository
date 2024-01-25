@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import TabBar from '../../conponents/TabBar';
-import Header from '../../conponents/my/Header';
 import Body from '../../conponents/my/Body';
+import HeaderLayout from '../../conponents/layout/HeaderLayout';
 
 const MyPage: React.FC = () => {
   return (
     <MyPageContainer>
-      <Header />
+      <HeaderLayout text="마이페이지" />
       <Body />
       <TabBar />
     </MyPageContainer>

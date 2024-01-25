@@ -36,10 +36,14 @@ const Footer: React.FC = () => {
           svgStyle={svgStyle}
           wished={true}
         />
-        <ColoredButton onClick={() => buyToggleBtnOnClick(optionCheck)}>
+        <ColoredButton
+          font="Subhead2"
+          onClick={() => buyToggleBtnOnClick(optionCheck)}
+          color="white"
+        >
           구매하기
         </ColoredButton>
-        <OutlineButton>
+        <OutlineButton font="Subhead2" border="Orange5" color="Orange5">
           <Link to={`/affiliates/${param.product_code}`}>판매하기</Link>
         </OutlineButton>
       </FeatureBtnBox>

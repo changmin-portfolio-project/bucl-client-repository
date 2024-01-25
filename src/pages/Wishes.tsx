@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import TabBar from '../conponents/TabBar';
 import Body from '../conponents/wish/Body';
-import Header from '../conponents/wish/Header';
+import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const WishesPage: React.FC = () => {
   return (
     <WishesPageContainer>
-      <Header />
+      <HeaderLayout text="찜 목록" />
       <Body />
       <TabBar />
     </WishesPageContainer>

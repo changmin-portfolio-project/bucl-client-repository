@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPoint } from '../../../services/reward/getPoint';
+import ColoredButton from '../../ColoredButton';
 
 const Withdrawal: React.FC = () => {
   const [point, setPoint] = useState<number>();
@@ -10,6 +11,12 @@ const Withdrawal: React.FC = () => {
       setPoint(res.data.data);
     });
   }, []);
+
+  const ColorButtonStyle: React.CSSProperties = {
+    position: 'relative',
+    zIndex: '5',
+    padding: '5px 0',
+  };
   return (
     <WithdrawalContainer>
       <WithdrawalWrap>
@@ -18,9 +25,14 @@ const Withdrawal: React.FC = () => {
           <span>보유 포인트</span>
           <p>{point?.toLocaleString()}P</p>
         </PointHeldBox>
-        <WithdrawalBtn>
+        <ColoredButton
+          style={ColorButtonStyle}
+          color="Orange5"
+          font="Subhead2"
+          backgroundColor="white"
+        >
           <Link to="/reward-withdrawals">인출하기</Link>
-        </WithdrawalBtn>
+        </ColoredButton>
       </WithdrawalWrap>
     </WithdrawalContainer>
   );
@@ -55,20 +67,6 @@ const PointHeldBox = styled.div`
   p {
     font: ${({ theme }) => theme.fontSizes.Display1};
     text-shadow: 0px 4px 4px #e17100;
-  }
-`;
-
-const WithdrawalBtn = styled.button`
-  position: relative;
-  z-index: 5;
-  padding: 5px 0;
-  width: 100%;
-  background-color: white;
-  border: none;
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  a {
-    color: ${({ theme }) => theme.mainColor.Orange5};
   }
 `;
 

@@ -64,7 +64,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
 const ReviewItemContainer = styled.div`
   display: flex;
-  padding: 7px 7% 13px 7%;
+  padding: 7px theme.paddings.base 13px theme.paddings.base;
   border-bottom: 1px solid #eaecef;
 `;
 

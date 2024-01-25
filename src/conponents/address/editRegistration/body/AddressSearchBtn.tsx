@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
 import {
   addrRegFormAtom,
   searchPopupVisibleAtom,
 } from '../../../../states/addressAtom';
+import OutlineButton from '../../../OutlineButton';
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>;
 
 const AddressSearchBtn: React.FC = () => {
@@ -89,21 +88,21 @@ const AddressSearchBtn: React.FC = () => {
     }
   };
 
+  const OutlineButtonStyle: React.CSSProperties = {
+    marginTop: '8px',
+  };
+
   return (
-    <SearchBtn onClick={() => SearchBtnOnClick()}>우편번호 검색하기</SearchBtn>
+    <OutlineButton
+      onClick={() => SearchBtnOnClick()}
+      style={OutlineButtonStyle}
+      font="Subhead2"
+      border="Orange5"
+      color="Orange5"
+    >
+      우편번호 검색하기
+    </OutlineButton>
   );
 };
-
-const SearchBtn = styled.button`
-  margin-top: 8px;
-  padding: 10px 0;
-  width: 100%;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-  border-radius: 4px;
-  text-align: center;
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-`;
 
 export default AddressSearchBtn;

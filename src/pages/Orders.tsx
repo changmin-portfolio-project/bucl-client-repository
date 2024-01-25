@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Header from '../conponents/order/Header';
 import Body from '../conponents/order/Body';
+import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const HomePage: React.FC = () => {
   useEffect(() => {
@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   }, []);
   return (
     <Container>
-      <Header />
+      <HeaderLayout text="주문 / 결제" />
       <Body />
     </Container>
   );

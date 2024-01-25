@@ -4,9 +4,9 @@ import styled, { DefaultTheme } from 'styled-components';
 interface OutlineButtonProps {
   children?: ReactNode;
   onClick?: (orderCode?: string) => void | undefined;
-  font?: string;
-  border?: string;
-  color?: string;
+  font: string;
+  border: string;
+  color: string;
   style?: React.CSSProperties;
 }
 

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Header from '../conponents/review/Header';
 import Body from '../conponents/review/Body';
 import TopBtn from '../conponents/TopBtn';
+import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const ReviewsPage: React.FC = () => {
   const ReviewTopBtntyle: React.CSSProperties = {
@@ -13,7 +13,7 @@ const ReviewsPage: React.FC = () => {
   }, []);
   return (
     <ReviewsPageContainer>
-      <Header />
+      <HeaderLayout text="구매 후기" />
       <Body />
       <TopBtn style={ReviewTopBtntyle} />
 

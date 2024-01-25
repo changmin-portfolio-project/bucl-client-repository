@@ -53,10 +53,7 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
   return (
     <>
       {active && (
-        <OptionChooseContainer
-          id="option-pop-container"
-          onClick={buyToggleBtnOnClick}
-        >
+        <OptionChooseContainer onClick={buyToggleBtnOnClick}>
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -91,7 +88,12 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                   ))}
                 </OptionBox>
                 <CloseBtnBox>
-                  <OutlineButton onClick={buyToggleBtnOnClick}>
+                  <OutlineButton
+                    border="Orange5"
+                    color="Orange5"
+                    font="Subhead2"
+                    onClick={buyToggleBtnOnClick}
+                  >
                     옵션 선택 닫기
                   </OutlineButton>
                 </CloseBtnBox>
@@ -119,10 +121,8 @@ const OptionChooseContainer = styled.div`
 `;
 
 const OptionBox = styled.div`
-  /* position: absolute;
-  bottom: 0; */
-  padding: 0 7% 5px 7%;
-  width: calc(100% - 14%);
+  padding: 0 ${({ theme }) => theme.paddings.base};
+  width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   max-height: 50vh;
   overflow-y: auto;
   background-color: white;
@@ -144,18 +144,10 @@ const OptionName = styled.span`
 `;
 
 const CloseBtnBox = styled.div`
-  padding: 15px 7% 40px 7%;
+  padding: 15px ${({ theme }) => theme.paddings.base} 40px
+    ${({ theme }) => theme.paddings.base};
   background-color: white;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey3};
 `;
-// const CloseBtn = styled.button`
-//   padding: 10px 0;
-//   width: 100%;
-//   background-color: transparent;
-//   border: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-//   border-radius: 4px;
-//   font: ${({ theme }) => theme.fontSizes.Subhead2};
-//   color: ${({ theme }) => theme.mainColor.Orange5};
-// `;
 
 export default OptionChoose;
