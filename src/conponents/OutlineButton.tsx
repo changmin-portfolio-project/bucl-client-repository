@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 
 interface OutlineButtonProps {
   children?: ReactNode;
@@ -51,26 +51,21 @@ const OutlineBtn = styled.button<{
   border: 1px solid
     ${(props) => {
       if (props.$border.includes('Orange'))
-        return ({ theme }) =>
-          theme.mainColor[props.$border as keyof DefaultTheme['mainColor']];
-      else
-        return ({ theme }) =>
-          theme.grey[props.$border as keyof DefaultTheme['grey']];
+        return ({ theme }) => theme.mainColor[props.$border];
+      else return ({ theme }) => theme.grey[props.$border];
     }};
 
   /* font 변경 부분 */
   font: ${(props) =>
     ({ theme }) =>
-      theme.fontSizes[props.$font as keyof DefaultTheme['fontSizes']]};
+      theme.fontSizes[props.$font]};
 
   /* color 변경 부분 */
   color: ${(props) => {
     if (props.$color.includes('Orange'))
-      return ({ theme }) =>
-        theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+      return ({ theme }) => theme.mainColor[props.$color];
     else if (props.$color.includes('Grey'))
-      return ({ theme }) =>
-        theme.grey[props.$color as keyof DefaultTheme['grey']];
+      return ({ theme }) => theme.grey[props.$color];
     else if (props.$color === 'black') return 'black';
     else return 'white';
   }};
@@ -79,11 +74,9 @@ const OutlineBtn = styled.button<{
     /* a태그 color 변경 부분 */
     color: ${(props) => {
       if (props.$color.includes('Orange'))
-        return ({ theme }) =>
-          theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+        return ({ theme }) => theme.mainColor[props.$color];
       else if (props.$color.includes('Grey'))
-        return ({ theme }) =>
-          theme.grey[props.$color as keyof DefaultTheme['grey']];
+        return ({ theme }) => theme.grey[props.$color];
       else if (props.$color === 'black') return 'black';
       else return 'white';
     }};
