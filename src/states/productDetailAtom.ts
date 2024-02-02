@@ -18,5 +18,6 @@ export const productDetailAtom = atom<ProductData>({
     reviewPreviews: [],
     ordNum: 0,
     deadline: '',
+    wished: false,
   },
 });
