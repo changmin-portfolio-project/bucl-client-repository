@@ -4,6 +4,7 @@ export interface ProductDto {
   productName: string;
   productBrandName: string;
   productImagePathList: string[];
+  productCode: number;
 }
 
 export interface PurchaseOrderDto {
