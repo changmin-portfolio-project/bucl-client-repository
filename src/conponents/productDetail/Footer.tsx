@@ -7,12 +7,16 @@ import { isActivePopUp } from '../../utils/PopUpUtil';
 import OutlineButton from '../OutlineButton';
 import { Link, useParams } from 'react-router-dom';
 import ColoredButton from '../ColoredButton';
+import { useRecoilValue } from 'recoil';
+import { productDetailAtom } from '../../states/productDetailAtom';
 
 const Footer: React.FC = () => {
   const param = useParams();
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
+
+  const productDetail = useRecoilValue(productDetailAtom);
 
   const wishButtonStyle: React.CSSProperties = {
     width: '2rem',
@@ -36,7 +40,7 @@ const Footer: React.FC = () => {
           productCode={0}
           style={wishButtonStyle}
           svgStyle={svgStyle}
-          wished={true}
+          wished={productDetail.wished}
         />
         <ColoredButton
           font="Subhead2"
