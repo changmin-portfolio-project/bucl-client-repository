@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from '../../ReviewImgItem';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
-import { purchaseConfirmPopupAtom } from '../../../states/orderHistoryAtom';
-import { useSetRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 import TextButton from '../../TextButton';
-import OutlineButton from '../../OutlineButton';
+import DeliveryStatusButton from './DeliveryStatusButton';
+import WriteReviewButton from './WriteReviewButton';
 
 interface OrderHistoryItemProps {
   productName: string;
@@ -25,20 +24,10 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
   confirmed,
   orderCode,
 }) => {
-  // const [selectedOrdCode, setSelectedOrdCode] = useState<string>();
-  const setPopupOpen = useSetRecoilState(purchaseConfirmPopupAtom);
-
-  const purchaseConfirmBtnOnClick = (orderCode: string) => {
-    setPopupOpen(orderCode);
-  };
-
   const TextButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     marginRight: '-10px',
-  };
-  const OutlineButtonStyle: React.CSSProperties = {
-    padding: '6px 10px',
   };
 
   return (
@@ -81,40 +70,8 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
         </ProductNamePriceCountBox>
       </ProductInfoBox>
       <MenuBtnBox>
-        <DeliveryStatusBtnBox>
-          <OutlineButton
-            style={OutlineButtonStyle}
-            font="Body2"
-            border="Orange5"
-            color="Orange5"
-          >
-            배송현황
-          </OutlineButton>
-        </DeliveryStatusBtnBox>
-        <WriteReviewBtnBox>
-          {confirmed ? (
-            <OutlineButton
-              style={OutlineButtonStyle}
-              border="Grey4"
-              color="Grey8"
-              font="Body2"
-            >
-              리뷰작성
-            </OutlineButton>
-          ) : (
-            <OutlineButton
-              style={OutlineButtonStyle}
-              onClick={() => {
-                purchaseConfirmBtnOnClick(orderCode);
-              }}
-              border="Grey4"
-              color="Grey8"
-              font="Body2"
-            >
-              구매확정
-            </OutlineButton>
-          )}
-        </WriteReviewBtnBox>
+        <DeliveryStatusButton />
+        <WriteReviewButton confirmed={confirmed} orderCode={orderCode} />
       </MenuBtnBox>
     </OrderHistoryItemContainer>
   );
@@ -188,10 +145,10 @@ const MenuBtnBox = styled.div`
   justify-content: space-between;
   padding: 0 10px 15px 10px;
 `;
-const DeliveryStatusBtnBox = styled.div`
-  width: 48%;
-`;
+// const DeliveryStatusBtnBox = styled.div`
+//   width: 48%;
+// `;
 
-const WriteReviewBtnBox = styled(DeliveryStatusBtnBox)``;
+// const WriteReviewBtnBox = styled(DeliveryStatusBtnBox)``;
 
 export default OrderHistoryItem;
