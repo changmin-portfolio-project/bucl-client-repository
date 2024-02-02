@@ -28,12 +28,11 @@ const OrderHistoryfiniteScroll: React.FC = () => {
   };
   useEffect(() => {
     if (inView) {
-      console.log(inView, '무한 스크롤 요청 🎃'); // 실행할 함수
       callback();
     }
   }, [inView]);
 
-  return <ScrollBottomContainer ref={ref}>무한스크롤</ScrollBottomContainer>;
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div``;
