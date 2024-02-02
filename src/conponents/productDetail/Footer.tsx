@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Deadline from '../Deadline';
-import WishBtn from '../WishBtn';
+import WishButton from '../WishButton';
 import OptionChoose from './footer/OptionChoose';
 import { isActivePopUp } from '../../utils/PopUpUtil';
 import OutlineButton from '../OutlineButton';
@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
 
-  const wishBtnStyle: React.CSSProperties = {
+  const wishButtonStyle: React.CSSProperties = {
     width: '2rem',
   };
   const svgStyle: React.CSSProperties = {
@@ -32,9 +32,9 @@ const Footer: React.FC = () => {
     <FooterContainer>
       <Deadline deadline={'2024-02-01T06:00:14'} />
       <FeatureBtnBox>
-        <WishBtn
+        <WishButton
           productCode={0}
-          style={wishBtnStyle}
+          style={wishButtonStyle}
           svgStyle={svgStyle}
           wished={true}
         />

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const PrevBtn: React.FC = () => {
+const PrevButton: React.FC = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -39,4 +39,4 @@ const PrevBtnContainer = styled.div`
   cursor: pointer;
 `;
 
-export default PrevBtn;
+export default PrevButton;

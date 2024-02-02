@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TimeIcon from '../../TimeIcon';
 import Attend from '../../Attend';
-import CategoryWishBtn from './CategoryWishBtn';
+import CategoryWishButton from './CategoryWishButton';
 
 interface ProductSubInfoProps {
   productCode: number;
@@ -27,7 +27,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
         <TimeIcon />
       </ProductSubInfoItem>
       <ProductSubInfoItem>
-        <CategoryWishBtn
+        <CategoryWishButton
           productCode={productCode}
           wished={wished}
           wishId={wishId}

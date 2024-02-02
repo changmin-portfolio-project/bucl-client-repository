@@ -9,7 +9,7 @@ import Deadline from '../../Deadline';
 import theme from '../../../style/theme';
 
 import { saveBeforePos } from '../../../utils/HomeUtil';
-import HomeWishBtn from './HomeWishBtn';
+import HomeWishButton from './HomeWishButton';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -69,7 +69,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
             </ProductInfoBox>
           </ProductImgBox>
         </Link>
-        <HomeWishBtn
+        <HomeWishButton
           wishId={uniqueKey}
           productCode={data.productCode}
           style={wishBtnStyle}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PrevBtn from '../PrevBtn';
+import PrevButton from '../PrevButton';
 
 interface HeaderLayoutProps {
   style?: React.CSSProperties;
@@ -19,7 +19,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         children
       ) : (
         <Title>
-          <PrevBtn />
+          <PrevButton />
           {text}
         </Title>
       )}

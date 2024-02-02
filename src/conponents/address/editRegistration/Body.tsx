@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import RegisterAddressBtn from './body/RegisterAddressBtn';
+import RegisterAddressButton from './body/RegisterAddressButton';
 import EditRegister from './body/EditRegister';
 import AddressSearchPopup from './body/AddressSearchPopup';
 import DefaultCheckBox from './body/DefaultCheckBox';
@@ -12,7 +12,7 @@ const Body: React.FC = () => {
         <EditRegister />
         <StyleRegWrap>
           <DefaultCheckBox />
-          <RegisterAddressBtn />
+          <RegisterAddressButton />
         </StyleRegWrap>
       </BodyContainer>
       <AddressSearchPopup />

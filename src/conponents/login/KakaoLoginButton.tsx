@@ -4,7 +4,7 @@ import { postKakaoAuthToken } from '../../services/auth/postKakaoAuthToken';
 import { postKakaoLogin } from '../../services/auth/postKakaoLogin';
 import { useNavigate } from 'react-router';
 
-const KakaoLoginBtn: React.FC = () => {
+const KakaoLoginButton: React.FC = () => {
   const navigate = useNavigate();
 
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
@@ -67,4 +67,4 @@ const KakaoBtn = styled.div`
   }
 `;
 
-export default KakaoLoginBtn;
+export default KakaoLoginButton;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TopBtn: React.FC = () => {
+const TopButton: React.FC = () => {
   const topBtnOnClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -60,4 +60,4 @@ const TopBtnText = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body1};
 `;
 
-export default TopBtn;
+export default TopButton;

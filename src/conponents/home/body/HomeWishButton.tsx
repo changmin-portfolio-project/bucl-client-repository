@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { postWishes } from '../../../services/wish/postWishes';
+import { productListAtom } from '../../../states/productAtom';
 import { useSetRecoilState } from 'recoil';
-import { productListByCategoriesAtom } from '../../../states/categoryAtom';
 
-interface WishBtnComponentProps {
+interface HomeWishButtonComponentProps {
   productCode: number;
   wished: boolean;
   style?: React.CSSProperties;
@@ -12,18 +12,18 @@ interface WishBtnComponentProps {
   wishId?: number;
 }
 
-const CategoryWishBtn: React.FC<WishBtnComponentProps> = ({
+const HomeWishButton: React.FC<HomeWishButtonComponentProps> = ({
   productCode,
   wished,
   style,
   svgStyle,
   wishId,
 }) => {
-  const setCategoryProductlist = useSetRecoilState(productListByCategoriesAtom);
+  const setHomeProductlist = useSetRecoilState(productListAtom);
   const wishBtnOnClick = (wishId: number | undefined, wished: boolean) => {
     if (wishId !== undefined) {
       postWishes().then(() => {
-        setCategoryProductlist((prevItemList) =>
+        setHomeProductlist((prevItemList) =>
           prevItemList.map((prevItem, i) =>
             i === wishId ? { ...prevItem, wished: !wished } : prevItem,
           ),
@@ -50,7 +50,7 @@ const CategoryWishBtn: React.FC<WishBtnComponentProps> = ({
             width="18"
             height="18"
             viewBox="0 0 24 24"
-            fill="rgba(255,255,255,0.8)"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={svgStyle}
           >
@@ -105,4 +105,4 @@ const WishButton = styled.label`
   cursor: pointer;
 `;
 
-export default CategoryWishBtn;
+export default HomeWishButton;

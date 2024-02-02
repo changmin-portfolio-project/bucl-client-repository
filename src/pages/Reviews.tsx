@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Body from '../conponents/review/Body';
-import TopBtn from '../conponents/TopBtn';
+import TopBtn from '../conponents/TopButton';
 import HeaderLayout from '../conponents/layout/HeaderLayout';
 
 const ReviewsPage: React.FC = () => {

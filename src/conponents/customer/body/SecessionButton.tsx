@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SecessionPopup from './SecessionPopup';
 import TextButton from '../../TextButton';
 
-const SecessionBtn: React.FC = () => {
+const SecessionButton: React.FC = () => {
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
   const secessionBtnOnClick = () => {
     setPopupOpen(!popupOpen);
@@ -26,4 +26,4 @@ const SecessionBtnContainer = styled.section`
   padding-top: 15px;
 `;
 
-export default SecessionBtn;
+export default SecessionButton;

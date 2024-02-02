@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { reviewImgListAtom } from '../../../states/postReviewAtom';
 import { REVIEW_IMG_MAX_NUM } from '../../../const/Review';
 
-const PhotoAttachBtn: React.FC = () => {
+const PhotoAttachButton: React.FC = () => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [reviewImgList, setReviewImgList] = useRecoilState(reviewImgListAtom);
   const galleryOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,4 +113,4 @@ const StyDelIcon = styled.img`
   left: 80%;
 `;
 
-export default PhotoAttachBtn;
+export default PhotoAttachButton;

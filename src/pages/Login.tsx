@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import KakaoLoginBtn from '../conponents/login/KakaoLoginBtn';
-import AppleLoginBtn from '../conponents/login/AppleLoginBtn';
+import KakaoLoginButton from '../conponents/login/KakaoLoginButton';
+import AppleLoginButton from '../conponents/login/AppleLoginButton';
 import { postRefreshToken } from '../services';
 
 const LoginPage: React.FC = () => {
@@ -74,8 +74,8 @@ const LoginPage: React.FC = () => {
         </defs>
       </svg>
       <LoginBtnBox>
-        <KakaoLoginBtn />
-        <AppleLoginBtn />
+        <KakaoLoginButton />
+        <AppleLoginButton />
       </LoginBtnBox>
       <HelpText>
         지금 회원가입 하면 현금처럼 사용 가능한
