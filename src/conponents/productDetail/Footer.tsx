@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Deadline from '../Deadline';
 import WishButton from '../WishButton';
 import OptionChoose from './footer/OptionChoose';
@@ -32,9 +32,13 @@ const Footer: React.FC = () => {
     isActivePopUp(optionCheck);
   };
 
+  const currentDate = new Date();
+  const deatlineDate = new Date(productDetail.deadline);
+  const isFinished = currentDate > deatlineDate;
+
   return (
-    <FooterContainer>
-      <Deadline deadline={'2024-02-01T06:00:14'} />
+    <FooterContainer $isFinished={isFinished}>
+      <Deadline deadline={productDetail.deadline} />
       <FeatureBtnBox>
         <WishButton
           productCode={0}
@@ -65,7 +69,7 @@ const Footer: React.FC = () => {
   );
 };
 
-const FooterContainer = styled.footer`
+const FooterContainer = styled.footer<{ $isFinished: boolean }>`
   position: fixed;
   max-width: 600px;
   border-radius: 12px 12px 0 0;
@@ -75,14 +79,19 @@ const FooterContainer = styled.footer`
   width: 100%;
   background-color: white;
   //마감이 끝났을때 활성화될 css
-  /* &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    inset: 0;
-    background-color: rgba(255, 255, 255, 0.5);
-  } */
+  ${(props) =>
+    props.$isFinished &&
+    css`
+      color: black;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    `}
 `;
 
 const FeatureBtnBox = styled.div`

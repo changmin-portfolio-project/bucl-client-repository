@@ -25,8 +25,6 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
     const difference = targetTime.getTime() - now.getTime();
 
     if (difference < 0) {
-      // Target date has passed
-
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
@@ -49,17 +47,25 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
     return () => clearInterval(timer);
   }, [deadline]);
 
+  const isFinished =
+    timeRemaining.hours === 0 &&
+    timeRemaining.seconds === 0 &&
+    timeRemaining.minutes === 0;
+
   return (
-    <DeadlineContainer>
-      마감까지
-      {timeRemaining.days === 0 ? (
+    <DeadlineContainer $isFinished={isFinished}>
+      {isFinished ? (
+        '판매 종료'
+      ) : timeRemaining.days === 0 ? (
         <>
+          마감까지
           <span>{timeRemaining.hours}시간</span>
           <span>{timeRemaining.minutes}분</span>
           <span>{timeRemaining.seconds}초</span>남음
         </>
       ) : (
         <>
+          마감까지
           <span>{timeRemaining.days}일</span>
           <span>{timeRemaining.hours}시간</span>
           <span>{timeRemaining.minutes}분</span>남음
@@ -69,8 +75,9 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline }) => {
   );
 };
 
-const DeadlineContainer = styled.div<{ $spanFont?: string }>`
-  background-color: ${({ theme }) => theme.mainColor.Orange5};
+const DeadlineContainer = styled.div<{ $isFinished: boolean }>`
+  background-color: ${(props) =>
+    props.$isFinished ? 'black' : ({ theme }) => theme.mainColor.Orange5};
   border-radius: 12px 12px 0 0;
   display: flex;
   justify-content: center;
