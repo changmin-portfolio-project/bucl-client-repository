@@ -167,7 +167,8 @@ const XButtonImg = styled.img`
 
 const CountBox = styled.div``;
 const MinusBtn = styled.button`
-  min-width: 15px;
+  width: 30px;
+  height: 30px;
   aspect-ratio: 1/1;
   background-color: ${({ theme }) => theme.grey.Grey0};
   border: none;
