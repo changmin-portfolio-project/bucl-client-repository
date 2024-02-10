@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 const Point: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   useEffect(() => {
-    getReward().then((res) => {
-      setPoint(res);
-    });
+    getReward()
+      .then((res) => {
+        setPoint(res);
+      })
+      .catch(() => {});
   }, []);
 
   return (
