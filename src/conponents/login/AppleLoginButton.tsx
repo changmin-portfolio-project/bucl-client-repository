@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AppleLoginBtn: React.FC = () => {
+const AppleLoginButton: React.FC = () => {
   return (
     <AppleBtn>
       <svg
@@ -39,4 +39,4 @@ const AppleBtn = styled.button`
   }
 `;
 
-export default AppleLoginBtn;
+export default AppleLoginButton;

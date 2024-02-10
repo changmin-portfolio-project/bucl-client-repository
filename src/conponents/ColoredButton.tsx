@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 
 interface ColoredButtonProps {
   children?: ReactNode;
@@ -45,8 +45,7 @@ const ColoredBtn = styled.button<{
   /* background-color 변경 부분 */
   background-color: ${(props) => {
     if (props.$backgroundColor.includes('Grey'))
-      return ({ theme }) =>
-        theme.grey[props.$backgroundColor as keyof DefaultTheme['grey']];
+      return ({ theme }) => theme.grey[props.$backgroundColor];
     else if (props.$backgroundColor === 'white') return 'white';
     else return ({ theme }) => theme.mainColor.Orange5;
   }};
@@ -54,16 +53,14 @@ const ColoredBtn = styled.button<{
   /* font 변경 부분 */
   font: ${(props) =>
     ({ theme }) =>
-      theme.fontSizes[props.$font as keyof DefaultTheme['fontSizes']]};
+      theme.fontSizes[props.$font]};
 
   /* color 변경 부분 */
   color: ${(props) => {
     if (props.$color.includes('Grey'))
-      return ({ theme }) =>
-        theme.grey[props.$color as keyof DefaultTheme['grey']];
+      return ({ theme }) => theme.grey[props.$color];
     else if (props.$color.includes('Orange'))
-      return ({ theme }) =>
-        theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+      return ({ theme }) => theme.mainColor[props.$color];
     else if (props.$color === 'black') return 'black';
     else return 'white';
   }};
@@ -72,11 +69,9 @@ const ColoredBtn = styled.button<{
     /* a태그 color 변경 부분 */
     color: ${(props) => {
       if (props.$color.includes('Grey'))
-        return ({ theme }) =>
-          theme.grey[props.$color as keyof DefaultTheme['grey']];
+        return ({ theme }) => theme.grey[props.$color];
       else if (props.$color.includes('Orange'))
-        return ({ theme }) =>
-          theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+        return ({ theme }) => theme.mainColor[props.$color];
       else if (props.$color === 'black') return 'black';
       else return 'white';
     }};

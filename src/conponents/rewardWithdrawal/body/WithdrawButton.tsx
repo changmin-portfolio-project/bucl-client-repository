@@ -13,7 +13,7 @@ interface WithdrawBtnProps {
   isActive: boolean;
 }
 
-const WithdrawBtn: React.FC<WithdrawBtnProps> = ({ isActive }) => {
+const WithdrawButton: React.FC<WithdrawBtnProps> = ({ isActive }) => {
   const setWithdrawalHistoryList = useSetRecoilState<RewardData[]>(
     withdrawalHistoryListAtom,
   );
@@ -52,4 +52,4 @@ const WithdrawBtn: React.FC<WithdrawBtnProps> = ({ isActive }) => {
   return <button onClick={() => withdrawBtnOnClick()}>인출하기</button>;
 };
 
-export default WithdrawBtn;
+export default WithdrawButton;

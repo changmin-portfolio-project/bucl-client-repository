@@ -1,7 +1,7 @@
 import React from 'react';
 import MyInfo from './body/MyInfo';
 import MenuTab from './body/MenuTab';
-import LogoutBtn from './body/LogoutBtn';
+import LogoutButton from './body/LogoutButton';
 import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
@@ -9,7 +9,7 @@ const Body: React.FC = () => {
     <BodyLayout>
       <MyInfo />
       <MenuTab />
-      <LogoutBtn />
+      <LogoutButton />
     </BodyLayout>
   );
 };

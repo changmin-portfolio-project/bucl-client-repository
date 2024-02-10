@@ -8,8 +8,8 @@ import Deadline from '../../Deadline';
 import theme from '../../../style/theme';
 
 import { saveBeforePos } from '../../../utils/HomeUtil';
-import HomeWishBtn from './HomeWishBtn';
 import AppLink from '../../AppLink';
+import HomeWishButton from './HomeWishButton';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -73,7 +73,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
             </ProductInfoBox>
           </ProductImgBox>
         </AppLink>
-        <HomeWishBtn
+        <HomeWishButton
           wishId={uniqueKey}
           productCode={data.productCode}
           style={wishBtnStyle}

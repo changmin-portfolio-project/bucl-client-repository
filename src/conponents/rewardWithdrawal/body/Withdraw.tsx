@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import WithdrawBtn from './WithdrawBtn';
+import WithdrawButton from './WithdrawButton';
 import { getReward } from '../../../services/reward/getReward';
 import { useRecoilState } from 'recoil';
 import { rwdUseAmtAtom } from '../../../states/rewardAtom';
@@ -49,7 +49,7 @@ const Withdraw: React.FC = () => {
             value={withdrawalPoint}
             onChange={(e) => withdrawalPointInputOnChange(e.target.value)}
           />
-          <WithdrawBtn isActive={Boolean(withdrawalPoint)} />
+          <WithdrawButton isActive={Boolean(withdrawalPoint)} />
         </BtnInputBox>
         <HelpText>
           5,000P부터 인출이 가능하며, 포인트 단위는 현금 단위와 동일합니다.

@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { deleteWish } from '../../../services/wish/deleteWish';
 import theme from '../../../style/theme';
 
-interface WishBtnComponentProps {
+interface HomeWishButtonComponentProps {
   productCode: number;
   wished: boolean;
   style?: React.CSSProperties;
@@ -14,7 +14,7 @@ interface WishBtnComponentProps {
   wishId?: number;
 }
 
-const HomeWishBtn: React.FC<WishBtnComponentProps> = ({
+const HomeWishButton: React.FC<HomeWishButtonComponentProps> = ({
   productCode,
   wished,
   style,
@@ -116,4 +116,4 @@ const WishButton = styled.label`
   cursor: pointer;
 `;
 
-export default HomeWishBtn;
+export default HomeWishButton;

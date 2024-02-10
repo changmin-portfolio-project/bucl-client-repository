@@ -11,7 +11,7 @@ interface WishBtnComponentProps {
   wishId?: number;
 }
 
-const WishBtn: React.FC<WishBtnComponentProps> = ({
+const WishButton: React.FC<WishBtnComponentProps> = ({
   productCode,
   style,
   wished,
@@ -32,10 +32,7 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({
         id={`wish-${productCode}`}
       /> */}
       {wished ? (
-        <WishButton
-          onClick={() => wishBtnOnClick(wishId, wished)}
-          style={style}
-        >
+        <WishBtn onClick={() => wishBtnOnClick(wishId, wished)} style={style}>
           <svg
             viewBox="0 0 15 15"
             fill="none"
@@ -53,12 +50,9 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({
               />
             </g>
           </svg>
-        </WishButton>
+        </WishBtn>
       ) : (
-        <WishButton
-          onClick={() => wishBtnOnClick(wishId, wished)}
-          style={style}
-        >
+        <WishBtn onClick={() => wishBtnOnClick(wishId, wished)} style={style}>
           <svg
             width="18"
             height="18"
@@ -75,7 +69,7 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({
               strokeLinejoin="round"
             />
           </svg>
-        </WishButton>
+        </WishBtn>
       )}
     </WishBtnContainer>
   );
@@ -83,7 +77,7 @@ const WishBtn: React.FC<WishBtnComponentProps> = ({
 
 const WishBtnContainer = styled.div``;
 
-const WishButton = styled.div`
+const WishBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,4 +85,4 @@ const WishButton = styled.div`
   cursor: pointer;
 `;
 
-export default WishBtn;
+export default WishButton;

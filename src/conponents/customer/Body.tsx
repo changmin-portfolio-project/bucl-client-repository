@@ -1,7 +1,7 @@
 import React from 'react';
 import Introduction from './body/Introduction';
 import MenuTab from './body/MenuTab';
-import SecessionBtn from './body/SecessionBtn';
+import SecessionButton from './body/SecessionButton';
 import BodyLayout from '../layout/BodyLayout';
 
 const Body: React.FC = () => {
@@ -9,7 +9,7 @@ const Body: React.FC = () => {
     <BodyLayout>
       <Introduction />
       <MenuTab />
-      <SecessionBtn />
+      <SecessionButton />
     </BodyLayout>
   );
 };

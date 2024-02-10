@@ -11,7 +11,7 @@ import { postReview } from '../../../services/postReview/postReview';
 import { useParams } from 'react-router-dom';
 import ColoredButton from '../../ColoredButton';
 
-const PostConfirmBtn: React.FC = () => {
+const PostConfirmButton: React.FC = () => {
   const param = useParams();
   const setCompleteBoolean = useSetRecoilState(completeBooleanAtom);
   const starNum = useRecoilValue(starNumAtom);
@@ -62,4 +62,4 @@ const PostConfirmBtn: React.FC = () => {
   );
 };
 
-export default PostConfirmBtn;
+export default PostConfirmButton;

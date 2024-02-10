@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PhoneNumInput from './PhoneNumInput';
-import AddressSearchBtn from './AddressSearchBtn';
+import AddressSearchButton from './AddressSearchButton';
 import { addrRegFormAtom } from '../../../../states/addressAtom';
 import { useRecoilState } from 'recoil';
 
@@ -54,7 +54,7 @@ const EditRegister: React.FC = () => {
       <Box>
         <Title>주소</Title>
         <Input value={addrRegForm.address} placeholder="주소" disabled />
-        <AddressSearchBtn />
+        <AddressSearchButton />
       </Box>
       <Box>
         <Title>상세 주소</Title>

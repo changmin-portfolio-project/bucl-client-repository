@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TabBar from '../conponents/TabBar';
 import Header from '../conponents/category/Header';
 import Body from '../conponents/category/Body';
-import TopBtn from '../conponents/TopBtn';
+import TopBtn from '../conponents/TopButton';
 
 const CategoriesPage: React.FC = () => {
   return (

@@ -3,7 +3,7 @@ import TabBar from '../conponents/TabBar';
 import styled from 'styled-components';
 import Header from '../conponents/home/Header';
 import Body from '../conponents/home/Body';
-import HomeTopBtn from '../conponents/home/HomeTopBtn';
+import HomeTopBtn from '../conponents/home/HomeTopButton';
 import { HOME_INF_POS_NAME } from '../const/Pagenation';
 
 const HomePage: React.FC = () => {

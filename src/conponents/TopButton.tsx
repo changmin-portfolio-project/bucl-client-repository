@@ -5,7 +5,7 @@ interface TopBtnProps {
   style?: React.CSSProperties;
 }
 
-const TopBtn: React.FC<TopBtnProps> = ({ style }) => {
+const TopButton: React.FC<TopBtnProps> = ({ style }) => {
   const topBtnOnClick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -64,4 +64,4 @@ const TopBtnText = styled.p`
   font: ${({ theme }) => theme.fontSizes.Body1};
 `;
 
-export default TopBtn;
+export default TopButton;

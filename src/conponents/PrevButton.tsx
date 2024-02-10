@@ -16,7 +16,7 @@ interface PrevBtnProps {
   isApp?: boolean;
 }
 
-const PrevBtn: React.FC<PrevBtnProps> = ({ isApp = false }) => {
+const PrevButton: React.FC<PrevBtnProps> = ({ isApp = false }) => {
   return (
     <AppLink
       isApp={isApp}
@@ -43,4 +43,4 @@ const PrevBtn: React.FC<PrevBtnProps> = ({ isApp = false }) => {
   );
 };
 
-export default PrevBtn;
+export default PrevButton;

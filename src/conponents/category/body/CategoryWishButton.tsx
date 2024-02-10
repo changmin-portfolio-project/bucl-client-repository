@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { productListByCategoriesAtom } from '../../../states/categoryAtom';
 import theme from '../../../style/theme';
 
-interface WishBtnComponentProps {
+interface CategoryWishButtonComponentProps {
   productCode: number;
   wished: boolean;
   style?: React.CSSProperties;
@@ -13,7 +13,7 @@ interface WishBtnComponentProps {
   wishId?: number;
 }
 
-const CategoryWishBtn: React.FC<WishBtnComponentProps> = ({
+const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
   productCode,
   wished,
   style,
@@ -106,4 +106,4 @@ const WishButton = styled.label`
   cursor: pointer;
 `;
 
-export default CategoryWishBtn;
+export default CategoryWishButton;

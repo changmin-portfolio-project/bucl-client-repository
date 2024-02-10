@@ -25,6 +25,7 @@ export interface ProductData {
   reviewPreviews: ReviewPreview[];
   ordNum: number;
   deadline: string;
+  wished: boolean;
 }
 
 export interface getProductInfoResponse {

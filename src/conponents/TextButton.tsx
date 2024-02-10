@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 
 interface TextButtonProps {
   onClick?: () => void;
@@ -34,23 +34,19 @@ const TextBtn = styled.button<{ $font: string; $color: string }>`
   /* font 변경 부분 */
   font: ${(props) =>
     props.$font
-      ? ({ theme }) =>
-          theme.fontSizes[props.$font as keyof DefaultTheme['fontSizes']]
+      ? ({ theme }) => theme.fontSizes[props.$font]
       : ({ theme }) => theme.fontSizes.Subhead2};
-  color: ${({ theme }) => theme.grey.Grey5};
   /* color 변경 부분 */
   color: ${(props) => {
     if (props.$color.includes('Orange'))
-      return ({ theme }) =>
-        theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+      return ({ theme }) => theme.mainColor[props.$color];
     else return ({ theme }) => theme.grey.Grey5;
   }};
   a {
     /* a태그 color 변경 부분 */
     color: ${(props) => {
       if (props.$color.includes('Orange'))
-        return ({ theme }) =>
-          theme.mainColor[props.$color as keyof DefaultTheme['mainColor']];
+        return ({ theme }) => theme.mainColor[props.$color];
       else return ({ theme }) => theme.grey.Grey5;
     }};
   }

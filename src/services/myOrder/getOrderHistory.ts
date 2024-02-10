@@ -4,6 +4,7 @@ export interface ProductDto {
   productName: string;
   productBrandName: string;
   productImagePathList: string[];
+  productCode: number;
 }
 
 export interface PurchaseOrderDto {
@@ -33,7 +34,6 @@ interface getOrderHistoryResponse {
 export const getOrderHistory = (
   pageNum: number,
 ): Promise<getOrderHistoryResponse> => {
-  console.log(`/api/v1/orders?page=${pageNum}&pageSize=10`);
   return api
     .get(`/api/v1/orders?page=${pageNum}&pageSize=10`)
     .then((res) => {

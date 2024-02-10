@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { accountAtom } from '../../../states/withdrawalAtom';
+import { rewardAccountAtom } from '../../../states/withdrawalAtom';
 
 const AccountInquiry: React.FC = () => {
-  const account = useRecoilValue(accountAtom);
+  const rewardAccount = useRecoilValue(rewardAccountAtom);
+
   return (
     <AccountInquiryContainer>
       <Title>인출 계좌 조회</Title>
-      {account ? (
+      {rewardAccount ? (
         <Link to="/reward-accounts">변경하기</Link>
       ) : (
         <Link to="/reward-accounts">등록하기</Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import AddressAddBtn from './body/AddressAddBtn';
+import AddressAddButton from './body/AddressAddButton';
 import AddressList from './body/AddressList';
 import DefaultCheckBox from './body/DefaultCheckBox';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -9,7 +9,7 @@ import {
   addrRegFormAtom,
   isDefaultAddressAtom,
 } from '../../../states/addressAtom';
-import AddressEditBtn from './body/AddressEditBtn';
+import AddressEditButton from './body/AddressEditButton';
 
 const Body: React.FC = () => {
   const [currentAddressNum, setCurrentAddressNum] = useRecoilState(
@@ -38,7 +38,7 @@ const Body: React.FC = () => {
       <AddressList />
       <StyleRegWrap onClick={(e) => e.stopPropagation()}>
         {currentAddressNum ? <DefaultCheckBox /> : null}
-        {currentAddressNum ? <AddressEditBtn /> : <AddressAddBtn />}
+        {currentAddressNum ? <AddressEditButton /> : <AddressAddButton />}
       </StyleRegWrap>
     </BodyContainer>
   );

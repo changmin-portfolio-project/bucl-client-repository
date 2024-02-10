@@ -7,7 +7,7 @@ import {
 import OutlineButton from '../../../OutlineButton';
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>;
 
-const AddressSearchBtn: React.FC = () => {
+const AddressSearchButton: React.FC = () => {
   const setVisible = useSetRecoilState(searchPopupVisibleAtom);
 
   const setAddrRegForm = useSetRecoilState(addrRegFormAtom);
@@ -105,4 +105,4 @@ const AddressSearchBtn: React.FC = () => {
   );
 };
 
-export default AddressSearchBtn;
+export default AddressSearchButton;

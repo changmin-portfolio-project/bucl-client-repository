@@ -7,7 +7,7 @@ export interface RewardAccount {
   accountHolderName: string;
 }
 
-// 인출 내역 가져오기
+// 계좌 정보 가져오기
 export const getRewardAccount = (): Promise<RewardAccount> => {
   return api
     .get(`/api/v1/rewards/account`)

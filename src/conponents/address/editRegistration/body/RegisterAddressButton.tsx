@@ -14,7 +14,7 @@ import {
 import { putAddressUpdate } from '../../../../services/address/putAddressUpdate';
 import ColoredButton from '../../../ColoredButton';
 
-const RegisterAddressBtn: React.FC = () => {
+const RegisterAddressButton: React.FC = () => {
   const addrRegForm = useRecoilValue(addrRegFormAtom);
   const isDefaultAddress = useRecoilValue(isDefaultAddressAtom);
   const setEditRegistrationMode = useSetRecoilState(editRegistrationModeAtom);
@@ -85,4 +85,4 @@ const RegisterAddressBtnContainer = styled.div`
   }
 `;
 
-export default RegisterAddressBtn;
+export default RegisterAddressButton;

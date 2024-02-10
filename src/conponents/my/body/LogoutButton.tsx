@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LogoutPopup from './LogoutPopup';
 
-const LogoutBtn: React.FC = () => {
+const LogoutButton: React.FC = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const handleLogout = () => {
     setPopupOpen(true);
@@ -27,4 +27,4 @@ const LogoutBtnContainer = styled.section`
   }
 `;
 
-export default LogoutBtn;
+export default LogoutButton;
