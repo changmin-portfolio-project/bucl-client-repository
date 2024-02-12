@@ -1,5 +1,5 @@
 import React from 'react';
-import PrevBtn from '../PrevBtn';
+import PrevButton from '../PrevButton';
 import styled from 'styled-components';
 import HeaderLayout from '../layout/HeaderLayout';
 
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   return (
     <HeaderLayout style={HeaderLayoutStyle}>
       <Title>
-        <PrevBtn />
+        <PrevButton />
         구매 후기
       </Title>
     </HeaderLayout>
