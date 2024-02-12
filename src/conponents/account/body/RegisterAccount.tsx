@@ -25,42 +25,48 @@ const RegisterAccount: React.FC = () => {
 
   return (
     <RegisterAccountContainer>
-      <Title>등록할 계좌를 선택해주세요</Title>
-      <AccountInputbankerBox>
-        <AccountInput
-          value={accountNum}
-          onChange={(e) => accountNumOnChange(e.target.value)}
-        />
-        <BankerSelectBox>
-          <BankerSelect onChange={(e) => bankerSelectOnChange(e.target.value)}>
-            <option>은행사</option>
-            <option>국민</option>
-            <option>신한</option>
-            <option>하나</option>
-          </BankerSelect>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="#ACB5BD"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </BankerSelectBox>
-      </AccountInputbankerBox>
+      <RegisterBankWrap>
+        <Title>등록할 계좌를 선택해주세요</Title>
+        <AccountInputbankerBox>
+          <AccountInput
+            value={accountNum}
+            onChange={(e) => accountNumOnChange(e.target.value)}
+          />
+          <BankerSelectBox>
+            <BankerSelect
+              onChange={(e) => bankerSelectOnChange(e.target.value)}
+            >
+              <option>은행사</option>
+              <option>국민</option>
+              <option>신한</option>
+              <option>하나</option>
+            </BankerSelect>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="#ACB5BD"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </BankerSelectBox>
+        </AccountInputbankerBox>
+      </RegisterBankWrap>
       <ConfirmBtnBox>
-        <ConfirmBtn
-          onClick={() => setCompleteBoolean(true)}
-          $active={accountNum.length > 0 && bankerName.length > 0}
-        >
-          확인
-        </ConfirmBtn>
+        <ConfirmBtnWrap>
+          <ConfirmBtn
+            onClick={() => setCompleteBoolean(true)}
+            $active={accountNum.length > 0 && bankerName.length > 0}
+          >
+            확인
+          </ConfirmBtn>
+        </ConfirmBtnWrap>
       </ConfirmBtnBox>
     </RegisterAccountContainer>
   );
@@ -68,6 +74,10 @@ const RegisterAccount: React.FC = () => {
 
 const RegisterAccountContainer = styled.section`
   padding-top: 20px;
+`;
+
+const RegisterBankWrap = styled.div`
+  padding: 57px 7%;
 `;
 const Title = styled.p`
   font: ${({ theme }) => theme.fontSizes.Subhead4};
@@ -117,10 +127,14 @@ const BankerSelect = styled.select`
 const ConfirmBtnBox = styled.div`
   position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 10px 7% 40px 7%;
-  width: calc(100% - 14%);
+  padding: 10px 0 40px 0;
+  max-width: 600px;
+  width: 100%;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey2};
+`;
+
+const ConfirmBtnWrap = styled.div`
+  padding: 0px 20px;
 `;
 const ConfirmBtn = styled.button<{ $active: boolean }>`
   position: relative;

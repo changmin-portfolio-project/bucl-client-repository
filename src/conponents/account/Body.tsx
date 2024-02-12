@@ -10,8 +10,6 @@ const Body: React.FC = () => {
   );
 };
 
-const BodyContainer = styled.main`
-  padding: 57px 7%;
-`;
+const BodyContainer = styled.main``;
 
 export default Body;

@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderLayout from '../layout/HeaderLayout';
-import PrevBtn from '../PrevBtn';
+import PrevButton from '../PrevButton';
 
 const Header: React.FC = () => {
   const HeaderLayoutStyle: React.CSSProperties = {
@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   };
   return (
     <HeaderLayout style={HeaderLayoutStyle}>
-      <PrevBtn />
+      <PrevButton />
     </HeaderLayout>
   );
 };
