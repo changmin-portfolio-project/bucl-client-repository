@@ -38,6 +38,7 @@ const RegisterWithdrawalAccount: React.FC = () => {
 
 const RegisterWithdrawalAccountContainer = styled.section`
   display: flex;
+  justify-content: space-between;
   padding: 8px ${({ theme }) => theme.paddings.base};
   border-bottom: 6px solid ${({ theme }) => theme.grey.Grey2};
 `;

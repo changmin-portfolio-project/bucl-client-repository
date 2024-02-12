@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import {
@@ -6,12 +6,31 @@ import {
   bankerNameAtom,
   completeBooleanAtom,
 } from '../../../states/accountAtom';
+import { getBankList } from '../../../services/rewardAccount/getBankList';
+import {
+  putRewardAccount,
+  putRewardAccountProps,
+} from '../../../services/rewardAccount/putRewardAccount';
+import { getRewardAccount } from '../../../services/withdrawal/getRewardAccount';
 
 const RegisterAccount: React.FC = () => {
   const [accountNum, setAccountNum] = useRecoilState(accountNumAtom);
   const [bankerName, setBankerName] = useRecoilState(bankerNameAtom);
+  const [bankList, setBankList] = useState<string[]>();
 
   const setCompleteBoolean = useSetRecoilState(completeBooleanAtom);
+
+  useEffect(() => {
+    getBankList().then((res) => {
+      setBankList(res);
+      getRewardAccount()
+        .then((res) => {
+          setAccountNum(res.accountNum);
+          setBankerName(res.bankName);
+        })
+        .catch(() => {});
+    });
+  }, []);
 
   const accountNumOnChange = (text: string) => {
     // setAccountNum(text);
@@ -21,6 +40,17 @@ const RegisterAccount: React.FC = () => {
   };
   const bankerSelectOnChange = (text: string) => {
     setBankerName(text);
+  };
+
+  const onClickRegisterAccount = () => {
+    const putRewardAccountData: putRewardAccountProps = {
+      accountNum: accountNum,
+      bankName: bankerName,
+    };
+
+    putRewardAccount(putRewardAccountData).then(() => {
+      setCompleteBoolean(true);
+    });
   };
 
   return (
@@ -35,11 +65,17 @@ const RegisterAccount: React.FC = () => {
           <BankerSelectBox>
             <BankerSelect
               onChange={(e) => bankerSelectOnChange(e.target.value)}
+              required={true}
             >
-              <option>은행사</option>
-              <option>국민</option>
-              <option>신한</option>
-              <option>하나</option>
+              <option value={''} disabled={true} selected={true}>
+                은행사
+              </option>
+              {bankList &&
+                bankList.map((v, i) => (
+                  <option key={i} selected={v === bankerName}>
+                    {v}
+                  </option>
+                ))}
             </BankerSelect>
             <svg
               width="20"
@@ -61,7 +97,7 @@ const RegisterAccount: React.FC = () => {
       <ConfirmBtnBox>
         <ConfirmBtnWrap>
           <ConfirmBtn
-            onClick={() => setCompleteBoolean(true)}
+            onClick={onClickRegisterAccount}
             $active={accountNum.length > 0 && bankerName.length > 0}
           >
             확인
