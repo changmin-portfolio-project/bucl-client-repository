@@ -9,14 +9,14 @@ export interface UserImg {
 // }
 
 // 유저 프로필 이미지 변경
-export const putProfileImg = (formData: FormData): Promise<UserImg> => {
+export const patchProfileImg = (formData: FormData): Promise<UserImg> => {
   console.log(formData);
   console.log(formData.keys().next());
 
   return formApi
-    .put(`/api/v1/my/profile`, formData)
+    .patch(`/api/v1/my/profile/image`, formData)
     .then((res) => {
-      return res.data;
+      return res.data.data;
     })
     .catch((err) => {
       throw err;

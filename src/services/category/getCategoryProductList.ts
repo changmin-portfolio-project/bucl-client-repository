@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 // Category별 상품 List 가져오기 api response type 정의
 export interface Product {
@@ -21,7 +21,7 @@ export const getCategoryByProductList = (
   categoryId: number,
   pageNum: number,
 ): Promise<Product[]> => {
-  return api
+  return privateApi
     .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
       return res.data.data;

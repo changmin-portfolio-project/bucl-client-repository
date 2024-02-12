@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface RewardAccount {
   bankName: string;
@@ -9,7 +9,7 @@ export interface RewardAccount {
 
 // 계좌 정보 가져오기
 export const getRewardAccount = (): Promise<RewardAccount> => {
-  return api
+  return privateApi
     .get(`/api/v1/rewards/account`)
     .then((res) => {
       return res.data.data;

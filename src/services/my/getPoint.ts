@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface rewardSum {
   data: number;
@@ -6,7 +6,7 @@ export interface rewardSum {
 
 // 유저 포인트 가져오기
 export const getPoint = (): Promise<rewardSum> => {
-  return api
+  return privateApi
     .get(`/api/v1/rewards/crnt-amt`)
     .then((res) => {
       return res.data;

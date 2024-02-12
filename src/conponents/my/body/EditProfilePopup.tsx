@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
-import { putProfileImg } from '../../../services/my/putProfileImg';
+import { patchProfileImg } from '../../../services/my/patchProfileImg';
 import { patchDefaultImg } from '../../../services/my/patchDefaultImg';
 import { myUserInfoAtom } from '../../../states/myAtom';
 import { useSetRecoilState } from 'recoil';
@@ -25,7 +25,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
   };
   const registerBasicImgOnClick = () => {
     patchDefaultImg().then((res) => {
-      setUserInfo((prev) => ({ ...prev, profilePath: res }));
+      setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
       deleteBtnOnClick();
     });
   };
@@ -37,8 +37,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
     const formData = new FormData();
     formData.append('profileImage', e.target.files[0]);
-    putProfileImg(formData).then((res) => {
+    patchProfileImg(formData).then((res) => {
       // getUserProfile();
+      console.log(res.profilePath);
       setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
       deleteBtnOnClick();
     });

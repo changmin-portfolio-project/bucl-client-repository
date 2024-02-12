@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPoint } from '../../../services/reward/getPoint';
+import { getReward } from '../../../services/reward/getReward';
 import ColoredButton from '../../ColoredButton';
 
 const Withdrawal: React.FC = () => {
   const [point, setPoint] = useState<number>();
   useEffect(() => {
-    getPoint().then((res) => {
-      setPoint(res.data.data);
+    getReward().then((res) => {
+      setPoint(res);
     });
   }, []);
 

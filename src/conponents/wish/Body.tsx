@@ -9,7 +9,6 @@ const Body: React.FC = () => {
   const [wishList, setWishList] = useRecoilState(wishProductListAtom);
   useEffect(() => {
     getWishList().then((res) => {
-      console.log(res);
       setWishList(res.data);
     });
   }, []);

@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface WishProduct {
   brandName: string;
@@ -18,7 +18,7 @@ export interface getWishListResponse {
 
 // 찜 리스트 가져오기
 export const getWishList = (): Promise<getWishListResponse> => {
-  return api
+  return privateApi
     .get(`/api/v1/wishes`)
     .then((res) => {
       return res.data;

@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { postKakaoAuthToken } from '../../services/auth/postKakaoAuthToken';
 import { postKakaoLogin } from '../../services/auth/postKakaoLogin';
 import { useNavigate } from 'react-router';
+import { REDIRECT_URI, REST_API_KEY } from '../../const/Kakao';
 
 const KakaoLoginButton: React.FC = () => {
   const navigate = useNavigate();
 
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const handleLogin = () => {
     window.location.href = kakaoURL;

@@ -6,7 +6,7 @@ import {
   currentAddressNumAtom,
   isDefaultAddressAtom,
 } from '../../../../states/addressAtom';
-import { putDefaultAddress } from '../../../../services/address/putDefaultAddress';
+import { patchDefaultAddress } from '../../../../services/address/patchDefaultAddress';
 
 const DefaultCheckBox: React.FC = () => {
   const [isChecked, setIsChecked] = useRecoilState(isDefaultAddressAtom);
@@ -15,7 +15,7 @@ const DefaultCheckBox: React.FC = () => {
 
   const checkBoxOnClick = () => {
     if (!isChecked) {
-      putDefaultAddress(currentAddressNum).then((res) => {
+      patchDefaultAddress(currentAddressNum).then((res) => {
         setAddressList([
           ...addressList.map((v) => {
             const vt = { ...v };

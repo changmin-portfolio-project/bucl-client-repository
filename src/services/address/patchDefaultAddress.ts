@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 interface AddressData {
   id: number;
@@ -12,9 +12,9 @@ interface AddressData {
 }
 
 // 기본 배송지 변경
-export const putDefaultAddress = (id: number): Promise<AddressData> => {
-  return api
-    .put(`/api/v1/my/addresses/${id}/default`)
+export const patchDefaultAddress = (id: number): Promise<AddressData> => {
+  return privateApi
+    .patch(`/api/v1/my/addresses/${id}/default`)
     .then((res) => {
       return res.data.data;
     })

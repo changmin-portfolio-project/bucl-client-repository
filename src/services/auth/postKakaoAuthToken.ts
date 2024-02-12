@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import { kauthApi } from '..';
+import { REDIRECT_URI, REST_API_KEY } from '../../const/Kakao';
 
 interface postKauthTokenRes {
   scope: string;
@@ -23,8 +24,8 @@ export const postKakaoAuthToken = (
 ): Promise<postKauthTokenRes> => {
   const data: postKauthTokenReq = {
     grant_type: 'authorization_code',
-    client_id: 'a2929177e2a3c18e3b9ae4e7682a369d',
-    redirect_uri: 'http://localhost:3000/login',
+    client_id: REST_API_KEY,
+    redirect_uri: REDIRECT_URI,
     code: code,
   };
 

@@ -60,11 +60,7 @@ const CategoryInfiniteScroll: React.FC = () => {
     }
   }, [inView, categoryId, categoryIdByCategories]);
 
-  return (
-    <ScrollBottomContainer ref={ref}>
-      <img src="/assets/bucl_loading.gif" width={'25px'} />
-    </ScrollBottomContainer>
-  );
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div`

@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 import { AddressData } from './getAddressList';
 
 export interface AddressDataReq {
@@ -30,7 +30,7 @@ export interface addressRequestType {
 export const postAddressItem = ({
   data,
 }: addressRequestType): Promise<AddressData> => {
-  return api
+  return privateApi
     .post(`/api/v1/my/addresses`, data)
     .then((res) => {
       return res.data.data;

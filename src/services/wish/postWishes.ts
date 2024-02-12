@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 interface WishesResponse {
   data: {
@@ -14,7 +14,7 @@ interface PostWishesReq {
 
 // 상품 찜하기
 export const postWishes = (data: PostWishesReq): Promise<WishesResponse> => {
-  return api
+  return privateApi
     .post(`/api/v1/wishes`, data)
     .then((res) => {
       return res;

@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface RewardData {
   rewardWithdrawalAmount: number;
@@ -14,7 +14,7 @@ export interface getWithdrawalHistoryListResponse {
 export const getWithdrawalHistoryList = (
   pageNum: number,
 ): Promise<getWithdrawalHistoryListResponse> => {
-  return api
+  return privateApi
     .get(`/api/v1/rewards/withdrawals?page=${pageNum}&pageSize=10`)
     .then((res) => {
       return res.data;

@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface ProductDto {
   productName: string;
@@ -34,7 +34,7 @@ interface getOrderHistoryResponse {
 export const getOrderHistory = (
   pageNum: number,
 ): Promise<getOrderHistoryResponse> => {
-  return api
+  return privateApi
     .get(`/api/v1/orders?page=${pageNum}&pageSize=10`)
     .then((res) => {
       return res.data;

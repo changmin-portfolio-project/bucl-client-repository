@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface AddressData {
   id: number;
@@ -13,7 +13,7 @@ export interface AddressData {
 
 // 등록된 주소지 리스트 가져오기
 export const getAddressList = (): Promise<AddressData[]> => {
-  return api
+  return privateApi
     .get(`/api/v1/my/addresses`)
     .then((res) => {
       return res.data.data;

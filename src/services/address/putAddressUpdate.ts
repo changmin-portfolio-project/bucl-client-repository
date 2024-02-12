@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface AddressData {
   shippingAddressName: string;
@@ -20,7 +20,7 @@ export const putAddressUpdate = (
   data: AddressData,
   id: number,
 ): Promise<AddressData[]> => {
-  return api
+  return privateApi
     .put(`/api/v1/my/addresses/${id}`, data)
     .then((res) => {
       return res.data.data;
