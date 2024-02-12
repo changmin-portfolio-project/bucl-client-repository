@@ -51,17 +51,19 @@ const PurchaseReview: React.FC = () => {
             totalReviewCount={productDetail.totalReviewCount}
             imgList={imgList}
           />
-          {productDetail.reviewPreviews?.map((v, i) => (
-            <ReviewItem
-              key={i}
-              imgPath={v.reviewImage}
-              starRate={v.reviewRate}
-              userImg={v.profilePath}
-              nickname={v.nickname}
-              reviewDate={v.reviewDate}
-              content={v.content}
-            />
-          ))}
+          <div>
+            {productDetail.reviewPreviews?.map((v, i) => (
+              <ReviewItem
+                key={i}
+                imgPath={v.reviewImage}
+                starRate={v.reviewRate}
+                userImg={v.profilePath}
+                nickname={v.nickname}
+                reviewDate={v.reviewDate}
+                content={v.content}
+              />
+            ))}
+          </div>
         </>
       ) : (
         <ExceptionText>

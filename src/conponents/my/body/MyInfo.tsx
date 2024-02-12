@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getPoint } from '../../../services/my/getPoint';
+
 import { getUserProfile } from '../../../services/my/getUserProfile';
 import EditProfilePopup from './EditProfilePopup';
 import { useRecoilState } from 'recoil';
 import { myUserInfoAtom } from '../../../states/myAtom';
+import { getPoint } from '../../../services/reward/getPoint';
 
 const MyInfo: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
   const [userInfo, setUserInfo] = useRecoilState(myUserInfoAtom);
   useEffect(() => {
-    getUserProfile().then((res) => {
-      setUserInfo(res.data);
-    });
-    getPoint().then((res) => {
-      setPoint(res.data);
-    });
+    getUserProfile()
+      .then((res) => {
+        setUserInfo(res.data);
+      })
+      .catch(() => {});
+    getPoint()
+      .then((res) => {
+        setPoint(res.data.data);
+      })
+      .catch(() => {});
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

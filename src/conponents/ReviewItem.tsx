@@ -35,29 +35,33 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
   return (
     <ReviewItemContainer style={style}>
-      <InfoBox>
-        <UserInfoBox>
-          <UserImg src={userImg} />
-          <RatingNicknameDateBox>
-            <Star count={starRate} style={StarStyle} />
-            <NicknameDateBox>
-              <NicknameText>{nickname}</NicknameText>
-              <DateText>
-                {convertDtStrToDStr(reviewDate ?? '날짜 표기 할 수 없습니다.')}
-              </DateText>
-            </NicknameDateBox>
-          </RatingNicknameDateBox>
-        </UserInfoBox>
-        <ReviewTextBox>
-          <p>{content}</p>
-        </ReviewTextBox>
-        {selectedOption && (
-          <BuyOptionBox>
-            <span>구매 옵션 명 - {selectedOption}</span>
-          </BuyOptionBox>
-        )}
-      </InfoBox>
-      <ReviewImgItem style={ReviewImgItemStyle} imgPath={imgPath} />
+      <ReviewItemWrap>
+        <InfoBox>
+          <UserInfoBox>
+            <UserImg src={userImg} />
+            <RatingNicknameDateBox>
+              <Star count={starRate} style={StarStyle} />
+              <NicknameDateBox>
+                <NicknameText>{nickname}</NicknameText>
+                <DateText>
+                  {convertDtStrToDStr(
+                    reviewDate ?? '날짜 표기 할 수 없습니다.',
+                  )}
+                </DateText>
+              </NicknameDateBox>
+            </RatingNicknameDateBox>
+          </UserInfoBox>
+          <ReviewTextBox>
+            <p>{content}</p>
+          </ReviewTextBox>
+          {selectedOption && (
+            <BuyOptionBox>
+              <span>구매 옵션 명 - {selectedOption}</span>
+            </BuyOptionBox>
+          )}
+        </InfoBox>
+        <ReviewImgItem style={ReviewImgItemStyle} imgPath={imgPath} />
+      </ReviewItemWrap>
     </ReviewItemContainer>
   );
 };
@@ -66,6 +70,11 @@ const ReviewItemContainer = styled.div`
   display: flex;
   padding: 7px theme.paddings.base 13px theme.paddings.base;
   border-bottom: 1px solid #eaecef;
+`;
+
+const ReviewItemWrap = styled.div`
+  display: flex;
+  padding: 7px 7%;
 `;
 
 const InfoBox = styled.div`
@@ -77,7 +86,7 @@ const UserInfoBox = styled.div`
 `;
 const UserImg = styled.img`
   margin-right: 5px;
-  width: calc(12% + 5px);
+  width: calc(15% + 5px);
   aspect-ratio: 1/1;
   border-radius: 50%;
 `;

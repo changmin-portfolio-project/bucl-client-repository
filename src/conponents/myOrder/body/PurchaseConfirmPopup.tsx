@@ -31,7 +31,7 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
   };
   const confirmBtnOnClick = () => {
     console.log(orderCode);
-    putOrderConfirm('imp_508065136828').then(() => {
+    putOrderConfirm(orderCode).then(() => {
       setConfirmBoolean(true);
       setOrderHistoryList(
         [...orderHistoryList].map((item) => {
