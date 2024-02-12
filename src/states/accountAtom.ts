@@ -9,3 +9,8 @@ export const bankerNameAtom = atom<string>({
   key: 'bankerName',
   default: '',
 });
+
+export const completeBooleanAtom = atom<boolean>({
+  key: 'completeBoolean',
+  default: false,
+});

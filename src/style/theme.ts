@@ -50,23 +50,32 @@ const errorColor = {
 };
 
 const fontSizes = {
-  Display5: '700 40px/1.4 Pretendard-Regular',
-  Display4: '700 36px/1.4 Pretendard-Regular',
-  Display3: '700 32px/1.4 Pretendard-Regular',
-  Display2: '700 28px/1.4 Pretendard-Regular',
-  Display1: '700 24px/1.4 Pretendard-Regular',
-  Headline: '700 20px/1.4 Pretendard-Regular',
-  Subhead4: '700 18px/1.4 Pretendard-Regular',
-  Subhead3: '700 16px/1.4 Pretendard-Regular',
-  Subhead2: '700 14px/1.4 Pretendard-Regular',
-  Subhead1: '700 12px/1.4 Pretendard-Regular',
-  Body4: '500 16px/1.4 Pretendard-Regular',
-  Body3: '500 14px/1.4 Pretendard-Regular',
-  Body2: '500 12px/1.4 Pretendard-Regular',
-  Body1: '500 10px/1.4 Pretendard-Regular',
-  Label: '300 8px/1.4 Pretendard-Regular',
+  Display5: '700 40px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display4: '700 36px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display3: '700 32px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display2: '700 28px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Display1: '700 24px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Headline: '700 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Subhead4: '700 22px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Subhead3: '700 20px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Subhead2:
+    '700 18px/1.4 Pretendard-Bold; letter-spacing: -0.6px; font-style: normal',
+  Subhead1: '700 16px/1.4 Pretendard-Bold; letter-spacing: -0.6px;',
+  Body4: '500 16px/1.4 Pretendard-Medium',
+  Body3:
+    '500 18px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
+  Body2:
+    '500 15px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
+  Body1:
+    '500 14px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
+  Label:
+    '300 14px/1.4 Pretendard-Medium; letter-spacing: -0.6px; line-height: 140%;',
 };
 
+const paddings = {
+  small: '8px',
+  base: '7%',
+};
 const theme = {
   mainColor,
   subColor,
@@ -75,6 +84,7 @@ const theme = {
   warningColor,
   errorColor,
   fontSizes,
+  paddings,
 };
 
 export default theme;

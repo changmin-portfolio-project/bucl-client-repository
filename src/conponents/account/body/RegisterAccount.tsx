@@ -1,11 +1,17 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
-import { accountNumAtom, bankerNameAtom } from '../../../states/accountAtom';
+import {
+  accountNumAtom,
+  bankerNameAtom,
+  completeBooleanAtom,
+} from '../../../states/accountAtom';
 
 const RegisterAccount: React.FC = () => {
   const [accountNum, setAccountNum] = useRecoilState(accountNumAtom);
   const [bankerName, setBankerName] = useRecoilState(bankerNameAtom);
+
+  const setCompleteBoolean = useSetRecoilState(completeBooleanAtom);
 
   const accountNumOnChange = (text: string) => {
     // setAccountNum(text);
@@ -50,7 +56,7 @@ const RegisterAccount: React.FC = () => {
       </AccountInputbankerBox>
       <ConfirmBtnBox>
         <ConfirmBtn
-          onClick={() => console.log('df')}
+          onClick={() => setCompleteBoolean(true)}
           $active={accountNum.length > 0 && bankerName.length > 0}
         >
           확인
