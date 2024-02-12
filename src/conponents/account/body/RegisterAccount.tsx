@@ -1,12 +1,11 @@
 import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import styled, { css } from 'styled-components';
 import { accountNumAtom, bankerNameAtom } from '../../../states/accountAtom';
 
 const RegisterAccount: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [accountNum, setAccountNum] = useRecoilState(accountNumAtom);
-  const setBankerName = useSetRecoilState(bankerNameAtom);
+  const [bankerName, setBankerName] = useRecoilState(bankerNameAtom);
 
   const accountNumOnChange = (text: string) => {
     // setAccountNum(text);
@@ -17,6 +16,7 @@ const RegisterAccount: React.FC = () => {
   const bankerSelectOnChange = (text: string) => {
     setBankerName(text);
   };
+
   return (
     <RegisterAccountContainer>
       <Title>등록할 계좌를 선택해주세요</Title>
@@ -49,7 +49,12 @@ const RegisterAccount: React.FC = () => {
         </BankerSelectBox>
       </AccountInputbankerBox>
       <ConfirmBtnBox>
-        <ConfirmBtn $active={accountNum.length > 0}>확인</ConfirmBtn>
+        <ConfirmBtn
+          onClick={() => console.log('df')}
+          $active={accountNum.length > 0 && bankerName.length > 0}
+        >
+          확인
+        </ConfirmBtn>
       </ConfirmBtnBox>
     </RegisterAccountContainer>
   );
@@ -120,7 +125,12 @@ const ConfirmBtn = styled.button<{ $active: boolean }>`
   border-radius: 4px;
   font: ${({ theme }) => theme.fontSizes.Subhead2};
   color: white;
-  ${(props) => !props.$active && 'opacity: 0.6'};
+  ${(props) =>
+    !props.$active &&
+    css`
+      pointer-events: none;
+      opacity: 0.6;
+    `};
 `;
 
 export default RegisterAccount;
