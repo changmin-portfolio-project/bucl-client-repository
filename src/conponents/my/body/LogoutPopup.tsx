@@ -15,7 +15,7 @@ const LogoutPopup: React.FC<EditProfilePopupProps> = ({ setPopupOpen }) => {
     postLogout().then(() => {
       deleteBtnOnClick();
       localStorage.removeItem('access-token');
-      window.location.reload();
+      window.location.replace('/');
     });
   };
 
