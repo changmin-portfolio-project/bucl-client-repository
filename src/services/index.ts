@@ -65,13 +65,6 @@ privateApi.interceptors.response.use(
       if (error.response.data.statusCode === 'UNAUTHORIZED') {
         const originRequest = config;
 
-        // const currentPath = window.location.pathname;
-
-        // if (currentPath === '/' || currentPath === '/categories') {
-        //   originRequest.headers.authorization = '';
-        //   return axios(originRequest);
-        // }
-
         if (status !== 401 || config.sent) {
           return Promise.reject(error);
         }
@@ -81,8 +74,6 @@ privateApi.interceptors.response.use(
         await postRefreshToken()
           .then((response) => {
             //리프레시 토큰 요청이 성공할 때
-
-            console.log(response.status);
 
             if (response.status === STATUS_OK) {
               const newAccessToken = response.accessToken;
@@ -101,7 +92,15 @@ privateApi.interceptors.response.use(
             }
           })
           .catch(() => {
-            window.location.replace('/login');
+            const currentPath = window.location.pathname;
+
+            if (currentPath === '/' || currentPath === '/categories') {
+              originRequest.headers.authorization = '';
+              return axios(originRequest);
+            } else {
+              console.log(currentPath);
+              window.location.replace('/login?callbackUrl=' + currentPath);
+            }
           });
       }
     }
