@@ -30,7 +30,7 @@ const WishItem: React.FC<WishItemProps> = ({
 }) => {
   const setWishProductList = useSetRecoilState(wishProductListAtom);
   const imgItemStyle: React.CSSProperties = {
-    width: '20%',
+    width: '30%',
   };
 
   const deleteBtnOnClick = () => {
@@ -88,7 +88,7 @@ const WishItemContainer = styled.div`
 `;
 
 const ProductInfoBox = styled.div`
-  padding-left: 33px;
+  padding-left: 15px;
   width: 70%;
   height: fit-content;
   position: relative;
@@ -104,7 +104,7 @@ const ProductName = styled.p`
   font-size: 16px;
   color: ${({ theme }) => theme.grey.Grey7};
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 표시할 줄 수 */
+  -webkit-line-clamp: 1; /* 표시할 줄 수 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -114,8 +114,6 @@ const PriceAndRatingAndDeleteBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  position: absolute;
-  top: 70px;
 `;
 
 const PriceAndRatingBox = styled.div`

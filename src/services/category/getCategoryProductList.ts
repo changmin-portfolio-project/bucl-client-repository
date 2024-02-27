@@ -13,7 +13,8 @@ export interface Product {
   totalReviewCount: number;
   averageRating: number;
   wished: boolean;
-  ordNum: number;
+  totalConsumerOrder: number;
+  deadline: string;
 }
 
 // Category page Category별 상품 List 가져오기
@@ -24,6 +25,7 @@ export const getCategoryByProductList = (
   return privateApi
     .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
+      console.log(res);
       return res.data.data;
     })
     .catch((error) => {

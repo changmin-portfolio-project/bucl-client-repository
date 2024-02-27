@@ -11,7 +11,7 @@ import {
   putRewardAccount,
   putRewardAccountProps,
 } from '../../../services/rewardAccount/putRewardAccount';
-import { getRewardAccount } from '../../../services/withdrawal/getRewardAccount';
+import { getRewardAccount } from '../../../services/rewardAccount/getRewardAccount';
 
 const RegisterAccount: React.FC = () => {
   const [accountNum, setAccountNum] = useRecoilState(accountNumAtom);

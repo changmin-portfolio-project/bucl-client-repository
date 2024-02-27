@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
 import CompleteLayout from '../layout/CompleteLayout';
+import AppLink from '../AppLink';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
     padding: '13px 0',
+    width: '100%',
   };
   return (
     <CompleteLayout>
@@ -14,17 +15,17 @@ const Complete: React.FC = () => {
         <span>인출 요청</span>이 완료되었습니다.
       </p>
       <BtnBox>
-        <ColoredButton font="Subhead1" color="white" style={ColoredButtonStyle}>
-          <Link to={'/'}>홈으로</Link>
-        </ColoredButton>
-        <ColoredButton
-          font="Subhead1"
-          color="white"
-          backgroundColor="Grey8"
-          style={ColoredButtonStyle}
-        >
-          <Link to={'/reward-withdrawals'}>인출 내역 보러가기</Link>
-        </ColoredButton>
+        <AppLink to={'/'} style={ColoredButtonStyle}>
+          <ColoredButton font="Subhead1" color="white">
+            홈으로
+          </ColoredButton>
+        </AppLink>
+        <MarginDiv></MarginDiv>
+        <AppLink to={'/reward-withdrawals'} style={ColoredButtonStyle}>
+          <ColoredButton font="Subhead1" color="white" backgroundColor="Grey8">
+            인출 내역 보러가기
+          </ColoredButton>
+        </AppLink>
       </BtnBox>
     </CompleteLayout>
   );
@@ -39,6 +40,10 @@ const BtnBox = styled.div`
   button {
     flex: 0.48;
   }
+`;
+
+const MarginDiv = styled.div`
+  margin-right: 10px;
 `;
 
 export default Complete;

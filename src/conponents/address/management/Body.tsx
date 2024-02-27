@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import AddressAddButton from './body/AddressAddButton';
 import AddressList from './body/AddressList';
@@ -17,6 +17,10 @@ const Body: React.FC = () => {
   );
   const setAddrRegForm = useSetRecoilState(addrRegFormAtom);
   const setIsDefaultAddress = useSetRecoilState(isDefaultAddressAtom);
+
+  useEffect(() => {
+    setCurrentAddressNum(0);
+  }, []);
 
   return (
     <BodyContainer

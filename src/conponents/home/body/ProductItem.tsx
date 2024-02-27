@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Reward from './Reward';
-import DiscountRateCalculation from '../../../hook/DiscountRateCalculation';
 import { HomeProduct } from '../../../services/home/getCategoryProductList';
 import Attend from '../../Attend';
 import Deadline from '../../Deadline';
@@ -17,11 +16,6 @@ interface ProductComponentProps {
 }
 
 const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
-  const discountPercentage: number = DiscountRateCalculation({
-    consumerPrice: data.consumerPrice,
-    salePrice: data.salePrice,
-  });
-
   const wishBtnStyle: React.CSSProperties = {
     position: 'absolute',
     bottom: '20px',
@@ -57,12 +51,12 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
           <ProductImgBox>
             <ProductImg $url={data.imagePath} />
 
-            <Attend style={AttendStyle} ordNum={data.ordNum} />
+            <Attend style={AttendStyle} ordNum={data.totalConsumerOrder} />
             <ProductInfoBox>
               <BrandName>{data.brandName}</BrandName>
               <ProductName>{data.name}</ProductName>
               <PriceBox>
-                <DiscountRate>{discountPercentage.toFixed(0)}%</DiscountRate>
+                <DiscountRate>{data.discountRate * 100}%</DiscountRate>
                 <DiscountPrice>
                   {data.salePrice?.toLocaleString()}원
                 </DiscountPrice>
@@ -87,7 +81,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
 
 const ProductContainer = styled.div`
   padding: 15px 0;
-  width: 85%;
+  width: 82%;
   letter-spacing: -0.6px;
   scroll-snap-align: start;
 `;

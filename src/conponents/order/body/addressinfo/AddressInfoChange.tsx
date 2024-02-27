@@ -1,11 +1,17 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { isAdressSelectPageAtom } from '../../../../states/orderAtom';
 
 const AddressInfoChange: React.FC = () => {
+  const setIsAddressSelectPage = useSetRecoilState(isAdressSelectPageAtom);
+
   return (
     <AddressInfoChangeContainer>
       <AddressInfoChangeLeftItem>배송지 정보</AddressInfoChangeLeftItem>
-      <AddressInfoChangeRightItem>변경하기</AddressInfoChangeRightItem>
+      <AddressInfoChangeButton onClick={() => setIsAddressSelectPage(true)}>
+        변경하기
+      </AddressInfoChangeButton>
     </AddressInfoChangeContainer>
   );
 };
@@ -21,9 +27,10 @@ const AddressInfoChangeLeftItem = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body3};
 `;
 
-const AddressInfoChangeRightItem = styled.div`
+const AddressInfoChangeButton = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.mainColor.Orange5};
+  cursor: pointer;
 `;
 
 export default AddressInfoChange;

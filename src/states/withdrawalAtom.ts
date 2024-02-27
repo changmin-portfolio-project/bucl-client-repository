@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { PAGE_NUM } from '../const/Pagenation';
 import { RewardData } from '../services/withdrawal/getWithdrawalHistory';
-import { RewardAccount } from '../services/withdrawal/getRewardAccount';
+import { RewardAccount } from '../services/rewardAccount/getRewardAccount';
 
 export const accountAtom = atom<string>({
   key: 'account',

@@ -8,16 +8,13 @@ import {
 } from '../states/productAtom';
 import { useInView } from 'react-intersection-observer';
 import { getHomeCategoryByProductList } from '../services/home/getCategoryProductList';
-import { PAGE_NUM } from '../const/Pagenation';
-import { categoryIdByCategoriesAtom } from '../states/categoryAtom';
+import { HOME_INF_POS_NAME, PAGE_NUM } from '../const/Pagenation';
+import CopyRightFooter from '../conponents/CopyRightFooter';
 
 const HomeInfiniteScroll: React.FC = () => {
   const categoryId = useRecoilValue(categoryIdAtom);
   const prevCategoryId = useRef(categoryId);
   const [pageNum, setPageNum] = useRecoilState(pageNumAtom);
-
-  const categoryIdByCategories = useRecoilValue(categoryIdByCategoriesAtom);
-  const prevCategoryIdByCategories = useRef(categoryIdByCategories);
 
   const [ref, inView] = useInView();
 
@@ -33,7 +30,8 @@ const HomeInfiniteScroll: React.FC = () => {
           setHomeList(res);
           setPageNum(PAGE_NUM + 1);
           prevCategoryId.current = categoryId; // 이전 categoryId 업데이트
-          window.scrollTo({ top: 0 });
+          const homeInfContainer = document.getElementById(HOME_INF_POS_NAME);
+          homeInfContainer?.scrollTo({ top: 0 });
         } else {
           if (res.length != 0) {
             setHomeList((prev) => [...prev, ...res]);
@@ -47,16 +45,16 @@ const HomeInfiniteScroll: React.FC = () => {
   };
   useEffect(() => {
     // categoryId가 변경되고 이전 categoryId와 다를 때에만 실행
-    if (
-      categoryId !== prevCategoryId.current ||
-      categoryIdByCategories != prevCategoryIdByCategories.current ||
-      inView
-    ) {
+    if (categoryId !== prevCategoryId.current || inView) {
       callback();
     }
-  }, [inView, categoryId, categoryIdByCategories]);
+  }, [inView, categoryId]);
 
-  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
+  return (
+    <ScrollBottomContainer ref={ref}>
+      <CopyRightFooter />
+    </ScrollBottomContainer>
+  );
 };
 
 const ScrollBottomContainer = styled.div`

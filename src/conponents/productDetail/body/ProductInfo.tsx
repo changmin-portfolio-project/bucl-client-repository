@@ -10,7 +10,7 @@ const ProductInfo: React.FC = () => {
     <ProductInfoContainer>
       <BrandNameAttendBox>
         <BrandName>{productDetail.brandName}</BrandName>
-        <Attend ordNum={productDetail.ordNum} />
+        <Attend ordNum={productDetail.totalConsumerOrder} />
       </BrandNameAttendBox>
       <ProductName>{productDetail.name}</ProductName>
       <ProductPriceBox>

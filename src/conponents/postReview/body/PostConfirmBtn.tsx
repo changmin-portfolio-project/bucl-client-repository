@@ -33,7 +33,7 @@ const PostConfirmButton: React.FC = () => {
       for (const reviewImg of reviewImgList) {
         formData.append('reviewImages', reviewImg);
       }
-      postReview(formData, param.product_code as string)
+      postReview(formData, param.order_code as string)
         .then((res) => {
           console.log(res);
           setCompleteBoolean(true);

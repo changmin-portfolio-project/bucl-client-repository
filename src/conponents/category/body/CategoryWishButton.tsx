@@ -4,6 +4,7 @@ import { postWishes } from '../../../services/wish/postWishes';
 import { useSetRecoilState } from 'recoil';
 import { productListByCategoriesAtom } from '../../../states/categoryAtom';
 import theme from '../../../style/theme';
+import { deleteWish } from '../../../services/wish/deleteWish';
 
 interface CategoryWishButtonComponentProps {
   productCode: number;
@@ -23,13 +24,21 @@ const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
   const setCategoryProductlist = useSetRecoilState(productListByCategoriesAtom);
   const wishBtnOnClick = (wishId: number | undefined, wished: boolean) => {
     if (wishId !== undefined) {
-      postWishes({ productCode: productCode }).then(() => {
-        setCategoryProductlist((prevItemList) =>
-          prevItemList.map((prevItem, i) =>
-            i === wishId ? { ...prevItem, wished: !wished } : prevItem,
-          ),
-        );
-      });
+      wished
+        ? deleteWish(productCode).then(() => {
+            setCategoryProductlist((prevItemList) =>
+              prevItemList.map((prevItem, i) =>
+                i === wishId ? { ...prevItem, wished: !wished } : prevItem,
+              ),
+            );
+          })
+        : postWishes({ productCode: productCode }).then(() => {
+            setCategoryProductlist((prevItemList) =>
+              prevItemList.map((prevItem, i) =>
+                i === wishId ? { ...prevItem, wished: !wished } : prevItem,
+              ),
+            );
+          });
     }
   };
 

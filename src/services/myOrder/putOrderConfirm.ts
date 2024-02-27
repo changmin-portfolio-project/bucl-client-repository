@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 interface putOrderConfirmResponse {
   data: string;
@@ -8,11 +8,9 @@ interface putOrderConfirmResponse {
 export const putOrderConfirm = (
   orderCode: string,
 ): Promise<putOrderConfirmResponse> => {
-  console.log(orderCode);
-  return api
+  return privateApi
     .put(`/api/v1/orders/${orderCode}/confirmation`)
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {

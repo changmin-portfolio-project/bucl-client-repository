@@ -52,8 +52,6 @@ const HomeWishButton: React.FC<HomeWishButtonComponentProps> = ({
       {wished ? (
         <WishButton
           onClick={() => wishBtnOnClick(wishId, wished)}
-          htmlFor={`wish-${productCode}`}
-          id={`wish-btn-${productCode}`}
           style={style}
         >
           <svg
@@ -77,8 +75,6 @@ const HomeWishButton: React.FC<HomeWishButtonComponentProps> = ({
       ) : (
         <WishButton
           onClick={() => wishBtnOnClick(wishId, wished)}
-          htmlFor={`wish-${productCode}`}
-          id={`wish-btn-${productCode}`}
           style={style}
         >
           <svg

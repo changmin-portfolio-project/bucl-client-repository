@@ -47,6 +47,9 @@ const OutlineBtn = styled.button<{
   border-radius: 4px;
   cursor: pointer;
 
+  margin-top: auto;
+  margin-bottom: auto;
+
   /* border 변경 부분 */
   border: 1px solid
     ${(props) => {

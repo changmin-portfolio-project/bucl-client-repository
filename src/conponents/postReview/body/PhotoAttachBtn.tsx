@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { reviewImgListAtom } from '../../../states/postReviewAtom';
+import {
+  imageUrlListAtom,
+  reviewImgListAtom,
+} from '../../../states/postReviewAtom';
 import { REVIEW_IMG_MAX_NUM } from '../../../const/Review';
 
 const PhotoAttachButton: React.FC = () => {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useRecoilState(imageUrlListAtom);
   const [reviewImgList, setReviewImgList] = useRecoilState(reviewImgListAtom);
   const galleryOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || reviewImgList.length >= REVIEW_IMG_MAX_NUM) {
-      console.log(reviewImgList);
       return;
     }
 
@@ -22,7 +24,6 @@ const PhotoAttachButton: React.FC = () => {
     // reader.readAsDataURL(file);
     setImageUrls([...imageUrls, URL.createObjectURL(file)]);
     setReviewImgList([...reviewImgList, file]);
-    console.log(reviewImgList);
   };
 
   const delImgClick = (index: number) => {

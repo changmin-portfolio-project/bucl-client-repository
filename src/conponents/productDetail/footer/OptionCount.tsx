@@ -3,21 +3,15 @@ import { Cookies, useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  ADDR,
-  ADDR_NOM,
-  CNTCT_NUM,
   PROCT_OPT_NOM,
   PROCT_OPT_AMT,
   PROCT_OPT_QTY,
   PROCT_SL_PX,
-  RCPNT_NOM,
   SHP_FEE,
   TOT_PROCT_AMT,
-  PROCT_CODE,
-  SKU_CODE,
-  ZIP_CODE,
   ORD_TOT_AMT,
   CNSMR_AMT,
+  SKU_CODE,
 } from '../../../const/CookieVars';
 import ColoredButton from '../../ColoredButton';
 import { isActivePopUp } from '../../../utils/PopUpUtil';
@@ -29,6 +23,7 @@ interface OptionCountProps {
   setCurrentOptionExtraAmt: React.Dispatch<SetStateAction<number>>;
   optionCount: number;
   setOptionCount: React.Dispatch<SetStateAction<number>>;
+  crntOptSkuCode: number;
 }
 
 const OptionCount: React.FC<OptionCountProps> = ({
@@ -38,6 +33,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
   setCurrentOptionExtraAmt,
   optionCount,
   setOptionCount,
+  crntOptSkuCode,
 }) => {
   const [, setCookie] = useCookies();
   const cookies = new Cookies();
@@ -59,6 +55,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
     setCookie(PROCT_OPT_NOM, currentOption);
     setCookie(PROCT_OPT_AMT, cookies.get(PROCT_SL_PX) + currentOptionExtraAmt);
     setCookie(PROCT_OPT_QTY, optionCount);
+    setCookie(SKU_CODE, crntOptSkuCode);
     setCookie(
       ORD_TOT_AMT,
       (cookies.get(PROCT_SL_PX) + currentOptionExtraAmt) * optionCount,
@@ -68,16 +65,6 @@ const OptionCount: React.FC<OptionCountProps> = ({
       (cookies.get(CNSMR_AMT) + currentOptionExtraAmt) * optionCount,
     );
     setCookie(SHP_FEE, 0);
-    setCookie(ADDR_NOM, '집');
-    setCookie(RCPNT_NOM, '황주현');
-    setCookie(CNTCT_NUM, '010-0000-000');
-    setCookie(
-      ADDR,
-      '경기도 수원시 영통구 광교호수공원로 20 더샵레이크시티 오피스텔',
-    );
-    setCookie(ZIP_CODE, '54402');
-    setCookie(PROCT_CODE, '381285902143');
-    setCookie(SKU_CODE, '38492219056');
 
     isActivePopUp(true);
   };

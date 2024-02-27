@@ -7,15 +7,17 @@ import ColoredButton from '../../ColoredButton';
 const Withdrawal: React.FC = () => {
   const [point, setPoint] = useState<number>();
   useEffect(() => {
-    getReward().then((res) => {
-      setPoint(res);
-    });
+    getReward()
+      .then((res) => {
+        setPoint(res);
+      })
+      .catch(() => {});
   }, []);
 
   const ColorButtonStyle: React.CSSProperties = {
     position: 'relative',
     zIndex: '5',
-    padding: '5px 0',
+    padding: '10px 0',
   };
   return (
     <WithdrawalContainer>
@@ -25,14 +27,16 @@ const Withdrawal: React.FC = () => {
           <span>보유 포인트</span>
           <p>{point?.toLocaleString()}P</p>
         </PointHeldBox>
-        <ColoredButton
-          style={ColorButtonStyle}
-          color="Orange5"
-          font="Subhead2"
-          backgroundColor="white"
-        >
-          <Link to="/reward-withdrawals">인출하기</Link>
-        </ColoredButton>
+        <Link to="/reward-withdrawals">
+          <ColoredButton
+            style={ColorButtonStyle}
+            color="Orange5"
+            font="Subhead2"
+            backgroundColor="white"
+          >
+            인출하기
+          </ColoredButton>
+        </Link>
       </WithdrawalWrap>
     </WithdrawalContainer>
   );

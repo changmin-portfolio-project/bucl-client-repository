@@ -43,7 +43,7 @@ const WishImgItemContainer = styled.div<{ $widthMode: boolean }>`
 
   img {
     margin-right: ${(props) => (props.$widthMode ? '4px' : '0')};
-    width: 130%;
+    width: 100%;
     aspect-ratio: 1/1;
     border-radius: 4px;
   }

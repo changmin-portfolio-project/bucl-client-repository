@@ -21,7 +21,7 @@ const Body: React.FC = () => {
           brandName={v.brandName}
           price={v.consumerPrice}
           productName={v.name}
-          starRate={v.starRate}
+          starRate={v.averageRating}
           totalReviewCount={v.totalReviewCount}
           productCode={v.productCode}
           imgPath={v.imagePath[0]}

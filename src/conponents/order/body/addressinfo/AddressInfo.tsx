@@ -3,22 +3,25 @@ import styled from 'styled-components';
 import AddressInfoChange from './AddressInfoChange';
 import AddressInfoReq from './AddressInfoReq';
 import { Cookies } from 'react-cookie';
-import { useRecoilState } from 'recoil';
-import { addrDetailAtom } from '../../../../states/orderAtom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { addrDetailAtom, isNewOrdAddrAtom } from '../../../../states/orderAtom';
 import {
   ADDR,
   ADDR_NOM,
   CNTCT_NUM,
   RCPNT_NOM,
 } from '../../../../const/CookieVars';
+import OrdAddrAddButton from '../../../orderAddressSelect/body/OrdAddrAddButton';
+import OrderAddrRegister from '../../../orderAddressSelect/body/OrderAddrRegister';
+import OrdAddrSearchPopup from '../../../orderAddressSelect/body/OrdAddrSearchPopup';
 
 const AddressInfo: React.FC = () => {
   const cookies = new Cookies();
   const [addrDetail, setAddrDetail] = useRecoilState(addrDetailAtom);
 
-  useEffect(() => {
-    setAddrDetail('');
-  }, []);
+  const isNewOrdAddr = useRecoilValue(isNewOrdAddrAtom);
+
+  useEffect(() => {}, [cookies.get(ADDR_NOM)]);
 
   const handleAddrDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddrDetail(event.target.value);
@@ -28,16 +31,28 @@ const AddressInfo: React.FC = () => {
     <StyledAddressInfoContainer>
       <AddressInfoChange />
       <StyledAddressInfo>
-        <AddressInfoSubhead1>{cookies.get(ADDR_NOM)}</AddressInfoSubhead1>
-        <AddressInfoBody2>
-          {cookies.get(RCPNT_NOM)} {cookies.get(CNTCT_NUM)}
-        </AddressInfoBody2>
-        <AddressInfoDetail>{cookies.get(ADDR)}</AddressInfoDetail>
-        <AddressInfoDetailInput
-          placeholder="상세 주소를 작성해 주세요."
-          onChange={handleAddrDetail}
-          value={addrDetail}
-        />
+        {isNewOrdAddr ? (
+          <>
+            <OrderAddrRegister />
+            <OrdAddrSearchPopup />
+          </>
+        ) : (
+          <ExitAddrWrap>
+            <AddressInfoSubhead1>{cookies.get(ADDR_NOM)}</AddressInfoSubhead1>
+            <AddressInfoBody2>
+              {cookies.get(RCPNT_NOM)} {cookies.get(CNTCT_NUM)}
+            </AddressInfoBody2>
+            <AddressInfoDetail>{cookies.get(ADDR)}</AddressInfoDetail>
+            <AddressInfoDetailInput
+              placeholder="상세 주소를 작성해 주세요."
+              onChange={handleAddrDetail}
+              value={addrDetail}
+            />
+            <OrdAddrAddButtonWrap>
+              <OrdAddrAddButton />
+            </OrdAddrAddButtonWrap>
+          </ExitAddrWrap>
+        )}
       </StyledAddressInfo>
       <AddressInfoReq />
     </StyledAddressInfoContainer>
@@ -47,7 +62,6 @@ const AddressInfo: React.FC = () => {
 const StyledAddressInfoContainer = styled.div``;
 
 const StyledAddressInfo = styled.div`
-  padding: 0 20px 20px 20px;
   border-bottom: 1px solid #eaecef;
 `;
 
@@ -83,6 +97,14 @@ const AddressInfoDetail = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
   padding-bottom: 8px;
   color: ${({ theme }) => theme.grey.Grey8};
+`;
+
+const OrdAddrAddButtonWrap = styled.div`
+  margin-top: 11px;
+`;
+
+const ExitAddrWrap = styled.div`
+  padding: 0 20px 20px 20px;
 `;
 
 export default AddressInfo;

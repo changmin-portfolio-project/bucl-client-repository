@@ -1,4 +1,4 @@
-import { api, formApi } from '../index';
+import { formApi, privateApi } from '../index';
 
 interface postProductOption {
   productOrderAmt: number;
@@ -30,7 +30,7 @@ export const postPaymentPreparation = (
   proctOptNom: string,
 ): Promise<postPaymentPreparationResponse> => {
   const merchant_uid = `mid_${new Date().getTime()}`;
-  return api
+  return privateApi
     .post('/api/v1/payment/preparation', {
       merchantUid: merchant_uid,
       amount: spentAmount,
@@ -54,12 +54,7 @@ export const postPaymentPreparation = (
 export const postPaymentVerification = (
   formData: FormData,
 ): Promise<postPaymentVerificationResponse> => {
-  return formApi
-    .post('/api/v1/payment/verification', formData)
-    .then((res) => {
-      return res.data.data;
-    })
-    .catch((error) => {
-      alert(error.response.data.message);
-    });
+  return formApi.post('/api/v1/payment/verification', formData).then((res) => {
+    return res.data.data;
+  });
 };

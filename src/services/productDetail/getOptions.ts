@@ -3,6 +3,7 @@ import { api } from '../index';
 export interface optionsData {
   values: string[];
   extraAmount: number;
+  skuCode: number;
 }
 
 export interface getOptionsResponse {

@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface ReviewPreview {
   profilePath: string;
@@ -23,7 +23,7 @@ export interface ProductData {
   imagePaths: string[];
   detailImagePaths: string[];
   reviewPreviews: ReviewPreview[];
-  ordNum: number;
+  totalConsumerOrder: number;
   deadline: string;
   wished: boolean;
 }
@@ -36,9 +36,10 @@ export interface getProductInfoResponse {
 export const getProductInfo = (
   product_code: string,
 ): Promise<getProductInfoResponse> => {
-  return api
+  return privateApi
     .get(`/api/v1/products/${product_code}`)
     .then((res) => {
+      console.log(res);
       return res.data;
     })
     .catch((err) => {

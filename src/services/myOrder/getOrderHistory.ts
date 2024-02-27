@@ -37,6 +37,7 @@ export const getOrderHistory = (
   return privateApi
     .get(`/api/v1/orders?page=${pageNum}&pageSize=10`)
     .then((res) => {
+      console.log(res);
       return res.data;
     })
     .catch((err) => {

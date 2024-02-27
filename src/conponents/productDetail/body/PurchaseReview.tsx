@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import ReviewItem from '../../ReviewItem';
 import PhotoPreview from './PhotoPreview';
 import {
@@ -24,13 +24,17 @@ const PurchaseReview: React.FC = () => {
         setImgList(res.data);
       });
   }, []);
+
+  const PurchaseReviewStyle: CSSProperties = {
+    padding: 0,
+  };
   return (
     <PurchaseReviewContainer>
       <TitleAllBtnBox>
         <TitleText>구매 후기</TitleText>
         {productDetail.reviewPreviews &&
           productDetail.reviewPreviews.length > 0 && (
-            <TextButton>
+            <TextButton style={PurchaseReviewStyle}>
               <Link
                 to={`/products/${params.product_code}/reviews`}
                 state={{

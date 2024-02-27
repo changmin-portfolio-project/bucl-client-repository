@@ -26,9 +26,11 @@ import { RequestPayResponse } from 'iamport-typings';
 import { PAY_METHOD, VERIFICATION_URL } from '../../../../const/Payment';
 import { pgCodeAtom } from '../../../../states/paymentAtom';
 import { addrDetailAtom, memoCntAtom } from '../../../../states/orderAtom';
+import { useNavigate } from 'react-router-dom';
 
 const OrderPaymentProcess: React.FC = () => {
   const cookies = new Cookies();
+  const navigate = useNavigate();
   const rwdUseAmt = useRecoilValue(rwdUseAmtAtom);
   const pgCode = useRecoilValue(pgCodeAtom);
   const memoCnt = useRecoilValue(memoCntAtom);
@@ -145,8 +147,13 @@ const OrderPaymentProcess: React.FC = () => {
           }
         }
 
-        await postPaymentVerification(formData);
-        alert('결제 성공');
+        await postPaymentVerification(formData)
+          .then(() => {
+            navigate('/order-complete');
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       } catch (error) {
         console.error('Error while verifying payment:', error);
         alert(error);

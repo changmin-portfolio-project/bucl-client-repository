@@ -36,7 +36,6 @@ const AppLink: React.FC<
           if (type === NAVIGATION_TO) {
             navigate(to);
           } else {
-            console.log(to + '뒤로');
             navigate(-1);
           }
         }

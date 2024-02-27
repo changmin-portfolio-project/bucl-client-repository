@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface postWithdrawalResponse {
   rewardWithdrawalAmount: number;
@@ -17,7 +17,7 @@ export interface postWithdrawalProps {
 export const postWithdrawal = (
   data: postWithdrawalProps,
 ): Promise<postWithdrawalResponse> => {
-  return api
+  return privateApi
     .post(`/api/v1/rewards/withdrawals`, data)
     .then((res) => {
       return res.data.data;

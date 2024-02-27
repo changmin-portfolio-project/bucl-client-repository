@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from '../../ReviewImgItem';
-import { useParams } from 'react-router-dom';
-import { getProductInfo } from '../../../services/productDetail/getProductInfo';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { postReviewProductInfoAtom } from '../../../states/postReviewAtom';
+import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
 
 const Preview: React.FC = () => {
+  const navigate = useNavigate();
   const param = useParams();
   const ReviewImgItemStyle: React.CSSProperties = {
     width: '20%',
@@ -13,29 +16,25 @@ const Preview: React.FC = () => {
   type Information = { name: string; description: string };
   const [info, setInformation] = useState<Information | null>(null);
 
-  const [productImg, setProductImg] = useState('');
-  const [brandName, setBrandName] = useState('');
-  const [productName, setProductName] = useState('');
+  const productInfo = useRecoilValue(postReviewProductInfoAtom);
   // const [deliveryDate, setDeliveryDate] = useState('');
 
-  useEffect(() => {
-    if (param.product_code) {
-      getProductInfo(param.product_code).then((res): void => {
-        setBrandName(res.data.brandName);
-        setProductName(res.data.name);
-        setProductImg(res.data.imagePaths[0]);
-      });
-    }
-  }, []);
   return (
     <PreviewContainer>
-      <ReviewImgItem imgPath={productImg} style={ReviewImgItemStyle} />
+      <ReviewImgItem
+        imgPath={productInfo.imagePath}
+        style={ReviewImgItemStyle}
+      />
       <InfoBox>
         <BrandNameContentsBox>
-          <BrandName>{brandName}</BrandName>
-          <ContentsText>{productName}</ContentsText>
+          <BrandName>{productInfo.brandName}</BrandName>
+          <ContentsText>{productInfo.name}</ContentsText>
         </BrandNameContentsBox>
-        <DeliveryCompletionDate>배송 완료일: 2023-11-16</DeliveryCompletionDate>
+        <DeliveryCompletionDate>
+          {convertDtStrToDStr(
+            productInfo.createdAt ?? '날짜 표기 할 수 없습니다.',
+          )}
+        </DeliveryCompletionDate>
       </InfoBox>
     </PreviewContainer>
   );

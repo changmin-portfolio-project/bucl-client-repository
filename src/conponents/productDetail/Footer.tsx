@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Deadline from '../Deadline';
-import WishButton from '../WishButton';
+import WishButton from './body/ProductDetailWishButton';
 import OptionChoose from './footer/OptionChoose';
 import { isActivePopUp } from '../../utils/PopUpUtil';
 import OutlineButton from '../OutlineButton';
@@ -9,12 +9,16 @@ import { Link, useParams } from 'react-router-dom';
 import ColoredButton from '../ColoredButton';
 import { useRecoilValue } from 'recoil';
 import { productDetailAtom } from '../../states/productDetailAtom';
+import { PROCT_CODE } from '../../const/CookieVars';
+import { Cookies } from 'react-cookie';
 
 const Footer: React.FC = () => {
+  const cookies = new Cookies();
   const param = useParams();
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
+  const [crntOptSkuCode, setCrntOptSkuCode] = useState<number>(0);
 
   const productDetail = useRecoilValue(productDetailAtom);
 
@@ -41,7 +45,7 @@ const Footer: React.FC = () => {
       <Deadline deadline={productDetail.deadline} />
       <FeatureBtnBox>
         <WishButton
-          productCode={0}
+          productCode={cookies.get(PROCT_CODE)}
           style={wishButtonStyle}
           svgStyle={svgStyle}
           wished={productDetail.wished}
@@ -64,6 +68,8 @@ const Footer: React.FC = () => {
         setCurrentOption={setCurrentOption}
         currentOptionExtraAmt={currentOptionExtraAmt}
         setCurrentOptionExtraAmt={setCurrentOptionExtraAmt}
+        crntOptSkuCode={crntOptSkuCode}
+        setCrntOptSkuCode={setCrntOptSkuCode}
       />
     </FooterContainer>
   );

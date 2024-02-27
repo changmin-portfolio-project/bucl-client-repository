@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-interface TimeRemaining {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+import { TimeRemaining, calculateTimeRemaining } from '../utils/TimeUtil';
 
 interface DeadlineProps {
   deadline: string;
@@ -19,26 +13,8 @@ const Deadline: React.FC<DeadlineProps> = ({ deadline, style }) => {
     calculateTimeRemaining(deadline),
   );
 
-  function calculateTimeRemaining(deadline: string): TimeRemaining {
-    const now = new Date();
-    const targetTime = new Date(deadline);
-    const difference = targetTime.getTime() - now.getTime();
-
-    if (difference < 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-    );
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    return { days, hours, minutes, seconds };
-  }
-
   useEffect(() => {
+    setTimeRemaining(calculateTimeRemaining(deadline));
     if (deadline) {
       const timer = setInterval(() => {
         setTimeRemaining(calculateTimeRemaining(deadline));

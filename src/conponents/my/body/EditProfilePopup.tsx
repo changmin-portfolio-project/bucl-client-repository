@@ -39,7 +39,6 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     formData.append('profileImage', e.target.files[0]);
     patchProfileImg(formData).then((res) => {
       // getUserProfile();
-      console.log(res.profilePath);
       setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
       deleteBtnOnClick();
     });

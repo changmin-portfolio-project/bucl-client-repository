@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import OutlineButton from '../../OutlineButton';
 import { useSetRecoilState } from 'recoil';
 import { purchaseConfirmPopupAtom } from '../../../states/orderHistoryAtom';
+import { Link } from 'react-router-dom';
 
 interface WriteReviewButtonProps {
   confirmed: boolean;
@@ -25,14 +26,16 @@ const WriteReviewButton: React.FC<WriteReviewButtonProps> = ({
   return (
     <WriteReviewButtonContainer>
       {confirmed ? (
-        <OutlineButton
-          style={OutlineButtonStyle}
-          border="Grey4"
-          color="Grey8"
-          font="Body2"
-        >
-          리뷰작성
-        </OutlineButton>
+        <Link to={`/post-reviews/${orderCode}`}>
+          <OutlineButton
+            style={OutlineButtonStyle}
+            border="Grey4"
+            color="Grey8"
+            font="Body2"
+          >
+            리뷰작성
+          </OutlineButton>
+        </Link>
       ) : (
         <OutlineButton
           style={OutlineButtonStyle}

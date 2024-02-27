@@ -16,6 +16,7 @@ const Complete: React.FC = () => {
         <ColoredButton font="Subhead1" color="white" style={ColoredButtonStyle}>
           <Link to={'/'}>더 둘러보기</Link>
         </ColoredButton>
+        <MarginDiv />
         <ColoredButton
           font="Subhead1"
           color="white"
@@ -42,6 +43,10 @@ const Text = styled.p`
   span {
     color: ${({ theme }) => theme.mainColor.Orange5};
   }
+`;
+
+const MarginDiv = styled.div`
+  margin-right: 10px;
 `;
 
 const BtnBox = styled.div`

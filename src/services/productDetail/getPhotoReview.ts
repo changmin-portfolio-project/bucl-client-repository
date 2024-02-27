@@ -12,7 +12,6 @@ export interface getPhotoReviewResponse {
 export const getPhotoReview = (
   product_code: string,
 ): Promise<getPhotoReviewResponse> => {
-  console.log(`/api/v1/products/${product_code}/photo-reviews?display=preview`);
   return api
     .get(`/api/v1/products/${product_code}/photo-reviews?display=preview`)
     .then((res) => {

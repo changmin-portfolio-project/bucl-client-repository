@@ -11,6 +11,6 @@ export const bankerNameAtom = atom<string>({
 });
 
 export const completeBooleanAtom = atom<boolean>({
-  key: 'completeBoolean',
+  key: 'accountCompleteBoolean',
   default: false,
 });

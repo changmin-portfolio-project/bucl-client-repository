@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 interface bodyLayoutProps {
   children?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const BodyLayout: React.FC<bodyLayoutProps> = ({ children }) => {
-  return <BodyLayoutContainer>{children}</BodyLayoutContainer>;
+const BodyLayout: React.FC<bodyLayoutProps> = ({ children, style }) => {
+  return <BodyLayoutContainer style={style}>{children}</BodyLayoutContainer>;
 };
 
 const BodyLayoutContainer = styled.main`

@@ -15,7 +15,7 @@ const DeliveryStatusButton: React.FC = () => {
         border="Orange5"
         color="Orange5"
       >
-        배송현황
+        결제완료
       </OutlineButton>
     </DeliveryStatusButtonContainer>
   );

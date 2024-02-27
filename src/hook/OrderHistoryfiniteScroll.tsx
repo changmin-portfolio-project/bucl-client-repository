@@ -32,18 +32,13 @@ const OrderHistoryfiniteScroll: React.FC = () => {
     }
   }, [inView]);
 
-  return (
-    <ScrollBottomContainer ref={ref}>
-      <img src="/assets/bucl_loading.gif" width={'25px'} />
-    </ScrollBottomContainer>
-  );
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: ${({ theme }) => theme.grey.Grey1};
   padding-bottom: 50px;
 `;
 

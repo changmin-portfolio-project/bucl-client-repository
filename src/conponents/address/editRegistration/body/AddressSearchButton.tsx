@@ -16,7 +16,6 @@ const AddressSearchButton: React.FC = () => {
     setVisible(true);
     // 우편번호 찾기 찾기 화면을 넣을 element
     const element_wrap = document.querySelector('#wrap') as HTMLElement;
-    console.log(element_wrap);
     daumSearchPopup(element_wrap);
   };
 

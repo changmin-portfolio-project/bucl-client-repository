@@ -7,6 +7,7 @@ import {
 } from '../../../services/productDetail/getOptions';
 import { useParams } from 'react-router-dom';
 import OutlineButton from '../../OutlineButton';
+import { animation } from '../../../style/animation';
 
 interface OptionChooseProps {
   active: boolean;
@@ -15,6 +16,8 @@ interface OptionChooseProps {
   setCurrentOption: React.Dispatch<SetStateAction<string>>;
   currentOptionExtraAmt: number;
   setCurrentOptionExtraAmt: React.Dispatch<SetStateAction<number>>;
+  crntOptSkuCode: number;
+  setCrntOptSkuCode: React.Dispatch<SetStateAction<number>>;
 }
 
 const OptionChoose: React.FC<OptionChooseProps> = ({
@@ -24,6 +27,8 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
   setCurrentOption,
   currentOptionExtraAmt,
   setCurrentOptionExtraAmt,
+  crntOptSkuCode,
+  setCrntOptSkuCode,
 }) => {
   const param = useParams();
 
@@ -31,13 +36,15 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
     optionName: string,
     extraAmount: number,
     e: React.MouseEvent<HTMLDivElement>,
+    index: number,
   ) => {
     e.stopPropagation(); // 이벤트 전파 중지
     setCurrentOption(optionName);
     setCurrentOptionExtraAmt(extraAmount);
+    setCrntOptSkuCode(optionList[index].skuCode);
   };
 
-  const [optionList, setOptionList] = useState<optionsData[]>();
+  const [optionList, setOptionList] = useState<optionsData[]>([]);
   const [optionCount, setOptionCount] = useState<number>(1);
   useEffect(() => {
     if (param.product_code)
@@ -67,9 +74,10 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                 setCurrentOptionExtraAmt={setCurrentOptionExtraAmt}
                 optionCount={optionCount}
                 setOptionCount={setOptionCount}
+                crntOptSkuCode={crntOptSkuCode}
               />
             ) : (
-              <>
+              <OptionChooseWrap>
                 <OptionBox>
                   <Title>옵션 선택하기</Title>
                   {optionList?.map((v, i) => (
@@ -79,6 +87,7 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                           v?.values.toString(),
                           v?.extraAmount,
                           e,
+                          i,
                         )
                       }
                       key={i}
@@ -97,7 +106,7 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
                     옵션 선택 닫기
                   </OutlineButton>
                 </CloseBtnBox>
-              </>
+              </OptionChooseWrap>
             )}
           </div>
         </OptionChooseContainer>
@@ -118,6 +127,10 @@ const OptionChooseContainer = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
+`;
+
+const OptionChooseWrap = styled.div`
+  animation: ${animation.slideUp} 0.2s ease-in-out;
 `;
 
 const OptionBox = styled.div`

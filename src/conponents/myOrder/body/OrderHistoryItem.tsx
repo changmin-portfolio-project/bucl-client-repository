@@ -9,11 +9,14 @@ import WriteReviewButton from './WriteReviewButton';
 
 interface OrderHistoryItemProps {
   productName: string;
+  productCode: number;
   imgPath: string;
   orderDate: string;
   productPrice: number;
   confirmed: boolean;
   orderCode: string;
+  productOrderQty: number;
+  productOptionValue: string;
 }
 
 const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
@@ -23,10 +26,14 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
   productPrice,
   confirmed,
   orderCode,
+  productCode,
+  productOrderQty,
+  productOptionValue,
 }) => {
   const TextButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
   };
 
   return (
@@ -35,8 +42,8 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
         <DateBox>
           {convertDtStrToDStr(orderDate ?? '날짜 표기 할 수 없습니다.')}
         </DateBox>
-        <TextButton font="Body1" style={TextButtonStyle} color="Orange5">
-          <Link to={`/my/orders/${orderCode}`}>
+        <Link to={`/my/orders/${orderCode}`}>
+          <TextButton font="Body1" style={TextButtonStyle} color="Orange5">
             주문상세
             <svg
               width="20"
@@ -53,18 +60,23 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
                 strokeLinejoin="round"
               />
             </svg>
-          </Link>
-        </TextButton>
+          </TextButton>
+        </Link>
       </DateOrderDetailBtnBox>
       <ProductInfoBox>
         <ProductImgBox>
           <ReviewImgItem imgPath={imgPath} />
         </ProductImgBox>
         <ProductNamePriceCountBox>
-          <Name>{productName}</Name>
+          <Link to={`/products/${productCode}`}>
+            <Name>{productName}</Name>
+            <Option>{productOptionValue}</Option>
+          </Link>
+
           <PriceCountBox>
             <Price>{productPrice.toLocaleString()}원</Price>
-            <Count>1개</Count>
+
+            <Count>{productOrderQty}개</Count>
           </PriceCountBox>
         </ProductNamePriceCountBox>
       </ProductInfoBox>
@@ -129,6 +141,10 @@ const Name = styled.p`
   color: ${({ theme }) => theme.grey.Grey7};
 `;
 
+const Option = styled(Name)`
+  color: ${({ theme }) => theme.grey.Grey6};
+`;
+
 const PriceCountBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -137,6 +153,7 @@ const Price = styled.span`
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey6};
 `;
+
 const Count = styled(Price)``;
 
 const MenuBtnBox = styled.div`

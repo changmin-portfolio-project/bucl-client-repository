@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import PrevButton from '../PrevButton';
+import { SetterOrUpdater } from 'recoil';
+import PrevPopupButton from '../PrevPopupButton';
 
 interface HeaderLayoutProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
   text?: string;
   isApp?: boolean;
+  to?: string;
+  type?: string;
+  setFunction?:
+    | SetterOrUpdater<boolean>
+    | React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
 const HeaderLayout: React.FC<HeaderLayoutProps> = ({
@@ -14,6 +21,9 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   children,
   text,
   isApp = false,
+  to = undefined,
+  type = undefined,
+  setFunction = null,
 }) => {
   return (
     <HeaderLayoutContainer style={style}>
@@ -21,7 +31,13 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         children
       ) : (
         <Title>
-          <PrevButton isApp={isApp} />
+          {setFunction === null ? (
+            <PrevButton isApp={isApp} to={to} type={type} />
+          ) : (
+            <>
+              <PrevPopupButton setFunction={setFunction} />
+            </>
+          )}
           {text}
         </Title>
       )}

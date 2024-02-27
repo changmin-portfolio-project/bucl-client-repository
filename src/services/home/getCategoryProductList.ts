@@ -8,9 +8,10 @@ export interface HomeProduct {
   imagePath: string;
   salePrice: number;
   consumerPrice: number;
+  discountRate: number;
   reward: number;
   wished: boolean;
-  ordNum: number;
+  totalConsumerOrder: number;
   deadline: string;
 }
 

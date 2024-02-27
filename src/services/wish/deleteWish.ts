@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 export interface deleteWishResponse {
   data: null;
@@ -8,7 +8,7 @@ export interface deleteWishResponse {
 export const deleteWish = (
   productCode: number,
 ): Promise<deleteWishResponse> => {
-  return api
+  return privateApi
     .delete(`/api/v1/wishes/${productCode}`)
     .then((res) => {
       return res.data;

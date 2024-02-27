@@ -8,6 +8,7 @@ interface ColoredButtonProps {
   font: string;
   color: string;
   backgroundColor?: string;
+  disabled?: boolean;
 }
 
 const ColoredButton: React.FC<ColoredButtonProps> = ({
@@ -17,6 +18,7 @@ const ColoredButton: React.FC<ColoredButtonProps> = ({
   color,
   font,
   backgroundColor,
+  disabled = false,
 }) => {
   return (
     <ColoredBtn
@@ -25,6 +27,7 @@ const ColoredButton: React.FC<ColoredButtonProps> = ({
       $font={font ? font : ''}
       $color={color ? color : ''}
       $backgroundColor={backgroundColor ? backgroundColor : ''}
+      disabled={disabled}
     >
       {children}
     </ColoredBtn>
@@ -46,6 +49,8 @@ const ColoredBtn = styled.button<{
   background-color: ${(props) => {
     if (props.$backgroundColor.includes('Grey'))
       return ({ theme }) => theme.grey[props.$backgroundColor];
+    else if (props.$backgroundColor.includes('Orange'))
+      return ({ theme }) => theme.mainColor[props.$backgroundColor];
     else if (props.$backgroundColor === 'white') return 'white';
     else return ({ theme }) => theme.mainColor.Orange5;
   }};

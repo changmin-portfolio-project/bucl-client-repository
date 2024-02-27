@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
 import { getUserProfile } from '../../../services/my/getUserProfile';
 import EditProfilePopup from './EditProfilePopup';
 import { useRecoilState } from 'recoil';
 import { myUserInfoAtom } from '../../../states/myAtom';
-import { getPoint } from '../../../services/reward/getPoint';
+import { getReward } from '../../../services/reward/getReward';
+import AppLink from '../../AppLink';
 
 const MyInfo: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
@@ -16,9 +17,9 @@ const MyInfo: React.FC = () => {
         setUserInfo(res.data);
       })
       .catch(() => {});
-    getPoint()
+    getReward()
       .then((res) => {
-        setPoint(res.data.data);
+        setPoint(res);
       })
       .catch(() => {});
   }, []);
@@ -28,6 +29,12 @@ const MyInfo: React.FC = () => {
 
   const EditBtnOnClick = () => {
     setPopupOpen(true);
+  };
+
+  const RewardButtonStyle: CSSProperties = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   };
 
   return (
@@ -40,9 +47,12 @@ const MyInfo: React.FC = () => {
       </UserImgBox>
       <UserName>{userInfo?.nickname} 님</UserName>
       {popupOpen && <EditProfilePopup setPopupOpen={setPopupOpen} />}
+
       <PointBox>
-        <PointTitle>누적포인트</PointTitle>
-        <PointText>{point.toLocaleString()}P</PointText>
+        <AppLink to="/rewards" style={RewardButtonStyle}>
+          <PointTitle>누적포인트</PointTitle>
+          <PointText>{point.toLocaleString()}P</PointText>
+        </AppLink>
       </PointBox>
     </MyInfoContainer>
   );
@@ -100,9 +110,6 @@ const UserName = styled.span`
 `;
 
 const PointBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 20px;
   width: 80%;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};

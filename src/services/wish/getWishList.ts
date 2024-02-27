@@ -6,9 +6,9 @@ export interface WishProduct {
   imagePath: string[];
   productCode: number;
   consumerPrice: number;
-  starRate: number;
   consumerOrdersNumber: number;
   isEnded: boolean;
+  averageRating: number;
   totalReviewCount: number;
 }
 

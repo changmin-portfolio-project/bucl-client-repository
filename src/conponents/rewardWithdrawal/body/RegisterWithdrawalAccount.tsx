@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   RewardAccount,
   getRewardAccount,
-} from '../../../services/withdrawal/getRewardAccount';
+} from '../../../services/rewardAccount/getRewardAccount';
 import { useRecoilState } from 'recoil';
 import { rewardAccountAtom } from '../../../states/withdrawalAtom';
 
@@ -12,15 +12,25 @@ const RegisterWithdrawalAccount: React.FC = () => {
     useRecoilState(rewardAccountAtom);
 
   useEffect(() => {
-    getRewardAccount().then((res) => {
-      const rewardAccountData: RewardAccount = {
-        bankName: res.bankName,
-        bankCode: res.bankCode,
-        accountNum: res.accountNum,
-        accountHolderName: res.accountHolderName,
-      };
-      setMyRewardAccount(rewardAccountData);
-    });
+    getRewardAccount()
+      .then((res) => {
+        const rewardAccountData: RewardAccount = {
+          bankName: res.bankName,
+          bankCode: res.bankCode,
+          accountNum: res.accountNum,
+          accountHolderName: res.accountHolderName,
+        };
+        setMyRewardAccount(rewardAccountData);
+      })
+      .catch(() => {
+        const rewardAccountData: RewardAccount = {
+          bankName: '없음',
+          bankCode: '',
+          accountNum: '',
+          accountHolderName: '',
+        };
+        setMyRewardAccount(rewardAccountData);
+      });
   }, []);
   return (
     <RegisterWithdrawalAccountContainer>

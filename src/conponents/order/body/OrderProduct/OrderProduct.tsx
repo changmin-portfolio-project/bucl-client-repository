@@ -8,7 +8,10 @@ const OrderProduct: React.FC = () => {
     'proctNom',
     'proctOptNom',
     'proctBrn',
+    'proctOptAmt',
+    'proctOptQty',
   ]);
+
   return (
     <StyledOrderProductContainer>
       <OrderProductInfoTitle>주문 상품</OrderProductInfoTitle>
@@ -17,7 +20,12 @@ const OrderProduct: React.FC = () => {
         <OrderProductItem>
           <BrandName>{cookies.proctBrn}</BrandName>
           <ProductName>{cookies.proctNom}</ProductName>
-          <ProductOption>{cookies.proctOptNom}</ProductOption>
+          <ProductOption>
+            {cookies.proctOptNom} / 수량: {cookies.proctOptQty}
+          </ProductOption>
+          <ProductOptionAmt>
+            {cookies.proctOptAmt?.toLocaleString()}원
+          </ProductOptionAmt>
         </OrderProductItem>
       </OrderProductInputContainer>
     </StyledOrderProductContainer>
@@ -31,8 +39,8 @@ const OrderProductInfoTitle = styled.div`
 `;
 
 const OrderProductImg = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
 
   border-radius: 4px;
@@ -49,7 +57,7 @@ const OrderProductInputContainer = styled.div`
 `;
 
 const OrderProductItem = styled.div`
-  margin-left: 11px;
+  margin-left: 20px;
 `;
 
 const ProductName = styled.div`
@@ -59,14 +67,21 @@ const ProductName = styled.div`
 
 const BrandName = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body1};
+  font-weight: 700;
 `;
 
 const ProductOption = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body1};
-  color: var(--grey-6, #858e96);
+  color: ${({ theme }) => theme.grey.Grey5};
   border-radius: 4px;
-  background: var(--grey-1, #f1f3f5);
-  padding: 4.5px 0 4.5px 7px;
+  padding: 1px 0 6px 0;
+`;
+
+const ProductOptionAmt = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  color: ${({ theme }) => theme.grey.Grey5};
+  border-radius: 4px;
+  padding: 1px 0 6px 0;
 `;
 
 export default OrderProduct;

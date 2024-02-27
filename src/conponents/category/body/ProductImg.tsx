@@ -23,8 +23,9 @@ const ProductImg: React.FC<ProductImgProps> = ({ data, wishId }) => {
       <ProductSubInfo
         productCode={data.productCode}
         wished={data.wished}
-        ordNum={data.ordNum}
+        ordNum={data.totalConsumerOrder}
         wishId={wishId}
+        deadline={data.deadline}
       />
       <Reward reward={data.reward} />
     </ProductImgBox>

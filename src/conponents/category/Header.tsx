@@ -81,6 +81,14 @@ const Header: React.FC = () => {
 
 const TabMenuNav = styled.nav`
   display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const TabMenu = styled.div`
   display: flex;

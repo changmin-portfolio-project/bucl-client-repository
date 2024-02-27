@@ -14,16 +14,17 @@ const PrevStyle: React.CSSProperties = {
 
 interface PrevBtnProps {
   isApp?: boolean;
+  to?: string;
+  type?: string;
 }
 
-const PrevButton: React.FC<PrevBtnProps> = ({ isApp = false }) => {
+const PrevButton: React.FC<PrevBtnProps> = ({
+  isApp = false,
+  to = location.pathname,
+  type = NAVIGATION_BACK,
+}) => {
   return (
-    <AppLink
-      isApp={isApp}
-      to={location.pathname}
-      type={NAVIGATION_BACK}
-      style={PrevStyle}
-    >
+    <AppLink isApp={isApp} to={to} type={type} style={PrevStyle}>
       <svg
         width="35"
         height="35"

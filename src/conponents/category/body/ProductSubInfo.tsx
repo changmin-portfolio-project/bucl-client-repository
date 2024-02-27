@@ -9,6 +9,7 @@ interface ProductSubInfoProps {
   wished: boolean;
   ordNum: number;
   wishId: number;
+  deadline: string;
 }
 const CategoryAttendStyle: CSSProperties = {
   lineHeight: '1.5',
@@ -19,6 +20,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   wished,
   ordNum,
   wishId,
+  deadline,
 }) => {
   const svgStyle: React.CSSProperties = {
     width: '23px',
@@ -27,7 +29,7 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
     <ProductSubInfoContainer>
       <ProductSubInfoItem>
         <Attend ordNum={ordNum} itemStyle={CategoryAttendStyle} />
-        <TimeIcon />
+        <TimeIcon deadline={deadline} />
       </ProductSubInfoItem>
       <ProductSubInfoItem>
         <CategoryWishButton

@@ -1,13 +1,23 @@
-import { api } from '../index';
+import { privateApi } from '../index';
+
+interface ProductInfoRes {
+  productCode: number;
+  name: string;
+  brandName: string;
+  imagePath: string;
+  starRate: number;
+  selectedOption: string;
+  reviewImages: string[];
+  reviewText: string;
+  createdAt: string;
+}
 
 // 리뷰 쓸 상품 정보 가져오기
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getProductInfo = (product_code: string) => {
-  return api
-    .get(`/api/v1/products/${product_code}`)
+export const getReviewInfo = (order_code: string): Promise<ProductInfoRes> => {
+  return privateApi
+    .get(`/api/v1/products/${order_code}/review`)
     .then((res) => {
-      console.log(res);
-      return res.data;
+      return res.data.data;
     })
     .catch((err) => {
       throw err;

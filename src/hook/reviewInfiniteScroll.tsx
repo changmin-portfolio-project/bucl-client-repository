@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 import { reviewListAtom, reviewPageNumAtom } from '../states/reviewAtom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Review, getReviewList } from '../services/review/getReviewList';
 
 const ReviewInfiniteScroll: React.FC = () => {
   const param = useParams();
+  const navigate = useNavigate();
 
   const [reviewPageNum, setReviewPageNum] = useRecoilState(reviewPageNumAtom);
   const setReviewList = useSetRecoilState<Review[]>(reviewListAtom);
@@ -16,10 +17,14 @@ const ReviewInfiniteScroll: React.FC = () => {
 
   const callback = () => {
     if (param.product_code)
-      getReviewList(param.product_code, reviewPageNum).then((res) => {
-        setReviewList((prev) => [...prev, ...res.reviews]);
-        setReviewPageNum((prev) => prev + 1);
-      });
+      getReviewList(param.product_code, reviewPageNum)
+        .then((res) => {
+          setReviewList((prev) => [...prev, ...res.reviews]);
+          setReviewPageNum((prev) => prev + 1);
+        })
+        .catch(() => {
+          navigate('/bad-requests');
+        });
   };
   useEffect(() => {
     if (inView) {
@@ -28,7 +33,7 @@ const ReviewInfiniteScroll: React.FC = () => {
     }
   }, [inView]);
 
-  return <ScrollBottomContainer ref={ref}>무한 스크롤</ScrollBottomContainer>;
+  return <ScrollBottomContainer ref={ref}></ScrollBottomContainer>;
 };
 
 const ScrollBottomContainer = styled.div``;

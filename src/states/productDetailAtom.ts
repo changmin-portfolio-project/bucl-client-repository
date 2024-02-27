@@ -16,7 +16,7 @@ export const productDetailAtom = atom<ProductData>({
     imagePaths: [],
     detailImagePaths: [],
     reviewPreviews: [],
-    ordNum: 0,
+    totalConsumerOrder: 0,
     deadline: '',
     wished: false,
   },

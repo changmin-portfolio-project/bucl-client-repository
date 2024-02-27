@@ -39,11 +39,10 @@ export const refreshApi = axios.create({
 
 privateApi.interceptors.request.use((config) => {
   if (!config.headers) return config;
-  const accessToken = localStorage.getItem('access-token');
 
-  if (accessToken !== null) {
-    config.headers.authorization = `Bearer ${accessToken}`;
-  }
+  const accessToken = localStorage.getItem('access-token') || '';
+
+  config.headers.authorization = `Bearer ${accessToken}`;
 
   return config;
 });
@@ -71,7 +70,7 @@ privateApi.interceptors.response.use(
 
         config.sent = 0;
         //리프레시 토큰 api
-        await postRefreshToken()
+        const originResponse = await postRefreshToken()
           .then((response) => {
             //리프레시 토큰 요청이 성공할 때
 
@@ -93,15 +92,17 @@ privateApi.interceptors.response.use(
           })
           .catch(() => {
             const currentPath = window.location.pathname;
+            const apiUrl = originRequest.url;
+            if (currentPath === '/' && apiUrl === '/api/v1/rewards/crnt-amt') {
+              localStorage.setItem('access-token', '');
 
-            if (currentPath === '/' || currentPath === '/categories') {
               originRequest.headers.authorization = '';
               return axios(originRequest);
             } else {
-              console.log(currentPath);
               window.location.replace('/login?callbackUrl=' + currentPath);
             }
           });
+        return originResponse;
       }
     }
     return Promise.reject(error);
@@ -148,6 +149,7 @@ formApi.interceptors.response.use(
 
         config.sent = 0;
         //리프레시 토큰 api
+
         await postRefreshToken()
           .then((response) => {
             //리프레시 토큰 요청이 성공할 때
@@ -157,9 +159,8 @@ formApi.interceptors.response.use(
 
               //진행중이던 요청 이어서하기
               originRequest.headers.authorization = `Bearer ${newAccessToken}`;
-              return axios(originRequest);
 
-              //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
+              return axios(originRequest);
             } else if (response.status === STATUS_NOT_FOUND) {
               window.location.replace('/');
             } else {
@@ -168,6 +169,7 @@ formApi.interceptors.response.use(
             }
           })
           .catch(() => {
+            //리프레시 토큰 요청이 실패할때(리프레시 토큰도 만료되었을때 = 재로그인 안내)
             window.location.replace('/login');
           });
       }
@@ -184,18 +186,13 @@ interface postRefreshRes {
 export async function postRefreshToken(): Promise<postRefreshRes> {
   try {
     const response = await refreshApi.post('/api/v1/auth/renewal/tokens');
-    // const data = response.data.data;
-    // formApi.defaults.headers.common['Authorization'] =
-    //   `Bearer ${data.daccessToken}`;
-    // privateApi.defaults.headers.common['Authorization'] =
-    //   `Bearer ${data.daccessToken}`;
 
     return {
       accessToken: response.data.data,
       status: response.status,
     };
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     throw err;
   }
