@@ -1,0 +1,90 @@
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+import { orderInfoAtom } from '../../../states/orderDetailAtom';
+import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
+
+const ProductInfo: React.FC = () => {
+  const orderInfo = useRecoilValue(orderInfoAtom);
+  return (
+    <ProductInfoContainer>
+      <DateBox>
+        {convertDtStrToDStr(orderInfo.orderDate ?? '날짜 표기 할 수 없습니다.')}
+      </DateBox>
+      <ProductInfoBox>
+        <ImgBox>
+          <img src={orderInfo.imagePath} />
+        </ImgBox>
+        <ProductBox>
+          <BrandNameAndNameBox>
+            <BrandName>{orderInfo.brandName}</BrandName>
+            <Name>{orderInfo.productName}</Name>
+          </BrandNameAndNameBox>
+          <PriceAndCountBox>
+            <Price>{orderInfo.consumerOrder.toLocaleString()}원</Price>
+            <Count>{orderInfo.productOrderQty}개</Count>
+          </PriceAndCountBox>
+        </ProductBox>
+      </ProductInfoBox>
+    </ProductInfoContainer>
+  );
+};
+
+const ProductInfoContainer = styled.section``;
+
+const DateBox = styled.div`
+  padding: 10px 7%;
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey6};
+  border-bottom: 6px solid ${({ theme }) => theme.grey.Grey2};
+`;
+
+const ProductInfoBox = styled.div`
+  display: flex;
+  padding: 15px 7% 10px 7%;
+`;
+const ImgBox = styled.div`
+  margin-right: 10px;
+  width: 25%;
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 4px;
+  }
+`;
+
+const ProductBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0;
+  width: 75%;
+`;
+
+const BrandNameAndNameBox = styled.div``;
+const BrandName = styled.p`
+  padding-bottom: 3px;
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  color: ${({ theme }) => theme.grey.Grey5};
+`;
+const Name = styled.p`
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey7};
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 표시할 줄 수 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const PriceAndCountBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Price = styled.span`
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey7};
+`;
+const Count = styled(Price)``;
+
+export default ProductInfo;

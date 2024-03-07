@@ -4,10 +4,19 @@ import styled from 'styled-components';
 interface PopupLayoutProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const PopupLayout: React.FC<PopupLayoutProps> = ({ style, children }) => {
-  return <PopupLayoutContainer style={style}>{children}</PopupLayoutContainer>;
+const PopupLayout: React.FC<PopupLayoutProps> = ({
+  style,
+  children,
+  onClick,
+}) => {
+  return (
+    <PopupLayoutContainer style={style} onClick={onClick}>
+      {children}
+    </PopupLayoutContainer>
+  );
 };
 
 const PopupLayoutContainer = styled.header`
@@ -15,6 +24,7 @@ const PopupLayoutContainer = styled.header`
   max-width: 600px;
   z-index: 999;
   bottom: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

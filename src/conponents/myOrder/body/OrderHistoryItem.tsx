@@ -2,10 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from '../../ReviewImgItem';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
-import { Link } from 'react-router-dom';
+
 import TextButton from '../../TextButton';
 import DeliveryStatusButton from './DeliveryStatusButton';
 import WriteReviewButton from './WriteReviewButton';
+import {
+  checkNotOrderStatus,
+  orderStatusNameFunc,
+} from '../../../const/OrderVars';
+import AppLink from '../../AppLink';
 
 interface OrderHistoryItemProps {
   productName: string;
@@ -17,6 +22,7 @@ interface OrderHistoryItemProps {
   orderCode: string;
   productOrderQty: number;
   productOptionValue: string;
+  orderStatus: string;
 }
 
 const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
@@ -29,6 +35,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
   productCode,
   productOrderQty,
   productOptionValue,
+  orderStatus,
 }) => {
   const TextButtonStyle: React.CSSProperties = {
     display: 'flex',
@@ -42,7 +49,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
         <DateBox>
           {convertDtStrToDStr(orderDate ?? '날짜 표기 할 수 없습니다.')}
         </DateBox>
-        <Link to={`/my/orders/${orderCode}`}>
+        <AppLink isApp={true} to={`/my/orders/${orderCode}`}>
           <TextButton font="Body1" style={TextButtonStyle} color="Orange5">
             주문상세
             <svg
@@ -61,17 +68,20 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
               />
             </svg>
           </TextButton>
-        </Link>
+        </AppLink>
       </DateOrderDetailBtnBox>
+
+      <OrderStatusWrap>{orderStatusNameFunc(orderStatus)}</OrderStatusWrap>
+
       <ProductInfoBox>
         <ProductImgBox>
           <ReviewImgItem imgPath={imgPath} />
         </ProductImgBox>
         <ProductNamePriceCountBox>
-          <Link to={`/products/${productCode}`}>
+          <AppLink to={`/products/${productCode}`} isApp={true}>
             <Name>{productName}</Name>
             <Option>{productOptionValue}</Option>
-          </Link>
+          </AppLink>
 
           <PriceCountBox>
             <Price>{productPrice.toLocaleString()}원</Price>
@@ -80,10 +90,12 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
           </PriceCountBox>
         </ProductNamePriceCountBox>
       </ProductInfoBox>
-      <MenuBtnBox>
-        <DeliveryStatusButton />
-        <WriteReviewButton confirmed={confirmed} orderCode={orderCode} />
-      </MenuBtnBox>
+      {!checkNotOrderStatus(orderStatus) && (
+        <MenuBtnBox>
+          <DeliveryStatusButton orderStatus={orderStatus} />
+          <WriteReviewButton confirmed={confirmed} orderCode={orderCode} />
+        </MenuBtnBox>
+      )}
     </OrderHistoryItemContainer>
   );
 };
@@ -91,7 +103,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
 const OrderHistoryItemContainer = styled.div`
   margin-bottom: 10px;
   background-color: white;
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
   // padding: 70px 7%;
 `;
 
@@ -101,6 +113,7 @@ const DateOrderDetailBtnBox = styled.div`
   align-items: center;
   padding: 5px 10px;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
+
   button {
     a {
       display: flex;
@@ -166,5 +179,11 @@ const MenuBtnBox = styled.div`
 // `;
 
 // const WriteReviewBtnBox = styled(DeliveryStatusBtnBox)``;
+
+const OrderStatusWrap = styled.div`
+  padding: 7px 0 0 13px;
+  font: ${({ theme }) => theme.fontSizes.Subhead1};
+  color: ${({ theme }) => theme.mainColor.Orange5};
+`;
 
 export default OrderHistoryItem;

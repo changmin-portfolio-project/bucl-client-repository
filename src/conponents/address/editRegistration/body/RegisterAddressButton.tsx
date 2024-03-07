@@ -19,6 +19,7 @@ const RegisterAddressButton: React.FC = () => {
   const isDefaultAddress = useRecoilValue(isDefaultAddressAtom);
   const setEditRegistrationMode = useSetRecoilState(editRegistrationModeAtom);
   const [currentAddressNum] = useRecoilState(currentAddressNumAtom);
+
   const registerBtnOnClick = () => {
     if (
       addrRegForm.locationName &&
@@ -26,6 +27,7 @@ const RegisterAddressButton: React.FC = () => {
       addrRegForm.zipCode &&
       addrRegForm.address &&
       addrRegForm.detailAddress &&
+      addrRegForm.firstPhoneNum &&
       addrRegForm.middlePhoneNum &&
       addrRegForm.lastPhoneNum
     ) {
