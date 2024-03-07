@@ -2,39 +2,35 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import ColoredButton from '../../ColoredButton';
-import { useCookies } from 'react-cookie';
 import {
-  addrDetailAtom,
   isAdressSelectPageAtom,
-  isNewOrdAddrAtom,
   ordAddrAtom,
+  ordPayDataAtom,
 } from '../../../states/orderAtom';
-import {
-  ADDR,
-  ADDR_NOM,
-  CNTCT_NUM,
-  RCPNT_NOM,
-  ZIP_CODE,
-} from '../../../const/CookieVars';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { FALSE_STRING, ORD_PAY_DATA } from '../../../const/SessionStorageVars';
 
 const OrdAddrSelectButton: React.FC = () => {
-  const [, setCookie] = useCookies();
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const ordAddr = useRecoilValue(ordAddrAtom);
-  const setAddrDetail = useSetRecoilState(addrDetailAtom);
   const setIsAddressSelectPage = useSetRecoilState(isAdressSelectPageAtom);
-  const setIsNewOrdAddrAtom = useSetRecoilState(isNewOrdAddrAtom);
 
   const addressAddBtnOnClick = () => {
-    setIsNewOrdAddrAtom(false);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
 
-    setCookie(ADDR_NOM, ordAddr.shippingAddressNam);
-    setCookie(RCPNT_NOM, ordAddr.recipientName);
-    setCookie(CNTCT_NUM, ordAddr.contactNum);
-    setCookie(ADDR, ordAddr.address);
-    setAddrDetail(ordAddr.detailAddress);
-    setCookie(ZIP_CODE, ordAddr.zipCode);
-
-    console.log(ordAddr.address, ordAddr.detailAddress);
+    orderPaymentData.isNewAddr = FALSE_STRING;
+    orderPaymentData.shippingAddressName = ordAddr.shippingAddressNam;
+    orderPaymentData.rcpntNom = ordAddr.recipientName;
+    orderPaymentData.shippingAddressName = ordAddr.shippingAddressNam;
+    orderPaymentData.addr = ordAddr.address;
+    orderPaymentData.addrDetail = ordAddr.detailAddress;
+    orderPaymentData.zipCode = ordAddr.zipCode;
+    orderPaymentData.cntctNum = ordAddr.contactNum;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
 
     setIsAddressSelectPage(false);
   };

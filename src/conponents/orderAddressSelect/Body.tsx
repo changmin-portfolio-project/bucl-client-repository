@@ -24,7 +24,7 @@ const BodyContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 60px 6% 72px 6%;
+  padding: 0 6%;
   // height: calc(100vh - 32px);
 `;
 

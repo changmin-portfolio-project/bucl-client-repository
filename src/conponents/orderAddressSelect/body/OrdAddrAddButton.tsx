@@ -1,16 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import ColoredButton from '../../ColoredButton';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA, TRUE_STRING } from '../../../const/SessionStorageVars';
 import { useSetRecoilState } from 'recoil';
-import { isNewOrdAddrAtom } from '../../../states/orderAtom';
+import { ordPayDataAtom } from '../../../states/orderAtom';
 
 const OrdAddrAddButton: React.FC = () => {
-  const setIsNewOrdAddr = useSetRecoilState(isNewOrdAddrAtom);
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const ColoredButtonStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '15px 0',
+  };
+
+  const onClickNewAddr = () => {
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.isNewAddr = TRUE_STRING;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
   return (
     <OrdAddrAddButtonContainer>
@@ -18,7 +30,7 @@ const OrdAddrAddButton: React.FC = () => {
         font="Subhead1"
         color="Orange4"
         backgroundColor="white"
-        onClick={() => setIsNewOrdAddr(true)}
+        onClick={onClickNewAddr}
         style={ColoredButtonStyle}
       >
         <img src="/assets/PlusIconOrange.svg" />새 배송지 추가하기

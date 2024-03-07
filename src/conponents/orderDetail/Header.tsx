@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderLayout from '../layout/HeaderLayout';
 import styled from 'styled-components';
-import PrevBtn from '../PrevBtn';
+import PrevButton from '../PrevButton';
 
 const Header: React.FC = () => {
   const HeaderLayoutStyle: React.CSSProperties = {
@@ -11,8 +11,8 @@ const Header: React.FC = () => {
   return (
     <HeaderLayout style={HeaderLayoutStyle}>
       <Title>
-        <PrevBtn />
-        주문상세보기
+        <PrevButton isApp={true} />
+        주문 상세보기
       </Title>
     </HeaderLayout>
   );

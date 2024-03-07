@@ -19,8 +19,6 @@ const LoginPage: React.FC = () => {
         localStorage.setItem('access-token', res.accessToken);
         if (callbackUrl !== null) {
           window.location.href = callbackUrl;
-        } else {
-          window.location.href = '/';
         }
       })
       .catch(() => {});

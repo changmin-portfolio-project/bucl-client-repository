@@ -1,4 +1,4 @@
-import { api } from '../index';
+import { privateApi } from '../index';
 
 interface MemberWithdrawalResponse {
   data: {
@@ -8,7 +8,7 @@ interface MemberWithdrawalResponse {
 
 // 회원 탈퇴
 export const postMemberWithdrawal = (): Promise<MemberWithdrawalResponse> => {
-  return api
+  return privateApi
     .post(`/api/v1/auth/member-withdrawal`)
     .then((res) => {
       return res.data.data;

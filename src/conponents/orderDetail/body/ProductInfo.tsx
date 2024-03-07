@@ -6,23 +6,33 @@ import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
 
 const ProductInfo: React.FC = () => {
   const orderInfo = useRecoilValue(orderInfoAtom);
+
   return (
     <ProductInfoContainer>
       <DateBox>
-        {convertDtStrToDStr(orderInfo.orderDate ?? '날짜 표기 할 수 없습니다.')}
+        {convertDtStrToDStr(
+          orderInfo.orderDto.orderDate ?? '날짜 표기 할 수 없습니다.',
+        )}
       </DateBox>
       <ProductInfoBox>
         <ImgBox>
-          <img src={orderInfo.imagePath} />
+          <img src={orderInfo.orderDto.productDto.imagePath} />
         </ImgBox>
         <ProductBox>
           <BrandNameAndNameBox>
-            <BrandName>{orderInfo.brandName}</BrandName>
-            <Name>{orderInfo.productName}</Name>
+            <BrandName>
+              {orderInfo.orderDto.productDto.productBrandName}
+            </BrandName>
+            <Name>{orderInfo.orderDto.productDto.productName}</Name>
           </BrandNameAndNameBox>
           <PriceAndCountBox>
-            <Price>{orderInfo.consumerOrder.toLocaleString()}원</Price>
-            <Count>{orderInfo.productOrderQty}개</Count>
+            <Price>
+              {orderInfo.orderDto.purchaseOrderDtos[0]?.productOrderAmount.toLocaleString()}
+              원
+            </Price>
+            <Count>
+              {orderInfo.orderDto.purchaseOrderDtos[0]?.productOrderQty}개
+            </Count>
           </PriceAndCountBox>
         </ProductBox>
       </ProductInfoBox>

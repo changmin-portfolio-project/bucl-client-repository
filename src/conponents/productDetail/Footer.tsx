@@ -4,17 +4,18 @@ import Deadline from '../Deadline';
 import WishButton from './body/ProductDetailWishButton';
 import OptionChoose from './footer/OptionChoose';
 import { isActivePopUp } from '../../utils/PopUpUtil';
-import OutlineButton from '../OutlineButton';
-import { Link, useParams } from 'react-router-dom';
 import ColoredButton from '../ColoredButton';
 import { useRecoilValue } from 'recoil';
 import { productDetailAtom } from '../../states/productDetailAtom';
-import { PROCT_CODE } from '../../const/CookieVars';
-import { Cookies } from 'react-cookie';
+import { OrderPaymentType } from '../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../const/SessionStorageVars';
 
 const Footer: React.FC = () => {
-  const cookies = new Cookies();
-  const param = useParams();
+  /** 바꿈 */
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+  );
+
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string>('');
   const [currentOptionExtraAmt, setCurrentOptionExtraAmt] = useState<number>(0);
@@ -45,7 +46,7 @@ const Footer: React.FC = () => {
       <Deadline deadline={productDetail.deadline} />
       <FeatureBtnBox>
         <WishButton
-          productCode={cookies.get(PROCT_CODE)}
+          productCode={orderPaymentData.proctCode}
           style={wishButtonStyle}
           svgStyle={svgStyle}
           wished={productDetail.wished}
@@ -57,9 +58,9 @@ const Footer: React.FC = () => {
         >
           구매하기
         </ColoredButton>
-        <OutlineButton font="Subhead2" border="Orange5" color="Orange5">
+        {/* <OutlineButton font="Subhead2" border="Orange5" color="Orange5">
           <Link to={`/affiliates/${param.product_code}`}>판매하기</Link>
-        </OutlineButton>
+        </OutlineButton> */}
       </FeatureBtnBox>
       <OptionChoose
         active={optionCheck}

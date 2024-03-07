@@ -21,6 +21,9 @@ const Body: React.FC = () => {
   const imgStyle: React.CSSProperties = {
     display: 'block',
   };
+  const reviewImgItemStyle: React.CSSProperties = {
+    width: 'calc(30% - 4px)',
+  };
 
   const reviewList = useRecoilValue(reviewListAtom);
   const [imgList, setImgList] = useState<ImageData[]>();
@@ -54,6 +57,7 @@ const Body: React.FC = () => {
         <ReviewItem
           style={reviewItemStyle}
           imageStyle={imgStyle}
+          reviewImgItemStyle={reviewImgItemStyle}
           key={i}
           nickname={v.nickname}
           starRate={v.starRate}

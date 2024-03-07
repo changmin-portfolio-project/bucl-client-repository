@@ -20,7 +20,7 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
       {Array.isArray(imgPath) ? (
         imgPath.map((v, i) => <img src={v} key={i} />)
       ) : (
-        <img src={imgPath} />
+        <ReviewImgComponent src={imgPath} />
       )}
       {dotBoolean && (
         <Link to={`/products/${param.product_code}/photo-reviews`}>
@@ -69,6 +69,10 @@ const ReviewImgItemContainer = styled.div<{ $widthMode: boolean }>`
       border-radius: 4px;
     }
   }
+`;
+
+const ReviewImgComponent = styled.img`
+  vertical-align: bottom;
 `;
 
 const DotsBox = styled.div`

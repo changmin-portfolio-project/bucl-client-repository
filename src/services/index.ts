@@ -40,7 +40,8 @@ export const refreshApi = axios.create({
 privateApi.interceptors.request.use((config) => {
   if (!config.headers) return config;
 
-  const accessToken = localStorage.getItem('access-token') || '';
+  const accessToken =
+    localStorage.getItem('access-token') || 'fake-access-token';
 
   config.headers.authorization = `Bearer ${accessToken}`;
 
@@ -93,7 +94,13 @@ privateApi.interceptors.response.use(
           .catch(() => {
             const currentPath = window.location.pathname;
             const apiUrl = originRequest.url;
-            if (currentPath === '/' && apiUrl === '/api/v1/rewards/crnt-amt') {
+            console.log(apiUrl);
+            if (
+              apiUrl !== '/api/v1/wishes' &&
+              (currentPath === '/' ||
+                currentPath === '/categories' ||
+                currentPath.startsWith('/products'))
+            ) {
               localStorage.setItem('access-token', '');
 
               originRequest.headers.authorization = '';
@@ -105,7 +112,6 @@ privateApi.interceptors.response.use(
         return originResponse;
       }
     }
-    return Promise.reject(error);
   },
 );
 

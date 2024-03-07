@@ -1,51 +1,74 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Cookies } from 'react-cookie';
+import React, { ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
-import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
-import { useRecoilState } from 'recoil';
-import { ORD_TOT_AMT, RWD_CRNT_AMT } from '../../../../const/CookieVars';
 import { MIN_ORD_AMT } from '../../../../const/Payment';
 import { cookieNumUtil } from '../../../../utils/UndefinedProcessUtl';
 import OutlineButton from '../../../OutlineButton';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
+import { useRecoilState } from 'recoil';
+import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
+import { ordPayDataAtom } from '../../../../states/orderAtom';
 
 const OrderPoint: React.FC = () => {
-  const cookies = new Cookies();
-  const [numberInput, setNumberInput] = useState('0');
-  const [rwdUseAmtState, setRwdUseAmtState] = useRecoilState(rwdUseAmtAtom);
+  /** 빠꿈 */
+  const [ordPayDataState, setOrdPayDataState] = useRecoilState(ordPayDataAtom);
+  const [numberInput, setNumberInput] = useRecoilState(rwdUseAmtAtom);
 
   useEffect(() => {
-    setRwdUseAmtState(0);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.rwdUseAmt = 0;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
 
   useEffect(() => {
-    setNumberInput(rwdUseAmtState.toString());
-  }, [rwdUseAmtState]);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    setNumberInput(orderPaymentData.rwdUseAmt);
+  }, [sessionStorage.getItem(ORD_PAY_DATA)]);
 
   const useTotRwdUseAmt = () => {
-    const rwdCrntAmt = cookies.get(RWD_CRNT_AMT);
-    const ordTotAmt = cookies.get(ORD_TOT_AMT);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    const rwdCrntAmt = orderPaymentData.rwdCrntAmt;
+    const ordTotAmt = orderPaymentData.ordTotAmt;
     const minOrdTotAmt = ordTotAmt - MIN_ORD_AMT;
     if (rwdCrntAmt < minOrdTotAmt) {
-      setRwdUseAmtState(cookies.get(RWD_CRNT_AMT));
+      orderPaymentData.rwdUseAmt = rwdCrntAmt;
     } else {
-      setRwdUseAmtState(minOrdTotAmt);
+      orderPaymentData.rwdUseAmt = minOrdTotAmt;
     }
+    setNumberInput(orderPaymentData.rwdUseAmt);
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     if (/^\d*$/.test(inputValue) || inputValue === '') {
       const numericValue = parseInt(inputValue, 10);
-      const rwdCrntAmt = cookies.get(RWD_CRNT_AMT);
+      const orderPaymentData: OrderPaymentType = JSON.parse(
+        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+      );
+      const rwdCrntAmt = orderPaymentData.rwdCrntAmt;
+      const ordTotAmt = orderPaymentData.ordTotAmt;
       if (inputValue === '') {
-        setNumberInput('0');
-        setRwdUseAmtState(0);
+        setNumberInput(0);
+        orderPaymentData.rwdUseAmt = 0;
+        setOrdPayDataState(orderPaymentData);
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
       } else if (
         numericValue <= rwdCrntAmt &&
-        numericValue <= cookies.get(ORD_TOT_AMT) - MIN_ORD_AMT
+        numericValue <= ordTotAmt - MIN_ORD_AMT
       ) {
-        setNumberInput(numericValue.toString());
-        setRwdUseAmtState(numericValue);
+        setNumberInput(numericValue);
+        orderPaymentData.rwdUseAmt = numericValue;
+        setOrdPayDataState(orderPaymentData);
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
       }
     }
   };
@@ -57,6 +80,7 @@ const OrderPoint: React.FC = () => {
     width: '90px',
     height: '28px',
   };
+
   return (
     <StyledOrderPointContainer>
       <PointBody3>포인트 사용</PointBody3>
@@ -80,7 +104,7 @@ const OrderPoint: React.FC = () => {
       </PointInputContainer>
       <PointOwnAmt>
         사용 가능 포인트{' '}
-        {cookieNumUtil(cookies.get(RWD_CRNT_AMT)?.toLocaleString())}P
+        {cookieNumUtil(ordPayDataState.rwdCrntAmt?.toLocaleString())}P
       </PointOwnAmt>
     </StyledOrderPointContainer>
   );

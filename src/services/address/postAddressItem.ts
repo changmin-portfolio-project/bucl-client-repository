@@ -36,6 +36,6 @@ export const postAddressItem = ({
       return res.data.data;
     })
     .catch((error) => {
-      throw error;
+      alert(error.response.data.message);
     });
 };

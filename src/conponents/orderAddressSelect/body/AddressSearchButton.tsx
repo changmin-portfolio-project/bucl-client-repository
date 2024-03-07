@@ -2,20 +2,20 @@ import React from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import OutlineButton from '../../OutlineButton';
-import { useCookies } from 'react-cookie';
-import { ADDR, ZIP_CODE } from '../../../const/CookieVars';
-import { ordAddrSearchPopupVisibleAtom } from '../../../states/orderAtom';
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>;
+import { searchPopupVisibleAtom } from '../../../states/addressAtom';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
+import { ordPayDataAtom } from '../../../states/orderAtom';
 
 const AddressSearchButton: React.FC = () => {
-  const setVisible = useSetRecoilState(ordAddrSearchPopupVisibleAtom);
-  const [, setCookie] = useCookies();
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
+  const setVisible = useSetRecoilState(searchPopupVisibleAtom);
 
   const SearchBtnOnClick = () => {
     setVisible(true);
     // 우편번호 찾기 찾기 화면을 넣을 element
     const element_wrap = document.querySelector('#wrap') as HTMLElement;
-    console.log(element_wrap);
     daumSearchPopup(element_wrap);
   };
 
@@ -60,10 +60,18 @@ const AddressSearchButton: React.FC = () => {
               extraAddr = ' (' + extraAddr + ')';
             }
           }
+          const orderPaymentData: OrderPaymentType = JSON.parse(
+            sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+          );
 
           // 우편번호와 주소 정보
-          setCookie(ZIP_CODE, String(data.zonecode));
-          setCookie(ADDR, addr);
+          orderPaymentData.zipCode = String(data.zonecode);
+          orderPaymentData.addr = addr;
+          setOrdPayDataState(orderPaymentData);
+          sessionStorage.setItem(
+            ORD_PAY_DATA,
+            JSON.stringify(orderPaymentData),
+          );
 
           setVisible(false);
 

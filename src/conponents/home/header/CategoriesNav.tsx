@@ -54,7 +54,7 @@ const CategoryItem = styled.div`
   a {
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 2vw;
     height: 100%;
     font: ${({ theme }) => theme.fontSizes.Body2};
     color: ${({ theme }) => theme.grey.Grey6};

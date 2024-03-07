@@ -19,6 +19,6 @@ export const patchDefaultAddress = (id: number): Promise<AddressData> => {
       return res.data.data;
     })
     .catch((error) => {
-      throw error;
+      alert(error.response.data.message);
     });
 };

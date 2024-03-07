@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import WithdrawOrderPopup from './WithdrawOrderPopup';
 
 const ExchangeReturnBtn: React.FC = () => {
+  const [withdrawOrderPopup, setWithdrawOrderPopup] = useState<boolean>(false);
   const handleExchangeReturn = () => {
-    if (confirm('정말 교환 반품 하시겠습니까?')) {
-      console.log('반품 완료');
-    }
+    setWithdrawOrderPopup(true);
   };
+
+  const withdrawOrderBtnOnClick = () => {
+    setWithdrawOrderPopup(false);
+  };
+
   return (
-    <ExchangeReturnContainer>
-      <ExchangeReturnButton onClick={handleExchangeReturn}>
-        교환/반품 신청
-      </ExchangeReturnButton>
-    </ExchangeReturnContainer>
+    <>
+      <ExchangeReturnContainer>
+        <ExchangeReturnButton onClick={handleExchangeReturn}>
+          교환/반품 신청
+        </ExchangeReturnButton>
+      </ExchangeReturnContainer>
+      {withdrawOrderPopup && (
+        <WithdrawOrderPopup withdrawOrderBtnOnClick={withdrawOrderBtnOnClick} />
+      )}
+    </>
   );
 };
 

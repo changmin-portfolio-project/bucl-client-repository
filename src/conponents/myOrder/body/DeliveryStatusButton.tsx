@@ -2,7 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import OutlineButton from '../../OutlineButton';
 
-const DeliveryStatusButton: React.FC = () => {
+import { orderStatusNameFunc } from '../../../const/OrderVars';
+
+interface DeliveryStatusButtonProps {
+  orderStatus: string;
+}
+
+const DeliveryStatusButton: React.FC<DeliveryStatusButtonProps> = ({
+  orderStatus,
+}) => {
   const OutlineButtonStyle: React.CSSProperties = {
     padding: '6px 10px',
   };
@@ -15,7 +23,7 @@ const DeliveryStatusButton: React.FC = () => {
         border="Orange5"
         color="Orange5"
       >
-        결제완료
+        {orderStatusNameFunc(orderStatus)}
       </OutlineButton>
     </DeliveryStatusButtonContainer>
   );

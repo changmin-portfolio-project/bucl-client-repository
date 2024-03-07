@@ -1,31 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import WithdrawOrderPopup from './WithdrawOrderPopup';
-import { postOrderCancel } from '../../../services/orderDetail/postOrderCancel';
-import { useParams } from 'react-router';
+import { orderInfoAtom } from '../../../states/orderDetailAtom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { ORDERED } from '../../../const/OrderVars';
+import { confirmPopupAtom } from '../../../states/functionAtom';
 
 const WithdrawOrder: React.FC = () => {
-  const param = useParams();
-  const [withdrawOrderPopup, setWithdrawOrderPopup] = useState<boolean>(false);
-  const withdrawOrderBtnOnClick = () => {
-    setWithdrawOrderPopup(!withdrawOrderPopup);
-  };
+  const setConfirmPopup = useSetRecoilState(confirmPopupAtom);
+  const orderInfo = useRecoilValue(orderInfoAtom);
+
   const OrderCancelBtnOnClick = () => {
-    //아직 미완 NO_PROCESSING 및 주문 확정이 아닐 때만
-    console.log(param.order_code);
-    if (param.order_code)
-      postOrderCancel(param.order_code).then(() => {
-        alert('주문 취소 됐습니다.');
-        window.location.href = '/my/orders';
-      });
+    setConfirmPopup((prev) => !prev);
   };
   return (
     <>
-      <OrderCancelBtn onClick={OrderCancelBtnOnClick}>
-        주문 취소하기
-      </OrderCancelBtn>
-      {withdrawOrderPopup && (
-        <WithdrawOrderPopup withdrawOrderBtnOnClick={withdrawOrderBtnOnClick} />
+      {!orderInfo.orderDto.confirmed && (
+        <>
+          {orderInfo.orderDto.orderStatus === ORDERED &&
+          orderInfo.trackingNum === null ? (
+            <OrderCancelBtn onClick={OrderCancelBtnOnClick}>
+              주문 취소하기
+            </OrderCancelBtn>
+          ) : null}
+        </>
       )}
     </>
   );
@@ -40,6 +37,7 @@ const OrderCancelBtn = styled.button`
   border-radius: 4px;
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey8};
+  margin: 0 5px;
 `;
 
 export default WithdrawOrder;

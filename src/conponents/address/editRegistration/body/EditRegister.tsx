@@ -32,14 +32,6 @@ const EditRegister: React.FC = () => {
   return (
     <EditRegisterContainer>
       <Box>
-        <Title>받는 사람</Title>
-        <Input
-          value={addrRegForm.recipientName}
-          onChange={(e) => recipientNameOnChange(e.target.value)}
-          placeholder="이름을 적어주세요."
-        />
-      </Box>
-      <Box>
         <Title>장소명</Title>
         <Input
           value={addrRegForm.locationName}
@@ -47,6 +39,15 @@ const EditRegister: React.FC = () => {
           placeholder="장소를 적어주세요.(ex 우리집, 회사 etc)"
         />
       </Box>
+      <Box>
+        <Title>받는 사람</Title>
+        <Input
+          value={addrRegForm.recipientName}
+          onChange={(e) => recipientNameOnChange(e.target.value)}
+          placeholder="이름을 적어주세요."
+        />
+      </Box>
+
       <PhoneBox>
         <Title>핸드폰 번호</Title>
         <PhoneNumInput />
@@ -69,7 +70,7 @@ const EditRegister: React.FC = () => {
 };
 
 const EditRegisterContainer = styled.section`
-  padding-top: 15px;
+  padding-top: 80px;
 `;
 
 const Box = styled.div`

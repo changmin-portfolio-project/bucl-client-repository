@@ -15,7 +15,7 @@ const Body: React.FC = () => {
   );
 };
 const CopyRightWrap = styled.div`
-  margin-bottom: 50px;
+  margin: 20px 0 50px 0;
   padding-left: 15px;
 `;
 

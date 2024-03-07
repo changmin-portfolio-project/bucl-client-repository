@@ -15,7 +15,7 @@ export interface addressRequestType {
   id: number;
 }
 
-// 배송지 등록
+// 배송지 수정
 export const putAddressUpdate = (
   data: AddressData,
   id: number,
@@ -26,6 +26,6 @@ export const putAddressUpdate = (
       return res.data.data;
     })
     .catch((error) => {
-      throw error;
+      alert(error.response.data.message);
     });
 };

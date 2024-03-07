@@ -7,35 +7,32 @@ import ProductDetailInfo from './body/ProductDetailInfo';
 import ProductInquiry from './body/ProductInquiry';
 import { getProductInfo } from '../../services/productDetail/getProductInfo';
 import { useParams } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import {
-  CNSMR_AMT,
-  PROCT_BRN,
-  PROCT_CODE,
-  PROCT_IMG,
-  PROCT_NOM,
-  PROCT_SL_PX,
-} from '../../const/CookieVars';
 import BodyLayout from '../layout/BodyLayout';
 import { useSetRecoilState } from 'recoil';
 import { productDetailAtom } from '../../states/productDetailAtom';
+import { OrderPaymentType } from '../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../const/SessionStorageVars';
 
 const Body: React.FC = () => {
+  /** 바꿈 */
   const param = useParams();
 
   const setProductDetail = useSetRecoilState(productDetailAtom);
-  const [, setCookie] = useCookies();
   useEffect(() => {
     if (param.product_code) {
       // 상품 정보 가져오기
       getProductInfo(param.product_code).then((res) => {
+        const orderPaymentData: OrderPaymentType = JSON.parse(
+          sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+        );
         const data = res.data;
-        setCookie(PROCT_CODE, data.productCode);
-        setCookie(PROCT_NOM, data.name);
-        setCookie(PROCT_BRN, data.brandName);
-        setCookie(CNSMR_AMT, data.consumerPrice);
-        setCookie(PROCT_IMG, data.imagePaths[0]);
-        setCookie(PROCT_SL_PX, data.salePrice);
+        orderPaymentData.proctCode = data.productCode;
+        orderPaymentData.proctNom = data.name;
+        orderPaymentData.proctBrn = data.brandName;
+        orderPaymentData.cnsmrAmt = data.consumerPrice;
+        orderPaymentData.proctImg = data.imagePaths[0];
+        orderPaymentData.proctSlPx = data.salePrice;
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
         return setProductDetail(data);
       });
     }

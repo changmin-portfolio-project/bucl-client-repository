@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CONTACT_US_LINK, FAQ_LINK, NOTICE_LINK } from '../../../const/LinkVar';
 
 const MenuTab: React.FC = () => {
   const tabList = [
     {
       name: '문의하기',
       icon: '/assets/HeadphoneIcon.svg',
-      url: 'https://www.notion.so/digitalize-corp/608d818a1d0b4e8fa262237263dd6778',
+      url: CONTACT_US_LINK,
     },
     {
       name: 'FAQ',
       icon: '/assets/PencilIcon.svg',
-      url: 'https://www.notion.so/digitalize-corp/BUCL-FAQ-2dc52e1df9d5485abb1464d1f7fd43c5',
+      url: FAQ_LINK,
     },
     {
       name: '공지사항',
       icon: '/assets/WarningIcon.svg',
-      url: 'https://www.notion.so/digitalize-corp/fbb244a9a364406f964c24aa4becaea7',
+      url: NOTICE_LINK,
     },
   ];
   return (

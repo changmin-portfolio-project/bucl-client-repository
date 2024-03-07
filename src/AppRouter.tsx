@@ -6,7 +6,6 @@ import LoginPage from './pages/Login';
 import CategoriesPage from './pages/Categories';
 import PhotoReviewsPage from './pages/PhotoReviews';
 import ReviewsPage from './pages/Reviews';
-import AffiliatesPage from './pages/Affiliates';
 import RewardsPage from './pages/rewards/Rewards';
 import RewardWithdrawalsPage from './pages/rewards/RewardWithdrawals';
 import RewardAccountsPage from './pages/rewards/RewardAccounts';
@@ -23,6 +22,7 @@ import OrderCompletePage from './pages/orders/OrderComplete';
 import NotFoundPage from './pages/NotFound';
 import BadRequestPage from './pages/BadRequest';
 import ResetStateOnRouteChange from './states/ResetStateOnRouteChange';
+import OrderPaymentProcessingProcessingPage from './pages/orders/OrderPaymentProcessing';
 
 const AppRouter = (): JSX.Element => {
   return (
@@ -42,8 +42,12 @@ const AppRouter = (): JSX.Element => {
           element={<ReviewsPage />}
         />
         <Route path="/orders/:order_code" element={<OrdersPage />} />
+        <Route
+          path="/orders/payment/processing"
+          element={<OrderPaymentProcessingProcessingPage />}
+        />
         <Route path="/order-complete" element={<OrderCompletePage />} />
-        <Route path="/affiliates/:product_code" element={<AffiliatesPage />} />
+        {/* <Route path="/affiliates/:product_code" element={<AffiliatesPage />} /> */}
         <Route path="/rewards" element={<RewardsPage />} />
         <Route path="/reward-withdrawals" element={<RewardWithdrawalsPage />} />
         <Route path="/reward-accounts" element={<RewardAccountsPage />} />

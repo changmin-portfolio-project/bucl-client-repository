@@ -24,9 +24,9 @@ const ProductInfo: React.FC = () => {
           {productDetail.consumerPrice?.toLocaleString()}원
         </OriginalPrice>
       </ProductPriceBox>
-      <RewardInformationBtn>
+      {/* <RewardInformationBtn>
         공동구매 리워드 관련 안내 (혜택 정책)
-      </RewardInformationBtn>
+      </RewardInformationBtn> */}
     </ProductInfoContainer>
   );
 };
@@ -80,15 +80,15 @@ const OriginalPrice = styled(DiscountRate)`
   color: ${({ theme }) => theme.grey.Grey6};
 `;
 
-const RewardInformationBtn = styled.button`
-  padding: 10px 0;
-  width: 100%;
-  background-color: ${({ theme }) => theme.subColor.Yellow0};
-  border: 1px solid ${({ theme }) => theme.mainColor.Orange3};
-  border-radius: 4px;
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  color: ${({ theme }) => theme.mainColor.Orange5};
-  cursor: pointer;
-`;
+// const RewardInformationBtn = styled.button`
+//   padding: 10px 0;
+//   width: 100%;
+//   background-color: ${({ theme }) => theme.subColor.Yellow0};
+//   border: 1px solid ${({ theme }) => theme.mainColor.Orange3};
+//   border-radius: 4px;
+//   font: ${({ theme }) => theme.fontSizes.Body2};
+//   color: ${({ theme }) => theme.mainColor.Orange5};
+//   cursor: pointer;
+// `;
 
 export default ProductInfo;

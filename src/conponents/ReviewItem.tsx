@@ -14,6 +14,7 @@ interface ReviewItemProps {
   starRate?: number;
   reviewDate?: string;
   imageStyle?: React.CSSProperties;
+  reviewImgItemStyle?: React.CSSProperties;
 }
 
 const ReviewItem: React.FC<ReviewItemProps> = ({
@@ -26,10 +27,8 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
   starRate,
   reviewDate,
   imageStyle,
+  reviewImgItemStyle,
 }) => {
-  const ReviewImgItemStyle: React.CSSProperties = {
-    width: 'calc(20% - 4px)',
-  };
   const StarStyle: React.CSSProperties = {
     fontSize: '0.9rem',
     paddingRight: '1px',
@@ -64,7 +63,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
         </InfoBox>
 
         {imgPath && (
-          <ReviewImgItem style={ReviewImgItemStyle} imgPath={imgPath} />
+          <ReviewImgItem style={reviewImgItemStyle} imgPath={imgPath} />
         )}
       </ReviewItemWrap>
     </ReviewItemContainer>
@@ -73,14 +72,13 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
 
 const ReviewItemContainer = styled.div`
   display: flex;
-  padding: 7px theme.paddings.base 13px theme.paddings.base;
+
   border-bottom: 1px solid #eaecef;
 `;
 
 const ReviewItemWrap = styled.div`
   display: flex;
   padding: 7px 7%;
-  width: 100%;
 `;
 
 const InfoBox = styled.div`

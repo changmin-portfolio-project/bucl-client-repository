@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Body from '../../conponents/myOrder/Body';
-import TabBar from '../../conponents/TabBar';
 import HeaderLayout from '../../conponents/layout/HeaderLayout';
 import {
   orderHistoryListAtom,
@@ -16,12 +15,12 @@ const MyOrdersPage: React.FC = () => {
   useEffect(() => {
     setOrderHistoryList([]);
     setOrderHistoryPageNumAtom(0);
+    window.scrollTo({ top: 0 });
   }, []);
   return (
     <MyOrdersPageContainer>
-      <HeaderLayout text="주문 내역" to="/my" type={NAVIGATION_TO} />
+      <HeaderLayout text="주문 내역" type={NAVIGATION_TO} to="/my" />
       <Body />
-      <TabBar />
     </MyOrdersPageContainer>
   );
 };

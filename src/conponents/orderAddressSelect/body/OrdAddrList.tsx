@@ -62,7 +62,7 @@ const AddressList: React.FC = () => {
 };
 
 const AddressListContainer = styled.section`
-  padding-top: 20px;
+  padding-top: 80px;
 
   height: 70%;
   overflow: auto;

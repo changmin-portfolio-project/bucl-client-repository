@@ -24,6 +24,7 @@ export const getReviewList = (
   return api
     .get(`/api/v1/products/${product_code}/reviews?page=${pageNum}&pageSize=10`)
     .then((res) => {
+      console.log(res.data);
       return res.data.data;
     })
     .catch((err) => {

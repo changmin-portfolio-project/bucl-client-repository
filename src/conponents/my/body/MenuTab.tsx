@@ -1,61 +1,69 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AppLink from '../../AppLink';
 
 const MenuTab: React.FC = () => {
   const tabList = [
     {
-      name: '주문내역',
+      name: '주문 내역',
       icon: '/assets/TruckIcon.svg',
       url: '/my/orders',
+      isApp: false,
     },
     {
-      name: '찜 목록',
+      name: '좋아요',
       icon: '/assets/HeartIcon.svg',
       url: '/wishes',
+      isApp: false,
     },
     {
       name: '주소지 관리',
       icon: '/assets/LocationIcon.svg',
       url: '/my/addresses',
+      isApp: false,
     },
     {
       name: '등록 계좌 변경',
       icon: '/assets/AccountIcon.svg',
       url: '/reward-accounts',
+      isApp: false,
     },
     {
       name: '고객 센터',
       icon: '/assets/TalkBubbleIcon.svg',
       url: '/my/contacts',
+      isApp: false,
     },
   ];
+
   return (
     <MenuTabContainer>
       {tabList.map((v, i) => (
-        <Link to={v.url} key={i}>
-          <MenuItemBox>
-            <IconTitleBox>
-              <Icon src={v.icon} />
-              <Title>{v.name}</Title>
-            </IconTitleBox>
+        <div key={i}>
+          <AppLink to={v.url} isApp={v.isApp}>
+            <MenuItemBox>
+              <IconTitleBox>
+                <Icon src={v.icon} />
+                <Title>{v.name}</Title>
+              </IconTitleBox>
 
-            <svg
-              width="8"
-              height="14"
-              viewBox="0 0 8 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.832031 13L6.83203 7L0.832031 1"
-                stroke="#CED4DA"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </MenuItemBox>
-        </Link>
+              <svg
+                width="8"
+                height="14"
+                viewBox="0 0 8 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.832031 13L6.83203 7L0.832031 1"
+                  stroke="#CED4DA"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </MenuItemBox>
+          </AppLink>
+        </div>
       ))}
     </MenuTabContainer>
   );

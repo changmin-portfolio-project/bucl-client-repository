@@ -8,7 +8,6 @@ import {
   reviewTextAtom,
   starNumAtom,
 } from '../states/postReviewAtom';
-import TabBar from '../conponents/TabBar';
 import Complete from '../conponents/postReview/Complete';
 import HeaderLayout from '../conponents/layout/HeaderLayout';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -66,11 +65,10 @@ const PostReviewsPage: React.FC = () => {
       {completeBoolean ? (
         <>
           <Complete />
-          <TabBar />
         </>
       ) : (
         <>
-          <HeaderLayout text="리뷰 작성" />
+          <HeaderLayout text="리뷰 작성" isApp={true} />
           <Body />
         </>
       )}

@@ -6,25 +6,32 @@ import {
   reviewImgListAtom,
 } from '../../../states/postReviewAtom';
 import { REVIEW_IMG_MAX_NUM } from '../../../const/Review';
+import { resizeImage } from '../../../utils/ImageUtil';
 
 const PhotoAttachButton: React.FC = () => {
   const [imageUrls, setImageUrls] = useRecoilState(imageUrlListAtom);
   const [reviewImgList, setReviewImgList] = useRecoilState(reviewImgListAtom);
-  const galleryOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  async function galleryOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e.target.files || reviewImgList.length >= REVIEW_IMG_MAX_NUM) {
       return;
     }
+    try {
+      const file = e.target.files[0];
+      const resizedImage = await resizeImage(file, 600, 600);
+      const uploadFile = new File([resizedImage], file.name);
 
-    const file = e.target.files[0];
-
-    // const reader = new FileReader();
-    // reader.onloadend = () => {
-    //   setImageUrls([...imageUrls, reader.result as string]);
-    // };
-    // reader.readAsDataURL(file);
-    setImageUrls([...imageUrls, URL.createObjectURL(file)]);
-    setReviewImgList([...reviewImgList, file]);
-  };
+      // const reader = new FileReader();
+      // reader.onloadend = () => {
+      //   setImageUrls([...imageUrls, reader.result as string]);
+      // };
+      // reader.readAsDataURL(file);
+      setImageUrls([...imageUrls, URL.createObjectURL(uploadFile)]);
+      setReviewImgList([...reviewImgList, uploadFile]);
+    } catch (error) {
+      /* empty */
+    }
+  }
 
   const delImgClick = (index: number) => {
     setImageUrls(imageUrls.filter((_, i) => i !== index));
@@ -37,7 +44,7 @@ const PhotoAttachButton: React.FC = () => {
           {imageUrls.map((imageUrl, index) => (
             <StyAttImgWrap key={index}>
               <StyDelIcon
-                src="/assets/CameraIcon.svg"
+                src="/assets/DeleteBtn.png"
                 onClick={() => {
                   delImgClick(index);
                 }}
@@ -111,7 +118,9 @@ const AttachImage = styled.img`
 
 const StyDelIcon = styled.img`
   position: absolute;
-  left: 80%;
+  left: 70%;
+  top: 5%;
+  width: 25%;
 `;
 
 export default PhotoAttachButton;

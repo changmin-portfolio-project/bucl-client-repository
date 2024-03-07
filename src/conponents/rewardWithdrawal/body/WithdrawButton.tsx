@@ -44,8 +44,13 @@ const WithdrawButton: React.FC<WithdrawBtnProps> = ({ isActive }) => {
 
           alert('인출 되었습니다.');
         })
-        .catch(() => {
-          alert('인출 오류났습니다.');
+        .catch((res) => {
+          console.error(res);
+          if (res.response.status === 400) {
+            alert('값을 인위적으로 바꿔서 인출 오류났습니다.');
+          } else {
+            alert('인출 오류났습니다.');
+          }
         });
     } else {
       alert('5,000원 이상 넣어 주세요.');

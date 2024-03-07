@@ -39,7 +39,7 @@ export const getProductInfo = (
   return privateApi
     .get(`/api/v1/products/${product_code}`)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

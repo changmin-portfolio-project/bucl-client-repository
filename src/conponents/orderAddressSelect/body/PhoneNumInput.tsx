@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useCookies } from 'react-cookie';
-import { CNTCT_NUM } from '../../../const/CookieVars';
+import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { useSetRecoilState } from 'recoil';
+import { ordPayDataAtom } from '../../../states/orderAtom';
 
 interface cntctNumForm {
   firstPhoneNum: string;
@@ -10,7 +12,8 @@ interface cntctNumForm {
 }
 
 const PhoneNumInput: React.FC = () => {
-  const [, setCookie] = useCookies();
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
 
   const [cntctNum, setCntctNum] = useState<cntctNumForm>({
     firstPhoneNum: '',
@@ -25,10 +28,13 @@ const PhoneNumInput: React.FC = () => {
         ...prev,
         firstPhoneNum: text,
       }));
-      setCookie(
-        CNTCT_NUM,
-        text + cntctNum.middlePhoneNum + cntctNum + lastPhoneNumOnChange,
+      const orderPaymentData: OrderPaymentType = JSON.parse(
+        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
       );
+      orderPaymentData.cntctNum =
+        text + '-' + cntctNum.middlePhoneNum + '-' + cntctNum.lastPhoneNum;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     } else return;
   };
   const middlePhoneNumOnChange = (text: string) => {
@@ -38,24 +44,30 @@ const PhoneNumInput: React.FC = () => {
         ...prev,
         middlePhoneNum: text,
       }));
-      setCookie(
-        CNTCT_NUM,
-        text + cntctNum.middlePhoneNum + cntctNum + lastPhoneNumOnChange,
+
+      const orderPaymentData: OrderPaymentType = JSON.parse(
+        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
       );
+      orderPaymentData.cntctNum =
+        cntctNum.firstPhoneNum + '-' + text + '-' + cntctNum.lastPhoneNum;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     } else return;
   };
   const lastPhoneNumOnChange = (text: string) => {
-    console.log(!isNaN(Number(text)));
     if (!isNaN(Number(text))) {
       // 입력값이 숫자라면 상태 업데이트
       setCntctNum((prev) => ({
         ...prev,
         lastPhoneNum: text,
       }));
-      setCookie(
-        CNTCT_NUM,
-        text + cntctNum.middlePhoneNum + cntctNum + lastPhoneNumOnChange,
+      const orderPaymentData: OrderPaymentType = JSON.parse(
+        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
       );
+      orderPaymentData.cntctNum =
+        cntctNum.firstPhoneNum + '-' + cntctNum.middlePhoneNum + '-' + text;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     } else return;
   };
 

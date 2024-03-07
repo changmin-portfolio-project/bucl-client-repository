@@ -25,20 +25,28 @@ const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
   const wishBtnOnClick = (wishId: number | undefined, wished: boolean) => {
     if (wishId !== undefined) {
       wished
-        ? deleteWish(productCode).then(() => {
-            setCategoryProductlist((prevItemList) =>
-              prevItemList.map((prevItem, i) =>
-                i === wishId ? { ...prevItem, wished: !wished } : prevItem,
-              ),
-            );
-          })
-        : postWishes({ productCode: productCode }).then(() => {
-            setCategoryProductlist((prevItemList) =>
-              prevItemList.map((prevItem, i) =>
-                i === wishId ? { ...prevItem, wished: !wished } : prevItem,
-              ),
-            );
-          });
+        ? deleteWish(productCode)
+            .then(() => {
+              setCategoryProductlist((prevItemList) =>
+                prevItemList.map((prevItem, i) =>
+                  i === wishId ? { ...prevItem, wished: !wished } : prevItem,
+                ),
+              );
+            })
+            .catch((error) => {
+              alert(error.response.data.message);
+            })
+        : postWishes({ productCode: productCode })
+            .then(() => {
+              setCategoryProductlist((prevItemList) =>
+                prevItemList.map((prevItem, i) =>
+                  i === wishId ? { ...prevItem, wished: !wished } : prevItem,
+                ),
+              );
+            })
+            .catch((error) => {
+              alert(error.response.data.message);
+            });
     }
   };
 

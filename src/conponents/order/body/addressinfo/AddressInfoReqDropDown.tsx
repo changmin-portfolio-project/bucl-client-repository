@@ -1,8 +1,11 @@
 // Dropdown.tsx
 import React, { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { memoCntAtom } from '../../../../states/orderAtom';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
+import { ordPayDataAtom } from '../../../../states/orderAtom';
+import { useSetRecoilState } from 'recoil';
+import { animation } from '../../../../style/animation';
 
 interface DropdownProps {
   options: string[];
@@ -24,21 +27,20 @@ const DropdownButton = styled.button`
   box-sizing: border-box;
 
   border-radius: 4px;
-  border: 1px solid var(--grey-5, #acb5bd);
+
   background: var(--white, #fff);
   text-align: left;
-
   font: ${({ theme }) => theme.fontSizes.Body2};
   padding: 10px 0 10px 13px;
-  border: 1.5px solid ${({ theme }) => theme.grey.Grey5};
+  border: 1px solid ${({ theme }) => theme.grey.Grey5};
 `;
 
 interface DropdownContentProps {
-  isOpen: boolean;
+  $opened: boolean;
 }
 
 const DropdownContent = styled.div<DropdownContentProps>`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.$opened ? 'block' : 'none')};
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey8};
   position: absolute;
@@ -46,13 +48,10 @@ const DropdownContent = styled.div<DropdownContentProps>`
   left: 0;
   background: var(--white, #fff);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px;
   z-index: 1;
   width: 100%;
-
-  border-left: 1.5px solid ${({ theme }) => theme.grey.Grey5};
-  border-right: 1.5px solid ${({ theme }) => theme.grey.Grey5};
-  border-bottom: 1.5px solid ${({ theme }) => theme.grey.Grey5};
+  animation: ${animation.slideDown} 0.5s forwards;
 `;
 const DropdownItem = styled.div`
   padding: 10px;
@@ -62,7 +61,6 @@ const DropdownItem = styled.div`
   &:hover {
     background-color: #ddd;
   }
-  border-top: 1.5px solid ${({ theme }) => theme.grey.Grey5};
 `;
 
 const InputContainer = styled.div`
@@ -71,7 +69,11 @@ const InputContainer = styled.div`
 
 const Input = styled.input`
   padding: 10px;
+  border: 1px solid ${({ theme }) => theme.grey.Grey5};
+  border-radius: 4px;
   box-sizing: border-box;
+  font: ${({ theme }) => theme.fontSizes.Body2};
+  color: ${({ theme }) => theme.grey.Grey7};
   width: 100%;
 
   &:focus {
@@ -80,13 +82,19 @@ const Input = styled.input`
 `;
 
 const Dropdown: React.FC<DropdownProps> = ({ options }) => {
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const setMemoCnt = useSetRecoilState(memoCntAtom);
 
   useEffect(() => {
-    setMemoCnt('');
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.memoCnt = '';
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
 
   // const inputRef = useRef<HTMLInputElement>(null);
@@ -99,17 +107,29 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
     setSelectedOption(option);
     setInputValue('');
     setIsOpen(false);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
     if (option === '직접 입력') {
-      setMemoCnt('');
+      orderPaymentData.memoCnt = '';
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     } else {
-      setMemoCnt(option);
+      orderPaymentData.memoCnt = option;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
     setInputValue(event.target.value);
 
-    setMemoCnt(event.target.value);
+    orderPaymentData.memoCnt = event.target.value;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
 
   return (
@@ -118,7 +138,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
         <DropdownButton onClick={handleToggle}>
           {selectedOption || '배송 시 요청사항을 선택해주세요.'}
         </DropdownButton>
-        <DropdownContent isOpen={isOpen}>
+        <DropdownContent $opened={isOpen}>
           {options.map((option, index) => (
             <DropdownItem key={index} onClick={() => handleSelect(option)}>
               {option}

@@ -6,7 +6,7 @@ import EditProfilePopup from './EditProfilePopup';
 import { useRecoilState } from 'recoil';
 import { myUserInfoAtom } from '../../../states/myAtom';
 import { getReward } from '../../../services/reward/getReward';
-import AppLink from '../../AppLink';
+import { Link } from 'react-router-dom';
 
 const MyInfo: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
@@ -49,10 +49,10 @@ const MyInfo: React.FC = () => {
       {popupOpen && <EditProfilePopup setPopupOpen={setPopupOpen} />}
 
       <PointBox>
-        <AppLink to="/rewards" style={RewardButtonStyle}>
+        <Link to="/rewards" style={RewardButtonStyle}>
           <PointTitle>누적포인트</PointTitle>
           <PointText>{point.toLocaleString()}P</PointText>
-        </AppLink>
+        </Link>
       </PointBox>
     </MyInfoContainer>
   );

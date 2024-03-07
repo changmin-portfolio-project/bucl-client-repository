@@ -13,8 +13,10 @@ const CompleteLayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 40vh;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+
   span {
     font: ${({ theme }) => theme.fontSizes.Body4};
   }

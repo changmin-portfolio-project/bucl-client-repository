@@ -22,12 +22,20 @@ const WishButton: React.FC<HomeWishButtonComponentProps> = ({
   const setProductDetail = useSetRecoilState(productDetailAtom);
   const wishBtnOnClick = (wished: boolean) => {
     wished
-      ? deleteWish(productCode).then(() => {
-          setProductDetail((prev) => ({ ...prev, wished: !wished }));
-        })
-      : postWishes({ productCode: productCode }).then(() => {
-          setProductDetail((prev) => ({ ...prev, wished: !wished }));
-        });
+      ? deleteWish(productCode)
+          .then(() => {
+            setProductDetail((prev) => ({ ...prev, wished: !wished }));
+          })
+          .catch((error) => {
+            alert(error.response.data.message);
+          })
+      : postWishes({ productCode: productCode })
+          .then(() => {
+            setProductDetail((prev) => ({ ...prev, wished: !wished }));
+          })
+          .catch((error) => {
+            alert(error.response.data.message);
+          });
   };
 
   return (

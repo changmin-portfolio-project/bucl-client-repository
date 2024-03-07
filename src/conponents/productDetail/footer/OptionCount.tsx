@@ -1,20 +1,11 @@
 import React, { SetStateAction } from 'react';
-import { Cookies, useCookies } from 'react-cookie';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  PROCT_OPT_NOM,
-  PROCT_OPT_AMT,
-  PROCT_OPT_QTY,
-  PROCT_SL_PX,
-  SHP_FEE,
-  TOT_PROCT_AMT,
-  ORD_TOT_AMT,
-  CNSMR_AMT,
-  SKU_CODE,
-} from '../../../const/CookieVars';
+
 import ColoredButton from '../../ColoredButton';
 import { isActivePopUp } from '../../../utils/PopUpUtil';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
+import { Link } from 'react-router-dom';
 
 interface OptionCountProps {
   currentOption: string;
@@ -35,8 +26,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
   setOptionCount,
   crntOptSkuCode,
 }) => {
-  const [, setCookie] = useCookies();
-  const cookies = new Cookies();
+  /** 바꿈 */
   const deleteBtnOnClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 이벤트 전파 중지
     setCurrentOption('');
@@ -52,22 +42,32 @@ const OptionCount: React.FC<OptionCountProps> = ({
   };
 
   const setPaymentConfig = () => {
-    setCookie(PROCT_OPT_NOM, currentOption);
-    setCookie(PROCT_OPT_AMT, cookies.get(PROCT_SL_PX) + currentOptionExtraAmt);
-    setCookie(PROCT_OPT_QTY, optionCount);
-    setCookie(SKU_CODE, crntOptSkuCode);
-    setCookie(
-      ORD_TOT_AMT,
-      (cookies.get(PROCT_SL_PX) + currentOptionExtraAmt) * optionCount,
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
     );
-    setCookie(
-      TOT_PROCT_AMT,
-      (cookies.get(CNSMR_AMT) + currentOptionExtraAmt) * optionCount,
-    );
-    setCookie(SHP_FEE, 0);
+
+    orderPaymentData.proctOptNom = currentOption;
+    orderPaymentData.proctOptAmt =
+      orderPaymentData.proctSlPx + currentOptionExtraAmt;
+
+    orderPaymentData.proctOptQty = optionCount;
+
+    orderPaymentData.skuCode = crntOptSkuCode;
+
+    orderPaymentData.ordTotAmt =
+      (orderPaymentData.proctSlPx + currentOptionExtraAmt) * optionCount;
+
+    orderPaymentData.totProcAmt =
+      (orderPaymentData.cnsmrAmt + currentOptionExtraAmt) * optionCount;
+
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
 
     isActivePopUp(true);
   };
+
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+  );
 
   return (
     <OptionCountContainer>
@@ -81,22 +81,26 @@ const OptionCount: React.FC<OptionCountProps> = ({
           </TitleDeleteBox>
           <CountPriceBox>
             <CountBox>
-              <MinusBtn onClick={(e) => minusBtnOnClick(e)}>-</MinusBtn>
+              <MinusBtn onClick={(e) => minusBtnOnClick(e)}>
+                <BtnWrap>-</BtnWrap>
+              </MinusBtn>
               <CountText>{optionCount}</CountText>
-              <PlusBtn onClick={(e) => plusBtnOnClick(e)}>+</PlusBtn>
+              <PlusBtn onClick={(e) => plusBtnOnClick(e)}>
+                <BtnWrap>+</BtnWrap>
+              </PlusBtn>
             </CountBox>
             <PriceText>
               {(
-                (cookies.get(PROCT_SL_PX) + currentOptionExtraAmt) *
+                (orderPaymentData.proctSlPx + currentOptionExtraAmt) *
                 optionCount
-              )?.toLocaleString()}
+              ).toLocaleString()}
               원
             </PriceText>
           </CountPriceBox>
         </OptionItem>
       </OptionBox>
       <BuyBtnBox>
-        <Link to="/orders/46898469">
+        <Link to={`/orders/${Date.now()}`}>
           <ColoredButton
             color="white"
             font="Subhead2"
@@ -154,8 +158,10 @@ const XButtonImg = styled.img`
 
 const CountBox = styled.div``;
 const MinusBtn = styled.button`
+  line-height: 1px;
   width: 30px;
   height: 30px;
+  padding: 0;
   aspect-ratio: 1/1;
   background-color: ${({ theme }) => theme.grey.Grey0};
   border: none;
@@ -167,6 +173,13 @@ const MinusBtn = styled.button`
 const PlusBtn = styled(MinusBtn)`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey.Grey4};
+`;
+
+const BtnWrap = styled.div`
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
 `;
 const CountText = styled.span`
   padding: 0 15px;

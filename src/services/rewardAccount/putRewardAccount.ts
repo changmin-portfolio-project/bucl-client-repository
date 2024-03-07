@@ -13,7 +13,7 @@ export const putRewardAccount = (
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {
-      throw err;
+    .catch((error) => {
+      alert(error.response.data.message);
     });
 };

@@ -3,7 +3,7 @@ import { privateApi } from '../index';
 export interface ProductDto {
   productName: string;
   productBrandName: string;
-  productImagePathList: string[];
+  imagePath: string;
   productCode: number;
 }
 
@@ -24,6 +24,7 @@ export interface OrderDto {
   rewardUseAmount: number;
   purchaseOrderDtos: PurchaseOrderDto[];
   confirmed: boolean;
+  orderStatus: string;
 }
 
 interface getOrderHistoryResponse {
@@ -37,7 +38,7 @@ export const getOrderHistory = (
   return privateApi
     .get(`/api/v1/orders?page=${pageNum}&pageSize=10`)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

@@ -12,7 +12,6 @@ const ProductInfo: React.FC = () => {
     borderRadius: '6px 6px 0 0',
   };
 
-  console.log(salesInfo);
   return (
     <ProductInfoContainer>
       <Title>판매 링크 생성 완료!</Title>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
+import AppLink from '../AppLink';
+import { NAVIGATION_BACK_AND_TO, NAVIGATION_RESET } from '../../const/AppVars';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
@@ -14,7 +15,9 @@ const Complete: React.FC = () => {
       </Text>
       <BtnBox>
         <ColoredButton font="Subhead1" color="white" style={ColoredButtonStyle}>
-          <Link to={'/'}>더 둘러보기</Link>
+          <AppLink to={'/'} isApp={true} type={NAVIGATION_RESET}>
+            더 둘러보기
+          </AppLink>
         </ColoredButton>
         <MarginDiv />
         <ColoredButton
@@ -23,7 +26,9 @@ const Complete: React.FC = () => {
           backgroundColor="Grey8"
           style={ColoredButtonStyle}
         >
-          <Link to={'/my/orders'}>주문 내역</Link>
+          <AppLink to={'/my/orders'} type={NAVIGATION_BACK_AND_TO} isApp={true}>
+            주문 내역
+          </AppLink>
         </ColoredButton>
       </BtnBox>
     </CompleteContainer>

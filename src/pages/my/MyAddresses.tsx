@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ManagementBody from '../../conponents/address/management/Body';
 import EditRegistrationBody from '../../conponents/address/editRegistration/Body';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { editRegistrationModeAtom } from '../../states/addressAtom';
 import HeaderLayout from '../../conponents/layout/HeaderLayout';
 
 const MyAddressesPage: React.FC = () => {
-  const editRegistrationMode = useRecoilValue(editRegistrationModeAtom);
+  const [editRegistrationMode, setEditRegistrationMode] = useRecoilState(
+    editRegistrationModeAtom,
+  );
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <div>
       {editRegistrationMode ? (
         <>
-          <HeaderLayout text="배송지 등록/수정" />
+          <HeaderLayout
+            text="배송지 등록/수정"
+            setFunction={setEditRegistrationMode}
+          />
           <EditRegistrationBody />
         </>
       ) : (

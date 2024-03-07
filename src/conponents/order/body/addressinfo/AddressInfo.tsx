@@ -2,55 +2,73 @@ import React, { ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import AddressInfoChange from './AddressInfoChange';
 import AddressInfoReq from './AddressInfoReq';
-import { Cookies } from 'react-cookie';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { addrDetailAtom, isNewOrdAddrAtom } from '../../../../states/orderAtom';
-import {
-  ADDR,
-  ADDR_NOM,
-  CNTCT_NUM,
-  RCPNT_NOM,
-} from '../../../../const/CookieVars';
+import { useRecoilState } from 'recoil';
+
 import OrdAddrAddButton from '../../../orderAddressSelect/body/OrdAddrAddButton';
 import OrderAddrRegister from '../../../orderAddressSelect/body/OrderAddrRegister';
-import OrdAddrSearchPopup from '../../../orderAddressSelect/body/OrdAddrSearchPopup';
+import { getAddressList } from '../../../../services/address/getAddressList';
+import { addressListAtom } from '../../../../states/addressAtom';
+import { USER_SHP_ADDR_NUM } from '../../../../const/AddressVar';
+import AddressSearchPopup from '../../../AddressSearchPopup';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import {
+  ORD_PAY_DATA,
+  TRUE_STRING,
+} from '../../../../const/SessionStorageVars';
+import { ordPayDataAtom } from '../../../../states/orderAtom';
 
 const AddressInfo: React.FC = () => {
-  const cookies = new Cookies();
-  const [addrDetail, setAddrDetail] = useRecoilState(addrDetailAtom);
+  /** 바꿈 */
+  const [ordPayDataState, setOrdPayDataSate] = useRecoilState(ordPayDataAtom);
 
-  const isNewOrdAddr = useRecoilValue(isNewOrdAddrAtom);
+  const [addressList, setAddressList] = useRecoilState(addressListAtom);
 
-  useEffect(() => {}, [cookies.get(ADDR_NOM)]);
+  useEffect(() => {
+    getAddressList().then((res) => {
+      setAddressList(res);
+    });
+  }, []);
 
   const handleAddrDetail = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddrDetail(event.target.value);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.addrDetail = event.target.value;
+    setOrdPayDataSate(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
+
+  const isNewAddr: boolean =
+    ordPayDataState.isNewAddr === TRUE_STRING ? true : false;
 
   return (
     <StyledAddressInfoContainer>
       <AddressInfoChange />
       <StyledAddressInfo>
-        {isNewOrdAddr ? (
+        {isNewAddr ? (
           <>
             <OrderAddrRegister />
-            <OrdAddrSearchPopup />
+            <AddressSearchPopup />
           </>
         ) : (
           <ExitAddrWrap>
-            <AddressInfoSubhead1>{cookies.get(ADDR_NOM)}</AddressInfoSubhead1>
+            <AddressInfoSubhead1>
+              {ordPayDataState.shippingAddressName}
+            </AddressInfoSubhead1>
             <AddressInfoBody2>
-              {cookies.get(RCPNT_NOM)} {cookies.get(CNTCT_NUM)}
+              {ordPayDataState.rcpntNom} {ordPayDataState.cntctNum}
             </AddressInfoBody2>
-            <AddressInfoDetail>{cookies.get(ADDR)}</AddressInfoDetail>
+            <AddressInfoDetail>{ordPayDataState.addr}</AddressInfoDetail>
             <AddressInfoDetailInput
               placeholder="상세 주소를 작성해 주세요."
               onChange={handleAddrDetail}
-              value={addrDetail}
+              value={ordPayDataState.addrDetail}
             />
-            <OrdAddrAddButtonWrap>
-              <OrdAddrAddButton />
-            </OrdAddrAddButtonWrap>
+            {addressList.length < USER_SHP_ADDR_NUM && (
+              <OrdAddrAddButtonWrap>
+                <OrdAddrAddButton />
+              </OrdAddrAddButtonWrap>
+            )}
           </ExitAddrWrap>
         )}
       </StyledAddressInfo>
@@ -68,7 +86,7 @@ const StyledAddressInfo = styled.div`
 const AddressInfoDetailInput = styled.input`
   font: ${({ theme }) => theme.fontSizes.Body2};
   border-radius: 4px;
-  border: 1.35px solid var(--grey-5, #acb5bd);
+  border: 1px solid ${({ theme }) => theme.grey.Grey5};
 
   width: 100%;
   box-sizing: border-box;
@@ -83,8 +101,9 @@ const AddressInfoDetailInput = styled.input`
 `;
 
 const AddressInfoSubhead1 = styled.div`
-  font: ${({ theme }) => theme.fontSizes.Subhead1};
-  color: ${({ theme }) => theme.grey.Grey5};
+  font: ${({ theme }) => theme.fontSizes.Subhead2};
+  font-weight: 200;
+  color: ${({ theme }) => theme.grey.Grey8};
   padding: 10px 0 8px 0;
 `;
 

@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  BUSINESS_INFO_LINK,
+  PAYMENT_SUBSCRIPTION_INFO_LINK,
+  PRIVACY_POLICY_LINK,
+  SERVICE_TERMS_LINK,
+} from '../const/LinkVar';
 
 const CopyRightFooter: React.FC = () => {
   const [isActive, setActive] = useState<boolean>(false);
@@ -43,41 +49,19 @@ const CopyRightFooter: React.FC = () => {
 
       <SubInfo>
         <div>
-          <Link
-            to={
-              'https://www.notion.so/digitalize-corp/3b3adf8fb98f4804b59e0923184e9a38'
-            }
-          >
-            이용약관
-          </Link>
+          <Link to={SERVICE_TERMS_LINK}>이용약관</Link>
         </div>
         <SubInfoGap />
         <div>
-          <Link
-            to={
-              'https://www.notion.so/digitalize-corp/3662715452214145afd0db893a03858c'
-            }
-          >
-            개인정보처리방침
-          </Link>
+          <Link to={PRIVACY_POLICY_LINK}>개인정보처리방침</Link>
         </div>
         <SubInfoGap />
         <div>
-          <Link
-            to={
-              'https://www.notion.so/digitalize-corp/7c4dd64f9b334763bb1c7754041e92e5'
-            }
-          >
-            사업자정보확인
-          </Link>
+          <Link to={BUSINESS_INFO_LINK}>사업자정보확인</Link>
         </div>
         <SubInfoGap />
         <div>
-          <Link
-            to={
-              'https://www.notion.so/digitalize-corp/3d60223e962c4a2c9bfd74091cb8c409'
-            }
-          >
+          <Link to={PAYMENT_SUBSCRIPTION_INFO_LINK}>
             토스페이먼츠 에스크로 가입확인
           </Link>
         </div>

@@ -1,8 +1,5 @@
 import React from 'react';
-import { Cookies } from 'react-cookie';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
 import {
   ADDR,
   CNTCT_NUM,
@@ -16,49 +13,55 @@ import {
   SHP_FEE,
   SKU_CODE,
   ZIP_CODE,
+  ADDR_NOM,
+  RWD_USE_AMT,
+  PG_PROVIDER,
+  MEMO_CNT,
+  ADDR_DETAIL,
+  IS_NEW_ADDR,
+  TOT_AMOUNT,
+  SPENT_AMOUNT,
 } from '../../../../const/CookieVars';
 import { IMP_CODE } from '../../../../const/IamportVars';
-import {
-  postPaymentPreparation,
-  postPaymentVerification,
-} from '../../../../services/payment/postPayment';
+import { postPaymentPreparation } from '../../../../services/payment/postPayment';
 import { RequestPayResponse } from 'iamport-typings';
 import { PAY_METHOD, VERIFICATION_URL } from '../../../../const/Payment';
-import { pgCodeAtom } from '../../../../states/paymentAtom';
-import { addrDetailAtom, memoCntAtom } from '../../../../states/orderAtom';
 import { useNavigate } from 'react-router-dom';
+import { paymentVerifyUtil } from '../../../../utils/PaymentUtil';
+import { TRUE_STRING } from '../../../../const/SessionStorageVars';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import { useRecoilValue } from 'recoil';
+import { ordPayDataAtom } from '../../../../states/orderAtom';
 
 const OrderPaymentProcess: React.FC = () => {
-  const cookies = new Cookies();
-  const navigate = useNavigate();
-  const rwdUseAmt = useRecoilValue(rwdUseAmtAtom);
-  const pgCode = useRecoilValue(pgCodeAtom);
-  const memoCnt = useRecoilValue(memoCntAtom);
-  const addrDetail = useRecoilValue(addrDetailAtom);
+  /** 변경 */
 
-  const proctCode: number = cookies.get(PROCT_CODE);
-  const proctNom: string = cookies.get(PROCT_NOM);
-  const proctBrn: string = cookies.get(PROCT_BRN);
-  const skuCode: number = cookies.get(SKU_CODE);
-  const proctOptAmt: number = cookies.get(PROCT_OPT_AMT);
-  const proctOptQty: number = cookies.get(PROCT_OPT_QTY);
-  const proctOptNom: string = cookies.get(PROCT_OPT_NOM);
-  const rcpntNom: string = cookies.get(RCPNT_NOM);
-  const cntctNum: string = cookies.get(CNTCT_NUM);
-  const addr: string = cookies.get(ADDR);
-  const zipCode: string = cookies.get(ZIP_CODE);
-  const shpFee: number = cookies.get(SHP_FEE);
+  const ordPayDataState: OrderPaymentType = useRecoilValue(ordPayDataAtom);
+
+  const navigate = useNavigate();
+  const rwdUseAmt = ordPayDataState.rwdUseAmt;
+  const pgCode = ordPayDataState.pgCode;
+  const memoCnt = ordPayDataState.memoCnt;
+  const addrDetail = ordPayDataState.addrDetail;
+
+  const isNewAddr = ordPayDataState.isNewAddr;
+
+  const proctCode: number = ordPayDataState.proctCode;
+  const proctNom: string = ordPayDataState.proctNom;
+  const proctBrn: string = ordPayDataState.proctBrn;
+  const skuCode: number = ordPayDataState.skuCode;
+  const proctOptAmt: number = ordPayDataState.proctOptAmt;
+  const proctOptQty: number = ordPayDataState.proctOptQty;
+  const proctOptNom: string = ordPayDataState.proctOptNom;
+  const rcpntNom: string = ordPayDataState.rcpntNom;
+  const cntctNum: string = ordPayDataState.cntctNum;
+  const addr: string = ordPayDataState.addr;
+  const zipCode: string = ordPayDataState.zipCode;
+  const shippingAddressName = ordPayDataState.shippingAddressName;
+  const shpFee: number = ordPayDataState.shpFee;
 
   const totalAmount = proctOptAmt * proctOptQty + shpFee;
   const spentAmount = totalAmount - rwdUseAmt;
-
-  type ProductOption = {
-    [key: string]: number | string;
-  };
-
-  interface PaymentReqData {
-    [key: string]: number | string | ProductOption;
-  }
 
   async function requestPay() {
     const { IMP } = window;
@@ -86,7 +89,29 @@ const OrderPaymentProcess: React.FC = () => {
       buyer_email: 'example@example.com', // 구매자 이메일
       buyer_addr: addr, // 구매자 주소
       buyer_postcode: zipCode, // 구매자 우편번호
-      m_redirect_url: VERIFICATION_URL,
+      m_redirect_url:
+        VERIFICATION_URL +
+        '?' +
+        `${RCPNT_NOM}=${rcpntNom}&` +
+        `${CNTCT_NUM}=${cntctNum}&` +
+        `${ZIP_CODE}=${zipCode}&` +
+        `${ADDR}=${addr}&` +
+        `${ADDR_DETAIL}=${addrDetail}&` +
+        `${IS_NEW_ADDR}=${isNewAddr}&` +
+        `${ADDR_NOM}=${shippingAddressName}&` +
+        `${MEMO_CNT}=${memoCnt}&` +
+        `${PROCT_CODE}=${proctCode}&` +
+        `${PROCT_NOM}=${proctNom}&` +
+        `${PROCT_BRN}=${proctBrn}&` +
+        `${RWD_USE_AMT}=${rwdUseAmt}&` +
+        `${SHP_FEE}=${shpFee}&` +
+        `${PG_PROVIDER}=${pgCode}&` +
+        `${SKU_CODE}=${skuCode}&` +
+        `${PROCT_OPT_AMT}=${proctOptAmt}&` +
+        `${PROCT_OPT_QTY}=${proctOptQty}&` +
+        `${PROCT_OPT_NOM}=${proctOptNom}&` +
+        `${TOT_AMOUNT}=${totalAmount}&` +
+        `${SPENT_AMOUNT}=${spentAmount}&`,
     };
 
     IMP.request_pay(data, callback);
@@ -96,86 +121,46 @@ const OrderPaymentProcess: React.FC = () => {
     const { success, error_msg } = rsp;
 
     const impUid = rsp.imp_uid;
-    const pgTid = rsp.pg_tid;
+    const pgTid = rsp.pg_tid || '';
 
-    if (impUid === null || pgTid === undefined) {
-      return;
-    }
-
-    if (success) {
-      try {
-        const jsonData: PaymentReqData = {
-          ordCode: impUid,
-          impUid: impUid,
-          amount: spentAmount,
-          recipientName: rcpntNom,
-          contactNum: cntctNum,
-          zipCode: zipCode,
-          addr: addr,
-          addrDetail: addrDetail,
-          memoCnt: memoCnt,
-          productCode: proctCode,
-          productName: proctNom,
-          brandName: proctBrn,
-
-          productOption: {
-            skuCode: skuCode,
-            productOrderAmt: proctOptAmt,
-            productOrderQty: proctOptQty,
-            productOptVal: proctOptNom,
-          },
-          rewardAmt: rwdUseAmt,
-          shpFee: shpFee,
-          totalOrdAmt: totalAmount,
-          pgProvider: pgCode,
-          payMethod: PAY_METHOD,
-          pgTid: pgTid,
-        };
-
-        const formData = new FormData();
-        for (const [key, value] of Object.entries(jsonData)) {
-          if (typeof value === 'object') {
-            for (const [subKey, subValue] of Object.entries(jsonData[key])) {
-              formData.append(key + '.' + subKey, subValue);
-            }
-          } else {
-            if (typeof value === 'number') {
-              formData.append(key, value.toString());
-            } else if (typeof value === 'string') {
-              formData.append(key, value);
-            }
-          }
-        }
-
-        await postPaymentVerification(formData)
-          .then(() => {
-            navigate('/order-complete');
-          })
-          .catch((err) => {
-            alert(err.response.data.message);
-          });
-      } catch (error) {
-        console.error('Error while verifying payment:', error);
-        alert(error);
-        throw error;
-      }
-    } else {
-      alert(error_msg);
-      console.log('Error msg:', error_msg);
-      alert(error_msg);
-      throw error_msg;
-    }
+    paymentVerifyUtil(
+      navigate,
+      impUid,
+      success,
+      error_msg || '',
+      pgTid,
+      spentAmount,
+      totalAmount,
+      rwdUseAmt,
+      pgCode,
+      shpFee,
+      proctCode,
+      proctNom,
+      proctBrn,
+      skuCode,
+      proctOptAmt,
+      proctOptQty,
+      proctOptNom,
+      rcpntNom,
+      cntctNum,
+      addr,
+      addrDetail,
+      zipCode,
+      memoCnt,
+      isNewAddr === TRUE_STRING ? true : false,
+      shippingAddressName,
+    );
   }
 
   return (
     <div>
       {memoCnt !== '' && addrDetail !== '' && pgCode !== '' ? (
         <PaymentBtn onClick={requestPay}>
-          {spentAmount?.toLocaleString()}원 결제하기
+          {spentAmount?.toLocaleString()}원 결제하기{' '}
         </PaymentBtn>
       ) : (
         <NonePaymentBtn>
-          {spentAmount?.toLocaleString()}원 결제하기
+          {spentAmount?.toLocaleString()}원 결제하기{' '}
         </NonePaymentBtn>
       )}
     </div>

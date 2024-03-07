@@ -8,6 +8,8 @@ import {
   reviewTextAtom,
   starNumAtom,
 } from './postReviewAtom';
+import { orderInfoAtom } from './orderDetailAtom';
+import { editRegistrationModeAtom } from './addressAtom';
 
 const ResetStateOnRouteChange: React.FC = () => {
   const location = useLocation();
@@ -16,6 +18,10 @@ const ResetStateOnRouteChange: React.FC = () => {
   const resetReviewTextState = useResetRecoilState(reviewTextAtom);
   const resetImageUrlListState = useResetRecoilState(imageUrlListAtom);
   const resetReviewImgListState = useResetRecoilState(reviewImgListAtom);
+  const resetOrderInfoState = useResetRecoilState(orderInfoAtom);
+  const resetEditRegistrationMode = useResetRecoilState(
+    editRegistrationModeAtom,
+  );
 
   useEffect(() => {
     const unlisten = () => {
@@ -24,6 +30,8 @@ const ResetStateOnRouteChange: React.FC = () => {
       resetReviewTextState();
       resetImageUrlListState();
       resetReviewImgListState();
+      resetOrderInfoState();
+      resetEditRegistrationMode();
     };
     return unlisten;
   }, [location, resetProductDetailState]);

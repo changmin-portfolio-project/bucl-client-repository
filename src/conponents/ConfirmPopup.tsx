@@ -1,50 +1,42 @@
 import React, { useState } from 'react';
-import PopupLayout from '../../layout/PopupLayout';
+import PopupLayout from './layout/PopupLayout';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import {
-  orderHistoryListAtom,
-  purchaseConfirmPopupAtom,
-} from '../../../states/orderHistoryAtom';
-import { putOrderConfirm } from '../../../services/myOrder/putOrderConfirm';
-import { OrderDto } from '../../../services/myOrder/getOrderHistory';
-import OutlineButton from '../../OutlineButton';
-import ColoredButton from '../../ColoredButton';
+import OutlineButton from './OutlineButton';
+import ColoredButton from './ColoredButton';
+import { animation } from '../style/animation';
+import { confirmPopupAtom } from '../states/functionAtom';
 
-interface PurchaseConfirmPopupProps {
-  orderCode: string;
+interface ConfirmPopupProps {
+  message: string[];
+  confirmFunc: () => void;
+  to?: string;
 }
 
-const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
-  orderCode,
+const ConfirmPopup: React.FC<ConfirmPopupProps> = ({
+  message,
+  confirmFunc,
+  to = '',
 }) => {
-  const [popupOpen, setPopupOpen] = useRecoilState(purchaseConfirmPopupAtom);
-  const [orderHistoryList, setOrderHistoryList] =
-    useRecoilState<OrderDto[]>(orderHistoryListAtom);
+  const [popupOpen, setPopupOpen] = useRecoilState(confirmPopupAtom);
 
-  // 확인버튼을 눌렀는지 유무
   const [confirmBoolean, setConfirmBoolean] = useState<boolean>(false);
-  const purchaseConfirmBtnOnClick = () => {
+  const confirmBooleanClick = () => {
     if (popupOpen) {
-      setPopupOpen('');
+      confirmFunc();
+      setConfirmBoolean(true);
     }
   };
+  const closePopupClick = () => {
+    setPopupOpen(false);
+  };
   const confirmBtnOnClick = () => {
-    console.log(orderCode);
-    putOrderConfirm(orderCode).then(() => {
-      setConfirmBoolean(true);
-      setOrderHistoryList(
-        [...orderHistoryList].map((item) => {
-          if (item.orderCode === orderCode) {
-            const itemTemp = { ...item };
-            itemTemp.confirmed = true;
-            return itemTemp;
-          } else {
-            return item;
-          }
-        }),
-      );
-    });
+    if (popupOpen) {
+      setPopupOpen(false);
+      if (to === '') {
+        window.location.reload();
+      }
+    }
   };
 
   const OutlineButtonStyle: React.CSSProperties = {
@@ -55,17 +47,13 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
     height: '100%',
   };
   return (
-    <PopupLayout key={orderCode}>
+    <PopupLayout>
       <PurchaseConfirmPopupBox>
-        <ExplainText>
-          {confirmBoolean
-            ? '구매가 확정되었습니다.'
-            : '해당 상품을 구매 확정 하시겠습니까?'}
-        </ExplainText>
+        <ExplainText>{confirmBoolean ? message[1] : message[0]}</ExplainText>
         <CancelConfirmBtnBox>
           {confirmBoolean ? (
             <ColoredButton
-              onClick={purchaseConfirmBtnOnClick}
+              onClick={confirmBtnOnClick}
               font="Subhead2"
               color="white"
             >
@@ -75,7 +63,7 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
             <>
               <CancelBtnBox>
                 <OutlineButton
-                  onClick={purchaseConfirmBtnOnClick}
+                  onClick={closePopupClick}
                   style={OutlineButtonStyle}
                   font="Subhead2"
                   border="Orange5"
@@ -87,7 +75,7 @@ const PurchaseConfirmPopup: React.FC<PurchaseConfirmPopupProps> = ({
               <ConfirmBtnBox>
                 <ColoredButton
                   style={ColoredButtonStyle}
-                  onClick={confirmBtnOnClick}
+                  onClick={confirmBooleanClick}
                   font="Subhead2"
                   color="white"
                 >
@@ -110,6 +98,8 @@ const PurchaseConfirmPopupBox = styled.div`
     ${({ theme }) => theme.paddings.base};
   width: calc(100% - (${({ theme }) => theme.paddings.base}*2));
   background-color: white;
+  border-radius: 8px 8px 0 0;
+  animation: ${animation.slideUp} 0.2s ease-in-out;
 `;
 const ExplainText = styled.p`
   padding-bottom: 12px;
@@ -125,4 +115,4 @@ const CancelBtnBox = styled.div`
 `;
 const ConfirmBtnBox = styled(CancelBtnBox)``;
 
-export default PurchaseConfirmPopup;
+export default ConfirmPopup;

@@ -25,12 +25,14 @@ const PointHistoryInfiniteScroll: React.FC = () => {
   const [ref, inView] = useInView();
 
   const callback = () => {
-    getPointHistoryList(pointHistoryPageNum).then((res) => {
-      if (res.data.length != 0) {
-        setPointHistoryList((prev) => [...prev, ...res.data]);
-        setPointHistoryPageNum((prev) => prev + 1);
-      }
-    });
+    getPointHistoryList(pointHistoryPageNum)
+      .then((res) => {
+        if (res.data.length != 0) {
+          setPointHistoryList((prev) => [...prev, ...res.data]);
+          setPointHistoryPageNum((prev) => prev + 1);
+        }
+      })
+      .catch(() => {});
   };
   useEffect(() => {
     if (inView) {

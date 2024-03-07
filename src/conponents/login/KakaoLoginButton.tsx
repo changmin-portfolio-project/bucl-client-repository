@@ -20,16 +20,20 @@ const KakaoLoginButton: React.FC = () => {
   const code = new URL(window.location.href).searchParams.get('code');
 
   if (code !== null) {
-    postKakaoAuthToken(code).then((res) => {
-      postKakaoLogin(res.access_token).then(() => {
-        const callbackUrl = sessionStorage.getItem('callbackUrl');
-        if (callbackUrl !== null) {
-          navigate(callbackUrl);
-        } else {
-          navigate('/categories');
-        }
+    postKakaoAuthToken(code)
+      .then((res) => {
+        postKakaoLogin(res.access_token).then(() => {
+          const callbackUrl = sessionStorage.getItem('callbackUrl');
+          if (callbackUrl !== null) {
+            navigate(callbackUrl);
+          } else {
+            navigate('/categories');
+          }
+        });
+      })
+      .catch(() => {
+        navigate(-2);
       });
-    });
   }
 
   return (

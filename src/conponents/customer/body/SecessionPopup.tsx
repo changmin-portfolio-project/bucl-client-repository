@@ -6,6 +6,7 @@ import { withdrawCompleteAtom } from '../../../states/customerAtom';
 import { useSetRecoilState } from 'recoil';
 import OutlineButton from '../../OutlineButton';
 import ColoredButton from '../../ColoredButton';
+import { ACCESS_TOKEN } from '../../../const/CookieVars';
 
 interface SecessionPopupProps {
   secessionBtnOnClick: () => void;
@@ -16,16 +17,18 @@ const SecessionPopup: React.FC<SecessionPopupProps> = ({
 }) => {
   const setWithdrawComplete = useSetRecoilState(withdrawCompleteAtom);
   const handleMemberWithdrawal = () => {
-    postMemberWithdrawal().then((res) => {
-      console.log(res);
+    postMemberWithdrawal().then(() => {
       setWithdrawComplete(true);
+      localStorage.setItem(ACCESS_TOKEN, '');
     });
   };
   return (
     <PopupLayout>
       <SecessionConfirmBox>
         <CheckText>정말 탈퇴하시겠어요?</CheckText>
-        <ExplainText>모든 계정 정보가 삭제되며 복구되지 않습니다.</ExplainText>
+        <ExplainText>
+          탈퇴시 계정 정보는 15일 후에 완전히 삭제 됩니다.
+        </ExplainText>
         <BtnBox>
           <OutlineButton
             onClick={handleMemberWithdrawal}

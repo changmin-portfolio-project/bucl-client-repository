@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import OutlineButton from '../../OutlineButton';
 import { useSetRecoilState } from 'recoil';
-import { purchaseConfirmPopupAtom } from '../../../states/orderHistoryAtom';
-import { Link } from 'react-router-dom';
+import { orderCodeConfirmAtom } from '../../../states/orderHistoryAtom';
+import { confirmPopupAtom } from '../../../states/functionAtom';
+import AppLink from '../../AppLink';
 
 interface WriteReviewButtonProps {
   confirmed: boolean;
@@ -14,10 +15,12 @@ const WriteReviewButton: React.FC<WriteReviewButtonProps> = ({
   orderCode,
   confirmed,
 }) => {
-  const setPopupOpen = useSetRecoilState(purchaseConfirmPopupAtom);
+  const setOrderCode = useSetRecoilState(orderCodeConfirmAtom);
+  const setPopupOpen = useSetRecoilState(confirmPopupAtom);
 
-  const purchaseConfirmBtnOnClick = (orderCode: string) => {
-    setPopupOpen(orderCode);
+  const orderConfirmBtnOnClick = (orderCode: string) => {
+    setOrderCode(orderCode);
+    setPopupOpen(true);
   };
 
   const OutlineButtonStyle: React.CSSProperties = {
@@ -26,27 +29,27 @@ const WriteReviewButton: React.FC<WriteReviewButtonProps> = ({
   return (
     <WriteReviewButtonContainer>
       {confirmed ? (
-        <Link to={`/post-reviews/${orderCode}`}>
+        <AppLink isApp={true} to={`/post-reviews/${orderCode}`}>
           <OutlineButton
             style={OutlineButtonStyle}
             border="Grey4"
             color="Grey8"
             font="Body2"
           >
-            리뷰작성
+            리뷰 작성
           </OutlineButton>
-        </Link>
+        </AppLink>
       ) : (
         <OutlineButton
           style={OutlineButtonStyle}
           onClick={() => {
-            purchaseConfirmBtnOnClick(orderCode);
+            orderConfirmBtnOnClick(orderCode);
           }}
           border="Grey4"
           color="Grey8"
           font="Body2"
         >
-          구매확정
+          구매 확정
         </OutlineButton>
       )}
     </WriteReviewButtonContainer>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextButton from '../../TextButton';
 import { Link } from 'react-router-dom';
+import { KAKAO_CHANNEL_LINK } from '../../../const/LinkVar';
 
 const ProductInquiry: React.FC = () => {
   const TextButtonStyle: React.CSSProperties = {
@@ -14,7 +15,7 @@ const ProductInquiry: React.FC = () => {
     <ProductInquiryContainer>
       <TitleAllBtnBox>
         <TitleText>상품 문의</TitleText>
-        <Link to="https://www.notion.so/digitalize-corp/d8f7e2213dcf440d867c4b0d9df76930">
+        <Link to={KAKAO_CHANNEL_LINK}>
           <TextButton style={TextButtonStyle}>
             카카오톡 채널 바로가기
             <svg

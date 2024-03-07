@@ -25,7 +25,7 @@ export const getHomeCategoryByProductList = (
       `/api/v1/products?categoryId=${categoryId}&page=${pageNum}&pageSize=10`,
     )
     .then((res) => {
-      console.log('성공:', res);
+      console.log(res);
       return res.data.data;
     })
     .catch((error) => {

@@ -37,7 +37,7 @@ const AppleBtn = styled.button`
     width: 1.7rem;
     transform: translate(-0, -50%);
   }
-
+  color: black;
   cursor: pointer;
 `;
 

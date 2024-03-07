@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { NAVIGATION_TO } from '../const/AppVars';
+import { NAVIGATION_BACK, NAVIGATION_TO } from '../const/AppVars';
 
 declare global {
   interface Window {
@@ -33,10 +33,10 @@ const AppLink: React.FC<
             JSON.stringify({ type: type, url: to }),
           );
         } else {
-          if (type === NAVIGATION_TO) {
-            navigate(to);
-          } else {
+          if (type === NAVIGATION_BACK) {
             navigate(-1);
+          } else {
+            navigate(to);
           }
         }
       }}

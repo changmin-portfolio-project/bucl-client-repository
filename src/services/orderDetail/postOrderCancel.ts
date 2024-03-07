@@ -1,4 +1,4 @@
-import { api } from '..';
+import { privateApi } from '..';
 
 export interface postOrderCancelResponse {
   data: {
@@ -12,8 +12,8 @@ export interface postOrderCancelResponse {
 export const postOrderCancel = (
   order_code: string,
 ): Promise<postOrderCancelResponse> => {
-  return api
-    .post(`/api/v1/order-cancel/${order_code}`)
+  return privateApi
+    .post(`/api/v1/order-cancels/${order_code}`)
     .then((res) => {
       return res.data.data;
     })

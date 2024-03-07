@@ -1,29 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { CARD_PAY, KAKAO_PAY } from '../../../../const/Payment';
+import { KAKAO_PAY, NHN_KCP } from '../../../../const/Payment';
+import { PG_KAKAOPAY_CODE, PG_KCP_CODE } from '../../../../const/IamportVars';
+import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
 import { useSetRecoilState } from 'recoil';
-import { pgCodeAtom } from '../../../../states/paymentAtom';
-import { PG_KAKAOPAY_CODE } from '../../../../const/IamportVars';
+import { ordPayDataAtom } from '../../../../states/orderAtom';
+import { Link } from 'react-router-dom';
+import { PAYMENT_TERMS_LINK } from '../../../../const/LinkVar';
 
 const OrderPaymentMethod: React.FC = () => {
+  /** 바꿈 */
+
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const [kakaoPayState, setKakaoPayState] = useState(false);
   const [cardPayState, setCardPayState] = useState(false);
-  const setPgCodeAtom = useSetRecoilState(pgCodeAtom);
 
   useEffect(() => {
-    setPgCodeAtom('');
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.pgCode = '';
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
 
-  const handleActive = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleActive = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     // 버튼이 클릭될 때마다 isClicked 상태를 토글합니다.
-    if (e.currentTarget.value === CARD_PAY) {
-      setKakaoPayState(false);
-      setCardPayState(true);
-      setPgCodeAtom(PG_KAKAOPAY_CODE);
-    } else {
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    if (target.id === KAKAO_PAY) {
       setKakaoPayState(true);
       setCardPayState(false);
-      setPgCodeAtom(PG_KAKAOPAY_CODE);
+      orderPaymentData.pgCode = PG_KAKAOPAY_CODE;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
+    } else {
+      setKakaoPayState(false);
+      setCardPayState(true);
+      orderPaymentData.pgCode = PG_KCP_CODE;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
     }
   };
   return (
@@ -31,12 +49,13 @@ const OrderPaymentMethod: React.FC = () => {
       <PymtMethodTitle>결제/방법</PymtMethodTitle>
       <PymtMethodCont>
         <PymtMethodWrap>
-          <PayBtn
-            isActive={kakaoPayState}
-            onClick={handleActive}
-            value={KAKAO_PAY}
-          >
-            <CheckBox type="radio" checked={kakaoPayState} />
+          <PayBtn $actived={kakaoPayState} value={KAKAO_PAY}>
+            <CheckBox
+              id={KAKAO_PAY}
+              type="radio"
+              checked={kakaoPayState}
+              onChange={handleActive}
+            />
             <PaydBtnWrap>
               <KakaoBtn src="/assets/payment_kakao_logo.png" />
               카카오페이
@@ -44,18 +63,22 @@ const OrderPaymentMethod: React.FC = () => {
           </PayBtn>
         </PymtMethodWrap>
         <PymtMethodWrap>
-          <PayBtn
-            isActive={cardPayState}
-            onClick={handleActive}
-            value={CARD_PAY}
-          >
-            <CheckBox type="radio" checked={cardPayState} />
+          <PayBtn $actived={cardPayState} value={NHN_KCP}>
+            <CheckBox
+              id={NHN_KCP}
+              type="radio"
+              checked={cardPayState}
+              onChange={handleActive}
+            />
             <PaydBtnWrap>신용 카드</PaydBtnWrap>
           </PayBtn>
         </PymtMethodWrap>
       </PymtMethodCont>
       <PymtMethodLabel>
         결제를 진행할 경우 개인 정보 제공에 동의하는 것으로 간주됩니다.
+        <Link to={PAYMENT_TERMS_LINK}>
+          <PaymentAboutDiv>보기</PaymentAboutDiv>
+        </Link>
       </PymtMethodLabel>
     </StyledOrdPymtAmtCont>
   );
@@ -91,16 +114,22 @@ const PymtMethodTitle = styled.div`
 const PymtMethodLabel = styled.div`
   font: ${({ theme }) => theme.fontSizes.Label};
   background: var(--grey-1, #f1f3f5);
-  padding: 7px 0 5px 20px;
+  padding: 7px 20px 5px 20px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-const PayBtn = styled.button<{ isActive: boolean }>`
+const PaymentAboutDiv = styled.div`
+  font-weight: 700;
+`;
+
+const PayBtn = styled.button<{ $actived: boolean }>`
   font: ${({ theme }) => theme.fontSizes.Body1};
   border: 0px solid;
   background: #fff;
   flex-shrink: 0;
 
-  // color: ${(props) => (props.isActive ? '#fff' : props.theme.grey.grey5)};
+  // color: ${(props) => (props.$actived ? '#fff' : props.theme.grey.grey5)};
 `;
 
 const CheckBox = styled.input`

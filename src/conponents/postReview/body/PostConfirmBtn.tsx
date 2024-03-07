@@ -33,15 +33,10 @@ const PostConfirmButton: React.FC = () => {
       for (const reviewImg of reviewImgList) {
         formData.append('reviewImages', reviewImg);
       }
-      postReview(formData, param.order_code as string)
-        .then((res) => {
-          console.log(res);
-          setCompleteBoolean(true);
-        })
-        .catch((error) => {
-          alert('에러가 났습니다.: ' + error);
-          console.error(error);
-        });
+      postReview(formData, param.order_code as string).then((res) => {
+        console.log(res);
+        setCompleteBoolean(true);
+      });
     } else {
       alert(REVIEW_TEXT_MIN_NUM + '글자 이상 적어 주세요.');
     }

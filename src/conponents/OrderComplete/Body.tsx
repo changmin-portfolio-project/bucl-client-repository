@@ -1,23 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
+import AppLink from '../AppLink';
+import { NAVIGATION_RESET } from '../../const/AppVars';
 
 const Body: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
     padding: '13px 0',
   };
+
   return (
     <CompleteContainer>
       <TextWrap>
         <Text>결제가 완료되었습니다</Text>
-        <SubText>최대한 빠르게</SubText>
-        <SubText>받아보실 수 있도록</SubText>
-        <SubText>최선을 다하겠습니다.</SubText>
+        <SubText>구매 확정시 리워드를 받을 수 있습니다.</SubText>
       </TextWrap>
       <BtnBox>
         <BtnWrap>
-          <Link to={'/'}>
+          <AppLink to={'/'} type={NAVIGATION_RESET}>
             <ColoredButton
               font="Subhead1"
               color="white"
@@ -25,12 +25,12 @@ const Body: React.FC = () => {
             >
               더 둘러보기
             </ColoredButton>
-          </Link>
+          </AppLink>
         </BtnWrap>
         <MarginDiv />
 
         <BtnWrap>
-          <Link to={'/my/orders'}>
+          <AppLink isApp={true} to={`/my/orders`} type={NAVIGATION_RESET}>
             <ColoredButton
               font="Subhead1"
               color="white"
@@ -39,7 +39,7 @@ const Body: React.FC = () => {
             >
               주문 내역
             </ColoredButton>
-          </Link>
+          </AppLink>
         </BtnWrap>
       </BtnBox>
     </CompleteContainer>
@@ -50,9 +50,7 @@ const CompleteContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  height: 100vh;
-
+  height: 90vh;
   padding: 0 ${({ theme }) => theme.paddings.base};
 `;
 

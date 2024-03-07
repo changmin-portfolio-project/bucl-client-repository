@@ -1,44 +1,78 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { CSSProperties } from 'styled-components';
 import OrderHistoryItem from './body/OrderHistoryItem';
 import OrderHistoryfiniteScroll from '../../hook/OrderHistoryfiniteScroll';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
+  orderCodeConfirmAtom,
   orderHistoryListAtom,
-  purchaseConfirmPopupAtom,
 } from '../../states/orderHistoryAtom';
-import PurchaseConfirmPopup from './body/PurchaseConfirmPopup';
-import { isActivePopUp } from '../../utils/PopUpUtil';
+
 import BodyLayout from '../layout/BodyLayout';
+import { putOrderConfirm } from '../../services/myOrder/putOrderConfirm';
+import ConfirmPopup from '../ConfirmPopup';
+import { confirmPopupAtom } from '../../states/functionAtom';
 
 const MyOderBodyStyle: CSSProperties = {};
 
 const Body: React.FC = () => {
-  const orderHistoryList = useRecoilValue(orderHistoryListAtom);
-  const popupOpen = useRecoilValue(purchaseConfirmPopupAtom);
-  useEffect(() => {
-    isActivePopUp(!popupOpen);
-  }, [popupOpen]);
+  const [orderHistoryList, setOrderHistoryList] =
+    useRecoilState(orderHistoryListAtom);
+  const orderCode = useRecoilValue(orderCodeConfirmAtom);
+
+  const popupOpen = useRecoilValue(confirmPopupAtom);
+
+  const confirmBtnOnClick = (orderCode: string) => {
+    putOrderConfirm(orderCode)
+      .then(() => {
+        setOrderHistoryList(
+          [...orderHistoryList].map((item) => {
+            if (item.orderCode === orderCode) {
+              const itemTemp = { ...item };
+              itemTemp.confirmed = true;
+              return itemTemp;
+            } else {
+              return item;
+            }
+          }),
+        );
+      })
+      .catch(() => {
+        window.location.reload();
+      });
+  };
   return (
     <BodyLayout style={MyOderBodyStyle}>
       <OrderHistoryContainer>
         {orderHistoryList.map((v, i) => (
           <OrderHistoryItem
             key={i}
-            imgPath={v.productDto.productImagePathList[0]}
+            imgPath={v.productDto.imagePath}
             orderDate={v.orderDate}
             productName={v.productDto.productName}
             productPrice={v.spentAmount}
             confirmed={v.confirmed}
             orderCode={v.orderCode}
             productCode={v.productDto.productCode}
-            productOrderQty={v.purchaseOrderDtos[0].productOrderQty}
-            productOptionValue={v.purchaseOrderDtos[0].productOptionValue}
+            productOrderQty={v.purchaseOrderDtos[0]?.productOrderQty}
+            productOptionValue={v.purchaseOrderDtos[0]?.productOptionValue}
+            orderStatus={v.orderStatus}
           />
         ))}
       </OrderHistoryContainer>
       <OrderHistoryfiniteScroll />
-      {popupOpen && <PurchaseConfirmPopup orderCode={popupOpen} />}
+      {popupOpen && (
+        <ConfirmPopup
+          to="noreset"
+          message={[
+            '해당 상품을 구매 확정 하시겠습니까?',
+            '구매가 확정되었습니다.',
+          ]}
+          confirmFunc={() => {
+            confirmBtnOnClick(orderCode);
+          }}
+        />
+      )}
     </BodyLayout>
   );
 };

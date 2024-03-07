@@ -12,7 +12,7 @@ export const orderHistoryPageNumAtom = atom<number>({
   default: PAGE_NUM,
 });
 
-export const purchaseConfirmPopupAtom = atom<string>({
-  key: 'purchaseConfirmPopup',
+export const orderCodeConfirmAtom = atom<string>({
+  key: 'orderCodeconfirm',
   default: '',
 });

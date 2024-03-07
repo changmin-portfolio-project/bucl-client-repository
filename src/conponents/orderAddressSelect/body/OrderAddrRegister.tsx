@@ -2,38 +2,61 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PhoneNumInput from './PhoneNumInput';
 import AddressSearchButton from './AddressSearchButton';
-import { useRecoilState } from 'recoil';
-import { useCookies } from 'react-cookie';
-import { ADDR, ADDR_NOM, RCPNT_NOM } from '../../../const/CookieVars';
-import { addrDetailAtom } from '../../../states/orderAtom';
+import { OrderPaymentType } from '../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
+import { useSetRecoilState } from 'recoil';
+import { ordPayDataAtom } from '../../../states/orderAtom';
 
 const OrderAddrRegister: React.FC = () => {
-  const [cookie, setCookie] = useCookies();
-  const [addrDetail, setAddrDetail] = useRecoilState(addrDetailAtom);
-
+  /** 바꿈 */
+  const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const recipientNameOnChange = (text: string) => {
-    setCookie(RCPNT_NOM, text);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.rcpntNom = text;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
   const locationNameOnChange = (text: string) => {
-    setCookie(ADDR_NOM, text);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.shippingAddressName = text;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
   const detailAddressOnChange = (text: string) => {
-    setAddrDetail(text);
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.addrDetail = text;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
 
   useEffect(() => {
-    setCookie(RCPNT_NOM, '');
-    setCookie(ADDR_NOM, '');
-    setCookie(ADDR, '');
-    setAddrDetail('');
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
+    orderPaymentData.rcpntNom = '';
+    orderPaymentData.shippingAddressName = '';
+    orderPaymentData.addr = '';
+    orderPaymentData.addrDetail = '';
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
+
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+  );
 
   return (
     <EditRegisterContainer>
       <Box>
         <Title>장소명</Title>
         <Input
-          value={cookie[ADDR_NOM]}
+          value={orderPaymentData.shippingAddressName}
           onChange={(e) => locationNameOnChange(e.target.value)}
           placeholder="장소를 적어주세요.(ex 우리집, 회사 etc)"
         />
@@ -41,7 +64,7 @@ const OrderAddrRegister: React.FC = () => {
       <Box>
         <Title>받는 사람</Title>
         <Input
-          value={cookie[RCPNT_NOM]}
+          value={orderPaymentData.rcpntNom}
           onChange={(e) => recipientNameOnChange(e.target.value)}
           placeholder="이름을 적어주세요."
         />
@@ -52,13 +75,17 @@ const OrderAddrRegister: React.FC = () => {
       </PhoneBox>
       <Box>
         <Title>주소</Title>
-        <Input value={cookie[ADDR]} placeholder="주소" />
+        <Input
+          value={orderPaymentData.addr}
+          placeholder="주소"
+          onChange={() => {}}
+        />
         <AddressSearchButton />
       </Box>
       <Box>
         <Title>상세 주소</Title>
         <Input
-          value={addrDetail}
+          value={orderPaymentData.addrDetail}
           onChange={(e) => detailAddressOnChange(e.target.value)}
           placeholder="상세 주소를 입력해주세요."
         />

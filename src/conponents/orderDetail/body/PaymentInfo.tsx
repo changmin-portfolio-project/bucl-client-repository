@@ -11,21 +11,15 @@ const PaymentInfo: React.FC = () => {
       <PaymentInfoBox>
         <InfoBox>
           <SubTitle>상품 가격</SubTitle>
-          <Info>{orderInfo.consumerOrder.toLocaleString()}원</Info>
+          <Info>{orderInfo.orderDto.totalOrderAmount?.toLocaleString()}원</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>배송비</SubTitle>
-          <Info>{orderInfo.shippingFee.toLocaleString()}원</Info>
+          <Info>{orderInfo.shippingFee?.toLocaleString()}원</Info>
         </InfoBox>
         <InfoBox>
-          <SubTitle>할인 가격</SubTitle>
-          <Info>
-            {(orderInfo.consumerOrder - orderInfo.salePrice).toLocaleString()}원
-          </Info>
-        </InfoBox>
-        <InfoBox>
-          <SubTitle>사용리워드</SubTitle>
-          <Info>{orderInfo.rewardUseAmount.toLocaleString()}P</Info>
+          <SubTitle>사용 리워드</SubTitle>
+          <Info>{orderInfo.orderDto.rewardUseAmount?.toLocaleString()}P</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>결제 방법</SubTitle>
@@ -34,14 +28,7 @@ const PaymentInfo: React.FC = () => {
       </PaymentInfoBox>
       <TotalPaymentAmountBox>
         <TotalPaymentAmountTitle>총 결제 금액</TotalPaymentAmountTitle>
-        <Amount>
-          {(
-            orderInfo.salePrice -
-            orderInfo.rewardUseAmount +
-            orderInfo.shippingFee
-          ).toLocaleString()}
-          원
-        </Amount>
+        <Amount>{orderInfo.orderDto.spentAmount?.toLocaleString()}원</Amount>
       </TotalPaymentAmountBox>
     </PaymentInfoContainer>
   );

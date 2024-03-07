@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
 import CompleteLayout from '../layout/CompleteLayout';
-import AppLink from '../AppLink';
+import { Link } from 'react-router-dom';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
@@ -12,20 +12,20 @@ const Complete: React.FC = () => {
   return (
     <CompleteLayout>
       <p>
-        <span>인출 요청</span>이 완료되었습니다.
+        <span>인출 계좌</span>가 변경되었습니다.
       </p>
       <BtnBox>
-        <AppLink to={'/'} style={ColoredButtonStyle}>
+        <Link to={'/'} style={ColoredButtonStyle}>
           <ColoredButton font="Subhead1" color="white">
             홈으로
           </ColoredButton>
-        </AppLink>
+        </Link>
         <MarginDiv></MarginDiv>
-        <AppLink to={'/reward-withdrawals'} style={ColoredButtonStyle}>
+        <Link to={'/reward-withdrawals'} style={ColoredButtonStyle}>
           <ColoredButton font="Subhead1" color="white" backgroundColor="Grey8">
             인출 내역 보러가기
           </ColoredButton>
-        </AppLink>
+        </Link>
       </BtnBox>
     </CompleteLayout>
   );

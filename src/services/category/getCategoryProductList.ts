@@ -25,7 +25,7 @@ export const getCategoryByProductList = (
   return privateApi
     .get(`/api/v1/categories/${categoryId}?page=${pageNum}&pageSize=10`)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       return res.data.data;
     })
     .catch((error) => {

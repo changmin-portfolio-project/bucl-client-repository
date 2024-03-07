@@ -12,6 +12,7 @@ const HomePage: React.FC = () => {
     const homeInfPos = sessionStorage.getItem(HOME_INF_POS_NAME);
     if (homeInfPos !== null && homeInfContainer !== null) {
       homeInfContainer.scrollTo({ top: parseInt(homeInfPos) });
+      window.scrollTo({ top: 0 });
     }
   }, []);
   return (

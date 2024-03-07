@@ -14,12 +14,7 @@ interface PostWishesReq {
 
 // 상품 찜하기
 export const postWishes = (data: PostWishesReq): Promise<WishesResponse> => {
-  return privateApi
-    .post(`/api/v1/wishes`, data)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      throw err;
-    });
+  return privateApi.post(`/api/v1/wishes`, data).then((res) => {
+    return res;
+  });
 };

@@ -1,28 +1,52 @@
 import { atom } from 'recoil';
 import { OrderData } from '../services/orderDetail/getOrderInfo';
+import { ShpAddrReg } from '../services/orderDetail/putAddress';
 
 export const orderInfoAtom = atom<OrderData>({
   key: 'orderInfo',
   default: {
-    orderDate: '',
-    productName: '',
-    imagePath: '',
-    consumerOrder: 0,
-    salePrice: 0,
-    productOrderQty: 0,
+    orderDto: {
+      productDto: {
+        productName: '',
+        productBrandName: '',
+        imagePath: '',
+        productCode: 0,
+      },
+      orderCode: '',
+      orderDate: '',
+      totalOrderAmount: 0,
+      spentAmount: 0,
+      rewardUseAmount: 0,
+      purchaseOrderDtos: [],
+      confirmed: false,
+      orderStatus: '',
+    },
+    shpAddrDto: {
+      recipientName: '',
+      contactNumber: '',
+      zipCode: '',
+      address: '',
+      addressDetail: '',
+      memoContent: '',
+    },
+    shippingFee: 0,
+    trackingNum: '',
+    paymentMethod: '',
+  },
+});
+
+export const shpAddrRegAtom = atom<ShpAddrReg>({
+  key: 'shpAddrReg',
+  default: {
     recipientName: '',
-    contactNumber: '',
     zipCode: '',
     address: '',
     addressDetail: '',
-    memoContent: '',
-    pgProvider: '',
-    paymentMethod: '',
-    paymentStatus: '',
-    rewardUseAmount: 0,
-    shippingFee: 0,
-    totalOrderAmount: 0,
-    brandName: '',
-    confirmed: false,
+    contactNumber: '',
   },
+});
+
+export const ordShpChangeModeAtom = atom<boolean>({
+  key: 'ordShpChangeMode',
+  default: false,
 });

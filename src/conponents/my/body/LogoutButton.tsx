@@ -18,7 +18,7 @@ const LogoutButton: React.FC = () => {
 const LogoutBtnContainer = styled.section`
   display: flex;
   justify-content: center;
-  padding-top: 15px;
+  padding: 15px 0 30px 0;
   button {
     background-color: transparent;
     border: none;

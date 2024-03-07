@@ -5,7 +5,7 @@ export const postLogout = (): Promise<string> => {
   return privateApi
     .post(`/api/v1/auth/logout`)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       return res.data.data;
     })
     .catch((err) => {

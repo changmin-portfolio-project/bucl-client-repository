@@ -7,7 +7,7 @@ import HeaderLayout from '../conponents/layout/HeaderLayout';
 const WishesPage: React.FC = () => {
   return (
     <WishesPageContainer>
-      <HeaderLayout text="찜 목록" />
+      <HeaderLayout text="좋아요" />
       <Body />
       <TabBar />
     </WishesPageContainer>

@@ -58,21 +58,24 @@ const RegisterAccount: React.FC = () => {
       <RegisterBankWrap>
         <Title>등록할 계좌를 선택해주세요</Title>
         <AccountInputbankerBox>
-          <AccountInput
-            value={accountNum}
-            onChange={(e) => accountNumOnChange(e.target.value)}
-          />
+          <AccountInputWrap>
+            <AccountInput
+              value={accountNum}
+              onChange={(e) => accountNumOnChange(e.target.value)}
+            />
+          </AccountInputWrap>
           <BankerSelectBox>
             <BankerSelect
               onChange={(e) => bankerSelectOnChange(e.target.value)}
               required={true}
+              value={bankerName}
             >
-              <option value={''} disabled={true} selected={true}>
+              <option value={''} disabled={true}>
                 은행사
               </option>
               {bankList &&
                 bankList.map((v, i) => (
-                  <option key={i} selected={v === bankerName}>
+                  <option key={i} value={v}>
                     {v}
                   </option>
                 ))}
@@ -124,22 +127,25 @@ const AccountInputbankerBox = styled.div`
   justify-content: space-between;
   padding-top: 15px;
 `;
-const AccountInput = styled.input`
-  padding: 5px 0;
-  width: 70%;
+const AccountInputWrap = styled.div`
+  width: 62%;
   outline: none;
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey5};
   font: ${({ theme }) => theme.fontSizes.Body3};
-  &:focus-visible {
-    border-bottom: 1px solid ${({ theme }) => theme.mainColor.Orange5};
-    caret-color: ${({ theme }) => theme.mainColor.Orange5};
-  }
+`;
+
+const AccountInput = styled.input`
+  width: 90%;
+  outline: none;
+  border: none;
+
+  font: ${({ theme }) => theme.fontSizes.Body3};
 `;
 
 const BankerSelectBox = styled.div`
   position: relative;
-  width: 25%;
+  width: 34%;
   svg {
     position: absolute;
     z-index: 999;
@@ -158,6 +164,8 @@ const BankerSelect = styled.select`
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey5};
   font: ${({ theme }) => theme.fontSizes.Body3};
   appearance: none;
+  background-color: white;
+  color: black;
 `;
 
 const ConfirmBtnBox = styled.div`

@@ -12,8 +12,5 @@ export const putOrderConfirm = (
     .put(`/api/v1/orders/${orderCode}/confirmation`)
     .then((res) => {
       return res.data;
-    })
-    .catch((err) => {
-      throw err;
     });
 };

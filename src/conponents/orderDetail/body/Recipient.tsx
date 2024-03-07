@@ -7,25 +7,26 @@ const Recipient: React.FC = () => {
   const orderInfo = useRecoilValue(orderInfoAtom);
   return (
     <RecipientContainer>
-      <Title>받는사람 정보</Title>
+      <Title>받는 사람 정보</Title>
       <RecipientInfoBox>
         <InfoBox>
-          <SubTitle>받는사람</SubTitle>
-          <Info>{orderInfo.recipientName}</Info>
+          <SubTitle>받는 사람</SubTitle>
+          <Info>{orderInfo.shpAddrDto.recipientName}</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>연락처</SubTitle>
-          <Info>{orderInfo.contactNumber}</Info>
+          <Info>{orderInfo.shpAddrDto.contactNumber}</Info>
         </InfoBox>
         <InfoBox>
           <SubTitle>주소</SubTitle>
           <AddressInfo>
-            {orderInfo.address} {orderInfo.addressDetail}
+            {orderInfo.shpAddrDto.address}
+            {orderInfo.shpAddrDto.addressDetail}
           </AddressInfo>
         </InfoBox>
         <InfoBox>
           <SubTitle>배송요청사항</SubTitle>
-          <Info>{orderInfo.memoContent}</Info>
+          <Info>{orderInfo.shpAddrDto.memoContent}</Info>
         </InfoBox>
       </RecipientInfoBox>
     </RecipientContainer>

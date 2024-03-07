@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PopupLayout from '../../layout/PopupLayout';
 import { Link } from 'react-router-dom';
+import { KAKAO_CHANNEL_LINK } from '../../../const/LinkVar';
 
 interface WithdrawOrderPopupProps {
   withdrawOrderBtnOnClick: () => void;
@@ -12,17 +13,17 @@ const WithdrawOrderPopup: React.FC<WithdrawOrderPopupProps> = ({
 }) => {
   return (
     <PopupLayout onClick={withdrawOrderBtnOnClick}>
-      <WithdrawOrderPopupBox>
+      <WithdrawOrderPopupBox onClick={(e) => e.stopPropagation()}>
         <Title>알림</Title>
         <Notice>
           현재 교환 및 반품은
           <br />
           고객 센터 문의를 통해서만 가능합니다.
           <br />
-          고객센터 문의는 평일 09:00~22:00 이용 가능합니다.
+          고객센터 문의는 평일 09:00~18:00 이용 가능합니다.
         </Notice>
         <KakaoTalkChannelBtn>
-          <Link to="/">카카오톡 채널 바로가기</Link>
+          <Link to={KAKAO_CHANNEL_LINK}>카카오톡 채널 바로가기</Link>
         </KakaoTalkChannelBtn>
       </WithdrawOrderPopupBox>
     </PopupLayout>
@@ -54,7 +55,7 @@ const Notice = styled.p`
 `;
 
 const KakaoTalkChannelBtn = styled.button`
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   padding: 5px 0;
   width: 86%;
   background-color: ${({ theme }) => theme.mainColor.Orange5};

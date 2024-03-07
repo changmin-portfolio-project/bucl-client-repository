@@ -2,9 +2,9 @@
 import React from 'react';
 // import DaumPostcode from 'react-daum-postcode';
 import styled from 'styled-components';
-import PopupLayout from '../../../layout/PopupLayout';
+import PopupLayout from './layout/PopupLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { searchPopupVisibleAtom } from '../../../../states/addressAtom';
+import { searchPopupVisibleAtom } from '../states/addressAtom';
 
 const AddressSearchPopup: React.FC = () => {
   const [visible, setVisible] = useRecoilState(searchPopupVisibleAtom);
@@ -24,7 +24,7 @@ const AddressSearchPopup: React.FC = () => {
       <AddressPopupBox id="wrap">
         <ModalCloseWrapper>
           <ModalCloseButton onClick={() => setVisible(false)}>
-            x
+            <img src="/assets/XGreyButton.svg" />
           </ModalCloseButton>
         </ModalCloseWrapper>
       </AddressPopupBox>
@@ -35,7 +35,8 @@ const AddressSearchPopup: React.FC = () => {
 const AddressPopupBox = styled.div`
   position: absolute;
   bottom: 0;
-  top: 150px;
+  top: 0px;
+  background-color: white;
   left: 0;
   /* transform: translate(0, -50%); */
   width: 100%;

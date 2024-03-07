@@ -25,27 +25,19 @@ const Header: React.FC = () => {
     },
     {
       categoryId: 3,
-      categoryName: '생산지직송',
+      categoryName: '상의',
     },
     {
       categoryId: 4,
-      categoryName: '건강기능식품',
+      categoryName: '하의',
     },
     {
       categoryId: 5,
-      categoryName: '뷰티',
+      categoryName: '패션잡화',
     },
     {
       categoryId: 6,
-      categoryName: '패션',
-    },
-    {
-      categoryId: 7,
-      categoryName: '육아용품',
-    },
-    {
-      categoryId: 8,
-      categoryName: '주방용품',
+      categoryName: '뷰티',
     },
   ];
 
@@ -55,7 +47,6 @@ const Header: React.FC = () => {
   };
 
   const HeaderLayoutStyle: React.CSSProperties = {
-    justifyContent: 'space-around',
     alignItems: 'center',
     overflowX: 'auto',
     maxWidth: '600px',
@@ -80,7 +71,10 @@ const Header: React.FC = () => {
 };
 
 const TabMenuNav = styled.nav`
+  padding-left: 10px;
   display: flex;
+  width: 100%;
+  justify-content: first-start;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -92,11 +86,12 @@ const TabMenuNav = styled.nav`
 `;
 const TabMenu = styled.div`
   display: flex;
+
   align-items: center;
   padding: 0 12px;
   min-width: fit-content;
   height: 100%;
-  font: ${({ theme }) => theme.fontSizes.Body2};
+  font: ${({ theme }) => theme.fontSizes.Body3};
   color: ${({ theme }) => theme.grey.Grey6};
 
   &.active {

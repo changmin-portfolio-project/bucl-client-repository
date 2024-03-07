@@ -17,6 +17,9 @@ const PurchaseReview: React.FC = () => {
 
   const [imgList, setImgList] = useState<ImageData[]>();
   const productDetail = useRecoilValue(productDetailAtom);
+  const reviewImgItemStyle: React.CSSProperties = {
+    width: 'calc(20% - 4px)',
+  };
 
   useEffect(() => {
     if (params.product_code)
@@ -59,6 +62,7 @@ const PurchaseReview: React.FC = () => {
             {productDetail.reviewPreviews?.map((v, i) => (
               <ReviewItem
                 key={i}
+                reviewImgItemStyle={reviewImgItemStyle}
                 imgPath={v.reviewImage}
                 starRate={v.reviewRate}
                 userImg={v.profilePath}

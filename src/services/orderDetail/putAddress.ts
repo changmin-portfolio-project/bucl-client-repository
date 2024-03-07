@@ -1,28 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { api } from '..';
-import { AddressDataReq } from '../address/postAddressItem';
+import { privateApi } from '..';
 
-export interface putAddressRes {
-  recipientNam: '창민';
-  contactNumber: '010-xxxx-xxxx';
-  zipCode: '45433';
-  address: '경기도 화성시 ';
-  addressDetail: '정남면';
+export interface ShpAddrReg {
+  recipientName: string;
+  zipCode: string | null;
+  address: string;
+  addressDetail: string;
+  contactNumber: string;
 }
 
 // 주문 상세에서 배송지 변경
 export const putAddress = (
   order_code: string,
-  data: AddressDataReq,
-): Promise<putAddressRes> => {
-  const { shippingAddressName, ...newObject } = data;
-  console.log(newObject);
-  return api
+  data: ShpAddrReg,
+): Promise<ShpAddrReg> => {
+  return privateApi
     .put(`/api/v1/orders/${order_code}/address`, data)
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {
-      throw err;
+    .catch((error) => {
+      alert(error.response.data.message);
     });
 };

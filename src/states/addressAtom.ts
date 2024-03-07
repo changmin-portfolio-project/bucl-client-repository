@@ -29,7 +29,7 @@ export const addrRegFormAtom = atom<addrRegForm>({
     locationName: '',
     address: '',
     detailAddress: '',
-    firstPhoneNum: '010',
+    firstPhoneNum: '',
     middlePhoneNum: '',
     lastPhoneNum: '',
     zipCode: '',

@@ -1,4 +1,6 @@
 import { atom } from 'recoil';
+import { OrderPaymentType } from '../global/interface/OrderInterface';
+import { FALSE_STRING } from '../const/SessionStorageVars';
 
 export interface ordAddr {
   shippingAddressNam: string;
@@ -9,16 +11,6 @@ export interface ordAddr {
   detailAddress: string;
   zipCode: string;
 }
-
-export const addrDetailAtom = atom<string>({
-  key: 'addrDetail',
-  default: '',
-});
-
-export const memoCntAtom = atom<string>({
-  key: 'memoCnt',
-  default: '',
-});
 
 export const isAdressSelectPageAtom = atom<boolean>({
   key: 'isAdressSelectPage',
@@ -43,12 +35,34 @@ export const crntOrdAddrNumAtom = atom<number>({
   default: 0,
 });
 
-export const isNewOrdAddrAtom = atom<boolean>({
-  key: 'isNewOrdAddr',
-  default: false,
-});
-
-export const ordAddrSearchPopupVisibleAtom = atom<boolean>({
-  key: 'ordAddrSearchPopupVisible',
-  default: false,
+export const ordPayDataAtom = atom<OrderPaymentType>({
+  key: 'ordPayData',
+  default: {
+    rwdUseAmt: 0,
+    rwdCrntAmt: 0,
+    pgCode: '',
+    memoCnt: '',
+    addrDetail: '',
+    proctCode: 0,
+    proctImg: '',
+    proctNom: '',
+    proctBrn: '',
+    skuCode: 0,
+    proctOptAmt: 0,
+    proctOptQty: 0,
+    proctOptNom: '',
+    rcpntNom: '',
+    cntctNum: '',
+    addr: '',
+    zipCode: '',
+    shippingAddressName: '',
+    shpFee: 0,
+    ordTotAmt: 0,
+    totProcAmt: 0,
+    totalAmount: 0,
+    spentAmount: 0,
+    cnsmrAmt: 0,
+    proctSlPx: 0,
+    isNewAddr: FALSE_STRING,
+  },
 });

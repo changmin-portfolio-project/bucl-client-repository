@@ -1,29 +1,30 @@
 import React from 'react';
-import { Cookies } from 'react-cookie';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import { useRecoilValue } from 'recoil';
 import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
-import {
-  ORD_TOT_AMT,
-  SHP_FEE,
-  TOT_PROCT_AMT,
-} from '../../../../const/CookieVars';
 
 const OrderPaymentAmt: React.FC = () => {
-  const cookies = new Cookies();
+  /** 바꿈 */
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+  );
+
   const rwdUseAmt = useRecoilValue(rwdUseAmtAtom);
+
   return (
     <StyledOrdPymtAmtCont>
       <PymtTtlAmtCont>
         <PymtTtlAmtTtlItem>총 결제 금액</PymtTtlAmtTtlItem>
         <PymtTtlAmtItem>
-          {(cookies.get(ORD_TOT_AMT) - rwdUseAmt)?.toLocaleString()}원
+          {(orderPaymentData.ordTotAmt - rwdUseAmt)?.toLocaleString()}원
         </PymtTtlAmtItem>
       </PymtTtlAmtCont>
       <PymtSubAmtCont>
         <PaymentBody2>총 상품 금액</PaymentBody2>
         <PaymentBody2>
-          {cookies.get(TOT_PROCT_AMT)?.toLocaleString()}원
+          {orderPaymentData.totProcAmt?.toLocaleString()}원
         </PaymentBody2>
       </PymtSubAmtCont>
       <PymtSubAmtCont>
@@ -31,7 +32,7 @@ const OrderPaymentAmt: React.FC = () => {
         <PaymentBody2>
           -
           {(
-            cookies.get(TOT_PROCT_AMT) - cookies.get(ORD_TOT_AMT)
+            orderPaymentData.totProcAmt - orderPaymentData.ordTotAmt
           )?.toLocaleString()}
           원
         </PaymentBody2>
@@ -42,7 +43,9 @@ const OrderPaymentAmt: React.FC = () => {
       </PymtSubAmtCont>
       <PymtSubAmtCont>
         <PaymentBody2>배송비</PaymentBody2>
-        <PaymentBody2>{cookies.get(SHP_FEE)?.toLocaleString()}원</PaymentBody2>
+        <PaymentBody2>
+          {orderPaymentData.shpFee?.toLocaleString()}원
+        </PaymentBody2>
       </PymtSubAmtCont>
     </StyledOrdPymtAmtCont>
   );

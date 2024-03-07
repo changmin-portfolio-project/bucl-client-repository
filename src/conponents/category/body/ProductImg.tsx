@@ -11,14 +11,14 @@ interface ProductImgProps {
 }
 
 const ProductImgStyle: CSSProperties = {
-  height: '100%',
+  height: '115%',
 };
 
 const ProductImg: React.FC<ProductImgProps> = ({ data, wishId }) => {
   return (
     <ProductImgBox>
       <AppLink to={`/products/${data.productCode}`} style={ProductImgStyle}>
-        <Img src={data.imagePath} />
+        <ProductImgDiv $url={data.imagePath} />
       </AppLink>
       <ProductSubInfo
         productCode={data.productCode}
@@ -41,10 +41,19 @@ const ProductImgBox = styled.div`
     position: relative;
   }
 `;
-const Img = styled.img`
+// const Img = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 4px;
+// `;
+
+const ProductImgDiv = styled.div<{ $url: string }>`
   width: 100%;
   height: 100%;
-  border-radius: 4px;
+  border-radius: 0 0 12px 12px;
+  background: url(${(props) => props.$url});
+  background-size: cover;
+  background-position: center;
 `;
 
 export default ProductImg;

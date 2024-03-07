@@ -1,10 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
 import { patchProfileImg } from '../../../services/my/patchProfileImg';
 import { patchDefaultImg } from '../../../services/my/patchDefaultImg';
 import { myUserInfoAtom } from '../../../states/myAtom';
 import { useSetRecoilState } from 'recoil';
+import { resizeImage } from '../../../utils/ImageUtil';
 
 interface EditProfilePopupProps {
   setPopupOpen: Dispatch<SetStateAction<boolean>>;
@@ -13,16 +14,12 @@ interface EditProfilePopupProps {
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
   setPopupOpen,
 }) => {
-  const [registerPhoto, setRegisterPhoto] = useState(false);
   const setUserInfo = useSetRecoilState(myUserInfoAtom);
 
   const deleteBtnOnClick = () => {
     setPopupOpen(false);
-    setRegisterPhoto(false);
   };
-  const registerPhotoOnClick = () => {
-    setRegisterPhoto(true);
-  };
+
   const registerBasicImgOnClick = () => {
     patchDefaultImg().then((res) => {
       setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
@@ -30,57 +27,45 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     });
   };
 
-  const galleryOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  async function galleryOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
       return;
     }
 
     const formData = new FormData();
-    formData.append('profileImage', e.target.files[0]);
+    const file = e.target.files[0];
+    const resizedImage = await resizeImage(file, 600, 600);
+    const uploadFile = new File([resizedImage], file.name);
+    formData.append('profileImage', uploadFile);
     patchProfileImg(formData).then((res) => {
       // getUserProfile();
       setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
       deleteBtnOnClick();
     });
-  };
+  }
   return (
     <PopupLayout>
       <EditProfilePopupContainer>
-        {registerPhoto ? (
-          <>
-            <Title>
-              프로필 사진 등록
-              <DeleteBtn onClick={deleteBtnOnClick}>
-                <DeleteBtnImg src="/assets/XGreyButton.svg" />
-              </DeleteBtn>
-            </Title>
-            <Gallery>
-              <input
-                type="file"
-                id="fileInput"
-                accept="image/*" // 이미지 파일만 선택 가능
-                onChange={galleryOnChange}
-              />
-              <label htmlFor="fileInput">갤러리에서 선택하기</label>
-            </Gallery>
-            <Camera>카메라 촬영</Camera>
-          </>
-        ) : (
-          <>
-            <Title>
-              프로필 수정
-              <DeleteBtn onClick={deleteBtnOnClick}>
-                <DeleteBtnImg src="/assets/XGreyButton.svg" />
-              </DeleteBtn>
-            </Title>
-            <RegisterPhoto onClick={registerPhotoOnClick}>
-              프로필 사진 등록
-            </RegisterPhoto>
-            <RegisterBasicImg onClick={registerBasicImgOnClick}>
-              기본 이미지로 등록
-            </RegisterBasicImg>
-          </>
-        )}
+        <>
+          <Title>
+            프로필 수정
+            <DeleteBtn onClick={deleteBtnOnClick}>
+              <DeleteBtnImg src="/assets/XGreyButton.svg" />
+            </DeleteBtn>
+          </Title>
+          <Gallery>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*" // 이미지 파일만 선택 가능
+              onChange={galleryOnChange}
+            />
+            <label htmlFor="fileInput">프로필 사진 등록</label>
+          </Gallery>
+          <RegisterBasicImg onClick={registerBasicImgOnClick}>
+            기본 이미지로 등록
+          </RegisterBasicImg>
+        </>
       </EditProfilePopupContainer>
     </PopupLayout>
   );
@@ -127,6 +112,5 @@ const Gallery = styled(RegisterPhoto)`
     display: none;
   }
 `;
-const Camera = styled(RegisterPhoto)``;
 
 export default EditProfilePopup;

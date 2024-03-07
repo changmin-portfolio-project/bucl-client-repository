@@ -14,6 +14,7 @@ const RegisterWithdrawalAccount: React.FC = () => {
   useEffect(() => {
     getRewardAccount()
       .then((res) => {
+        console.log(res);
         const rewardAccountData: RewardAccount = {
           bankName: res.bankName,
           bankCode: res.bankCode,

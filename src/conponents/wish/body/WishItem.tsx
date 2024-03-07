@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { wishProductListAtom } from '../../../states/wishAtom';
 import WishImg from './WishImg';
 import OutlineButton from '../../OutlineButton';
+import AppLink from '../../AppLink';
 
 interface WishItemProps {
   brandName?: string;
@@ -35,13 +36,17 @@ const WishItem: React.FC<WishItemProps> = ({
 
   const deleteBtnOnClick = () => {
     if (productCode)
-      deleteWish(productCode).then(() => {
-        setWishProductList((prevItemList) => {
-          const prevItemListTemp = [...prevItemList];
-          prevItemListTemp.splice(wishId, 1);
-          return prevItemListTemp;
+      deleteWish(productCode)
+        .then(() => {
+          setWishProductList((prevItemList) => {
+            const prevItemListTemp = [...prevItemList];
+            prevItemListTemp.splice(wishId, 1);
+            return prevItemListTemp;
+          });
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
         });
-      });
   };
 
   const OutlineButtonStyle: React.CSSProperties = {
@@ -55,7 +60,9 @@ const WishItem: React.FC<WishItemProps> = ({
       <WishImg style={imgItemStyle} imgPath={imgPath} />
       <ProductInfoBox>
         <BrandName>{brandName}</BrandName>
-        <ProductName>{productName}</ProductName>
+        <AppLink to={`/products/${productCode}`}>
+          <ProductName>{productName}</ProductName>
+        </AppLink>
         <PriceAndRatingAndDeleteBtnBox>
           <PriceAndRatingBox>
             <PriceText>{price?.toLocaleString()}원</PriceText>

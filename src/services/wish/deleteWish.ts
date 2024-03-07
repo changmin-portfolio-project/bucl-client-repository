@@ -8,12 +8,7 @@ export interface deleteWishResponse {
 export const deleteWish = (
   productCode: number,
 ): Promise<deleteWishResponse> => {
-  return privateApi
-    .delete(`/api/v1/wishes/${productCode}`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      throw err;
-    });
+  return privateApi.delete(`/api/v1/wishes/${productCode}`).then((res) => {
+    return res.data;
+  });
 };

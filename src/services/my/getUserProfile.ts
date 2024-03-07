@@ -14,7 +14,7 @@ export const getUserProfile = (): Promise<getPointResponseResponse> => {
   return privateApi
     .get(`/api/v1/my/profile`)
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

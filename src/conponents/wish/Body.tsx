@@ -8,9 +8,11 @@ import { wishProductListAtom } from '../../states/wishAtom';
 const Body: React.FC = () => {
   const [wishList, setWishList] = useRecoilState(wishProductListAtom);
   useEffect(() => {
-    getWishList().then((res) => {
-      setWishList(res.data);
-    });
+    getWishList()
+      .then((res) => {
+        setWishList(res.data);
+      })
+      .catch(() => {});
   }, []);
   return (
     <BodyContainer>

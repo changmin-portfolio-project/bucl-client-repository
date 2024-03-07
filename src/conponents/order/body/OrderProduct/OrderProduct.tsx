@@ -1,31 +1,32 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
+import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
+import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
 
 const OrderProduct: React.FC = () => {
-  const [cookies] = useCookies([
-    'proctImg',
-    'proctNom',
-    'proctOptNom',
-    'proctBrn',
-    'proctOptAmt',
-    'proctOptQty',
-  ]);
+  /** 바꿈 */
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+  );
+  const proctImg: string = orderPaymentData.proctImg;
+  const proctBrn: string = orderPaymentData.proctBrn;
+  const proctNom: string = orderPaymentData.proctNom;
+  const proctOptNom: string = orderPaymentData.proctOptNom;
+  const proctOptQty = orderPaymentData.proctOptQty;
+  const ordTotAmt = orderPaymentData.ordTotAmt;
 
   return (
     <StyledOrderProductContainer>
       <OrderProductInfoTitle>주문 상품</OrderProductInfoTitle>
       <OrderProductInputContainer>
-        <OrderProductImg src={cookies.proctImg} />
+        <OrderProductImg src={proctImg} />
         <OrderProductItem>
-          <BrandName>{cookies.proctBrn}</BrandName>
-          <ProductName>{cookies.proctNom}</ProductName>
+          <BrandName>{proctBrn}</BrandName>
+          <ProductName>{proctNom}</ProductName>
           <ProductOption>
-            {cookies.proctOptNom} / 수량: {cookies.proctOptQty}
+            {proctOptNom} / 수량: {proctOptQty}
           </ProductOption>
-          <ProductOptionAmt>
-            {cookies.proctOptAmt?.toLocaleString()}원
-          </ProductOptionAmt>
+          <ProductOptionAmt>{ordTotAmt?.toLocaleString()}원</ProductOptionAmt>
         </OrderProductItem>
       </OrderProductInputContainer>
     </StyledOrderProductContainer>
@@ -66,7 +67,7 @@ const ProductName = styled.div`
 `;
 
 const BrandName = styled.div`
-  font: ${({ theme }) => theme.fontSizes.Body1};
+  font: ${({ theme }) => theme.fontSizes.Body2};
   font-weight: 700;
 `;
 

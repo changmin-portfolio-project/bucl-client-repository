@@ -165,7 +165,7 @@ const TabBar: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <TabText>찜</TabText>
+            <TabText>좋아요</TabText>
           </NavLink>
         </StyleTab>
         <StyleTab>

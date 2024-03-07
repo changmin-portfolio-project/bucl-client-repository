@@ -3,23 +3,36 @@ import styled from 'styled-components';
 import AddressAddButton from './body/AddressAddButton';
 import AddressList from './body/AddressList';
 import DefaultCheckBox from './body/DefaultCheckBox';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
 import {
   currentAddressNumAtom,
   addrRegFormAtom,
   isDefaultAddressAtom,
+  addressListAtom,
 } from '../../../states/addressAtom';
 import AddressEditButton from './body/AddressEditButton';
+import { USER_SHP_ADDR_NUM } from '../../../const/AddressVar';
 
 const Body: React.FC = () => {
+  const resetAddrRegForm = useResetRecoilState(addrRegFormAtom);
+  const resetIsDefaultAddress = useResetRecoilState(isDefaultAddressAtom);
+
   const [currentAddressNum, setCurrentAddressNum] = useRecoilState(
     currentAddressNumAtom,
   );
   const setAddrRegForm = useSetRecoilState(addrRegFormAtom);
   const setIsDefaultAddress = useSetRecoilState(isDefaultAddressAtom);
+  const addressList = useRecoilValue(addressListAtom);
 
   useEffect(() => {
     setCurrentAddressNum(0);
+    resetAddrRegForm();
+    resetIsDefaultAddress();
   }, []);
 
   return (
@@ -32,7 +45,7 @@ const Body: React.FC = () => {
           locationName: '',
           address: '',
           detailAddress: '',
-          firstPhoneNum: '010',
+          firstPhoneNum: '',
           middlePhoneNum: '',
           lastPhoneNum: '',
           zipCode: '',
@@ -42,7 +55,11 @@ const Body: React.FC = () => {
       <AddressList />
       <StyleRegWrap onClick={(e) => e.stopPropagation()}>
         {currentAddressNum ? <DefaultCheckBox /> : null}
-        {currentAddressNum ? <AddressEditButton /> : <AddressAddButton />}
+        {currentAddressNum ? (
+          <AddressEditButton />
+        ) : (
+          <>{addressList.length < USER_SHP_ADDR_NUM && <AddressAddButton />}</>
+        )}
       </StyleRegWrap>
     </BodyContainer>
   );
@@ -52,8 +69,8 @@ const BodyContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 60px 6% 72px 6%;
-  height: calc(100vh - 32px);
+  padding: 0 6%;
+  height: calc(100vh - 80px);
 `;
 
 const StyleRegWrap = styled.div`

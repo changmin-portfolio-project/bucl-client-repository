@@ -5,7 +5,6 @@ import {
   searchPopupVisibleAtom,
 } from '../../../../states/addressAtom';
 import OutlineButton from '../../../OutlineButton';
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>;
 
 const AddressSearchButton: React.FC = () => {
   const setVisible = useSetRecoilState(searchPopupVisibleAtom);

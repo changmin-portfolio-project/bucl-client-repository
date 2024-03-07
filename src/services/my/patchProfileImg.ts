@@ -10,15 +10,12 @@ export interface UserImg {
 
 // 유저 프로필 이미지 변경
 export const patchProfileImg = (formData: FormData): Promise<UserImg> => {
-  console.log(formData);
-  console.log(formData.keys().next());
-
   return formApi
     .patch(`/api/v1/my/profile/image`, formData)
     .then((res) => {
       return res.data.data;
     })
     .catch((err) => {
-      throw err;
+      alert(err.response.data.message);
     });
 };

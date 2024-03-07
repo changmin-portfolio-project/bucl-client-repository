@@ -19,7 +19,7 @@ const PostReviewInput: React.FC = () => {
         placeholder="다른 고객님에게 도움이 되도록 상품에 대한 평가를 남겨주세요. (상품 품질과 관계없는 배송, 포장, 질문 은 상품 가격등은 상품 문의란에 남겨주세요.)"
       />
       <TextCount>
-        {reviewText.length}/{CHAR_LIMIT_NUM}
+        {reviewText.length}/{CHAR_LIMIT_NUM}자
       </TextCount>
     </PostReviewInputContainer>
   );

@@ -4,54 +4,59 @@ import OrdBody from '../../conponents/order/Body';
 import OrdAddrBody from '../../conponents/orderAddressSelect/Body';
 import HeaderLayout from '../../conponents/layout/HeaderLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import {
-  addrDetailAtom,
-  isAdressSelectPageAtom,
-  isNewOrdAddrAtom,
-} from '../../states/orderAtom';
-import { useCookies } from 'react-cookie';
+import { isAdressSelectPageAtom, ordPayDataAtom } from '../../states/orderAtom';
 import { getReward } from '../../services/reward/getReward';
 import { getAddressDefault } from '../../services/address/getAddressDefault';
-import {
-  ADDR,
-  ADDR_NOM,
-  CNTCT_NUM,
-  RCPNT_NOM,
-  RWD_CRNT_AMT,
-  ZIP_CODE,
-} from '../../const/CookieVars';
 import { cookieNumUtil } from '../../utils/UndefinedProcessUtl';
+import { OrderPaymentType } from '../../global/interface/OrderInterface';
+import {
+  FALSE_STRING,
+  ORD_PAY_DATA,
+  TRUE_STRING,
+} from '../../const/SessionStorageVars';
 
-const HomePage: React.FC = () => {
+const OrdersPage: React.FC = () => {
+  /** 바꿈 */
+  const setOrdPayDataSate = useSetRecoilState(ordPayDataAtom);
   const [isAddressSelectPage, setIsAddressSelectPage] = useRecoilState(
     isAdressSelectPageAtom,
   );
-  const setIsNewOrdAddrAtom = useSetRecoilState(isNewOrdAddrAtom);
-  const [, setCookie] = useCookies();
-  const setAddrDetail = useSetRecoilState(addrDetailAtom);
+
   useEffect(() => {
+    const orderPaymentData: OrderPaymentType = JSON.parse(
+      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
+    );
     getReward()
       .then((res) => {
         if (res === undefined) {
-          setCookie(RWD_CRNT_AMT, 0);
+          orderPaymentData.rwdCrntAmt = 0;
         } else {
-          setCookie(RWD_CRNT_AMT, cookieNumUtil(res));
+          orderPaymentData.rwdCrntAmt = cookieNumUtil(res) as number;
         }
+
+        setOrdPayDataSate({ ...orderPaymentData });
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
       })
       .catch(() => {});
 
     getAddressDefault()
       .then((res) => {
-        setCookie(ADDR_NOM, res.shippingAddressName);
-        setCookie(RCPNT_NOM, res.recipientName);
-        setCookie(CNTCT_NUM, res.contactNumber);
-        setCookie(ADDR, res.address);
-        setAddrDetail(res.addressDetail);
-        setCookie(ZIP_CODE, res.zipCode);
-        setIsNewOrdAddrAtom(false);
+        orderPaymentData.shippingAddressName = res.shippingAddressName;
+        orderPaymentData.rcpntNom = res.recipientName;
+        orderPaymentData.cntctNum = res.contactNumber;
+        orderPaymentData.addr = res.address;
+        orderPaymentData.addrDetail = res.addressDetail;
+        orderPaymentData.zipCode = res.zipCode;
+        orderPaymentData.isNewAddr = FALSE_STRING;
+        orderPaymentData.memoCnt = '';
+
+        setOrdPayDataSate({ ...orderPaymentData });
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
       })
       .catch(() => {
-        setIsNewOrdAddrAtom(true);
+        orderPaymentData.isNewAddr = TRUE_STRING;
+        setOrdPayDataSate({ ...orderPaymentData });
+        sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
       });
 
     window.scrollTo({ top: 0 });
@@ -83,4 +88,4 @@ const Container = styled.div`
   width: 100%;
 `;
 
-export default HomePage;
+export default OrdersPage;

@@ -21,6 +21,7 @@ const RewardAccountsPage: React.FC = () => {
     setCompleteBoolean(false);
     setAccountNum('');
     setBankerName('');
+    window.scrollTo({ top: 0 });
   }, []);
 
   return (
