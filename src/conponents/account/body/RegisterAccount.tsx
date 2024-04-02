@@ -101,7 +101,7 @@ const RegisterAccount: React.FC = () => {
         <ConfirmBtnWrap>
           <ConfirmBtn
             onClick={onClickRegisterAccount}
-            $active={accountNum.length > 0 && bankerName.length > 0}
+            $active={accountNum.length > 4 && bankerName.length > 0}
           >
             확인
           </ConfirmBtn>
@@ -172,7 +172,7 @@ const ConfirmBtnBox = styled.div`
   position: fixed;
   bottom: 0;
   padding: 10px 0 40px 0;
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   border-top: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;

@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { orderInfoAtom } from '../../../states/orderDetailAtom';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
+import { NOT_DATE_TIME } from '../../../const/Phrase';
 
 const ProductInfo: React.FC = () => {
   const orderInfo = useRecoilValue(orderInfoAtom);
@@ -10,9 +11,7 @@ const ProductInfo: React.FC = () => {
   return (
     <ProductInfoContainer>
       <DateBox>
-        {convertDtStrToDStr(
-          orderInfo.orderDto.orderDate ?? '날짜 표기 할 수 없습니다.',
-        )}
+        {convertDtStrToDStr(orderInfo.orderDto.orderDate ?? NOT_DATE_TIME)}
       </DateBox>
       <ProductInfoBox>
         <ImgBox>

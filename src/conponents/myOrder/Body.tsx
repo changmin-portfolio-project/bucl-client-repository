@@ -12,8 +12,13 @@ import BodyLayout from '../layout/BodyLayout';
 import { putOrderConfirm } from '../../services/myOrder/putOrderConfirm';
 import ConfirmPopup from '../ConfirmPopup';
 import { confirmPopupAtom } from '../../states/functionAtom';
+import { CONFIRM_NO_RELOAD } from '../../const/AttributeVar';
+import theme from '../../style/theme';
 
-const MyOderBodyStyle: CSSProperties = {};
+const MyOderBodyStyle: CSSProperties = {
+  backgroundColor: theme.grey.Grey1,
+  paddingBottom: 0,
+};
 
 const Body: React.FC = () => {
   const [orderHistoryList, setOrderHistoryList] =
@@ -63,7 +68,7 @@ const Body: React.FC = () => {
       <OrderHistoryfiniteScroll />
       {popupOpen && (
         <ConfirmPopup
-          to="noreset"
+          to={CONFIRM_NO_RELOAD}
           message={[
             '해당 상품을 구매 확정 하시겠습니까?',
             '구매가 확정되었습니다.',

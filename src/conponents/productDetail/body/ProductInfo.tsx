@@ -3,14 +3,40 @@ import styled from 'styled-components';
 import Attend from '../../Attend';
 import { useRecoilValue } from 'recoil';
 import { productDetailAtom } from '../../../states/productDetailAtom';
+import theme from '../../../style/theme';
+import { Link } from 'react-router-dom';
+import { MARKET_PATH } from '../../../const/PathVar';
 
 const ProductInfo: React.FC = () => {
   const productDetail = useRecoilValue(productDetailAtom);
   return (
     <ProductInfoContainer>
       <BrandNameAttendBox>
-        <BrandName>{productDetail.brandName}</BrandName>
-        <Attend ordNum={productDetail.totalConsumerOrder} />
+        <Link to={`${MARKET_PATH}/${productDetail.brandId}`}>
+          <BrandName>
+            <BrandProfileImg src={productDetail.brandProfilePath} />
+            <BrandNameSpan>{productDetail.brandName}</BrandNameSpan>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 18L15 12L9 6"
+                stroke={theme.grey.Grey5}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </BrandName>
+        </Link>
+        <Attend
+          ordNum={productDetail.totalConsumerOrder}
+          deadline={productDetail.deadline}
+        />
       </BrandNameAttendBox>
       <ProductName>{productDetail.name}</ProductName>
       <ProductPriceBox>
@@ -32,7 +58,8 @@ const ProductInfo: React.FC = () => {
 };
 
 const ProductInfoContainer = styled.div`
-  padding: 10px ${({ theme }) => theme.paddings.base};
+  padding: 15px ${({ theme }) => theme.paddings.base} 10px
+    ${({ theme }) => theme.paddings.base};
 `;
 
 const BrandNameAttendBox = styled.div`
@@ -42,12 +69,22 @@ const BrandNameAttendBox = styled.div`
 const BrandName = styled.span`
   display: flex;
   align-items: flex-end;
-  font: ${({ theme }) => theme.fontSizes.Subhead1};
-  font-weight: 500;
+  font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey5};
 `;
+
+const BrandProfileImg = styled.img`
+  width: 23px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+const BrandNameSpan = styled.span`
+  font-size: 17px;
+  padding-left: 8px;
+`;
 const ProductName = styled.p`
-  margin: 2px 0 13px 0;
+  margin: 7px 0 8px 0;
   width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 2;

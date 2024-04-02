@@ -8,6 +8,7 @@ export interface ReviewPreview {
   content: string;
   reviewRate?: number;
   reviewImage: string;
+  selectedOption: string;
 }
 
 export interface ProductData {
@@ -25,7 +26,10 @@ export interface ProductData {
   reviewPreviews: ReviewPreview[];
   totalConsumerOrder: number;
   deadline: string;
+  prodObsNum: number;
   wished: boolean;
+  brandId: number;
+  brandProfilePath: string;
 }
 
 export interface getProductInfoResponse {

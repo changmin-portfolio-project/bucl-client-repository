@@ -22,6 +22,7 @@ interface postPaymentVerificationResponse {
 
 // 사전 검증
 export const postPaymentPreparation = (
+  merchantUid: string,
   spentAmount: number,
   productCode: number,
   skuCode: number,
@@ -29,10 +30,9 @@ export const postPaymentPreparation = (
   option_qty: number,
   proctOptNom: string,
 ): Promise<postPaymentPreparationResponse> => {
-  const merchant_uid = `mid_${new Date().getTime()}`;
   return privateApi
     .post('/api/v1/payment/preparation', {
-      merchantUid: merchant_uid,
+      merchantUid: merchantUid,
       amount: spentAmount,
       productCode: productCode,
       productOption: {

@@ -51,19 +51,11 @@ const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
   };
 
   return (
-    <WishBtnContainer id="lemon">
-      <WishCheckBox
-        type="checkbox"
-        className="wish-checkbox"
-        id={`wish-${productCode}`}
-      />
-      {wished ? (
-        <WishButton
-          onClick={() => wishBtnOnClick(wishId, wished)}
-          htmlFor={`wish-${productCode}`}
-          id={`wish-btn-${productCode}`}
-          style={style}
-        >
+    <WishBtnContainer>
+      <WishCheckBox type="checkbox" />
+
+      <WishButton onClick={() => wishBtnOnClick(wishId, wished)} style={style}>
+        {wished ? (
           <svg
             width="18"
             height="18"
@@ -80,14 +72,7 @@ const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
               strokeLinejoin="round"
             />
           </svg>
-        </WishButton>
-      ) : (
-        <WishButton
-          onClick={() => wishBtnOnClick(wishId, wished)}
-          htmlFor={`wish-${productCode}`}
-          id={`wish-btn-${productCode}`}
-          style={style}
-        >
+        ) : (
           <svg
             width="18"
             height="18"
@@ -104,8 +89,8 @@ const CategoryWishButton: React.FC<CategoryWishButtonComponentProps> = ({
               strokeLinejoin="round"
             />
           </svg>
-        </WishButton>
-      )}
+        )}
+      </WishButton>
     </WishBtnContainer>
   );
 };

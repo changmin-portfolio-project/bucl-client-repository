@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 
 const HeaderContainer = styled.header`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   top: 0;
   z-index: 999;
   display: flex;

@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { myUserInfoAtom } from '../../../states/myAtom';
 import { getReward } from '../../../services/reward/getReward';
 import { Link } from 'react-router-dom';
+import { REWARD_PATH } from '../../../const/PathVar';
 
 const MyInfo: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
@@ -24,7 +25,6 @@ const MyInfo: React.FC = () => {
       .catch(() => {});
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [popupOpen, setPopupOpen] = useState(false);
 
   const EditBtnOnClick = () => {
@@ -49,7 +49,7 @@ const MyInfo: React.FC = () => {
       {popupOpen && <EditProfilePopup setPopupOpen={setPopupOpen} />}
 
       <PointBox>
-        <Link to="/rewards" style={RewardButtonStyle}>
+        <Link to={REWARD_PATH} style={RewardButtonStyle}>
           <PointTitle>누적포인트</PointTitle>
           <PointText>{point.toLocaleString()}P</PointText>
         </Link>
@@ -77,7 +77,7 @@ const MyInfoContainer = styled.section`
 
 const UserImgBox = styled.div`
   position: relative;
-  width: 25%;
+  width: 100px;
   aspect-ratio: 1/1;
 `;
 const UserImg = styled.img`

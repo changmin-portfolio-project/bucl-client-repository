@@ -9,14 +9,14 @@ const Reward: React.FC<RewardComponentProps> = ({ reward }) => {
   return (
     <RewardContainer>
       <RewardText>
-        <span>최대 {reward.toLocaleString()}원</span> 리워드
+        <span>최대 {reward?.toLocaleString()}원</span> 리워드
       </RewardText>
     </RewardContainer>
   );
 };
 
 const RewardContainer = styled.div`
-  padding: 8px 0;
+  padding: 6px 0;
   text-align: center;
   font-weight: 500;
   background-color: black;

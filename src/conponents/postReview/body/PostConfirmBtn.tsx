@@ -10,6 +10,10 @@ import { REVIEW_TEXT_MIN_NUM } from '../../../const/Review';
 import { postReview } from '../../../services/postReview/postReview';
 import { useParams } from 'react-router-dom';
 import ColoredButton from '../../ColoredButton';
+import {
+  REVIEW_IMAGES_VAR,
+  REVIEW_REQUEST_VAR,
+} from '../../../const/PostReview';
 
 const PostConfirmButton: React.FC = () => {
   const param = useParams();
@@ -28,15 +32,19 @@ const PostConfirmButton: React.FC = () => {
       const reviewRequestBlob = new Blob([JSON.stringify(reviewRequest)], {
         type: 'application/json',
       });
-      formData.append('reviewRequest', reviewRequestBlob);
+      formData.append(REVIEW_REQUEST_VAR, reviewRequestBlob);
 
       for (const reviewImg of reviewImgList) {
-        formData.append('reviewImages', reviewImg);
+        formData.append(REVIEW_IMAGES_VAR, reviewImg);
       }
-      postReview(formData, param.order_code as string).then((res) => {
-        console.log(res);
-        setCompleteBoolean(true);
-      });
+      postReview(formData, param.order_code as string)
+        .then((res) => {
+          console.log(res);
+          setCompleteBoolean(true);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     } else {
       alert(REVIEW_TEXT_MIN_NUM + '글자 이상 적어 주세요.');
     }

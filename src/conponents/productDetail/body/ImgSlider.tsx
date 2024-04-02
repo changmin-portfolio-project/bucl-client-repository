@@ -23,6 +23,13 @@ const ImgSlider: React.FC = () => {
       <Slider {...settings}>
         {productDetail.imagePaths?.map((v, i) => <img src={v} key={i} />)}
       </Slider>
+      {productDetail.prodObsNum !== 0 && (
+        <TodayObsUserNumDiv>
+          오늘{' '}
+          <TodayObsUserNumSpan>{productDetail.prodObsNum}</TodayObsUserNumSpan>
+          명이 해당 상품을 보았습니다.
+        </TodayObsUserNumDiv>
+      )}
     </ImgSliderContainer>
   );
 };
@@ -33,6 +40,7 @@ const ImgSliderContainer = styled.div`
   img {
     width: 100vw;
     aspect-ratio: 1/1;
+    vertical-align: bottom;
   }
   .slick-dots li.slick-active button:before {
     opacity: 1;
@@ -52,6 +60,20 @@ const ImgSliderContainer = styled.div`
     width: 10px;
     height: 10px;
   }
+`;
+
+const TodayObsUserNumDiv = styled.div`
+  background-color: black;
+  color: white;
+  font-family: 'Pretendard-Light';
+  padding: 6px 0;
+  font-size: 14px;
+  text-align: center;
+  font: ${({ theme }) => theme.fontSizes.Body1};
+`;
+
+const TodayObsUserNumSpan = styled.span`
+  font-weight: 600;
 `;
 
 export default ImgSlider;

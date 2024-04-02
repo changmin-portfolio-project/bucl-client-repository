@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import { api } from '..';
+import { ACCESS_TOKEN } from '../../const/LocalStorageVar';
 
 interface postKakaoLoginRes {
   data: string;
@@ -24,7 +25,7 @@ export const postKakaoLogin = (
     .then((res) => {
       const accessToken = res.data.data;
 
-      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem(ACCESS_TOKEN, accessToken);
 
       return res.data;
     })

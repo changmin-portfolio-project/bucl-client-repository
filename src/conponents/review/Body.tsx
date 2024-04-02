@@ -7,10 +7,12 @@ import {
   getPhotoReview,
 } from '../../services/productDetail/getPhotoReview';
 import { useRecoilValue } from 'recoil';
-import { reviewListAtom } from '../../states/reviewAtom';
+import { reviewListAtom, reviewPopupPropsAtom } from '../../states/reviewAtom';
 import ReviewInfiniteScroll from '../../hook/reviewInfiniteScroll';
 import BodyLayout from '../layout/BodyLayout';
 import { getAvgReview } from '../../services/review/getAvgReview';
+import { BAD_REQUEST_PATH } from '../../const/PathVar';
+import ReviewPopup from '../ReviewPopup';
 
 const Body: React.FC = () => {
   const param = useParams();
@@ -29,6 +31,7 @@ const Body: React.FC = () => {
   const [imgList, setImgList] = useState<ImageData[]>();
   const [averageRating, setAverageRating] = useState<number>(0);
   const [reviewCount, setReviewCount] = useState<number>(0);
+  const reviewPopupProps = useRecoilValue(reviewPopupPropsAtom);
   useEffect(() => {
     if (param.product_code) {
       getPhotoReview(param.product_code)
@@ -36,7 +39,7 @@ const Body: React.FC = () => {
           setImgList(res.data);
         })
         .catch(() => {
-          navigate('/bad-requests');
+          navigate(BAD_REQUEST_PATH);
         });
 
       getAvgReview(param.product_code).then((res) => {
@@ -69,6 +72,9 @@ const Body: React.FC = () => {
         />
       ))}
       <ReviewInfiniteScroll />
+      {reviewPopupProps.isActive && (
+        <ReviewPopup reivewPopupProps={reviewPopupProps} />
+      )}
     </BodyLayout>
   );
 };

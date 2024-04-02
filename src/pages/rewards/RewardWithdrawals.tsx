@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import Body from '../../conponents/rewardWithdrawal/Body';
-import TabBar from '../../conponents/TabBar';
 import HeaderLayout from '../../conponents/layout/HeaderLayout';
 import { NAVIGATION_TO } from '../../const/AppVars';
+import { REWARD_PATH } from '../../const/PathVar';
 
 const RewardWithdrawalsPage: React.FC = () => {
   useEffect(() => {
@@ -10,9 +10,8 @@ const RewardWithdrawalsPage: React.FC = () => {
   }, []);
   return (
     <div>
-      <HeaderLayout text="인출하기" to="/rewards" type={NAVIGATION_TO} />
+      <HeaderLayout text="인출하기" to={REWARD_PATH} type={NAVIGATION_TO} />
       <Body />
-      <TabBar />
     </div>
   );
 };

@@ -5,6 +5,8 @@ import { getReward } from '../../../services/reward/getReward';
 import { useRecoilState } from 'recoil';
 import { rwdUseAmtAtom } from '../../../states/rewardAtom';
 import { withdrawalPointAtom } from '../../../states/withdrawalAtom';
+import { MIN_WDRL_AMT, WDRL_TAX_RATE } from '../../../const/WithdrawalVar';
+import theme from '../../../style/theme';
 
 const Withdraw: React.FC = () => {
   const [withdrawalPoint, setWithdrawalPoint] =
@@ -52,9 +54,10 @@ const Withdraw: React.FC = () => {
           <WithdrawButton isActive={Boolean(withdrawalPoint)} />
         </BtnInputBox>
         <HelpText>
-          5,000P부터 인출이 가능하며, 포인트 단위는 현금 단위와 동일합니다.
-          <br /> 인출 신청 시 3.3%세액 공제된 금액으로 영업일 기준 평균 2-3일 내
-          입금됩니다.
+          {MIN_WDRL_AMT.toLocaleString()}부터 인출이 가능하며, 포인트 단위는
+          현금 단위와 동일합니다.
+          <br /> 인출 신청 시 {WDRL_TAX_RATE}%세액 공제된 금액으로 영업일 기준
+          평균 2-3일 내 입금됩니다.
         </HelpText>
       </WithdrawBox>
     </WithdrawContainer>
@@ -99,7 +102,8 @@ const BtnInputBox = styled.div<{ $active: boolean }>`
   }
   button {
     padding: 0 20px;
-    background-color: ${(props) => (props.$active ? '#ff8000' : '#ff80008b')};
+    background-color: ${(props) =>
+      props.$active ? theme.mainColor.Orange5 : theme.mainColor.Orange5_8b};
     border: none;
     border-radius: 4px;
     font: ${({ theme }) => theme.fontSizes.Subhead1};

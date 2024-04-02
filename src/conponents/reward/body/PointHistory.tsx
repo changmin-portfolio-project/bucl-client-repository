@@ -5,6 +5,7 @@ import { pointHistoryListAtom } from '../../../states/rewardAtom';
 import { useRecoilValue } from 'recoil';
 import { RewardData } from '../../../services/reward/getPointHistory';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
+import { NOT_DATE_TIME } from '../../../const/Phrase';
 
 const PointHistory: React.FC = () => {
   const pointHistoryList = useRecoilValue<RewardData[]>(pointHistoryListAtom);
@@ -18,9 +19,7 @@ const PointHistory: React.FC = () => {
             <BrandName>{v.brandName}</BrandName>
             <ProductName>{v.name}</ProductName>
             <DatePointBox>
-              <Date>
-                {convertDtStrToDStr(v.createdAt ?? '날짜 표기 할 수 없습니다.')}
-              </Date>
+              <Date>{convertDtStrToDStr(v.createdAt ?? NOT_DATE_TIME)}</Date>
               <AddPoint>
                 {String(v.reward).charAt(0) === '-' ? '' : '+'}
                 {v.reward.toLocaleString()}원

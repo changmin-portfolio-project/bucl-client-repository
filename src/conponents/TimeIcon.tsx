@@ -1,54 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { TimeRemaining, calculateTimeRemaining } from '../utils/TimeUtil';
+import { useCountdownTimer } from '../utils/TimeUtil';
 
 interface TimeIconProps {
   deadline: string;
 }
 
 const TimeIcon: React.FC<TimeIconProps> = ({ deadline }) => {
-  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(
-    calculateTimeRemaining(deadline),
-  );
-
-  useEffect(() => {
-    setTimeRemaining(calculateTimeRemaining(deadline));
-    if (deadline) {
-      const timer = setInterval(() => {
-        setTimeRemaining(calculateTimeRemaining(deadline));
-      }, 1000);
-
-      // Cleanup interval on component unmount
-      return () => clearInterval(timer);
-    }
-  }, [deadline]);
-
-  const isFinished =
-    timeRemaining.hours === 0 &&
-    timeRemaining.seconds === 0 &&
-    timeRemaining.minutes === 0;
+  const { isFinished } = useCountdownTimer(deadline);
   return (
     <>
       {!isFinished && (
         <TimeIconContainer>
           <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <rect width="20" height="20" rx="4" fill="#000000" />
             <path
-              d="M21.21 15.89C20.5739 17.3945 19.5788 18.7202 18.3119 19.7513C17.045 20.7824 15.5448 21.4874 13.9425 21.8048C12.3401 22.1222 10.6845 22.0422 9.12018 21.5718C7.55591 21.1015 6.13066 20.2551 4.96906 19.1067C3.80745 17.9583 2.94485 16.5428 2.45667 14.984C1.96849 13.4252 1.8696 11.7705 2.16863 10.1647C2.46767 8.5588 3.15553 7.05064 4.17208 5.77205C5.18863 4.49345 6.50292 3.48333 8.00004 2.83002"
+              d="M9.99958 15.3917C12.9776 15.3917 15.3917 12.9776 15.3917 9.99958C15.3917 7.02157 12.9776 4.60742 9.99958 4.60742C7.02157 4.60742 4.60742 7.02157 4.60742 9.99958C4.60742 12.9776 7.02157 15.3917 9.99958 15.3917Z"
               stroke="white"
-              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
-              d="M22 12C22 10.6868 21.7413 9.38642 21.2388 8.17317C20.7362 6.95991 19.9997 5.85752 19.0711 4.92893C18.1425 4.00035 17.0401 3.26375 15.8268 2.7612C14.6136 2.25866 13.3132 2 12 2V12H22Z"
+              d="M10 6.76465V9.99994L12.1569 11.0784"
               stroke="white"
-              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -64,8 +44,7 @@ const TimeIconContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2px;
-  margin-left: 6px;
-  background-color: ${({ theme }) => theme.grey.Grey8};
+  margin-left: 3px;
   border-radius: 4px;
   img {
     width: calc(100% - 8px);

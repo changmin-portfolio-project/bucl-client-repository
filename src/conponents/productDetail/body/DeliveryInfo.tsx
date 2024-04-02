@@ -4,14 +4,14 @@ import styled from 'styled-components';
 const DeliveryInfo: React.FC = () => {
   return (
     <DeliveryContainer>
-      <InformationBox>
-        <span>배송 정보</span>
-        <p>4일 소요 (우체국 택배)</p>
-      </InformationBox>
       <DeliveryPriceBox>
         <span>배송비</span>
-        <p>전 상품 무료배송</p>
+        <p>무료배송</p>
       </DeliveryPriceBox>
+      <InformationBox>
+        <span>배송 정보</span>
+        <p>2 ~ 3일 소요 (CJ 대한통운)</p>
+      </InformationBox>
     </DeliveryContainer>
   );
 };
@@ -34,6 +34,11 @@ const InformationBox = styled.span`
     color: ${({ theme }) => theme.grey.Grey8};
   }
 `;
-const DeliveryPriceBox = styled(InformationBox)``;
+const DeliveryPriceBox = styled(InformationBox)`
+  p {
+    color: ${({ theme }) => theme.mainColor.Orange5};
+    font-weight: 600;
+  }
+`;
 
 export default DeliveryInfo;

@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
 import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
 import { useRecoilValue } from 'recoil';
 import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
+import { getOrderPaymentDataUtil } from '../../../../utils/PaymentUtil';
 
 const OrderPaymentAmt: React.FC = () => {
   /** 바꿈 */
-  const orderPaymentData: OrderPaymentType = JSON.parse(
-    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-  );
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
   const rwdUseAmt = useRecoilValue(rwdUseAmtAtom);
 
@@ -53,7 +51,7 @@ const OrderPaymentAmt: React.FC = () => {
 
 const StyledOrdPymtAmtCont = styled.div`
   padding: 0 20px 20px 20px;
-  border-bottom: 10px solid #eaecef;
+  border-bottom: 10px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
 const PymtTtlAmtCont = styled.div`
@@ -63,7 +61,7 @@ const PymtTtlAmtCont = styled.div`
 `;
 
 const PymtSubAmtCont = styled.div`
-  color: var(--grey-5, #acb5bd);
+  color: ${({ theme }) => theme.grey.Grey5};
   display: flex;
   justify-content: space-between;
   padding-bottom: 5px;

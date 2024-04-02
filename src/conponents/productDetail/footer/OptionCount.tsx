@@ -6,6 +6,8 @@ import { isActivePopUp } from '../../../utils/PopUpUtil';
 import { OrderPaymentType } from '../../../global/interface/OrderInterface';
 import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
 import { Link } from 'react-router-dom';
+import { ORDER_PATH } from '../../../const/PathVar';
+import { getOrderPaymentDataUtil } from '../../../utils/PaymentUtil';
 
 interface OptionCountProps {
   currentOption: string;
@@ -42,9 +44,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
   };
 
   const setPaymentConfig = () => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
     orderPaymentData.proctOptNom = currentOption;
     orderPaymentData.proctOptAmt =
@@ -65,9 +65,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
     isActivePopUp(true);
   };
 
-  const orderPaymentData: OrderPaymentType = JSON.parse(
-    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-  );
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
   return (
     <OptionCountContainer>
@@ -100,7 +98,7 @@ const OptionCount: React.FC<OptionCountProps> = ({
         </OptionItem>
       </OptionBox>
       <BuyBtnBox>
-        <Link to={`/orders/${Date.now()}`}>
+        <Link to={`${ORDER_PATH}/${Date.now()}`}>
           <ColoredButton
             color="white"
             font="Subhead2"

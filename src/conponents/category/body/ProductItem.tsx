@@ -21,7 +21,7 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
 const ProductContainer = styled.div`
   padding: 10px 0 9px 0;
   margin: 0 auto;
-  width: 90%;
+  width: 95%;
   letter-spacing: -0.6px;
 `;
 

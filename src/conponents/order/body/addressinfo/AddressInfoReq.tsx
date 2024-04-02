@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropdown from './AddressInfoReqDropDown';
+import { DIRECT_INPUT_PHRASE } from '../../../../const/Phrase';
 
 const AddressInfoReq: React.FC = () => {
   const options = [
     '문 앞에 놓아주세요.',
     '관리실에 맡겨주세요.',
     '배송 전 연락바랍니다.',
-    '직접 입력',
+    DIRECT_INPUT_PHRASE,
   ];
   return (
     <AddressInfoReqContainer>

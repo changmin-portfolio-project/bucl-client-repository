@@ -1,37 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
 import AppLink from '../../AppLink';
+import {
+  MY_ADDRESS_PATH,
+  MY_CONTACTS_PATH,
+  MY_ORDERS_PATH,
+  REWARD_ACCOUNTS_PATH,
+  WISHES_PATH,
+} from '../../../const/PathVar';
 
 const MenuTab: React.FC = () => {
   const tabList = [
     {
       name: '주문 내역',
       icon: '/assets/TruckIcon.svg',
-      url: '/my/orders',
+      url: MY_ORDERS_PATH,
       isApp: false,
     },
     {
       name: '좋아요',
       icon: '/assets/HeartIcon.svg',
-      url: '/wishes',
+      url: WISHES_PATH,
       isApp: false,
     },
     {
       name: '주소지 관리',
       icon: '/assets/LocationIcon.svg',
-      url: '/my/addresses',
+      url: MY_ADDRESS_PATH,
       isApp: false,
     },
     {
       name: '등록 계좌 변경',
       icon: '/assets/AccountIcon.svg',
-      url: '/reward-accounts',
+      url: REWARD_ACCOUNTS_PATH,
       isApp: false,
     },
     {
       name: '고객 센터',
       icon: '/assets/TalkBubbleIcon.svg',
-      url: '/my/contacts',
+      url: MY_CONTACTS_PATH,
       isApp: false,
     },
   ];

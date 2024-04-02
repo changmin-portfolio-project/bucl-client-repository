@@ -12,6 +12,7 @@ import { useSetRecoilState } from 'recoil';
 import { productDetailAtom } from '../../states/productDetailAtom';
 import { OrderPaymentType } from '../../global/interface/OrderInterface';
 import { ORD_PAY_DATA } from '../../const/SessionStorageVars';
+import { getOrderPaymentDataUtil } from '../../utils/PaymentUtil';
 
 const Body: React.FC = () => {
   /** 바꿈 */
@@ -22,9 +23,7 @@ const Body: React.FC = () => {
     if (param.product_code) {
       // 상품 정보 가져오기
       getProductInfo(param.product_code).then((res) => {
-        const orderPaymentData: OrderPaymentType = JSON.parse(
-          sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-        );
+        const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
         const data = res.data;
         orderPaymentData.proctCode = data.productCode;
         orderPaymentData.proctNom = data.name;

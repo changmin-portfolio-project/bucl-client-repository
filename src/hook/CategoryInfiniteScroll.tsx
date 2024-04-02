@@ -48,7 +48,7 @@ const CategoryInfiniteScroll: React.FC = () => {
   useEffect(() => {
     // categoryId가 변경되고 이전 categoryId와 다를 때에만 실행
     if (
-      categoryIdByCategories != prevCategoryIdByCategories.current ||
+      // categoryIdByCategories != prevCategoryIdByCategories.current ||
       inView
     ) {
       callback();

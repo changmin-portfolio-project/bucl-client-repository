@@ -11,3 +11,16 @@ export const reviewListAtom = atom<Review[]>({
   key: 'reviewList',
   default: [],
 });
+
+export interface reviewPopupProps {
+  isActive: boolean;
+  imgPath: string;
+}
+
+export const reviewPopupPropsAtom = atom<reviewPopupProps>({
+  key: 'reviewPropsPopup',
+  default: {
+    isActive: false,
+    imgPath: '',
+  },
+});

@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { reviewListAtom, reviewPageNumAtom } from '../states/reviewAtom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Review, getReviewList } from '../services/review/getReviewList';
+import { BAD_REQUEST_PATH } from '../const/PathVar';
 
 const ReviewInfiniteScroll: React.FC = () => {
   const param = useParams();
@@ -23,7 +24,7 @@ const ReviewInfiniteScroll: React.FC = () => {
           setReviewPageNum((prev) => prev + 1);
         })
         .catch(() => {
-          navigate('/bad-requests');
+          navigate(BAD_REQUEST_PATH);
         });
   };
   useEffect(() => {

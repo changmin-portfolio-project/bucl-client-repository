@@ -11,9 +11,13 @@ import { Link } from 'react-router-dom';
 import TextButton from '../../TextButton';
 import { useRecoilValue } from 'recoil';
 import { productDetailAtom } from '../../../states/productDetailAtom';
+import { PRODUCT_PATH, REVIEW_PATH } from '../../../const/PathVar';
+import ReviewPopup from '../../ReviewPopup';
+import { reviewPopupPropsAtom } from '../../../states/reviewAtom';
 
 const PurchaseReview: React.FC = () => {
   const params = useParams();
+  const reviewPopupProps = useRecoilValue(reviewPopupPropsAtom);
 
   const [imgList, setImgList] = useState<ImageData[]>();
   const productDetail = useRecoilValue(productDetailAtom);
@@ -31,55 +35,62 @@ const PurchaseReview: React.FC = () => {
   const PurchaseReviewStyle: CSSProperties = {
     padding: 0,
   };
+
   return (
-    <PurchaseReviewContainer>
-      <TitleAllBtnBox>
-        <TitleText>구매 후기</TitleText>
+    <>
+      <PurchaseReviewContainer>
+        <TitleAllBtnBox>
+          <TitleText>구매 후기</TitleText>
+          {productDetail.reviewPreviews &&
+            productDetail.reviewPreviews.length > 0 && (
+              <TextButton style={PurchaseReviewStyle}>
+                <Link
+                  to={`${PRODUCT_PATH}/${params.product_code}${REVIEW_PATH}`}
+                  state={{
+                    totalReviewCount: productDetail.totalReviewCount,
+                    averageRating: productDetail.averageRating,
+                  }}
+                >
+                  리뷰 전체보기
+                </Link>
+              </TextButton>
+            )}
+        </TitleAllBtnBox>
         {productDetail.reviewPreviews &&
-          productDetail.reviewPreviews.length > 0 && (
-            <TextButton style={PurchaseReviewStyle}>
-              <Link
-                to={`/products/${params.product_code}/reviews`}
-                state={{
-                  totalReviewCount: productDetail.totalReviewCount,
-                  averageRating: productDetail.averageRating,
-                }}
-              >
-                리뷰 전체보기
-              </Link>
-            </TextButton>
-          )}
-      </TitleAllBtnBox>
-      {productDetail.reviewPreviews &&
-      productDetail.reviewPreviews.length > 0 ? (
-        <>
-          <PhotoPreview
-            averageRating={productDetail.averageRating}
-            totalReviewCount={productDetail.totalReviewCount}
-            imgList={imgList}
-          />
-          <div>
-            {productDetail.reviewPreviews?.map((v, i) => (
-              <ReviewItem
-                key={i}
-                reviewImgItemStyle={reviewImgItemStyle}
-                imgPath={v.reviewImage}
-                starRate={v.reviewRate}
-                userImg={v.profilePath}
-                nickname={v.nickname}
-                reviewDate={v.reviewDate}
-                content={v.content}
-              />
-            ))}
-          </div>
-        </>
-      ) : (
-        <ExceptionText>
-          아직 후기가 없는 신상품입니다.
-          <br /> 구매 완료 후 가장 먼저 후기를 작성해주세요!
-        </ExceptionText>
+        productDetail.reviewPreviews.length > 0 ? (
+          <>
+            <PhotoPreview
+              averageRating={productDetail.averageRating}
+              totalReviewCount={productDetail.totalReviewCount}
+              imgList={imgList}
+            />
+            <div>
+              {productDetail.reviewPreviews?.map((v, i) => (
+                <ReviewItem
+                  key={i}
+                  reviewImgItemStyle={reviewImgItemStyle}
+                  imgPath={v.reviewImage}
+                  starRate={v.reviewRate}
+                  userImg={v.profilePath}
+                  nickname={v.nickname}
+                  reviewDate={v.reviewDate}
+                  content={v.content}
+                  selectedOption={v.selectedOption}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <ExceptionText>
+            아직 후기가 없는 신상품입니다.
+            <br /> 구매 완료 후 가장 먼저 후기를 작성해주세요!
+          </ExceptionText>
+        )}
+      </PurchaseReviewContainer>
+      {reviewPopupProps.isActive && (
+        <ReviewPopup reivewPopupProps={reviewPopupProps} />
       )}
-    </PurchaseReviewContainer>
+    </>
   );
 };
 

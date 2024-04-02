@@ -10,6 +10,7 @@ const mainColor = {
   Orange8: '#8F3C00',
   Orange9: '#5B2600',
   Orange10: '#3D1D00',
+  Orange5_8b: '#ff80008b',
 };
 
 const subColor = {

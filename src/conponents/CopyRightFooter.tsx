@@ -14,7 +14,7 @@ const CopyRightFooter: React.FC = () => {
     <Footer>
       <MainTitle onClick={() => setActive(!isActive)}>
         <span>
-          <div>(주) Digitalize 사업자 정보</div>
+          <div>(주) Pixpergram 사업자 정보</div>
         </span>
         <div style={{ width: '4px' }}></div>
         <svg
@@ -44,7 +44,7 @@ const CopyRightFooter: React.FC = () => {
       )}
 
       <CopyRightTitle>
-        Copyright Digitalize Inc, All Right Reserved.
+        Copyright Pixpergram Inc, All Right Reserved.
       </CopyRightTitle>
 
       <SubInfo>
@@ -61,9 +61,7 @@ const CopyRightFooter: React.FC = () => {
         </div>
         <SubInfoGap />
         <div>
-          <Link to={PAYMENT_SUBSCRIPTION_INFO_LINK}>
-            토스페이먼츠 에스크로 가입확인
-          </Link>
+          <Link to={PAYMENT_SUBSCRIPTION_INFO_LINK}>DANAL 가입확인</Link>
         </div>
       </SubInfo>
     </Footer>

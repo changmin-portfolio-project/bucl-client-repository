@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HOME_INF_POS_NAME } from '../../const/Pagenation';
+import {
+  SCROLL_FIRST_TOP,
+  SCROLL_SMOOTH_BEHAVIOR,
+} from '../../const/AttributeVar';
 
 const HomeTopButton: React.FC = () => {
   const topBtnOnClick = () => {
     const homeInfContainer = document.getElementById(HOME_INF_POS_NAME);
-    homeInfContainer?.scrollTo({ top: 0, behavior: 'smooth' });
+    homeInfContainer?.scrollTo({
+      top: SCROLL_FIRST_TOP,
+      behavior: SCROLL_SMOOTH_BEHAVIOR,
+    });
   };
 
   return (

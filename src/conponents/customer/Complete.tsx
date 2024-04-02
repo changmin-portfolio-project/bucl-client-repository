@@ -3,6 +3,7 @@ import CompleteLayout from '../layout/CompleteLayout';
 import { Link } from 'react-router-dom';
 import ColoredButton from '../ColoredButton';
 import styled from 'styled-components';
+import { HOME_PATH } from '../../const/PathVar';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {};
@@ -11,7 +12,7 @@ const Complete: React.FC = () => {
       <p>
         <span>회원 탈퇴</span>가 완료되었습니다.
       </p>
-      <span>BUCL을 이용해주셔서 감사합니다.</span>
+      <span>BUCLIN을 이용해주셔서 감사합니다.</span>
       <SubTextWrap>
         <SubTextSpan>해당 계정은 15일 후 영구 삭제 될 예정입니다.</SubTextSpan>
         <SubTextSpan>
@@ -20,7 +21,7 @@ const Complete: React.FC = () => {
       </SubTextWrap>
 
       <HomeButtonDiv>
-        <Link to={'/'} style={ColoredButtonStyle}>
+        <Link to={HOME_PATH} style={ColoredButtonStyle}>
           <ColoredButton font="Subhead1" color="white">
             홈으로
           </ColoredButton>

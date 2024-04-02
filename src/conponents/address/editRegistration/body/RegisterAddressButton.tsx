@@ -13,6 +13,8 @@ import {
 } from '../../../../services/address/postAddressItem';
 import { putAddressUpdate } from '../../../../services/address/putAddressUpdate';
 import ColoredButton from '../../../ColoredButton';
+import { validObjectNotBlank } from '../../../../utils/ValidationUtil';
+import { CRNT_ADDR_NUM_IS_ZERO } from '../../../../const/AddressVar';
 
 const RegisterAddressButton: React.FC = () => {
   const addrRegForm = useRecoilValue(addrRegFormAtom);
@@ -21,16 +23,15 @@ const RegisterAddressButton: React.FC = () => {
   const [currentAddressNum] = useRecoilState(currentAddressNumAtom);
 
   const registerBtnOnClick = () => {
-    if (
-      addrRegForm.locationName &&
-      addrRegForm.recipientName &&
-      addrRegForm.zipCode &&
-      addrRegForm.address &&
-      addrRegForm.detailAddress &&
-      addrRegForm.firstPhoneNum &&
-      addrRegForm.middlePhoneNum &&
-      addrRegForm.lastPhoneNum
-    ) {
+    if (validObjectNotBlank(addrRegForm)) {
+      if (
+        addrRegForm.firstPhoneNum.length < 2 ||
+        addrRegForm.middlePhoneNum.length < 3 ||
+        addrRegForm.lastPhoneNum.length < 3
+      ) {
+        alert('올바른 전화번호 형식이 아닙니다.');
+        return;
+      }
       const data: AddressDataReq = {
         shippingAddressName: addrRegForm.locationName,
         recipientName: addrRegForm.recipientName,
@@ -45,10 +46,13 @@ const RegisterAddressButton: React.FC = () => {
           addrRegForm.lastPhoneNum,
         isDefaultAddress: isDefaultAddress,
       };
-      if (currentAddressNum == 0) {
+
+      // 배송지가 아예 없을 때
+      if (currentAddressNum === CRNT_ADDR_NUM_IS_ZERO) {
         postAddressItem({ data }).then(() => {
           setEditRegistrationMode(false);
         });
+        // 배송지가 하나 이상 일 때
       } else {
         putAddressUpdate(data, currentAddressNum).then(() => {
           setEditRegistrationMode(false);

@@ -6,7 +6,7 @@ import { withdrawCompleteAtom } from '../../../states/customerAtom';
 import { useSetRecoilState } from 'recoil';
 import OutlineButton from '../../OutlineButton';
 import ColoredButton from '../../ColoredButton';
-import { ACCESS_TOKEN } from '../../../const/CookieVars';
+import { ACCESS_TOKEN } from '../../../const/LocalStorageVar';
 
 interface SecessionPopupProps {
   secessionBtnOnClick: () => void;

@@ -1,8 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { NavigateFunction } from 'react-router';
-import { PAY_METHOD } from '../const/Payment';
+import {
+  IS_NEW_ADDR_FALSE_NUMBER,
+  IS_NEW_ADDR_TRUE_NUMBER,
+  MERCHANT_UID_NAME,
+  MOBILE_PG_TID_NAME,
+  PAY_METHOD,
+} from '../const/Payment';
 import { postPaymentVerification } from '../services/payment/postPayment';
+import { OrderPaymentType } from '../global/interface/OrderInterface';
+import { FALSE_STRING, ORD_PAY_DATA } from '../const/SessionStorageVars';
+import { ORDER_OBJECT_RESET } from '../const/OrderVars';
+import { BAD_REQUEST_PATH, ORDER_COMPLETE_PATH } from '../const/PathVar';
+import { v4 as uuid } from 'uuid';
 
 type ProductOption = {
   [key: string]: number | string;
@@ -19,6 +30,7 @@ export async function paymentVerifyUtil(
   success: boolean,
   errorMsg: string,
   pgTid: string,
+  merchantUid: string,
 
   // 결제 정보
   spentAmount: number,
@@ -49,7 +61,7 @@ export async function paymentVerifyUtil(
   shippingAddressName: string,
 ) {
   if (impUid === null || pgTid === null) {
-    window.location.replace('/bad-requests');
+    window.location.replace(BAD_REQUEST_PATH);
     return;
   }
 
@@ -58,13 +70,16 @@ export async function paymentVerifyUtil(
       const jsonData: PaymentReqData = {
         ordCode: impUid,
         impUid: impUid,
+        merchantUid: merchantUid,
         amount: spentAmount,
         recipientName: rcpntNom,
         contactNum: cntctNum,
         zipCode: zipCode,
         addr: addr,
         addrDetail: addrDetail,
-        isNewAddr: isNewAddr ? 1 : 0,
+        isNewAddr: isNewAddr
+          ? IS_NEW_ADDR_TRUE_NUMBER
+          : IS_NEW_ADDR_FALSE_NUMBER,
         shippingAddressName: shippingAddressName,
         memoCnt: memoCnt,
         productCode: proctCode,
@@ -82,7 +97,7 @@ export async function paymentVerifyUtil(
         totalOrdAmt: totalAmount,
         pgProvider: pgCode,
         payMethod: PAY_METHOD,
-        pgTid: 'mobile-merchant',
+        pgTid: pgTid,
       };
 
       const formData = new FormData();
@@ -102,7 +117,7 @@ export async function paymentVerifyUtil(
 
       await postPaymentVerification(formData)
         .then(() => {
-          navigate(`/order-complete?orderCode=${impUid}`);
+          navigate(`${ORDER_COMPLETE_PATH}?orderCode=${impUid}`);
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -118,6 +133,56 @@ export async function paymentVerifyUtil(
 
     if (errorMsg.length > 3) alert(errorMsg);
 
-    navigate('/orders/' + impUid);
+    navigate(-1);
   }
 }
+
+export const getOrderPaymentDataUtil = (): OrderPaymentType => {
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || ORDER_OBJECT_RESET,
+  );
+  return orderPaymentData;
+};
+
+export const resetOrderPaymentDataUtil = (): void => {
+  const orderPaymentData: OrderPaymentType = JSON.parse(
+    sessionStorage.getItem(ORD_PAY_DATA) || ORDER_OBJECT_RESET,
+  );
+  orderPaymentData.rwdUseAmt = 0;
+  orderPaymentData.rwdCrntAmt = 0;
+  orderPaymentData.pgCode = '';
+  orderPaymentData.memoCnt = '';
+  orderPaymentData.addrDetail = '';
+
+  orderPaymentData.isNewAddr = FALSE_STRING;
+
+  orderPaymentData.proctImg = '';
+  orderPaymentData.proctCode = 0;
+  orderPaymentData.proctNom = '';
+  orderPaymentData.proctBrn = '';
+  orderPaymentData.skuCode = 0;
+  orderPaymentData.proctOptAmt = 0;
+  orderPaymentData.proctOptQty = 0;
+  orderPaymentData.proctOptNom = '';
+  orderPaymentData.rcpntNom = '';
+  orderPaymentData.cntctNum = '';
+  orderPaymentData.addr = '';
+  orderPaymentData.zipCode = '';
+  orderPaymentData.shippingAddressName = '';
+  orderPaymentData.shpFee = 0;
+
+  orderPaymentData.cnsmrAmt = 0;
+  orderPaymentData.ordTotAmt = 0;
+  orderPaymentData.proctSlPx = 0;
+  orderPaymentData.totProcAmt = 0;
+
+  sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
+};
+
+export const genMerchantUid = (): string => {
+  return `${MERCHANT_UID_NAME}${uuid()}`;
+};
+
+export const getMobilePgTid = (): string => {
+  return `${MOBILE_PG_TID_NAME}${uuid()}`;
+};

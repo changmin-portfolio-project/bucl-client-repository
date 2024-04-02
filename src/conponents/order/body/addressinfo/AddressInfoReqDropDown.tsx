@@ -6,6 +6,9 @@ import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
 import { ordPayDataAtom } from '../../../../states/orderAtom';
 import { useSetRecoilState } from 'recoil';
 import { animation } from '../../../../style/animation';
+import { DIRECT_INPUT_PHRASE } from '../../../../const/Phrase';
+import { getOrderPaymentDataUtil } from '../../../../utils/PaymentUtil';
+import { MOME_CNT_MAX_NUM } from '../../../../const/OrderVars';
 
 interface DropdownProps {
   options: string[];
@@ -75,6 +78,8 @@ const Input = styled.input`
   font: ${({ theme }) => theme.fontSizes.Body2};
   color: ${({ theme }) => theme.grey.Grey7};
   width: 100%;
+  font-family: Pretendard-Light;
+  font-weight: 400;
 
   &:focus {
     outline: none;
@@ -89,15 +94,11 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.memoCnt = '';
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
-
-  // const inputRef = useRef<HTMLInputElement>(null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -107,10 +108,8 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
     setSelectedOption(option);
     setInputValue('');
     setIsOpen(false);
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
-    if (option === '직접 입력') {
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
+    if (option === DIRECT_INPUT_PHRASE) {
       orderPaymentData.memoCnt = '';
       setOrdPayDataState(orderPaymentData);
       sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
@@ -122,14 +121,15 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
-    setInputValue(event.target.value);
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
+    const text = event.target.value;
+    if (text.length <= MOME_CNT_MAX_NUM) {
+      setInputValue(text);
 
-    orderPaymentData.memoCnt = event.target.value;
-    setOrdPayDataState(orderPaymentData);
-    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
+      orderPaymentData.memoCnt = text;
+      setOrdPayDataState(orderPaymentData);
+      sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
+    }
   };
 
   return (
@@ -146,11 +146,11 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
           ))}
         </DropdownContent>
       </DropdownContainer>
-      {selectedOption === '직접 입력' && (
+      {selectedOption === DIRECT_INPUT_PHRASE && (
         <InputContainer>
           <Input
             type="text"
-            placeholder="내용을 입력해주세요 / 50자"
+            placeholder={`내용을 입력해주세요 / ${MOME_CNT_MAX_NUM}자`}
             value={inputValue}
             onChange={handleInputChange}
           />

@@ -1,11 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
-import { patchProfileImg } from '../../../services/my/patchProfileImg';
+import {
+  PatchProfileImgReq,
+  patchProfileImg,
+} from '../../../services/my/patchProfileImg';
 import { patchDefaultImg } from '../../../services/my/patchDefaultImg';
 import { myUserInfoAtom } from '../../../states/myAtom';
 import { useSetRecoilState } from 'recoil';
 import { resizeImage } from '../../../utils/ImageUtil';
+import { PROFILE_HEIGHT, PROFILE_WIDTH } from '../../../const/MyVar';
 
 interface EditProfilePopupProps {
   setPopupOpen: Dispatch<SetStateAction<boolean>>;
@@ -34,14 +38,17 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
     const formData = new FormData();
     const file = e.target.files[0];
-    const resizedImage = await resizeImage(file, 600, 600);
+    const resizedImage = await resizeImage(file, PROFILE_WIDTH, PROFILE_HEIGHT);
     const uploadFile = new File([resizedImage], file.name);
-    formData.append('profileImage', uploadFile);
-    patchProfileImg(formData).then((res) => {
-      // getUserProfile();
-      setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
-      deleteBtnOnClick();
-    });
+    formData.append(PatchProfileImgReq.profileImage, uploadFile);
+    patchProfileImg(formData)
+      .then((res) => {
+        setUserInfo((prev) => ({ ...prev, profilePath: res.profilePath }));
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+    deleteBtnOnClick();
   }
   return (
     <PopupLayout>

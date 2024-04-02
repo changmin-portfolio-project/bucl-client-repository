@@ -35,6 +35,9 @@ export const productInfoAtom = atom<ProductData>({
     reviewPreviews: [],
     totalConsumerOrder: 0,
     deadline: '',
+    prodObsNum: 0,
     wished: false,
+    brandId: 0,
+    brandProfilePath: '',
   },
 });

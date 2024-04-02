@@ -3,31 +3,32 @@ import styled from 'styled-components';
 import { postKakaoAuthToken } from '../../services/auth/postKakaoAuthToken';
 import { postKakaoLogin } from '../../services/auth/postKakaoLogin';
 import { useNavigate } from 'react-router';
-import { REDIRECT_URI } from '../../const/Kakao';
+import { LOGIN_CODE_QUERY_PARAM, REDIRECT_URI } from '../../const/Kakao';
+import { HOME_PATH } from '../../const/PathVar';
+import { CALLBACK_URL } from '../../const/QueryParamVar';
 
 const KakaoLoginButton: React.FC = () => {
   const navigate = useNavigate();
 
-  // const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
   const handleLogin = () => {
-    // window.location.href = kakaoURL;
     Kakao.Auth.authorize({
       redirectUri: REDIRECT_URI,
     });
   };
 
-  const code = new URL(window.location.href).searchParams.get('code');
+  const code = new URL(window.location.href).searchParams.get(
+    LOGIN_CODE_QUERY_PARAM,
+  );
 
   if (code !== null) {
     postKakaoAuthToken(code)
       .then((res) => {
         postKakaoLogin(res.access_token).then(() => {
-          const callbackUrl = sessionStorage.getItem('callbackUrl');
+          const callbackUrl = sessionStorage.getItem(CALLBACK_URL);
           if (callbackUrl !== null) {
             navigate(callbackUrl);
           } else {
-            navigate('/categories');
+            navigate(HOME_PATH);
           }
         });
       })
@@ -52,7 +53,7 @@ const KakaoLoginButton: React.FC = () => {
           fill="#181600"
         />
       </svg>
-      카카오 로그인
+      카카오로 시작하기
     </KakaoBtn>
   );
 };

@@ -1,3 +1,8 @@
-export const REST_API_KEY = 'a2929177e2a3c18e3b9ae4e7682a369d'; //REST API KEY
-export const REDIRECT_URI = 'http://www.pixpergram.com:3000/login'; //Redirect URI
-export const KAKAO_SDK_KEY = '82fbc3a5791dac7e90bf935c3f26c586';
+import { LOGIN_PATH } from './PathVar';
+import { SERVER_IP } from './SettingVar';
+
+export const REST_API_KEY = process.env.REACT_APP_REST_API_KEY || ''; //REST API KEY
+export const REDIRECT_URI = `${SERVER_IP}${LOGIN_PATH}`; //Redirect URI
+export const KAKAO_SDK_KEY = process.env.REACT_APP_KAKAO_SDK_KEY || '';
+export const KAUTH_URL = process.env.REACT_APP_KAUTH_URL;
+export const LOGIN_CODE_QUERY_PARAM = 'code';

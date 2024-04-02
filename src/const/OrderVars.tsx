@@ -13,6 +13,8 @@ export const ORDER_RETURN = 'ORDER_RETURN'; //반품 요청
 export const ORDER_RETURNING = 'ORDER_RETURNING'; // 반품 처리 중
 export const ORDER_RETURNED = 'ORDER_RETURNED'; // 반품됨
 
+export const MOME_CNT_MAX_NUM = 50;
+
 export const ORDER_STATUS = {
   ORDERED: '결제 완료',
   ORDER_CANCELING: '주문 취소중',
@@ -22,7 +24,8 @@ export const ORDER_STATUS = {
   ORDER_RETURNING: '반품 처리중',
   ORDER_RETURNED: '반품 완료',
   ORDERED_PROCESSING: '상품 준비중',
-  ORDERED_IN_DELIVERY: '배송',
+  ORDERED_IN_DELIVERY: '배송 중',
+  ORDERED_DELIVERED: '배송 완료',
 };
 
 export const orderStatusNameFunc = (orderStatus: string): string => {
@@ -61,3 +64,5 @@ export const checkNotOrderStatus = (orderStatus: string): boolean => {
       return false;
   }
 };
+
+export const ORDER_OBJECT_RESET = '{}';

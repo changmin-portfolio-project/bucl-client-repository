@@ -4,6 +4,9 @@ import Reward from './Reward';
 import ProductSubInfo from './ProductSubInfo';
 import { Product } from '../../../services/category/getCategoryProductList';
 import AppLink from '../../AppLink';
+import { PRODUCT_PATH } from '../../../const/PathVar';
+import { useCountdownTimer } from '../../../utils/TimeUtil';
+import { validValueNotBlank } from '../../../utils/ValidationUtil';
 
 interface ProductImgProps {
   data: Product;
@@ -15,10 +18,18 @@ const ProductImgStyle: CSSProperties = {
 };
 
 const ProductImg: React.FC<ProductImgProps> = ({ data, wishId }) => {
+  const { isFinished } = useCountdownTimer(data.deadline);
   return (
     <ProductImgBox>
-      <AppLink to={`/products/${data.productCode}`} style={ProductImgStyle}>
-        <ProductImgDiv $url={data.imagePath} />
+      <AppLink
+        to={`${PRODUCT_PATH}/${data.productCode}`}
+        style={ProductImgStyle}
+      >
+        <ProductImgDiv
+          $url={data.imagePath}
+          $inFinished={isFinished}
+          deadline={data.deadline}
+        />
       </AppLink>
       <ProductSubInfo
         productCode={data.productCode}
@@ -41,18 +52,20 @@ const ProductImgBox = styled.div`
     position: relative;
   }
 `;
-// const Img = styled.img`
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 4px;
-// `;
 
-const ProductImgDiv = styled.div<{ $url: string }>`
+const ProductImgDiv = styled.div<{
+  $url: string;
+  $inFinished: boolean;
+  deadline: string;
+}>`
   width: 100%;
   height: 100%;
-  border-radius: 0 0 12px 12px;
+  border-radius: 3px;
   background: url(${(props) => props.$url});
   background-size: cover;
+  opacity: ${(props) =>
+    validValueNotBlank(props.deadline) && props.$inFinished ? 0.5 : 1};
+
   background-position: center;
 `;
 

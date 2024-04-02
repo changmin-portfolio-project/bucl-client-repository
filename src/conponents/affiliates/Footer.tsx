@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
 
 const FooterContainer = styled.footer`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   z-index: 999;
   bottom: 0;
   display: flex;

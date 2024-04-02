@@ -1,65 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { PAGE_NUM } from '../../const/Pagenation';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
   categoryIdByCategoriesAtom,
   pageNumByCategoriesAtom,
+  productListByCategoriesAtom,
 } from '../../states/categoryAtom';
 import HeaderLayout from '../layout/HeaderLayout';
+import { ACTIVE_NAME } from '../../const/AttributeVar';
+import { useParams } from 'react-router-dom';
+import { MID_CAT_LIST } from '../../const/CategoryVar';
 
 const Header: React.FC = () => {
+  const param = useParams();
+  const categoryId = parseInt(param.category_id || '0') || 0;
   const [categoryIdByCategories, setCategoryIdByCategories] = useRecoilState(
     categoryIdByCategoriesAtom,
   );
-  const setPageNumByCategories = useSetRecoilState(pageNumByCategoriesAtom);
-
-  const categoryList = [
-    {
-      categoryId: 1,
-      categoryName: '핫딜',
-    },
-    {
-      categoryId: 2,
-      categoryName: '리워드',
-    },
-    {
-      categoryId: 3,
-      categoryName: '상의',
-    },
-    {
-      categoryId: 4,
-      categoryName: '하의',
-    },
-    {
-      categoryId: 5,
-      categoryName: '패션잡화',
-    },
-    {
-      categoryId: 6,
-      categoryName: '뷰티',
-    },
-  ];
+  const resetPageNumByCategories = useResetRecoilState(pageNumByCategoriesAtom);
+  const resetCategoryProductList = useResetRecoilState(
+    productListByCategoriesAtom,
+  );
 
   const categoryItemOnClick = (categoryId: number) => {
+    resetCategoryProductList();
     setCategoryIdByCategories(categoryId);
-    setPageNumByCategories(PAGE_NUM);
+    resetPageNumByCategories();
   };
 
   const HeaderLayoutStyle: React.CSSProperties = {
     alignItems: 'center',
     overflowX: 'auto',
-    maxWidth: '600px',
+
     msOverflowStyle: 'none',
+    marginTop: '55px',
   };
 
   return (
     <HeaderLayout style={HeaderLayoutStyle}>
       <TabMenuNav>
-        {categoryList.map((v, i) => (
+        {MID_CAT_LIST[categoryId].productList.map((v, i) => (
           <TabMenu
             key={i}
-            className={categoryIdByCategories === v.categoryId ? 'active' : ''}
+            className={
+              categoryIdByCategories === v.categoryId ? ACTIVE_NAME : ''
+            }
             onClick={() => categoryItemOnClick(v.categoryId)}
           >
             {v.categoryName}
@@ -74,7 +59,7 @@ const TabMenuNav = styled.nav`
   padding-left: 10px;
   display: flex;
   width: 100%;
-  justify-content: first-start;
+  justify-content: flex-start;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;

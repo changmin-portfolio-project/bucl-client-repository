@@ -3,6 +3,7 @@ import ColoredButton from '../conponents/ColoredButton';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import BuclLogo from '../conponents/BuclLogo';
+import { HOME_PATH } from '../const/PathVar';
 
 const NotFoundPage: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const NotFoundPage: React.FC = () => {
           </SubTitle>
           <SubTitle> 주소가 정확하지 다시 한번 확인해주시기 바랍니다.</SubTitle>
         </SubTitleContainer>
-        <Link to="/">
+        <Link to={HOME_PATH}>
           <ButtonWrap>
             <ColoredButton
               font="Subhead1"
@@ -71,7 +72,7 @@ const ButtonWrap = styled.div`
 
 const HeaderContainer = styled.header`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   top: 0;
   z-index: 999;
   display: flex;

@@ -39,7 +39,7 @@ const ScrollBottomContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-bottom: 50px;
+  padding-bottom: 5px;
 `;
 
 export default OrderHistoryfiniteScroll;

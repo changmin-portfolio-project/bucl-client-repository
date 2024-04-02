@@ -26,7 +26,7 @@ const AlertContainer = styled.div`
   align-items: center;
   padding: 15px 0;
   width: 75%;
-  max-width: 600px;
+  max-width: 500px;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.grey.Grey3};
   border-radius: 4px;

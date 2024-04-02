@@ -4,6 +4,7 @@ import EditRegistrationBody from '../../conponents/address/editRegistration/Body
 import { useRecoilState } from 'recoil';
 import { editRegistrationModeAtom } from '../../states/addressAtom';
 import HeaderLayout from '../../conponents/layout/HeaderLayout';
+import { MY_PATH } from '../../const/PathVar';
 
 const MyAddressesPage: React.FC = () => {
   const [editRegistrationMode, setEditRegistrationMode] = useRecoilState(
@@ -24,7 +25,7 @@ const MyAddressesPage: React.FC = () => {
         </>
       ) : (
         <>
-          <HeaderLayout text="배송지 관리" />
+          <HeaderLayout text="배송지 관리" to={MY_PATH} />
           <ManagementBody />
         </>
       )}

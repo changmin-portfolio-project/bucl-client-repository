@@ -8,6 +8,8 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { RewardData } from '../../../services/withdrawal/getWithdrawalHistory';
 import { rwdUseAmtAtom } from '../../../states/rewardAtom';
+import { MIN_WDRL_AMT } from '../../../const/WithdrawalVar';
+import { STATUS_BAD_REQUEST } from '../../../const/StatusCode';
 
 interface WithdrawBtnProps {
   isActive: boolean;
@@ -27,7 +29,7 @@ const WithdrawButton: React.FC<WithdrawBtnProps> = ({ isActive }) => {
       return;
     }
     const withdrawalPoint = parseInt(withdrawalPointStr);
-    if (withdrawalPoint >= 5000) {
+    if (withdrawalPoint >= MIN_WDRL_AMT) {
       const data = {
         bankCodeStd: rewardAccount.bankCode,
         bankName: rewardAccount.bankName,
@@ -46,14 +48,14 @@ const WithdrawButton: React.FC<WithdrawBtnProps> = ({ isActive }) => {
         })
         .catch((res) => {
           console.error(res);
-          if (res.response.status === 400) {
+          if (res.response.status === STATUS_BAD_REQUEST) {
             alert('값을 인위적으로 바꿔서 인출 오류났습니다.');
           } else {
             alert('인출 오류났습니다.');
           }
         });
     } else {
-      alert('5,000원 이상 넣어 주세요.');
+      alert(`${MIN_WDRL_AMT.toLocaleString()}원 이상 넣어 주세요.`);
     }
   };
   return <button onClick={() => withdrawBtnOnClick()}>인출하기</button>;

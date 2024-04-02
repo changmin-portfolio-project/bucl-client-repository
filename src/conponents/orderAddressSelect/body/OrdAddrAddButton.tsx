@@ -5,6 +5,7 @@ import { OrderPaymentType } from '../../../global/interface/OrderInterface';
 import { ORD_PAY_DATA, TRUE_STRING } from '../../../const/SessionStorageVars';
 import { useSetRecoilState } from 'recoil';
 import { ordPayDataAtom } from '../../../states/orderAtom';
+import { getOrderPaymentDataUtil } from '../../../utils/PaymentUtil';
 
 const OrdAddrAddButton: React.FC = () => {
   /** 바꿈 */
@@ -17,9 +18,7 @@ const OrdAddrAddButton: React.FC = () => {
   };
 
   const onClickNewAddr = () => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.isNewAddr = TRUE_STRING;
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));

@@ -9,6 +9,7 @@ import {
 } from '../../../states/orderAtom';
 import { OrderPaymentType } from '../../../global/interface/OrderInterface';
 import { FALSE_STRING, ORD_PAY_DATA } from '../../../const/SessionStorageVars';
+import { getOrderPaymentDataUtil } from '../../../utils/PaymentUtil';
 
 const OrdAddrSelectButton: React.FC = () => {
   /** 바꿈 */
@@ -17,11 +18,10 @@ const OrdAddrSelectButton: React.FC = () => {
   const setIsAddressSelectPage = useSetRecoilState(isAdressSelectPageAtom);
 
   const addressAddBtnOnClick = () => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
     orderPaymentData.isNewAddr = FALSE_STRING;
+
     orderPaymentData.shippingAddressName = ordAddr.shippingAddressNam;
     orderPaymentData.rcpntNom = ordAddr.recipientName;
     orderPaymentData.shippingAddressName = ordAddr.shippingAddressNam;

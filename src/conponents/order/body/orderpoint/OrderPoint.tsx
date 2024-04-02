@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { MIN_ORD_AMT } from '../../../../const/Payment';
-import { cookieNumUtil } from '../../../../utils/UndefinedProcessUtl';
+import { cookieNumUtil } from '../../../../utils/UndefinedProcessUtil';
 import OutlineButton from '../../../OutlineButton';
 import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
 import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
 import { useRecoilState } from 'recoil';
 import { rwdUseAmtAtom } from '../../../../states/rewardAtom';
 import { ordPayDataAtom } from '../../../../states/orderAtom';
+import { getOrderPaymentDataUtil } from '../../../../utils/PaymentUtil';
 
 const OrderPoint: React.FC = () => {
   /** 빠꿈 */
@@ -15,25 +16,19 @@ const OrderPoint: React.FC = () => {
   const [numberInput, setNumberInput] = useRecoilState(rwdUseAmtAtom);
 
   useEffect(() => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.rwdUseAmt = 0;
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
 
   useEffect(() => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     setNumberInput(orderPaymentData.rwdUseAmt);
   }, [sessionStorage.getItem(ORD_PAY_DATA)]);
 
   const useTotRwdUseAmt = () => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     const rwdCrntAmt = orderPaymentData.rwdCrntAmt;
     const ordTotAmt = orderPaymentData.ordTotAmt;
     const minOrdTotAmt = ordTotAmt - MIN_ORD_AMT;
@@ -51,9 +46,7 @@ const OrderPoint: React.FC = () => {
     const inputValue = e.target.value;
     if (/^\d*$/.test(inputValue) || inputValue === '') {
       const numericValue = parseInt(inputValue, 10);
-      const orderPaymentData: OrderPaymentType = JSON.parse(
-        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-      );
+      const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
       const rwdCrntAmt = orderPaymentData.rwdCrntAmt;
       const ordTotAmt = orderPaymentData.ordTotAmt;
       if (inputValue === '') {
@@ -74,11 +67,10 @@ const OrderPoint: React.FC = () => {
   };
 
   const OutlineButtonStyle: React.CSSProperties = {
-    flex: '0.2',
     marginLeft: '10px',
     padding: '0 5px',
-    width: '90px',
-    height: '28px',
+    width: '85px',
+    height: '40px',
   };
 
   return (
@@ -95,9 +87,9 @@ const OrderPoint: React.FC = () => {
         <OutlineButton
           onClick={useTotRwdUseAmt}
           style={OutlineButtonStyle}
-          border="Grey5"
+          border="Orange5"
           font="Body1"
-          color="black"
+          color="Orange5"
         >
           모두 사용
         </OutlineButton>
@@ -106,6 +98,10 @@ const OrderPoint: React.FC = () => {
         사용 가능 포인트{' '}
         {cookieNumUtil(ordPayDataState.rwdCrntAmt?.toLocaleString())}P
       </PointOwnAmt>
+      <MinOrdAmtPhraseDiv>
+        상품을 구매하기 위해서 {MIN_ORD_AMT.toLocaleString()}원 이상 결제해야
+        됩니다.
+      </MinOrdAmtPhraseDiv>
     </StyledOrderPointContainer>
   );
 };
@@ -118,12 +114,12 @@ const StyledOrderPointContainer = styled.div`
 const PointInputContainer = styled.div`
   display: flex;
   justify-content: left;
-  padding: 40px 20px 0 20px;
+  padding: 28px 20px 0 20px;
 `;
 
 const PointInputItem = styled.div`
   display: flex;
-  flex: 0.8;
+  flex: 1;
   border-bottom: 1px solid #eaecef;
   width: 100%;
   justify-content: space-between;
@@ -138,7 +134,7 @@ const PointInput = styled.input`
   font: ${({ theme }) => theme.fontSizes.Body2};
   border-radius: 4px;
   border: 0px;
-  width: 80%;
+  width: calc(100% - 15px);
 
   flex-shrink: 0;
   padding-left: 13px;
@@ -175,7 +171,13 @@ const PointOwnAmt = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
   margin: auto 0px;
   padding: 5px 20px 5px 20px;
-  color: var(--grey-5, #acb5bd);
+  color: ${({ theme }) => theme.grey.Grey6};
+`;
+
+const MinOrdAmtPhraseDiv = styled.div`
+  padding: 0 20px;
+  font: ${({ theme }) => theme.fontSizes.Body1};
+  color: ${({ theme }) => theme.grey.Grey5};
 `;
 
 export default OrderPoint;

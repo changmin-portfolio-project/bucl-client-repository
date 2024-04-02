@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { PHOTO_REVIEW_PATH, PRODUCT_PATH } from '../const/PathVar';
+import { useSetRecoilState } from 'recoil';
+import { reviewPopupPropsAtom } from '../states/reviewAtom';
 
 interface ReviewImgItemProps {
   style?: React.CSSProperties;
@@ -15,23 +18,44 @@ const ReviewImgItem: React.FC<ReviewImgItemProps> = ({
 }) => {
   const param = useParams();
 
+  const setReviewPopupProps = useSetRecoilState(reviewPopupPropsAtom);
+
   return (
-    <ReviewImgItemContainer style={style} $widthMode={Array.isArray(imgPath)}>
-      {Array.isArray(imgPath) ? (
-        imgPath.map((v, i) => <img src={v} key={i} />)
-      ) : (
-        <ReviewImgComponent src={imgPath} />
-      )}
-      {dotBoolean && (
-        <Link to={`/products/${param.product_code}/photo-reviews`}>
-          <DotsBox>
-            <span></span>
-            <span></span>
-            <span></span>
-          </DotsBox>
-        </Link>
-      )}
-    </ReviewImgItemContainer>
+    <>
+      <ReviewImgItemContainer style={style} $widthMode={Array.isArray(imgPath)}>
+        {Array.isArray(imgPath) ? (
+          imgPath.map((v, i) => (
+            <img
+              src={v}
+              key={i}
+              onClick={() => {
+                if (imgPath)
+                  setReviewPopupProps({ isActive: true, imgPath: v });
+              }}
+            />
+          ))
+        ) : (
+          <ReviewImgComponent
+            src={imgPath}
+            onClick={() => {
+              if (imgPath)
+                setReviewPopupProps({ isActive: true, imgPath: imgPath });
+            }}
+          />
+        )}
+        {dotBoolean && (
+          <Link
+            to={`${PRODUCT_PATH}/${param.product_code}${PHOTO_REVIEW_PATH}`}
+          >
+            <DotsBox>
+              <span></span>
+              <span></span>
+              <span></span>
+            </DotsBox>
+          </Link>
+        )}
+      </ReviewImgItemContainer>
+    </>
   );
 };
 

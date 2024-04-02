@@ -9,8 +9,5 @@ export const postReview = (
     .post(`/api/v1/products/${product_code}/review`, formData)
     .then((res) => {
       return res.data.data;
-    })
-    .catch((error) => {
-      alert(error.response.data.message);
     });
 };

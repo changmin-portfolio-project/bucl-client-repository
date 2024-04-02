@@ -7,6 +7,10 @@ import {
 } from '../../../states/postReviewAtom';
 import { REVIEW_IMG_MAX_NUM } from '../../../const/Review';
 import { resizeImage } from '../../../utils/ImageUtil';
+import {
+  REVIEW_IMG_HEIGHT,
+  REVIEW_IMG_WIDTH,
+} from '../../../const/PostReviewVar';
 
 const PhotoAttachButton: React.FC = () => {
   const [imageUrls, setImageUrls] = useRecoilState(imageUrlListAtom);
@@ -18,7 +22,11 @@ const PhotoAttachButton: React.FC = () => {
     }
     try {
       const file = e.target.files[0];
-      const resizedImage = await resizeImage(file, 600, 600);
+      const resizedImage = await resizeImage(
+        file,
+        REVIEW_IMG_WIDTH,
+        REVIEW_IMG_HEIGHT,
+      );
       const uploadFile = new File([resizedImage], file.name);
 
       // const reader = new FileReader();

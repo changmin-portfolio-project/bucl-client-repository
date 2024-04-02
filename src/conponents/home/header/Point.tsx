@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getReward } from '../../../services/reward/getReward';
 import { Link } from 'react-router-dom';
+import { REWARD_PATH } from '../../../const/PathVar';
 
 const Point: React.FC = () => {
   const [point, setPoint] = useState<number>(0);
@@ -14,7 +15,7 @@ const Point: React.FC = () => {
   }, []);
 
   return (
-    <Link to="/rewards">
+    <Link to={REWARD_PATH}>
       <PointContainer>
         <PointImg src="/assets/RewardIcon.png" />
         <PointText>{point?.toLocaleString()}P</PointText>

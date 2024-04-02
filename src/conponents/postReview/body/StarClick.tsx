@@ -4,6 +4,7 @@ import { BsStar, BsStarHalf, BsStarFill } from 'react-icons/bs';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { starNumAtom } from '../../../states/postReviewAtom';
+import { STAR_RATING } from '../../../const/PostReview';
 
 const StarClick: React.FC = () => {
   const [count, setCount] = useRecoilState(starNumAtom);
@@ -27,8 +28,8 @@ const StarClick: React.FC = () => {
           <input
             key={index}
             type="radio"
-            id={`rating${index + 1}`}
-            name="rating"
+            id={`${STAR_RATING}${index + 1}`}
+            name={`${STAR_RATING}`}
             value={index + 1}
             onChange={(e) => starOnChange(e)}
           />
@@ -38,20 +39,38 @@ const StarClick: React.FC = () => {
             {count === index + 0.5 ? (
               <>
                 <HalfStar />
-                <label className="half" htmlFor={`rating${rating[index][0]}`} />
-                <label className="half" htmlFor={`rating${rating[index][1]}`} />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][0]}`}
+                />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][1]}`}
+                />
               </>
             ) : count >= index + 1 ? (
               <>
                 <FillStar />
-                <label className="half" htmlFor={`rating${rating[index][0]}`} />
-                <label className="half" htmlFor={`rating${rating[index][1]}`} />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][0]}`}
+                />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][1]}`}
+                />
               </>
             ) : (
               <>
                 <Star />
-                <label className="half" htmlFor={`rating${rating[index][0]}`} />
-                <label className="half" htmlFor={`rating${rating[index][1]}`} />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][0]}`}
+                />
+                <label
+                  className="half"
+                  htmlFor={`${STAR_RATING}${rating[index][1]}`}
+                />
               </>
             )}
           </StarBox>

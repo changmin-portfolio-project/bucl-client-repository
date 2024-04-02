@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReviewImgItem from './ReviewImgItem';
 import Star from './Star';
 import { convertDtStrToDStr } from '../utils/DateTimeUtil';
+import { NOT_DATE_TIME } from '../const/Phrase';
 
 interface ReviewItemProps {
   nickname?: string;
@@ -45,21 +46,17 @@ const ReviewItem: React.FC<ReviewItemProps> = ({
               <NicknameDateBox>
                 <NicknameText>{nickname}</NicknameText>
                 <DateText>
-                  {convertDtStrToDStr(
-                    reviewDate ?? '날짜 표기 할 수 없습니다.',
-                  )}
+                  {convertDtStrToDStr(reviewDate ?? NOT_DATE_TIME)}
                 </DateText>
               </NicknameDateBox>
             </RatingNicknameDateBox>
           </UserInfoBox>
+          <BuyOptionBox>
+            <span>구매 옵션 명 - {selectedOption}</span>
+          </BuyOptionBox>
           <ReviewTextBox>
             <p>{content}</p>
           </ReviewTextBox>
-          {selectedOption && (
-            <BuyOptionBox>
-              <span>구매 옵션 명 - {selectedOption}</span>
-            </BuyOptionBox>
-          )}
         </InfoBox>
 
         {imgPath && (
@@ -96,7 +93,7 @@ const UserImg = styled.img`
 `;
 
 const BuyOptionBox = styled.div`
-  margin: 1px 0 8px 0;
+  margin: 7px 0 8px 0;
   span {
     padding: 2px 5px;
     background-color: ${({ theme }) => theme.grey.Grey1};
@@ -107,7 +104,7 @@ const BuyOptionBox = styled.div`
 `;
 
 const ReviewTextBox = styled.div`
-  padding: 7px 0 10px 0;
+  padding: 1px 0 10px 0;
   font: ${({ theme }) => theme.fontSizes.Body2};
   font-size: 16px;
   color: ${({ theme }) => theme.grey.Grey8};

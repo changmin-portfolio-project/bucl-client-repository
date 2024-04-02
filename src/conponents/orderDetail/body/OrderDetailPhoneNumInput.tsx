@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { shpAddrRegAtom } from '../../../states/orderDetailAtom';
 import { useRecoilState } from 'recoil';
+import PhoneNumInputTemplate from '../../PhoneNumInputTemplate';
 
-const PhoneNumInput: React.FC = () => {
+const OrdDetailPhoneNumInput: React.FC = () => {
   const [shpAddrReg, setShpAddrReg] = useRecoilState(shpAddrRegAtom);
 
   const contactNumSplit = shpAddrReg.contactNumber.split('-');
@@ -39,44 +39,15 @@ const PhoneNumInput: React.FC = () => {
   };
 
   return (
-    <PhoneInputBox>
-      <Input
-        value={contactNumSplit[0] || ''}
-        onChange={(e) => firstPhoneOnChange(e.target.value)}
-        placeholder="000"
-        maxLength={3}
-      />
-      <Input
-        value={contactNumSplit[1] || ''}
-        onChange={(e) => middlePhoneNumOnChange(e.target.value)}
-        placeholder="0000"
-        maxLength={4}
-      />
-      <Input
-        value={contactNumSplit[2] || ''}
-        onChange={(e) => lastPhoneNumOnChange(e.target.value)}
-        placeholder="0000"
-        maxLength={4}
-      />
-    </PhoneInputBox>
+    <PhoneNumInputTemplate
+      firstPhoneNum={contactNumSplit[0] || ''}
+      middlePhoneNum={contactNumSplit[1] || ''}
+      lastPhoneNum={contactNumSplit[2] || ''}
+      firstPhoneOnChange={firstPhoneOnChange}
+      middlePhoneNumOnChange={middlePhoneNumOnChange}
+      lastPhoneNumOnChange={lastPhoneNumOnChange}
+    />
   );
 };
 
-const Input = styled.input`
-  padding: 10px;
-  width: calc(100% - 20px);
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  border: 1px solid ${({ theme }) => theme.grey.Grey5};
-  border-radius: 4px;
-  outline: none;
-  &::placeholder {
-    color: ${({ theme }) => theme.grey.Grey5};
-  }
-`;
-
-const PhoneInputBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export default PhoneNumInput;
+export default OrdDetailPhoneNumInput;

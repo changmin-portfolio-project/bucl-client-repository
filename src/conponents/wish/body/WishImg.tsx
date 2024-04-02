@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { PHOTO_REVIEW_PATH, PRODUCT_PATH } from '../../../const/PathVar';
 
 interface ReviewImgItemProps {
   style?: React.CSSProperties;
@@ -23,7 +24,7 @@ const WishImg: React.FC<ReviewImgItemProps> = ({
         <img src={imgPath} />
       )}
       {dotBoolean && (
-        <Link to={`/products/${param.product_code}/photo-reviews`}>
+        <Link to={`${PRODUCT_PATH}/${param.product_code}${PHOTO_REVIEW_PATH}`}>
           <DotsBox>
             <span></span>
             <span></span>

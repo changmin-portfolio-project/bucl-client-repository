@@ -7,8 +7,6 @@ import PhotoAttachBtn from './body/PhotoAttachBtn';
 import PostConfirmBtn from './body/PostConfirmBtn';
 import BodyLayout from '../layout/BodyLayout';
 
-// import { getReviewImgDownload } from '../../services/photoReview/getReviewImgDownload';
-
 const Body: React.FC = () => {
   return (
     <BodyLayout>

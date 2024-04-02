@@ -1,44 +1,43 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import PhoneNumInput from './PhoneNumInput';
-import AddressSearchButton from './AddressSearchButton';
+import OrdPhoneNumInput from './OrdPhoneNumInput';
 import { OrderPaymentType } from '../../../global/interface/OrderInterface';
 import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
 import { useSetRecoilState } from 'recoil';
 import { ordPayDataAtom } from '../../../states/orderAtom';
+import { getOrderPaymentDataUtil } from '../../../utils/PaymentUtil';
+import {
+  ADDR_DETAIL_PLACE_HODER,
+  ADDR_PLACE_HODER,
+  RECIPIENT_NAME_PLACE_HOLDER,
+  SHIP_ADDR_NAME_PLACE_HOLDER,
+} from '../../../const/AttributeVar';
+import AddressSearchButton from '../../AddressSearchButton';
 
 const OrderAddrRegister: React.FC = () => {
   /** 바꿈 */
   const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
   const recipientNameOnChange = (text: string) => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.rcpntNom = text;
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
   const locationNameOnChange = (text: string) => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.shippingAddressName = text;
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
   const detailAddressOnChange = (text: string) => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.addrDetail = text;
     setOrdPayDataState(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   };
 
   useEffect(() => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.rcpntNom = '';
     orderPaymentData.shippingAddressName = '';
     orderPaymentData.addr = '';
@@ -47,9 +46,14 @@ const OrderAddrRegister: React.FC = () => {
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
   }, []);
 
-  const orderPaymentData: OrderPaymentType = JSON.parse(
-    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-  );
+  const setAddrInfo = (address: string, zipCode: string) => {
+    orderPaymentData.zipCode = zipCode;
+    orderPaymentData.addr = address;
+    setOrdPayDataState(orderPaymentData);
+    sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
+  };
+
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
   return (
     <EditRegisterContainer>
@@ -58,7 +62,7 @@ const OrderAddrRegister: React.FC = () => {
         <Input
           value={orderPaymentData.shippingAddressName}
           onChange={(e) => locationNameOnChange(e.target.value)}
-          placeholder="장소를 적어주세요.(ex 우리집, 회사 etc)"
+          placeholder={SHIP_ADDR_NAME_PLACE_HOLDER}
         />
       </Box>
       <Box>
@@ -66,28 +70,28 @@ const OrderAddrRegister: React.FC = () => {
         <Input
           value={orderPaymentData.rcpntNom}
           onChange={(e) => recipientNameOnChange(e.target.value)}
-          placeholder="이름을 적어주세요."
+          placeholder={RECIPIENT_NAME_PLACE_HOLDER}
         />
       </Box>
       <PhoneBox>
         <Title>핸드폰 번호</Title>
-        <PhoneNumInput />
+        <OrdPhoneNumInput />
       </PhoneBox>
       <Box>
         <Title>주소</Title>
         <Input
           value={orderPaymentData.addr}
-          placeholder="주소"
+          placeholder={ADDR_PLACE_HODER}
           onChange={() => {}}
         />
-        <AddressSearchButton />
+        <AddressSearchButton setAddrInfo={setAddrInfo} />
       </Box>
       <Box>
         <Title>상세 주소</Title>
         <Input
           value={orderPaymentData.addrDetail}
           onChange={(e) => detailAddressOnChange(e.target.value)}
-          placeholder="상세 주소를 입력해주세요."
+          placeholder={ADDR_DETAIL_PLACE_HODER}
         />
       </Box>
     </EditRegisterContainer>
@@ -115,19 +119,10 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.grey.Grey5};
   }
+  font-family: Pretendard-Light;
+  font-weight: 400;
 `;
 
-const PhoneBox = styled(Box)`
-  select,
-  input {
-    padding: 10px;
-    width: calc(32% - 20px);
-    text-align: center;
-    font: ${({ theme }) => theme.fontSizes.Body2};
-    border: 1px solid ${({ theme }) => theme.grey.Grey5};
-    border-radius: 4px;
-    outline: none;
-  }
-`;
+const PhoneBox = styled(Box)``;
 
 export default OrderAddrRegister;

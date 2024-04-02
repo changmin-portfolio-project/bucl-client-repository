@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { categoryIdAtom } from '../../../states/productAtom';
+import { HOME_PATH } from '../../../const/PathVar';
+import { ACTIVE_NAME } from '../../../const/AttributeVar';
 
 const CategoriesNav: React.FC = () => {
   const categoryId = useRecoilValue(categoryIdAtom);
@@ -32,8 +34,8 @@ const CategoriesNav: React.FC = () => {
             onClick={() => categoryItemOnClick(v.categoryId)}
           >
             <Link
-              to={`/`}
-              className={categoryId === v.categoryId ? 'active' : ''}
+              to={HOME_PATH}
+              className={categoryId === v.categoryId ? ACTIVE_NAME : ''}
             >
               {v.categoryName}
             </Link>

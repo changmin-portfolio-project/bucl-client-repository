@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getReward } from '../../../services/reward/getReward';
 import ColoredButton from '../../ColoredButton';
+import { REWARD_WITHDRAWAL_PATH } from '../../../const/PathVar';
 
 const Withdrawal: React.FC = () => {
   const [point, setPoint] = useState<number>();
@@ -27,7 +28,7 @@ const Withdrawal: React.FC = () => {
           <span>보유 포인트</span>
           <p>{point?.toLocaleString()}P</p>
         </PointHeldBox>
-        <Link to="/reward-withdrawals">
+        <Link to={REWARD_WITHDRAWAL_PATH}>
           <ColoredButton
             style={ColorButtonStyle}
             color="Orange5"

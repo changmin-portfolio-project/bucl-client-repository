@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { orderCodeConfirmAtom } from '../../../states/orderHistoryAtom';
 import { confirmPopupAtom } from '../../../states/functionAtom';
 import AppLink from '../../AppLink';
+import { POST_REVIEW_PATH } from '../../../const/PathVar';
 
 interface WriteReviewButtonProps {
   confirmed: boolean;
@@ -29,7 +30,7 @@ const WriteReviewButton: React.FC<WriteReviewButtonProps> = ({
   return (
     <WriteReviewButtonContainer>
       {confirmed ? (
-        <AppLink isApp={true} to={`/post-reviews/${orderCode}`}>
+        <AppLink isApp={true} to={`${POST_REVIEW_PATH}/${orderCode}`}>
           <OutlineButton
             style={OutlineButtonStyle}
             border="Grey4"

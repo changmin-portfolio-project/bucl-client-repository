@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { productListAtom } from '../../../states/productAtom';
 import { HOME_INF_POS_NAME } from '../../../const/Pagenation';
 import HomeInfiniteScroll from '../../../hook/HomeInfiniteScroll';
+import { WINDOW_RESIZE } from '../../../const/AttributeVar';
 
 const CategoryProducts: React.FC = () => {
   const list = useRecoilValue(productListAtom);
@@ -17,10 +18,10 @@ const CategoryProducts: React.FC = () => {
       setWindowHeight(window.innerHeight.toString());
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener(WINDOW_RESIZE, handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener(WINDOW_RESIZE, handleResize);
     };
   }, []);
 

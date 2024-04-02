@@ -3,6 +3,7 @@ import styled, { CSSProperties } from 'styled-components';
 import TimeIcon from '../../TimeIcon';
 import Attend from '../../Attend';
 import CategoryWishButton from './CategoryWishButton';
+import { validValueNotBlank } from '../../../utils/ValidationUtil';
 
 interface ProductSubInfoProps {
   productCode: number;
@@ -28,7 +29,15 @@ const ProductSubInfo: React.FC<ProductSubInfoProps> = ({
   return (
     <ProductSubInfoContainer>
       <ProductSubInfoItem>
-        <Attend ordNum={ordNum} itemStyle={CategoryAttendStyle} />
+        {validValueNotBlank(deadline) ? (
+          <Attend
+            ordNum={ordNum}
+            itemStyle={CategoryAttendStyle}
+            deadline={deadline}
+          />
+        ) : (
+          <div />
+        )}
         <TimeIcon deadline={deadline} />
       </ProductSubInfoItem>
       <ProductSubInfoItem>

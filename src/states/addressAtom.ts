@@ -1,9 +1,10 @@
 import { atom } from 'recoil';
 import { AddressData } from '../services/address/getAddressList';
+import { CRNT_ADDR_NUM_IS_ZERO } from '../const/AddressVar';
 
 export const currentAddressNumAtom = atom<number>({
   key: 'currentAddressNum',
-  default: 0,
+  default: CRNT_ADDR_NUM_IS_ZERO,
 });
 
 export const editRegistrationModeAtom = atom<boolean>({

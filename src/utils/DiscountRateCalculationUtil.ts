@@ -2,7 +2,7 @@ interface DiscountRateCalculationProps {
   consumerPrice: number;
   salePrice: number;
 }
-const DiscountRateCalculation = ({
+const DiscountRateCalculationUtil = ({
   consumerPrice,
   salePrice,
 }: DiscountRateCalculationProps): number => {
@@ -14,4 +14,4 @@ const DiscountRateCalculation = ({
   return discountPercentage;
 };
 
-export default DiscountRateCalculation;
+export default DiscountRateCalculationUtil;

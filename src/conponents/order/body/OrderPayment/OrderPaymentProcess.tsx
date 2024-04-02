@@ -21,13 +21,17 @@ import {
   IS_NEW_ADDR,
   TOT_AMOUNT,
   SPENT_AMOUNT,
+  MERCHANT_UID,
 } from '../../../../const/CookieVars';
-import { IMP_CODE } from '../../../../const/IamportVars';
+import { APP_SCHEME, IMP_CODE } from '../../../../const/IamportVars';
 import { postPaymentPreparation } from '../../../../services/payment/postPayment';
-import { RequestPayResponse } from 'iamport-typings';
+import { RequestPayParams, RequestPayResponse } from 'iamport-typings';
 import { PAY_METHOD, VERIFICATION_URL } from '../../../../const/Payment';
 import { useNavigate } from 'react-router-dom';
-import { paymentVerifyUtil } from '../../../../utils/PaymentUtil';
+import {
+  genMerchantUid,
+  paymentVerifyUtil,
+} from '../../../../utils/PaymentUtil';
 import { TRUE_STRING } from '../../../../const/SessionStorageVars';
 import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
 import { useRecoilValue } from 'recoil';
@@ -63,13 +67,15 @@ const OrderPaymentProcess: React.FC = () => {
   const totalAmount = proctOptAmt * proctOptQty + shpFee;
   const spentAmount = totalAmount - rwdUseAmt;
 
+  const merchantUid = genMerchantUid();
+
   async function requestPay() {
     const { IMP } = window;
     if (!window.IMP || IMP === undefined) return;
     IMP.init(IMP_CODE);
-    const merchant_uid = `mid_${new Date().getTime()}`;
 
     await postPaymentPreparation(
+      merchantUid,
       spentAmount,
       proctCode,
       skuCode,
@@ -78,17 +84,17 @@ const OrderPaymentProcess: React.FC = () => {
       proctOptNom,
     );
 
-    const data = {
+    const data: RequestPayParams = {
       pg: pgCode, // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: PAY_METHOD, // 결제수단
-      merchant_uid: merchant_uid, // 주문번호
+      merchant_uid: merchantUid, // 주문번호
       amount: spentAmount, // 결제금액
       name: proctNom + ' ' + proctOptNom, // 상품명
       buyer_name: rcpntNom, // 구매자 이름
       buyer_tel: cntctNum, // 구매자 전화번호
-      buyer_email: 'example@example.com', // 구매자 이메일
       buyer_addr: addr, // 구매자 주소
       buyer_postcode: zipCode, // 구매자 우편번호
+      app_scheme: APP_SCHEME,
       m_redirect_url:
         VERIFICATION_URL +
         '?' +
@@ -111,7 +117,8 @@ const OrderPaymentProcess: React.FC = () => {
         `${PROCT_OPT_QTY}=${proctOptQty}&` +
         `${PROCT_OPT_NOM}=${proctOptNom}&` +
         `${TOT_AMOUNT}=${totalAmount}&` +
-        `${SPENT_AMOUNT}=${spentAmount}&`,
+        `${SPENT_AMOUNT}=${spentAmount}&` +
+        `${MERCHANT_UID}=${merchantUid}`,
     };
 
     IMP.request_pay(data, callback);
@@ -129,6 +136,7 @@ const OrderPaymentProcess: React.FC = () => {
       success,
       error_msg || '',
       pgTid,
+      merchantUid,
       spentAmount,
       totalAmount,
       rwdUseAmt,
@@ -176,7 +184,7 @@ const PaymentBtn = styled.div`
   border-radius: 4px;
   text-align: center;
   padding: 10px 0 9.4px 0;
-  margin: 8.8px 20px 0 20px;
+  margin: 15px 20px 0 20px;
 `;
 
 const NonePaymentBtn = styled.div`
@@ -188,7 +196,7 @@ const NonePaymentBtn = styled.div`
   border-radius: 4px;
   text-align: center;
   padding: 10px 0 9.4px 0;
-  margin: 8.8px 20px 0 20px;
+  margin: 15px 20px 0 20px;
 `;
 
 export default OrderPaymentProcess;

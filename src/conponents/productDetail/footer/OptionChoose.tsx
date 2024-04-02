@@ -117,7 +117,7 @@ const OptionChoose: React.FC<OptionChooseProps> = ({
 
 const OptionChooseContainer = styled.div`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   z-index: 999;
   bottom: 0;
   display: flex;

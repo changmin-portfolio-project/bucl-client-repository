@@ -22,7 +22,7 @@ const RewardContainer = styled.div`
   width: 100%;
   text-align: center;
   background-color: black;
-  border-radius: 4px;
+  border-radius: 3px;
 `;
 const RewardText = styled.p`
   font: ${({ theme }) => theme.fontSizes.Label};

@@ -2,6 +2,8 @@ import React, { Dispatch, SetStateAction } from 'react';
 import PopupLayout from '../../layout/PopupLayout';
 import styled from 'styled-components';
 import { postLogout } from '../../../services/auth/postLogout';
+import { HOME_PATH } from '../../../const/PathVar';
+import { ACCESS_TOKEN } from '../../../const/LocalStorageVar';
 
 interface EditProfilePopupProps {
   setPopupOpen: Dispatch<SetStateAction<boolean>>;
@@ -14,8 +16,8 @@ const LogoutPopup: React.FC<EditProfilePopupProps> = ({ setPopupOpen }) => {
   const registerBasicImgOnClick = () => {
     postLogout().then(() => {
       deleteBtnOnClick();
-      localStorage.removeItem('access-token');
-      window.location.replace('/');
+      localStorage.removeItem(ACCESS_TOKEN);
+      window.location.replace(HOME_PATH);
     });
   };
 

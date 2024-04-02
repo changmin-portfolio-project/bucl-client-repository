@@ -1,7 +1,0 @@
-.wish-checkbox:checked + label > svg > path {
-    stroke: orange;
-}
-
-.wish-checkbox + label > svg > path {
-    stroke: gray;
-}

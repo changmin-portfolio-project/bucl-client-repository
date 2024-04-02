@@ -16,6 +16,8 @@ import {
   TRUE_STRING,
 } from '../../../../const/SessionStorageVars';
 import { ordPayDataAtom } from '../../../../states/orderAtom';
+import { getOrderPaymentDataUtil } from '../../../../utils/PaymentUtil';
+import { ADDR_DETAIL_PLACE_HODER } from '../../../../const/AttributeVar';
 
 const AddressInfo: React.FC = () => {
   /** 바꿈 */
@@ -30,9 +32,7 @@ const AddressInfo: React.FC = () => {
   }, []);
 
   const handleAddrDetail = (event: ChangeEvent<HTMLInputElement>) => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
     orderPaymentData.addrDetail = event.target.value;
     setOrdPayDataSate(orderPaymentData);
     sessionStorage.setItem(ORD_PAY_DATA, JSON.stringify(orderPaymentData));
@@ -52,15 +52,15 @@ const AddressInfo: React.FC = () => {
           </>
         ) : (
           <ExitAddrWrap>
-            <AddressInfoSubhead1>
+            <ShipAddressNameDiv>
               {ordPayDataState.shippingAddressName}
-            </AddressInfoSubhead1>
-            <AddressInfoBody2>
+            </ShipAddressNameDiv>
+            <RcpntNomDiv>
               {ordPayDataState.rcpntNom} {ordPayDataState.cntctNum}
-            </AddressInfoBody2>
-            <AddressInfoDetail>{ordPayDataState.addr}</AddressInfoDetail>
+            </RcpntNomDiv>
+            <AddressDetailDiv>{ordPayDataState.addr}</AddressDetailDiv>
             <AddressInfoDetailInput
-              placeholder="상세 주소를 작성해 주세요."
+              placeholder={ADDR_DETAIL_PLACE_HODER}
               onChange={handleAddrDetail}
               value={ordPayDataState.addrDetail}
             />
@@ -85,6 +85,8 @@ const StyledAddressInfo = styled.div`
 
 const AddressInfoDetailInput = styled.input`
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-family: Pretendard-Light;
+  font-weight: 400;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.grey.Grey5};
 
@@ -100,20 +102,23 @@ const AddressInfoDetailInput = styled.input`
   }
 `;
 
-const AddressInfoSubhead1 = styled.div`
-  font: ${({ theme }) => theme.fontSizes.Subhead2};
-  font-weight: 200;
+const ShipAddressNameDiv = styled.div`
+  font: ${({ theme }) => theme.fontSizes.Body3};
   color: ${({ theme }) => theme.grey.Grey8};
   padding: 10px 0 8px 0;
 `;
 
-const AddressInfoBody2 = styled.div`
+const RcpntNomDiv = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-family: Pretendard-Light;
+  font-weight: 400;
   padding-bottom: 2px;
   color: ${({ theme }) => theme.grey.Grey8};
 `;
-const AddressInfoDetail = styled.div`
+const AddressDetailDiv = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
+  font-family: Pretendard-Light;
+  font-weight: 400;
   padding-bottom: 8px;
   color: ${({ theme }) => theme.grey.Grey8};
 `;

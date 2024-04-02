@@ -9,6 +9,7 @@ import theme from '../../../style/theme';
 import { saveBeforePos } from '../../../utils/HomeUtil';
 import AppLink from '../../AppLink';
 import HomeWishButton from './HomeWishButton';
+import { PRODUCT_PATH } from '../../../const/PathVar';
 
 interface ProductComponentProps {
   data: HomeProduct;
@@ -40,18 +41,18 @@ const ProductItem: React.FC<ProductComponentProps> = ({ data, uniqueKey }) => {
 
   return (
     <ProductContainer>
-      {data.deadline ? (
-        <Deadline deadline={data.deadline} />
-      ) : (
-        <Deadline deadline={data.deadline} />
-      )}
+      <Deadline deadline={data.deadline} />
       <Reward reward={data.reward} />
       <ProductImgBox onClick={saveBeforePos}>
-        <AppLink to={`/products/${data.productCode}`}>
+        <AppLink to={`${PRODUCT_PATH}/${data.productCode}`}>
           <ProductImgBox>
             <ProductImg $url={data.imagePath} />
 
-            <Attend style={AttendStyle} ordNum={data.totalConsumerOrder} />
+            <Attend
+              style={AttendStyle}
+              ordNum={data.totalConsumerOrder}
+              deadline={data.deadline}
+            />
             <ProductInfoBox>
               <BrandName>{data.brandName}</BrandName>
               <ProductName>{data.name}</ProductName>
@@ -94,11 +95,6 @@ const ProductImgBox = styled.div`
     position: relative;
   }
 `;
-// const ProductImg = styled.img`
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 0 0 12px 12px;
-// `;
 
 const ProductImg = styled.div<{ $url: string }>`
   width: 100%;

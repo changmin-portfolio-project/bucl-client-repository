@@ -13,7 +13,7 @@ const CompleteLayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 40vh;
+  padding-top: 40vh;
   align-items: center;
   justify-content: center;
 

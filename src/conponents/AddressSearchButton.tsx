@@ -1,22 +1,24 @@
 import React from 'react';
-import { SetterOrUpdater, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { searchPopupVisibleAtom } from '../states/addressAtom';
 import OutlineButton from './OutlineButton';
-import { ShpAddrReg } from '../services/orderDetail/putAddress';
+import { ADDRESS_SEARCH_WRAP_ID } from '../const/AttributeVar';
 
 interface AddressSearchButtonProps {
-  setAddrForm: SetterOrUpdater<ShpAddrReg>;
+  setAddrInfo: (address: string, zipCode: string) => void;
 }
 
 const AddressSearchButton: React.FC<AddressSearchButtonProps> = ({
-  setAddrForm,
+  setAddrInfo,
 }) => {
   const setVisible = useSetRecoilState(searchPopupVisibleAtom);
 
   const SearchBtnOnClick = () => {
     setVisible(true);
     // 우편번호 찾기 찾기 화면을 넣을 element
-    const element_wrap = document.querySelector('#wrap') as HTMLElement;
+    const element_wrap = document.querySelector(
+      `#${ADDRESS_SEARCH_WRAP_ID}`,
+    ) as HTMLElement;
     daumSearchPopup(element_wrap);
   };
 
@@ -63,11 +65,7 @@ const AddressSearchButton: React.FC<AddressSearchButtonProps> = ({
           }
 
           // 우편번호와 주소 정보
-          setAddrForm((prev) => ({
-            ...prev,
-            zipCode: String(data.zonecode),
-            address: addr,
-          }));
+          setAddrInfo(addr, String(data.zonecode));
           setVisible(false);
 
           // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.

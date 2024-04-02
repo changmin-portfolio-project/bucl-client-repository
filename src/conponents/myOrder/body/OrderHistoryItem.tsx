@@ -11,6 +11,8 @@ import {
   orderStatusNameFunc,
 } from '../../../const/OrderVars';
 import AppLink from '../../AppLink';
+import { NOT_DATE_TIME } from '../../../const/Phrase';
+import { MY_ORDERS_PATH, PRODUCT_PATH } from '../../../const/PathVar';
 
 interface OrderHistoryItemProps {
   productName: string;
@@ -46,12 +48,10 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
   return (
     <OrderHistoryItemContainer>
       <DateOrderDetailBtnBox>
-        <DateBox>
-          {convertDtStrToDStr(orderDate ?? '날짜 표기 할 수 없습니다.')}
-        </DateBox>
-        <AppLink isApp={true} to={`/my/orders/${orderCode}`}>
+        <DateBox>{convertDtStrToDStr(orderDate ?? NOT_DATE_TIME)}</DateBox>
+        <AppLink isApp={true} to={`${MY_ORDERS_PATH}/${orderCode}`}>
           <TextButton font="Body1" style={TextButtonStyle} color="Orange5">
-            주문상세
+            주문 상세
             <svg
               width="20"
               height="20"
@@ -78,7 +78,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({
           <ReviewImgItem imgPath={imgPath} />
         </ProductImgBox>
         <ProductNamePriceCountBox>
-          <AppLink to={`/products/${productCode}`} isApp={true}>
+          <AppLink to={`${PRODUCT_PATH}/${productCode}`} isApp={true}>
             <Name>{productName}</Name>
             <Option>{productOptionValue}</Option>
           </AppLink>
@@ -174,11 +174,6 @@ const MenuBtnBox = styled.div`
   justify-content: space-between;
   padding: 0 10px 15px 10px;
 `;
-// const DeliveryStatusBtnBox = styled.div`
-//   width: 48%;
-// `;
-
-// const WriteReviewBtnBox = styled(DeliveryStatusBtnBox)``;
 
 const OrderStatusWrap = styled.div`
   padding: 7px 0 0 13px;

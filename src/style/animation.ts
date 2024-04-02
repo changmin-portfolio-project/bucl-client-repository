@@ -12,14 +12,14 @@ const slideUp = keyframes`
 `;
 
 const slideDown = keyframes`
-from {
-  transform: translateY(-20%);
-  opacity: 0;
-}
-to {
-  transform: translateY(0);
-  opacity: 1;
-}
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 `;
 
 export const animation = {

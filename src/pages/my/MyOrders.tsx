@@ -8,6 +8,7 @@ import {
 } from '../../states/orderHistoryAtom';
 import { useSetRecoilState } from 'recoil';
 import { NAVIGATION_TO } from '../../const/AppVars';
+import { MY_PATH } from '../../const/PathVar';
 
 const MyOrdersPage: React.FC = () => {
   const setOrderHistoryList = useSetRecoilState(orderHistoryListAtom);
@@ -19,7 +20,7 @@ const MyOrdersPage: React.FC = () => {
   }, []);
   return (
     <MyOrdersPageContainer>
-      <HeaderLayout text="주문 내역" type={NAVIGATION_TO} to="/my" />
+      <HeaderLayout text="주문 내역" type={NAVIGATION_TO} to={MY_PATH} />
       <Body />
     </MyOrdersPageContainer>
   );

@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import PhoneNumInput from './PhoneNumInput';
-import AddressSearchButton from './AddressSearchButton';
+import AddressPhoneNumInput from './AddressPhoneNumInput';
 import { addrRegFormAtom } from '../../../../states/addressAtom';
 import { useRecoilState } from 'recoil';
+import {
+  ADDR_DETAIL_PLACE_HODER,
+  ADDR_PLACE_HODER,
+  RECIPIENT_NAME_PLACE_HOLDER,
+  SHIP_ADDR_NAME_PLACE_HOLDER,
+} from '../../../../const/AttributeVar';
+import AddressSearchButton from '../../../AddressSearchButton';
 
 const EditRegister: React.FC = () => {
   const [addrRegForm, setAddrRegForm] = useRecoilState(addrRegFormAtom);
@@ -29,6 +35,15 @@ const EditRegister: React.FC = () => {
     }));
     // setDetailAddress(text);
   };
+
+  const setAddrInfo = (address: string, zipCode: string) => {
+    setAddrRegForm((prev) => ({
+      ...prev,
+      zipCode: zipCode,
+      address: address,
+    }));
+  };
+
   return (
     <EditRegisterContainer>
       <Box>
@@ -36,7 +51,7 @@ const EditRegister: React.FC = () => {
         <Input
           value={addrRegForm.locationName}
           onChange={(e) => locationNameOnChange(e.target.value)}
-          placeholder="장소를 적어주세요.(ex 우리집, 회사 etc)"
+          placeholder={SHIP_ADDR_NAME_PLACE_HOLDER}
         />
       </Box>
       <Box>
@@ -44,25 +59,29 @@ const EditRegister: React.FC = () => {
         <Input
           value={addrRegForm.recipientName}
           onChange={(e) => recipientNameOnChange(e.target.value)}
-          placeholder="이름을 적어주세요."
+          placeholder={RECIPIENT_NAME_PLACE_HOLDER}
         />
       </Box>
 
       <PhoneBox>
         <Title>핸드폰 번호</Title>
-        <PhoneNumInput />
+        <AddressPhoneNumInput />
       </PhoneBox>
       <Box>
         <Title>주소</Title>
-        <Input value={addrRegForm.address} placeholder="주소" disabled />
-        <AddressSearchButton />
+        <Input
+          value={addrRegForm.address}
+          placeholder={ADDR_PLACE_HODER}
+          disabled
+        />
+        <AddressSearchButton setAddrInfo={setAddrInfo} />
       </Box>
       <Box>
         <Title>상세 주소</Title>
         <Input
           value={addrRegForm.detailAddress}
           onChange={(e) => detailAddressOnChange(e.target.value)}
-          placeholder="상세 주소를 입력해주세요."
+          placeholder={ADDR_DETAIL_PLACE_HODER}
         />
       </Box>
     </EditRegisterContainer>
@@ -90,19 +109,10 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.grey.Grey5};
   }
+  font-family: Pretendard-Light;
+  font-weight: 400;
 `;
 
-const PhoneBox = styled(Box)`
-  select,
-  input {
-    padding: 10px;
-    width: calc(32% - 20px);
-    text-align: center;
-    font: ${({ theme }) => theme.fontSizes.Body2};
-    border: 1px solid ${({ theme }) => theme.grey.Grey5};
-    border-radius: 4px;
-    outline: none;
-  }
-`;
+const PhoneBox = styled(Box)``;
 
 export default EditRegister;

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { ORD_PAY_DATA } from '../../../const/SessionStorageVars';
 import { OrderPaymentType } from '../../../global/interface/OrderInterface';
 import { useSetRecoilState } from 'recoil';
 import { ordPayDataAtom } from '../../../states/orderAtom';
+import { getOrderPaymentDataUtil } from '../../../utils/PaymentUtil';
 
-interface cntctNumForm {
+import PhoneNumInputTemplate from '../../PhoneNumInputTemplate';
+
+export interface cntctNumForm {
   firstPhoneNum: string;
   middlePhoneNum: string;
   lastPhoneNum: string;
 }
 
-const PhoneNumInput: React.FC = () => {
+const OrdPhoneNumInput: React.FC = () => {
   /** 바꿈 */
   const setOrdPayDataState = useSetRecoilState(ordPayDataAtom);
 
@@ -28,9 +30,7 @@ const PhoneNumInput: React.FC = () => {
         ...prev,
         firstPhoneNum: text,
       }));
-      const orderPaymentData: OrderPaymentType = JSON.parse(
-        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-      );
+      const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
       orderPaymentData.cntctNum =
         text + '-' + cntctNum.middlePhoneNum + '-' + cntctNum.lastPhoneNum;
       setOrdPayDataState(orderPaymentData);
@@ -45,9 +45,7 @@ const PhoneNumInput: React.FC = () => {
         middlePhoneNum: text,
       }));
 
-      const orderPaymentData: OrderPaymentType = JSON.parse(
-        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-      );
+      const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
       orderPaymentData.cntctNum =
         cntctNum.firstPhoneNum + '-' + text + '-' + cntctNum.lastPhoneNum;
       setOrdPayDataState(orderPaymentData);
@@ -61,9 +59,7 @@ const PhoneNumInput: React.FC = () => {
         ...prev,
         lastPhoneNum: text,
       }));
-      const orderPaymentData: OrderPaymentType = JSON.parse(
-        sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-      );
+      const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
       orderPaymentData.cntctNum =
         cntctNum.firstPhoneNum + '-' + cntctNum.middlePhoneNum + '-' + text;
       setOrdPayDataState(orderPaymentData);
@@ -72,44 +68,15 @@ const PhoneNumInput: React.FC = () => {
   };
 
   return (
-    <PhoneInputBox>
-      <Input
-        value={cntctNum.firstPhoneNum}
-        onChange={(e) => firstPhoneOnChange(e.target.value)}
-        placeholder="000"
-        maxLength={3}
-      />
-      <Input
-        value={cntctNum.middlePhoneNum}
-        onChange={(e) => middlePhoneNumOnChange(e.target.value)}
-        placeholder="0000"
-        maxLength={4}
-      />
-      <Input
-        value={cntctNum.lastPhoneNum}
-        onChange={(e) => lastPhoneNumOnChange(e.target.value)}
-        placeholder="0000"
-        maxLength={4}
-      />
-    </PhoneInputBox>
+    <PhoneNumInputTemplate
+      firstPhoneNum={cntctNum.firstPhoneNum}
+      middlePhoneNum={cntctNum.middlePhoneNum}
+      lastPhoneNum={cntctNum.lastPhoneNum}
+      firstPhoneOnChange={firstPhoneOnChange}
+      middlePhoneNumOnChange={middlePhoneNumOnChange}
+      lastPhoneNumOnChange={lastPhoneNumOnChange}
+    />
   );
 };
 
-const Input = styled.input`
-  padding: 10px;
-  width: calc(100% - 20px);
-  font: ${({ theme }) => theme.fontSizes.Body2};
-  border: 1px solid ${({ theme }) => theme.grey.Grey5};
-  border-radius: 4px;
-  outline: none;
-  &::placeholder {
-    color: ${({ theme }) => theme.grey.Grey5};
-  }
-`;
-
-const PhoneInputBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export default PhoneNumInput;
+export default OrdPhoneNumInput;

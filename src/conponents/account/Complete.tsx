@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
 import CompleteLayout from '../layout/CompleteLayout';
 import { Link } from 'react-router-dom';
+import { HOME_PATH, REWARD_WITHDRAWAL_PATH } from '../../const/PathVar';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
@@ -15,13 +16,13 @@ const Complete: React.FC = () => {
         <span>인출 계좌</span>가 변경되었습니다.
       </p>
       <BtnBox>
-        <Link to={'/'} style={ColoredButtonStyle}>
+        <Link to={HOME_PATH} style={ColoredButtonStyle}>
           <ColoredButton font="Subhead1" color="white">
             홈으로
           </ColoredButton>
         </Link>
         <MarginDiv></MarginDiv>
-        <Link to={'/reward-withdrawals'} style={ColoredButtonStyle}>
+        <Link to={REWARD_WITHDRAWAL_PATH} style={ColoredButtonStyle}>
           <ColoredButton font="Subhead1" color="white" backgroundColor="Grey8">
             인출 내역 보러가기
           </ColoredButton>

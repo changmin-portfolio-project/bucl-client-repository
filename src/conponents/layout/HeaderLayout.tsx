@@ -47,7 +47,7 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
 
 const HeaderLayoutContainer = styled.header`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   top: 0;
   z-index: 999;
   display: flex;
@@ -60,11 +60,11 @@ const HeaderLayoutContainer = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.grey.Grey2};
 `;
 
-const Title = styled.h2`
+const Title = styled.div`
   text-align: center;
   font: ${({ theme }) => theme.fontSizes.Subhead2};
   font-weight: 500;
-  padding-bottom: 6px;
+  // padding-bottom: 6px;
 `;
 
 export default HeaderLayout;

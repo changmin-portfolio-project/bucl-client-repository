@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useInView } from 'react-intersection-observer';
@@ -14,8 +13,6 @@ import {
 } from '../states/rewardAtom';
 
 const PointHistoryInfiniteScroll: React.FC = () => {
-  const param = useParams();
-
   const [pointHistoryPageNum, setPointHistoryPageNum] = useRecoilState(
     pointHistoryPageNumAtom,
   );

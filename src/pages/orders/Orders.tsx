@@ -7,13 +7,16 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isAdressSelectPageAtom, ordPayDataAtom } from '../../states/orderAtom';
 import { getReward } from '../../services/reward/getReward';
 import { getAddressDefault } from '../../services/address/getAddressDefault';
-import { cookieNumUtil } from '../../utils/UndefinedProcessUtl';
+import { cookieNumUtil } from '../../utils/UndefinedProcessUtil';
 import { OrderPaymentType } from '../../global/interface/OrderInterface';
 import {
   FALSE_STRING,
   ORD_PAY_DATA,
   TRUE_STRING,
 } from '../../const/SessionStorageVars';
+import { getOrderPaymentDataUtil } from '../../utils/PaymentUtil';
+import { validValueNotBlank } from '../../utils/ValidationUtil';
+import { HOME_PATH, PRODUCT_PATH } from '../../const/PathVar';
 
 const OrdersPage: React.FC = () => {
   /** 바꿈 */
@@ -23,9 +26,11 @@ const OrdersPage: React.FC = () => {
   );
 
   useEffect(() => {
-    const orderPaymentData: OrderPaymentType = JSON.parse(
-      sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-    );
+    const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
+    if (!validValueNotBlank(orderPaymentData.proctCode)) {
+      alert('세션이 만료되어 홈페이지로 이동합니다.');
+      window.location.replace(HOME_PATH);
+    }
     getReward()
       .then((res) => {
         if (res === undefined) {
@@ -62,6 +67,8 @@ const OrdersPage: React.FC = () => {
     window.scrollTo({ top: 0 });
     setIsAddressSelectPage(false);
   }, []);
+
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
   return (
     <Container>
       <>
@@ -75,7 +82,10 @@ const OrdersPage: React.FC = () => {
           </>
         ) : (
           <>
-            <HeaderLayout text="주문 / 결제" />
+            <HeaderLayout
+              text="주문 / 결제"
+              to={`${PRODUCT_PATH}/${orderPaymentData.proctCode}`}
+            />
             <OrdBody />
           </>
         )}

@@ -3,12 +3,7 @@ import styled from 'styled-components';
 import AddressAddButton from './body/AddressAddButton';
 import AddressList from './body/AddressList';
 import DefaultCheckBox from './body/DefaultCheckBox';
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import {
   currentAddressNumAtom,
   addrRegFormAtom,
@@ -16,7 +11,10 @@ import {
   addressListAtom,
 } from '../../../states/addressAtom';
 import AddressEditButton from './body/AddressEditButton';
-import { USER_SHP_ADDR_NUM } from '../../../const/AddressVar';
+import {
+  CRNT_ADDR_NUM_IS_ZERO,
+  USER_SHP_ADDR_NUM,
+} from '../../../const/AddressVar';
 
 const Body: React.FC = () => {
   const resetAddrRegForm = useResetRecoilState(addrRegFormAtom);
@@ -25,12 +23,11 @@ const Body: React.FC = () => {
   const [currentAddressNum, setCurrentAddressNum] = useRecoilState(
     currentAddressNumAtom,
   );
-  const setAddrRegForm = useSetRecoilState(addrRegFormAtom);
-  const setIsDefaultAddress = useSetRecoilState(isDefaultAddressAtom);
+
   const addressList = useRecoilValue(addressListAtom);
 
   useEffect(() => {
-    setCurrentAddressNum(0);
+    setCurrentAddressNum(CRNT_ADDR_NUM_IS_ZERO);
     resetAddrRegForm();
     resetIsDefaultAddress();
   }, []);
@@ -38,18 +35,9 @@ const Body: React.FC = () => {
   return (
     <BodyContainer
       onClick={() => {
-        setCurrentAddressNum(0);
-        setIsDefaultAddress(false);
-        setAddrRegForm({
-          recipientName: '',
-          locationName: '',
-          address: '',
-          detailAddress: '',
-          firstPhoneNum: '',
-          middlePhoneNum: '',
-          lastPhoneNum: '',
-          zipCode: '',
-        });
+        setCurrentAddressNum(CRNT_ADDR_NUM_IS_ZERO);
+        resetIsDefaultAddress();
+        resetAddrRegForm();
       }}
     >
       <AddressList />

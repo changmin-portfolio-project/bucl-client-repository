@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
 import AppLink from '../AppLink';
 import { NAVIGATION_BACK_AND_TO, NAVIGATION_RESET } from '../../const/AppVars';
+import { HOME_PATH, MY_ORDERS_PATH } from '../../const/PathVar';
 
 const Complete: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
@@ -15,7 +16,7 @@ const Complete: React.FC = () => {
       </Text>
       <BtnBox>
         <ColoredButton font="Subhead1" color="white" style={ColoredButtonStyle}>
-          <AppLink to={'/'} isApp={true} type={NAVIGATION_RESET}>
+          <AppLink to={HOME_PATH} isApp={true} type={NAVIGATION_RESET}>
             더 둘러보기
           </AppLink>
         </ColoredButton>
@@ -26,7 +27,11 @@ const Complete: React.FC = () => {
           backgroundColor="Grey8"
           style={ColoredButtonStyle}
         >
-          <AppLink to={'/my/orders'} type={NAVIGATION_BACK_AND_TO} isApp={true}>
+          <AppLink
+            to={MY_ORDERS_PATH}
+            type={NAVIGATION_BACK_AND_TO}
+            isApp={true}
+          >
             주문 내역
           </AppLink>
         </ColoredButton>

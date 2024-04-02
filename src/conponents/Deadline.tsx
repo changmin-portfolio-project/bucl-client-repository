@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { TimeRemaining, calculateTimeRemaining } from '../utils/TimeUtil';
+import { useCountdownTimer } from '../utils/TimeUtil';
+import { validValueNotBlank } from '../utils/ValidationUtil';
 
 interface DeadlineProps {
   deadline: string;
@@ -9,52 +10,37 @@ interface DeadlineProps {
 }
 
 const Deadline: React.FC<DeadlineProps> = ({ deadline, style }) => {
-  const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>(
-    calculateTimeRemaining(deadline),
-  );
-
-  useEffect(() => {
-    setTimeRemaining(calculateTimeRemaining(deadline));
-    if (deadline) {
-      const timer = setInterval(() => {
-        setTimeRemaining(calculateTimeRemaining(deadline));
-      }, 1000);
-
-      // Cleanup interval on component unmount
-      return () => clearInterval(timer);
-    }
-  }, [deadline]);
-
-  const isFinished =
-    timeRemaining.hours === 0 &&
-    timeRemaining.seconds === 0 &&
-    timeRemaining.minutes === 0;
+  const { timeRemaining, isFinished } = useCountdownTimer(deadline);
 
   return (
-    <DeadlineContainer style={style} $isFinished={isFinished}>
-      {deadline ? (
-        <>
-          마감까지
-          {timeRemaining.days === 0 ? (
+    <>
+      {!validValueNotBlank(deadline) ? null : (
+        <DeadlineContainer style={style} $isFinished={isFinished}>
+          {!isFinished ? (
             <>
-              <span>{timeRemaining.hours}시간</span>
-              <span>{timeRemaining.minutes}분</span>
-              <span>{timeRemaining.seconds}초</span>남음
+              마감까지
+              {timeRemaining.days === 0 ? (
+                <>
+                  <span>{timeRemaining.hours}시간</span>
+                  <span>{timeRemaining.minutes}분</span>
+                  <span>{timeRemaining.seconds}초</span>남음
+                </>
+              ) : (
+                <>
+                  <span>{timeRemaining.days}일</span>
+                  <span>{timeRemaining.hours}시간</span>
+                  <span>{timeRemaining.minutes}분</span>남음
+                </>
+              )}
             </>
           ) : (
             <>
-              <span>{timeRemaining.days}일</span>
-              <span>{timeRemaining.hours}시간</span>
-              <span>{timeRemaining.minutes}분</span>남음
+              <span>타임딜이 마감됐습니다.</span>
             </>
           )}
-        </>
-      ) : (
-        <>
-          <span>이벤트가 없습니다</span>
-        </>
+        </DeadlineContainer>
       )}
-    </DeadlineContainer>
+    </>
   );
 };
 
@@ -68,15 +54,16 @@ const DeadlineContainer = styled.div<{ $isFinished: boolean }>`
   text-align: center;
   color: white;
   font-family: Pretendard-Medium;
+  font-size: 15px;
   span {
     margin: 0 2px;
-    padding: 2px 6px;
+    padding: 0px 5px;
     background-color: ${({ theme }) => theme.subColor.Yellow1};
     font: ${({ theme }) => theme.fontSizes.Subhead1};
     font-weight: 500;
     border-radius: 4px;
     color: ${({ theme }) => theme.mainColor.Orange5};
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 

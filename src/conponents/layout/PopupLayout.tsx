@@ -21,10 +21,9 @@ const PopupLayout: React.FC<PopupLayoutProps> = ({
 
 const PopupLayoutContainer = styled.header`
   position: fixed;
-  max-width: 600px;
-  z-index: 999;
+  max-width: 500px;
+  z-index: 1000;
   bottom: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

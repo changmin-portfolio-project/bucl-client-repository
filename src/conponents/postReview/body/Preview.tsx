@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewImgItem from '../../ReviewImgItem';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { postReviewProductInfoAtom } from '../../../states/postReviewAtom';
 import { convertDtStrToDStr } from '../../../utils/DateTimeUtil';
+import { NOT_DATE_TIME } from '../../../const/Phrase';
 
 const Preview: React.FC = () => {
-  const navigate = useNavigate();
   const param = useParams();
   const ReviewImgItemStyle: React.CSSProperties = {
     width: '20%',
@@ -31,9 +31,7 @@ const Preview: React.FC = () => {
           <ContentsText>{productInfo.name}</ContentsText>
         </BrandNameContentsBox>
         <DeliveryCompletionDate>
-          {convertDtStrToDStr(
-            productInfo.createdAt ?? '날짜 표기 할 수 없습니다.',
-          )}
+          {convertDtStrToDStr(productInfo.createdAt ?? NOT_DATE_TIME)}
         </DeliveryCompletionDate>
       </InfoBox>
     </PreviewContainer>

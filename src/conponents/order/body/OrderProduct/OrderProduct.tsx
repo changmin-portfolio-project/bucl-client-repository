@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { OrderPaymentType } from '../../../../global/interface/OrderInterface';
-import { ORD_PAY_DATA } from '../../../../const/SessionStorageVars';
+import { getOrderPaymentDataUtil } from '../../../../utils/PaymentUtil';
 
 const OrderProduct: React.FC = () => {
   /** 바꿈 */
-  const orderPaymentData: OrderPaymentType = JSON.parse(
-    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-  );
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
   const proctImg: string = orderPaymentData.proctImg;
   const proctBrn: string = orderPaymentData.proctBrn;
   const proctNom: string = orderPaymentData.proctNom;
@@ -64,11 +62,11 @@ const OrderProductItem = styled.div`
 const ProductName = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
   padding: 1px 0 6px 0;
+  font-weight: 200;
 `;
 
 const BrandName = styled.div`
   font: ${({ theme }) => theme.fontSizes.Body2};
-  font-weight: 700;
 `;
 
 const ProductOption = styled.div`

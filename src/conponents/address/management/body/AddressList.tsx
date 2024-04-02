@@ -12,6 +12,7 @@ import {
   isDefaultAddressAtom,
 } from '../../../../states/addressAtom';
 import { deleteAddressItem } from '../../../../services/address/deleteAddressItem';
+import { CRNT_ADDR_NUM_IS_ZERO } from '../../../../const/AddressVar';
 
 const AddressList: React.FC = () => {
   const [currentAddressNum, setCurrentAddressNum] = useRecoilState(
@@ -58,7 +59,7 @@ const AddressList: React.FC = () => {
         });
 
         setAddressList(addressListTemp);
-        setCurrentAddressNum(0);
+        setCurrentAddressNum(CRNT_ADDR_NUM_IS_ZERO);
       });
     } else {
       alert('현재 배송지는 삭제할 수 없습니다.');

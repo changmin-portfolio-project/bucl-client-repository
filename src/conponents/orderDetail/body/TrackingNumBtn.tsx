@@ -1,21 +1,30 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
+import { MY_ORDERS_PATH } from '../../../const/PathVar';
 
 interface TrackingNumBtnProps {
   trackingNum: string;
 }
 
 const TrackingNumBtn: React.FC<TrackingNumBtnProps> = ({ trackingNum }) => {
+  const param = useParams();
+  const navigate = useNavigate();
   const openPopup = () => {
-    window.open(
-      `https://m.search.naver.com/search.naver?query=CJ대한통운${trackingNum}`,
-      '_blank',
-      'width=600,height=400',
-    );
+    // window.open(
+    //   `${NAVER_SEARCH_URL}${CJ_LOGISTICS}${trackingNum}`,
+    //   '_blank',
+    //   'width=600,height=400',
+    // );
+    console.log(trackingNum);
+    const orderCode = param.order_code;
+    if (param.order_code) {
+      navigate(`${MY_ORDERS_PATH}/${orderCode}/track-info`);
+    }
   };
   return (
     <TrackingNumBtnWrap>
-      <TrackingNumButton onClick={openPopup}>배송지 조회</TrackingNumButton>
+      <TrackingNumButton onClick={openPopup}>배송 조회</TrackingNumButton>
     </TrackingNumBtnWrap>
   );
 };

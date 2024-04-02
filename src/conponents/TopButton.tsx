@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import {
+  SCROLL_FIRST_TOP,
+  SCROLL_SMOOTH_BEHAVIOR,
+} from '../const/AttributeVar';
 
 interface TopBtnProps {
   style?: React.CSSProperties;
@@ -7,7 +11,10 @@ interface TopBtnProps {
 
 const TopButton: React.FC<TopBtnProps> = ({ style }) => {
   const topBtnOnClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: SCROLL_FIRST_TOP,
+      behavior: SCROLL_SMOOTH_BEHAVIOR,
+    });
   };
 
   return (

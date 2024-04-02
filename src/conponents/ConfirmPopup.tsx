@@ -6,6 +6,7 @@ import OutlineButton from './OutlineButton';
 import ColoredButton from './ColoredButton';
 import { animation } from '../style/animation';
 import { confirmPopupAtom } from '../states/functionAtom';
+import { CONFIRM_NO_RELOAD } from '../const/AttributeVar';
 
 interface ConfirmPopupProps {
   message: string[];
@@ -33,9 +34,7 @@ const ConfirmPopup: React.FC<ConfirmPopupProps> = ({
   const confirmBtnOnClick = () => {
     if (popupOpen) {
       setPopupOpen(false);
-      if (to === '') {
-        window.location.reload();
-      }
+      if (to !== CONFIRM_NO_RELOAD) window.location.reload();
     }
   };
 
@@ -104,6 +103,7 @@ const PurchaseConfirmPopupBox = styled.div`
 const ExplainText = styled.p`
   padding-bottom: 12px;
   font: ${({ theme }) => theme.fontSizes.Body3};
+  white-space: pre-wrap;
 `;
 const CancelConfirmBtnBox = styled.div`
   display: flex;

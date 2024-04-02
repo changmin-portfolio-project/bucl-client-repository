@@ -9,22 +9,25 @@ const MenuTab: React.FC = () => {
       name: '문의하기',
       icon: '/assets/HeadphoneIcon.svg',
       url: CONTACT_US_LINK,
+      target: '_blank',
     },
     {
       name: 'FAQ',
       icon: '/assets/PencilIcon.svg',
       url: FAQ_LINK,
+      target: '_blank',
     },
     {
       name: '공지사항',
       icon: '/assets/WarningIcon.svg',
       url: NOTICE_LINK,
+      target: '_blank',
     },
   ];
   return (
     <MenuTabContainer>
       {tabList.map((v, i) => (
-        <Link to={v.url} key={i}>
+        <Link to={v.url} key={i} target={v.target}>
           <MenuItemBox>
             <IconTitleBox>
               <Icon src={v.icon} />

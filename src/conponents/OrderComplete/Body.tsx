@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ColoredButton from '../ColoredButton';
 import AppLink from '../AppLink';
 import { NAVIGATION_RESET } from '../../const/AppVars';
+import { HOME_PATH, MY_ORDERS_PATH } from '../../const/PathVar';
 
 const Body: React.FC = () => {
   const ColoredButtonStyle: React.CSSProperties = {
@@ -13,11 +14,17 @@ const Body: React.FC = () => {
     <CompleteContainer>
       <TextWrap>
         <Text>결제가 완료되었습니다</Text>
-        <SubText>구매 확정시 리워드를 받을 수 있습니다.</SubText>
+        <SubText>
+          구매 확정후 리뷰 작성시 <SubTextSapn>3% 리워드</SubTextSapn> 즉시 적립
+        </SubText>
+        <SubText>
+          포토 사진은 추첨을 통해 <SubTextSapn>5,000 상당의 리워드</SubTextSapn>
+          를 받을 수 있습니다.
+        </SubText>
       </TextWrap>
       <BtnBox>
         <BtnWrap>
-          <AppLink to={'/'} type={NAVIGATION_RESET}>
+          <AppLink to={HOME_PATH} type={NAVIGATION_RESET}>
             <ColoredButton
               font="Subhead1"
               color="white"
@@ -30,7 +37,7 @@ const Body: React.FC = () => {
         <MarginDiv />
 
         <BtnWrap>
-          <AppLink isApp={true} to={`/my/orders`} type={NAVIGATION_RESET}>
+          <AppLink isApp={true} to={MY_ORDERS_PATH} type={NAVIGATION_RESET}>
             <ColoredButton
               font="Subhead1"
               color="white"
@@ -67,8 +74,11 @@ const Text = styled.p`
 `;
 
 const SubText = styled.p`
-  font: ${({ theme }) => theme.fontSizes.Subhead4};
+  font: ${({ theme }) => theme.fontSizes.Subhead3};
   color: ${({ theme }) => theme.grey.Grey6};
+`;
+const SubTextSapn = styled.span`
+  color: ${({ theme }) => theme.mainColor.Orange4};
 `;
 
 const BtnBox = styled.div`

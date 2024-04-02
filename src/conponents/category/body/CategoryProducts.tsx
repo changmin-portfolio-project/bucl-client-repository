@@ -21,14 +21,9 @@ const CategoryProducts: React.FC = () => {
 };
 
 const CategoryProductsContainer = styled.div`
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: left;
-  // padding: 30px 20px;
-  padding-top: 10px;
+  padding: 10px 4px 0px 4px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  // grid-template-rows: 50px 50px 50px;
 `;
 
 export default CategoryProducts;

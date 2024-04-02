@@ -8,13 +8,11 @@ import ColoredButton from '../ColoredButton';
 import { useRecoilValue } from 'recoil';
 import { productDetailAtom } from '../../states/productDetailAtom';
 import { OrderPaymentType } from '../../global/interface/OrderInterface';
-import { ORD_PAY_DATA } from '../../const/SessionStorageVars';
+import { getOrderPaymentDataUtil } from '../../utils/PaymentUtil';
 
 const Footer: React.FC = () => {
   /** 바꿈 */
-  const orderPaymentData: OrderPaymentType = JSON.parse(
-    sessionStorage.getItem(ORD_PAY_DATA) || '{}',
-  );
+  const orderPaymentData: OrderPaymentType = getOrderPaymentDataUtil();
 
   const [optionCheck, setOptionCheck] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string>('');
@@ -38,8 +36,9 @@ const Footer: React.FC = () => {
   };
 
   const currentDate = new Date();
-  const deatlineDate = new Date(productDetail.deadline);
-  const isFinished = currentDate > deatlineDate;
+  const deadline = productDetail.deadline;
+  const isFinished =
+    deadline !== null ? currentDate > new Date(deadline) : false;
 
   return (
     <FooterContainer $isFinished={isFinished}>
@@ -78,7 +77,7 @@ const Footer: React.FC = () => {
 
 const FooterContainer = styled.footer<{ $isFinished: boolean }>`
   position: fixed;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 12px 12px 0 0;
   z-index: 999;
   bottom: 0;

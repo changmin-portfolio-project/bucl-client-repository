@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { orderInfoAtom, shpAddrRegAtom } from '../../../states/orderDetailAtom';
 import AddressSearchButton from '../../AddressSearchButton';
-import PhoneNumInput from './PhoneNumInput';
+import OrdDetailPhoneNumInput from './OrderDetailPhoneNumInput';
+import {
+  ADDR_DETAIL_PLACE_HODER,
+  ADDR_PLACE_HODER,
+  RECIPIENT_NAME_PLACE_HOLDER,
+} from '../../../const/AttributeVar';
 
 const OrdShpChange: React.FC = () => {
   const orderInfo = useRecoilValue(orderInfoAtom);
@@ -33,6 +38,15 @@ const OrdShpChange: React.FC = () => {
       addressDetail: text,
     }));
   };
+
+  const setAddrInfo = (address: string, zipCode: string) => {
+    setShpAddrReg((prev) => ({
+      ...prev,
+      zipCode: zipCode,
+      address: address,
+    }));
+  };
+
   return (
     <EditRegisterContainer>
       <Box>
@@ -40,24 +54,28 @@ const OrdShpChange: React.FC = () => {
         <Input
           value={shpAddrReg.recipientName}
           onChange={(e) => recipientNameOnChange(e.target.value)}
-          placeholder="이름을 적어주세요."
+          placeholder={RECIPIENT_NAME_PLACE_HOLDER}
         />
       </Box>
       <PhoneBox>
         <Title>핸드폰 번호</Title>
-        <PhoneNumInput />
+        <OrdDetailPhoneNumInput />
       </PhoneBox>
       <Box>
         <Title>주소</Title>
-        <Input value={shpAddrReg.address} placeholder="주소" disabled />
-        <AddressSearchButton setAddrForm={setShpAddrReg} />
+        <Input
+          value={shpAddrReg.address}
+          placeholder={ADDR_PLACE_HODER}
+          disabled
+        />
+        <AddressSearchButton setAddrInfo={setAddrInfo} />
       </Box>
       <Box>
         <Title>상세 주소</Title>
         <Input
           value={shpAddrReg.addressDetail}
           onChange={(e) => detailAddressOnChange(e.target.value)}
-          placeholder="상세 주소를 입력해주세요."
+          placeholder={ADDR_DETAIL_PLACE_HODER}
         />
       </Box>
     </EditRegisterContainer>
@@ -85,19 +103,10 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.grey.Grey5};
   }
+  font-family: Pretendard-Light;
+  font-weight: 400;
 `;
 
-const PhoneBox = styled(Box)`
-  select,
-  input {
-    padding: 10px;
-    width: calc(32% - 20px);
-    text-align: center;
-    font: ${({ theme }) => theme.fontSizes.Body2};
-    border: 1px solid ${({ theme }) => theme.grey.Grey5};
-    border-radius: 4px;
-    outline: none;
-  }
-`;
+const PhoneBox = styled(Box)``;
 
 export default OrdShpChange;
