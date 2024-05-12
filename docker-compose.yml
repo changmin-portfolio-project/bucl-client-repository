@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  postvue-web:
+    build:
+      context: . ## build Docker file location
+      dockerfile: Dockerfile ## build file name
+    container_name: bucl_web_server_container
+    ports:
+      - "10770:80"
